@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: e2204c6c62f801848ba806cf82fe630e
+ShaderImporter:
+  externalObjects: {}
+  defaultTextures:
+  - _GroundMap: {fileID: 2800000, guid: 6a31fb297d4b21d4dae4d09f481a1b04, type: 3}
+  - _NormalMap: {fileID: 2800000, guid: 64e789e0c0eced34eb059a57b769d7ed, type: 3}
+  - _IllumMap: {fileID: 2800000, guid: 9e37e97bf902eb947986b101d14e3232, type: 3}
+  - _CloudMap: {fileID: 2800000, guid: f54efb28b1b83a848aeeaebb0acefd24, type: 3}
+  - _CloudNormalMap: {fileID: 2800000, guid: b5dbdac67d7eb55499dcb1026574e463, type: 3}
+  nonModifiableTextures: []
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
