@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+
+<planet_game_buildings xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+
+<buildings>
+
+  <turrets>
+    <building name="laser_turret">
+      <tiers>
+          <tier t="1">
+              <costs>
+                  <cost>
+                      <resourceType>Steel</resourceType>
+                      <amount>100</amount>
+                  </cost>
+                  <cost>
+                      <resourceType>Carbon</resourceType>
+                      <amount>100</amount>
+                  </cost>
+              </costs>
+          </tier>
+      </tiers>
+    </building>
+    <building name="bullet_turret">
+      <tiers>
+          <tier t="1">
+              <costs>
+                  <cost>
+                      <resourceType>Steel</resourceType>
+                      <amount>100</amount>
+                  </cost>
+                  <cost>
+                      <resourceType>Carbon</resourceType>
+                      <amount>100</amount>
+                  </cost>
+              </costs>
+          </tier>
+      </tiers>
+    </building>
+  </turrets>
+  <production>
+    <building name="steel_mine">
+      <tiers>
+          <tier t="1">
+              <costs>
+                  <cost>
+                      <resourceType>Steel</resourceType>
+                      <amount>100</amount>
+                  </cost>
+                  <cost>
+                      <resourceType>Carbon</resourceType>
+                      <amount>100</amount>
+                  </cost>
+              </costs>
+          </tier>
+      </tiers>
+    </building>
+    <building name="diamond_mine">
+      <tiers>
+          <tier t="1">
+              <costs>
+                  <cost>
+                      <resourceType>Steel</resourceType>
+                      <amount>100</amount>
+                  </cost>
+                  <cost>
+                      <resourceType>Carbon</resourceType>
+                      <amount>100</amount>
+                  </cost>
+              </costs>
+          </tier>
+      </tiers>
+    </building>
+  </production>
+
+
+
+</buildings>
+
+</planet_game_buildings>
