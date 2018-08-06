@@ -12,7 +12,7 @@ public class GeometryManager : MonoBehaviour {
     public GameObject mainPlanet;
 
     // Angle in radians
-    public float GetRadAngleFromXY(float x, float y)
+    public static float GetRadAngleFromXY(float x, float y)
     {
         float angle = 0f;
         if(x >= 0)

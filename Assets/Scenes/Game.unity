@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.07282347, g: 0.027427197, b: 0.038648017, a: 1}
+  m_IndirectSpecularColor: {r: 0.15277442, g: 0.07643219, b: 0.09345218, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -2058,7 +2058,7 @@ MonoBehaviour:
   mainPlanet: {fileID: 0}
   chosenBuildingSlot: {fileID: 0}
   buildingList: []
-  laserTurretPrefab: {fileID: 1824794275212714, guid: d72a329feb859a544919ec82bf791344,
+  laserTurretPrefab: {fileID: 1597224279790468, guid: 7473d11b91ae1794d8af7f6884a5deae,
     type: 2}
   bulletTurretPrefab: {fileID: 1528852913330128, guid: 5344bf6917da6f146a33eb0a1298c54b,
     type: 2}
@@ -5067,7 +5067,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 10
+  m_RootOrder: 11
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1021417822
 MonoBehaviour:
@@ -7399,7 +7399,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4727354380507636, guid: 5c94b394db38493468e59d1ffc697cfb, type: 2}
       propertyPath: m_RootOrder
-      value: 11
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 4727354380507636, guid: 5c94b394db38493468e59d1ffc697cfb, type: 2}
       propertyPath: m_LocalScale.x
@@ -9686,7 +9686,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 001a981139f3b054681ac0749a31104c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  xmlBuildingsFile: {fileID: 0}
+  xmlBuildingsFile: {fileID: 4900000, guid: 9c9c2cbdda5b2a54d8df2a4fdc39e638, type: 3}
 --- !u!1 &2043619344
 GameObject:
   m_ObjectHideFlags: 0

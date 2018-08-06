@@ -4,6 +4,11 @@ using UnityEngine;
 
 public class LaserTurret : Turret {
 
+    public GameObject turretBase;
+    public GameObject turretBody;
+    public GameObject turretHead;
+    public GameObject shootingPoint;
+
 	void Start () {
 
         buildingLocationType = BuildingLocationType.Planet;
@@ -24,13 +29,15 @@ public class LaserTurret : Turret {
     {
         if (hasEnoughEnergy)
         {
+            RotateCanonTowardsTarget();
+            
 
             LineRenderer lineRenderer = gameObject.GetComponent<LineRenderer>();
             if (meteorTarget != null)
             {
                 lineRenderer.enabled = true;
                 GameObject target = meteorTarget;
-                lineRenderer.SetPosition(0, transform.position);
+                lineRenderer.SetPosition(0, shootingPoint.transform.position);
                 lineRenderer.SetPosition(1, target.transform.position);
 
                 DealDamageToMeteorTarget();
@@ -56,5 +63,28 @@ public class LaserTurret : Turret {
         Gizmos.DrawWireSphere(transform.position, range);
     }
 
+    void RotateCanonTowardsTarget()
+    {
+        if(meteorTarget != null)
+        {
+            float canonX = turretHead.transform.position.x;
+            float targetX = meteorTarget.transform.position.x;
+            float canonY = turretHead.transform.position.y;
+            float targetY = meteorTarget.transform.position.y;
+
+            float deltaX = targetX - canonX;
+            float deltaY = targetY - canonY;
+
+            float angle = GeometryManager.GetRadAngleFromXY(deltaX, deltaY);
+            // To degree
+            angle = angle * 180 / Mathf.PI - 90;
+
+            Debug.Log("Angle: " + angle);
+
+            turretHead.transform.localEulerAngles = new Vector3(angle, 0, 0);
+
+
+        }
+    }
 
 }

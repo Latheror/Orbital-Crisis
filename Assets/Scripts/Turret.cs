@@ -87,8 +87,8 @@ public class Turret : Building {
 
         if(hasAngleRange == true)
         {
-            float meteorAngle = GeometryManager.instance.GetRadAngleFromXY(meteor.transform.position.x, meteor.transform.position.y);
-            float turretAngle = GeometryManager.instance.GetRadAngleFromXY(transform.position.x, transform.position.y);
+            float meteorAngle = GeometryManager.GetRadAngleFromXY(meteor.transform.position.x, meteor.transform.position.y);
+            float turretAngle = GeometryManager.GetRadAngleFromXY(transform.position.x, transform.position.y);
 
             //Debug.Log("CanReachMeteor | meteorAngle: " + meteorAngle + " | turretAngle: " + turretAngle);
 

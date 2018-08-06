@@ -18,6 +18,10 @@
                       <amount>100</amount>
                   </cost>
               </costs>
+              <traits>
+                  <power>3</power>
+                  <angle_range>8</angle_range>
+              </traits>
           </tier>
       </tiers>
     </building>

@@ -115,11 +115,13 @@ MonoBehaviour:
   buildingPrice: []
   alocatedEnergy: 0
   hasEnoughEnergy: 0
+  buildingLocationType: 0
   previousTarget: {fileID: 0}
   meteorTarget: {fileID: 0}
   range: 0
   meteorTag: 
   power: 1
+  hasAngleRange: 0
   angleRange: 3
 --- !u!120 &120416515804405366
 LineRenderer:
