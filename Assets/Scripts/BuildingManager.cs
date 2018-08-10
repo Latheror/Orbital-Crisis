@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class BuildingManager : MonoBehaviour {
 
@@ -18,6 +19,7 @@ public class BuildingManager : MonoBehaviour {
     public GameObject chosenBuildingSlot;
     public List<GameObject> buildingList = new List<GameObject>();
     public BuildingType selectedBuilding = null;
+
     public List<BuildingType> availableBuildings = new List<BuildingType>();
 
     [Header("Building Prefabs")]
@@ -41,7 +43,7 @@ public class BuildingManager : MonoBehaviour {
         availableBuildings.Add(new BuildingType("Laser Turret", laserTurretPrefab, 25f, new List<ResourcesManager.ResourceAmount>(){
                                                                                             new ResourcesManager.ResourceAmount(ResourcesManager.instance.GetResourceFromCurrentListFromName("steel"), 100)
                                                                                         },
-                                                BuildingType.BuildingLocationType.Planet));
+                                                BuildingType.BuildingLocationType.Planet, "laser_turret"));
         availableBuildings.Add(new BuildingType("Bullet Turret", bulletTurretPrefab, 20f, new List<ResourcesManager.ResourceAmount>(){
                                                                                         },
                                                 BuildingType.BuildingLocationType.Planet));
@@ -216,7 +218,7 @@ public class BuildingManager : MonoBehaviour {
         }
     }
 
-
+    [System.Serializable]
     public class BuildingType {
 
         public string name;
@@ -228,6 +230,8 @@ public class BuildingManager : MonoBehaviour {
 
         public enum BuildingLocationType {Planet, Disks};
         public BuildingLocationType buildingLocationType;
+
+        public Sprite buildingImage;
 
 
         //public Building buildingScript;
@@ -255,6 +259,16 @@ public class BuildingManager : MonoBehaviour {
             this.requiredEnergy = requiredEnergy;
             this.resourceCosts = cost;
             this.buildingLocationType = buildingLocationType;
+        }
+
+        public BuildingType(string name, GameObject prefab, float requiredEnergy, List<ResourcesManager.ResourceAmount> cost, BuildingLocationType buildingLocationType, string imageName)
+        {
+            this.name = name;
+            this.prefab = prefab;
+            this.requiredEnergy = requiredEnergy;
+            this.resourceCosts = cost;
+            this.buildingLocationType = buildingLocationType;
+            this.buildingImage = Resources.Load<Sprite>("Images/Buildings/Turrets/" + imageName);
         }
 
     }

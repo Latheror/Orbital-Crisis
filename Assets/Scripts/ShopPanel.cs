@@ -58,7 +58,8 @@ public class ShopPanel : MonoBehaviour {
 
 
             instantiatedBuildingShopItem.GetComponent<BuildingShopItem>().buildingType = buildingType;
-            instantiatedBuildingShopItem.GetComponent<BuildingShopItem>().SetBuildingNameText(buildingType.name);
+            //instantiatedBuildingShopItem.GetComponent<BuildingShopItem>().SetBuildingNameText(buildingType.name);
+            instantiatedBuildingShopItem.GetComponent<BuildingShopItem>().ApplySettings();
         }
     }
 
