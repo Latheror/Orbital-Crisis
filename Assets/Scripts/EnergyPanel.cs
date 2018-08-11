@@ -16,7 +16,7 @@ public class EnergyPanel : MonoBehaviour {
     public TextMeshProUGUI energyProductionText;
     public TextMeshProUGUI energyConsumptionText;
 
-
+    public GameObject energyBar;
 
 	// Use this for initialization
 	void Start () {
@@ -51,12 +51,14 @@ public class EnergyPanel : MonoBehaviour {
     {
         energyProductionText.text = energyProduction.ToString();
         EnergyConsumptionColorIndication();
+        energyBar.GetComponent<EnergyBar>().UpdateEnergyBar();
     }
 
     public void UpdateEnergyConsumptionDisplay()
     {
         energyConsumptionText.text = energyConsumption.ToString();
         EnergyConsumptionColorIndication();
+        energyBar.GetComponent<EnergyBar>().UpdateEnergyBar();
     }
 
     public void UpdateEnergyLevels()
@@ -73,7 +75,7 @@ public class EnergyPanel : MonoBehaviour {
 
     public void EnergyConsumptionColorIndication()
     {
-        if(energyConsumption > energyProduction)
+        if(energyConsumption > energyProduction || energyProduction == 0)
         {
             // We don't have enough energy
             energyConsumptionText.color = Color.red;

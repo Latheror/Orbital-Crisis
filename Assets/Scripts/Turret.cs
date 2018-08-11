@@ -13,6 +13,11 @@ public class Turret : Building {
     public bool hasAngleRange = true;
     public float angleRange = 3f;
 
+    public GameObject turretBase;
+    public GameObject turretBody;
+    public GameObject turretHead;
+    public GameObject shootingPoint;
+
 
     public Turret(string name) :  base(name)
     {
@@ -111,5 +116,35 @@ public class Turret : Building {
     {
         //Debug.Log("Dealing damage to meteor");
         meteorTarget.GetComponent<Meteor>().DealDamage(power);
+    }
+
+    protected void RotateCanonTowardsTarget()
+    {
+        if(meteorTarget != null)
+        {
+            float canonX = turretHead.transform.position.x;
+            float targetX = meteorTarget.transform.position.x;
+            float canonY = turretHead.transform.position.y;
+            float targetY = meteorTarget.transform.position.y;
+
+            float deltaX = targetX - canonX;
+            float deltaY = targetY - canonY;
+
+            //float angle = Mathf.Atan2(deltaY,deltaX);
+            float angle = GeometryManager.GetRadAngleFromXY(deltaX, deltaY);
+
+            Debug.Log("Angle to meteor: " + angle);
+
+            // To degree
+            angle = angle * 180 / Mathf.PI - 90;
+            // Take building spot angle into account
+            angle -= buildingSpotAngle;
+
+            Debug.Log("Angle: " + angle);
+
+            turretHead.transform.localEulerAngles = new Vector3(angle, 0, 0);
+
+
+        }
     }
 }

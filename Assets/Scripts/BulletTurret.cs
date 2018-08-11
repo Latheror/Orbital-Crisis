@@ -7,9 +7,6 @@ public class BulletTurret : Turret {
     public GameObject bulletPrefab;
     public float bulletSpeed = 5f;
 
-
-
-
 	// Use this for initialization
 	void Start () {
 
@@ -29,13 +26,15 @@ public class BulletTurret : Turret {
     {
         if(hasEnoughEnergy)
         {
+            RotateCanonTowardsTarget();
+            
             //Debug.Log("BulletTurret | ShootOnTarget");
             if(meteorTarget != null)
             {
                 //Debug.Log("BulletTurret | Turret has a meteor target.");
 
                 // Instantiate a bullet
-                GameObject instantiatedBullet = Instantiate(bulletPrefab, gameObject.transform.position, Quaternion.identity);
+                GameObject instantiatedBullet = Instantiate(bulletPrefab, shootingPoint.transform.position, Quaternion.identity);
                 instantiatedBullet.transform.SetParent(gameObject.transform);
 
                 Bullet bulletScript = instantiatedBullet.GetComponent<Bullet>();

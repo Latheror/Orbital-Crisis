@@ -20,7 +20,7 @@
               </costs>
               <traits>
                   <power>3</power>
-                  <angle_range>8</angle_range>
+                  <angle_range>3</angle_range>
               </traits>
           </tier>
       </tiers>

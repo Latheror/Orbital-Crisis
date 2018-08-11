@@ -22,7 +22,7 @@ public class SettingsImportManager : MonoBehaviour {
 
     public void ImportBuildingsSettings()
     {
-        Debug.Log("Import Buildings Settings.");
+        Debug.Log("Importing Buildings Settings.");
 
         // XML Document
         XmlDocument xmlBuildingsDocument = new XmlDocument();

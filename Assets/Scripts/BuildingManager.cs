@@ -46,7 +46,7 @@ public class BuildingManager : MonoBehaviour {
                                                 BuildingType.BuildingLocationType.Planet, "laser_turret"));
         availableBuildings.Add(new BuildingType("Bullet Turret", bulletTurretPrefab, 20f, new List<ResourcesManager.ResourceAmount>(){
                                                                                         },
-                                                BuildingType.BuildingLocationType.Planet));
+                                                BuildingType.BuildingLocationType.Planet, "bullet_turret"));
         availableBuildings.Add(new BuildingType("Freezing Turret", freezingTurretPrefab, 10f, new List<ResourcesManager.ResourceAmount>(){
                                                                                         },
                                                 BuildingType.BuildingLocationType.Planet));
@@ -193,9 +193,11 @@ public class BuildingManager : MonoBehaviour {
 
     public void BuildBuilding()
     {
-        GameObject instantiatedBuilding = Instantiate(selectedBuilding.prefab, chosenBuildingSlot.transform.position, Quaternion.Euler(0f,0f, GeometryManager.instance.RadiansToDegrees(chosenBuildingSlot.GetComponent<BuildingSlot>().angle)));
+        float buildingSpotAngle = GeometryManager.instance.RadiansToDegrees(chosenBuildingSlot.GetComponent<BuildingSlot>().angle);
+        GameObject instantiatedBuilding = Instantiate(selectedBuilding.prefab, chosenBuildingSlot.transform.position, Quaternion.Euler(0f,0f, buildingSpotAngle));
         buildingList.Add(instantiatedBuilding);
         instantiatedBuilding.GetComponent<Building>().buildingType = selectedBuilding;
+        instantiatedBuilding.GetComponent<Building>().buildingSpotAngle = buildingSpotAngle;
         chosenBuildingSlot.GetComponent<BuildingSlot>().SetBuilding(laserTurretPrefab.GetComponent<LaserTurret>());
         instantiatedBuilding.transform.SetParent(chosenBuildingSlot.transform);
         Debug.Log("New building instantiated !");
@@ -210,7 +212,7 @@ public class BuildingManager : MonoBehaviour {
     // TODO : Only testing purpose
     public void TestBuildButton()
     {
-        Debug.Log("Test Build Button.");
+        //Debug.Log("Test Build Button.");
         if(buildingState == BuildingState.Default)
         {
             buildingState = BuildingState.Building;

@@ -50,7 +50,7 @@ public class ResourcesManager : MonoBehaviour {
         ResourceAmount toGiveBack = null;
         foreach (var resAmount in currentResourceAmounts)
         {
-            Debug.Log("Comparing Resource \"" + resAmount.resourceType.resourceName + "\" with Resource \"" + rType.resourceName + "\"");
+            //Debug.Log("Comparing Resource \"" + resAmount.resourceType.resourceName + "\" with Resource \"" + rType.resourceName + "\"");
             if(resAmount.resourceType.Equals(rType))
             {
                 toGiveBack = resAmount;
@@ -91,7 +91,7 @@ public class ResourcesManager : MonoBehaviour {
     // Produce an amount of resource
     public void ProduceResource(ResourceType rType, int amount)
     {
-        Debug.Log("Producing resource: " + rType.resourceName + " in quantity: " + amount);
+        //Debug.Log("Producing resource: " + rType.resourceName + " in quantity: " + amount);
         foreach (var resourceAmount in currentResourceAmounts)
         {
             if(resourceAmount.resourceType.Equals(rType))
@@ -106,7 +106,7 @@ public class ResourcesManager : MonoBehaviour {
 
     public void PayResource(ResourceType resourceType, int amount)
     {
-        Debug.Log("Paying resource: " + resourceType.resourceName + " in quantity: " + amount);
+        //Debug.Log("Paying resource: " + resourceType.resourceName + " in quantity: " + amount);
         if(GetResourceFromCurrentList(resourceType).amount < amount)
         {
             Debug.Log("Error : Can't pay resource !");
@@ -130,7 +130,7 @@ public class ResourcesManager : MonoBehaviour {
 
         foreach (var cost in bType.resourceCosts)
         {
-            Debug.Log("Checking if we can pay the cost in: " + cost.resourceType.resourceName + " (" + cost.amount + ").");
+            //Debug.Log("Checking if we can pay the cost in: " + cost.resourceType.resourceName + " (" + cost.amount + ").");
             if(cost.amount > GetResourceFromCurrentList(cost.resourceType).amount)
             {
                 canPay = false;
@@ -186,7 +186,7 @@ public class ResourcesManager : MonoBehaviour {
 
         public ResourceAmount(ResourceType resourceType, int amount)
         {
-            Debug.Log("Building a ResourceAmount | ResourceType: " + resourceType.resourceName + " | Amount: " + amount);
+            //Debug.Log("Building a ResourceAmount | ResourceType: " + resourceType.resourceName + " | Amount: " + amount);
             this.resourceType = resourceType;
             this.amount = amount;
         }
