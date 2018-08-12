@@ -31,6 +31,7 @@ public class BuildingManager : MonoBehaviour {
     public GameObject laserSatellitePrefab;
     public GameObject shockSatellitePrefab;
     public GameObject debrisCollectorStationPrefab;
+    public GameObject satelliteSolarStationPrefab;
 
     void Start()
     {   
@@ -49,7 +50,7 @@ public class BuildingManager : MonoBehaviour {
                                                 BuildingType.BuildingLocationType.Planet, "bullet_turret"));
         availableBuildings.Add(new BuildingType("Freezing Turret", freezingTurretPrefab, 10f, new List<ResourcesManager.ResourceAmount>(){
                                                                                         },
-                                                BuildingType.BuildingLocationType.Planet));
+                                                BuildingType.BuildingLocationType.Planet, "freezing_turret"));
         availableBuildings.Add(new BuildingType("Power Plant", powerPlantPrefab, 0f, new List<ResourcesManager.ResourceAmount>(){
                                                                                         },
                                                 BuildingType.BuildingLocationType.Planet));
@@ -65,11 +66,15 @@ public class BuildingManager : MonoBehaviour {
         availableBuildings.Add(new BuildingType("Debris Collector Station", debrisCollectorStationPrefab, 10f, new List<ResourcesManager.ResourceAmount>(){
                                                                                         },
                                                 BuildingType.BuildingLocationType.Disks));
+
+        availableBuildings.Add(new BuildingType("Solar Station", satelliteSolarStationPrefab, 0f, new List<ResourcesManager.ResourceAmount>(){
+                                                                                        },
+                                                BuildingType.BuildingLocationType.Disks, "solar_station"));
     }
 
     public void SelectBuilding(BuildingType bType)
     {
-        if(buildingState == BuildingState.Default)
+        if(buildingState == BuildingState.Default || buildingState == BuildingState.BuildingSelected)
         {
             selectedBuilding = bType;
             buildingState = BuildingState.BuildingSelected;
@@ -106,6 +111,7 @@ public class BuildingManager : MonoBehaviour {
                     HideCancelButton();
                     HideBuildButton();
                     mainPlanet.GetComponent<MainPlanet>().ResetAllBuildingSlotsColor();
+                    SurroundingAreasManager.instance.ResetAllSatelliteBuildingSlotsColor();
                     Debug.Log("Building Placed | Leaving Building State.");
                 }
             }
@@ -119,7 +125,7 @@ public class BuildingManager : MonoBehaviour {
 
     public void DisplayBuildingPreview()
     {
-        buildingPreviewIndicator.transform.position = chosenBuildingSlot.transform.position;
+        //buildingPreviewIndicator.transform.position = chosenBuildingSlot.transform.position;
 
         chosenBuildingSlot.GetComponent<BuildingSlot>().SetSelectionColor();
     }
@@ -194,7 +200,13 @@ public class BuildingManager : MonoBehaviour {
     public void BuildBuilding()
     {
         float buildingSpotAngle = GeometryManager.instance.RadiansToDegrees(chosenBuildingSlot.GetComponent<BuildingSlot>().angle);
-        GameObject instantiatedBuilding = Instantiate(selectedBuilding.prefab, chosenBuildingSlot.transform.position, Quaternion.Euler(0f,0f, buildingSpotAngle));
+        Vector3 instantiationPosition = chosenBuildingSlot.transform.position;
+        // Instantiate satellite slighly in front of building slot
+        if (selectedBuilding.buildingLocationType == BuildingType.BuildingLocationType.Disks)
+        {
+            instantiationPosition += new Vector3(0f,0f,-10f);
+        }
+        GameObject instantiatedBuilding = Instantiate(selectedBuilding.prefab, instantiationPosition, Quaternion.Euler(0f,0f, buildingSpotAngle));
         buildingList.Add(instantiatedBuilding);
         instantiatedBuilding.GetComponent<Building>().buildingType = selectedBuilding;
         instantiatedBuilding.GetComponent<Building>().buildingSpotAngle = buildingSpotAngle;
@@ -270,7 +282,7 @@ public class BuildingManager : MonoBehaviour {
             this.requiredEnergy = requiredEnergy;
             this.resourceCosts = cost;
             this.buildingLocationType = buildingLocationType;
-            this.buildingImage = Resources.Load<Sprite>("Images/Buildings/Turrets/" + imageName);
+            this.buildingImage = Resources.Load<Sprite>("Images/Buildings/" + imageName);
         }
 
     }

@@ -4,17 +4,17 @@ using UnityEngine;
 
 public class PowerPlant : Building {
 
-    public float energyProduction = 10f;
+    public float energyProduction = 50f;
 
     public PowerPlant(string name) :  base(name)
     {
-        Debug.Log("PowerPlant constructor");
+        //Debug.Log("PowerPlant constructor");
     }
 
 	// Use this for initialization
 	void Start () {
         InitializeEnergyContribution();
-        buildingLocationType = BuildingLocationType.Planet;
+        //buildingLocationType = BuildingLocationType.Planet;
 	}
 	
 	// Update is called once per frame

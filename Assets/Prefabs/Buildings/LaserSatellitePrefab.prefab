@@ -109,6 +109,32 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b9b4b695cfc44f741a8bfe28d654eced, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  buildingType:
+    name: 
+    prefab: {fileID: 0}
+    resourceCosts: []
+    requiredEnergy: 0
+    buildingLocationType: 0
+    buildingImage: {fileID: 0}
+  buildingName: 
+  buildingColor: {r: 0, g: 0, b: 0, a: 0}
+  buildingPrefab: {fileID: 0}
+  buildingPrice: []
+  alocatedEnergy: 0
+  hasEnoughEnergy: 0
+  buildingSpotAngle: 0
+  buildingLocationType: 1
+  previousTarget: {fileID: 0}
+  meteorTarget: {fileID: 0}
+  range: 0
+  meteorTag: 
+  power: 0
+  hasAngleRange: 0
+  angleRange: 0
+  turretBase: {fileID: 0}
+  turretBody: {fileID: 0}
+  turretHead: {fileID: 0}
+  shootingPoint: {fileID: 0}
 --- !u!120 &120416515804405366
 LineRenderer:
   m_ObjectHideFlags: 1

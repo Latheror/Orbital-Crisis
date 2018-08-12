@@ -229,13 +229,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3e9da4c770e633d45bb58241b7f581ee, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  buildingType:
+    name: 
+    prefab: {fileID: 0}
+    resourceCosts: []
+    requiredEnergy: 0
+    buildingLocationType: 0
+    buildingImage: {fileID: 0}
   buildingName: 
   buildingColor: {r: 0, g: 0, b: 0, a: 0}
   buildingPrefab: {fileID: 0}
   buildingPrice: []
   alocatedEnergy: 0
   hasEnoughEnergy: 0
-  buildingLocationType: 0
+  buildingSpotAngle: 0
+  buildingLocationType: 1
   shockWave: {fileID: 1936578995027158}
   range: 50
   inRangeMeteors: []

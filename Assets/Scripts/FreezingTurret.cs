@@ -26,12 +26,14 @@ public class FreezingTurret : Turret {
     {
         if(hasEnoughEnergy)
         {
+            RotateCanonTowardsTarget();
+
             LineRenderer lineRenderer = gameObject.GetComponent<LineRenderer>();
             if(meteorTarget != null)
             {
                 lineRenderer.enabled = true;
                 GameObject target = meteorTarget;
-                lineRenderer.SetPosition(0, transform.position);
+                lineRenderer.SetPosition(0, shootingPoint.transform.position);
                 lineRenderer.SetPosition(1, target.transform.position);
                 SlowDownTarget();
                 SetFreezingMaterial();
