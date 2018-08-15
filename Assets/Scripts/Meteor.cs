@@ -78,19 +78,26 @@ public class Meteor : MonoBehaviour {
 
         if(healthPoints <= 0)
         {
-            if(willLetDebris)
-            {
-                SpawnDebris();
-                Debug.Log("A meteor has exploded into debris !");
-                MeteorsManager.instance.DeleteMeteor(this.gameObject);
-            }
-            else
-            {
-                // The meteor have been destroyed
-                Debug.Log("A meteor has been destroyed !");
-                MeteorsManager.instance.DeleteMeteor(this.gameObject);
-                MeteorsManager.instance.MeteorDestroyed(this);
-            }
+            DestroyMeteor();
+        }
+    }
+
+    public void DestroyMeteor()
+    {
+        // LevelManager.instance.IncrementCurrentLevelDestroyedMeteorsNb(1); Done in meteors manager to handle meteors crashing into the planet
+
+        if(willLetDebris)
+        {
+            SpawnDebris();
+            Debug.Log("A meteor has exploded into debris !");
+            MeteorsManager.instance.DeleteMeteor(this.gameObject);
+        }
+        else
+        {
+            // The meteor have been destroyed
+            Debug.Log("A meteor has been destroyed !");
+            MeteorsManager.instance.DeleteMeteor(this.gameObject);
+            MeteorsManager.instance.MeteorDestroyed(this);
         }
     }
 
@@ -101,10 +108,17 @@ public class Meteor : MonoBehaviour {
         transform.localScale = new Vector3(newSize, newSize, newSize);
     }
 
-    public void Freeze(float freezingPower)
+    public void Freeze(float freezingFactor)
     {
-        currentApproachSpeed = baseApproachSpeed - freezingPower;
-        currentRotationSpeed = baseRotationSpeed - freezingPower;
+        if (freezingFactor >= 0f && freezingFactor <= 1f)
+        {
+            currentApproachSpeed = baseApproachSpeed * (1 - freezingFactor);
+            currentRotationSpeed = baseRotationSpeed * (1 - freezingFactor);
+        }
+        else
+        {
+            Debug.Log("ERROR : Freezing Factor must be in the 0 - 1 range.");
+        }
     }
 
     public void ResetMeteorSettings()

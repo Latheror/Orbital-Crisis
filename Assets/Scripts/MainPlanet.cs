@@ -31,11 +31,11 @@ public class MainPlanet : MonoBehaviour {
 
     void OnTriggerEnter(Collider other)
     {
-        Debug.Log("Planet collided with : " + other.gameObject.GetComponent<Meteor>());
+        //Debug.Log("Planet collided with : " + other.gameObject.GetComponent<Meteor>());
 
         if(other.gameObject.tag == "meteor")
         {
-            Debug.Log("Planet hit by a meteor.");
+            //Debug.Log("Planet hit by a meteor.");
             InfoManager.instance.IncrementMeteorCollisionsValue();
             MeteorsManager.instance.DeleteMeteor(other.gameObject);
         }
@@ -67,7 +67,7 @@ public class MainPlanet : MonoBehaviour {
         float stepAngle = 2*Mathf.PI / nbStartBuildingSlots;
         float radius = gameObject.transform.localScale.x / 2;
 
-        Debug.Log("StepAngle: " + stepAngle + " | Rayon: " + radius);
+        //Debug.Log("StepAngle: " + stepAngle + " | Rayon: " + radius);
 
         for (int i = 0; i < nbStartBuildingSlots; i++)
         {

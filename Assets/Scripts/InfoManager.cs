@@ -32,7 +32,7 @@ public class InfoManager : MonoBehaviour {
 
     public void IncrementMeteorCollisionsValue()
     {
-        Debug.Log("Incrementing Meteor Collisions Value.");
+        //Debug.Log("Incrementing Meteor Collisions Value.");
         nbMeteorCollisions++;
         UpdateMeteorCollisionsValue();
     }

@@ -56,12 +56,19 @@ public class GeometryManager : MonoBehaviour {
 
     public bool IsAngleInRange(float centerAngle, float rangeAngle, float angleToCompare)
     {
-        Debug.Log("IsAngleInRange | CenterAngle: " + centerAngle +" | RangeAngle: " + rangeAngle + " | AngleToCompare: " + angleToCompare);
+        //Debug.Log("IsAngleInRange | CenterAngle: " + centerAngle +" | RangeAngle: " + rangeAngle + " | AngleToCompare: " + angleToCompare);
         if(rangeAngle >= 0)
         {
-            centerAngle += Mathf.PI;
-            angleToCompare += Mathf.PI;
-            Debug.Log("IsAngleInRange | CenterAnglePlusPi: " + centerAngle + " | AngleToComparePlusPi: " + angleToCompare);
+            // DOESNT WORK !
+            if(centerAngle <= 0)
+            {
+                centerAngle = centerAngle + 2*Mathf.PI;
+            }
+            if(angleToCompare <= 0)
+            {
+                angleToCompare += 2*Mathf.PI;
+            }
+            //Debug.Log("IsAngleInRange | CenterAnglePlusPi: " + centerAngle + " | AngleToComparePlusPi: " + angleToCompare);
             return ((angleToCompare <= centerAngle + rangeAngle/2) && (angleToCompare >= centerAngle - rangeAngle/2));
         }
         else

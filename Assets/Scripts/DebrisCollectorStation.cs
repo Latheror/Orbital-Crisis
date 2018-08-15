@@ -5,7 +5,7 @@ using UnityEngine;
 public class DebrisCollectorStation : Building {
 
     public GameObject debrisCollectorPrefab;
-    public List<GameObject> debrisCollectorsList;
+    public List<GameObject> debrisCollectorsList = new List<GameObject>();
     public int maxDebrisCollectorNb = 3;
     public float debrisCollectorInstantiationDistance = 10f;
 
@@ -25,13 +25,22 @@ public class DebrisCollectorStation : Building {
     {
         if(debrisCollectorsList.Count < maxDebrisCollectorNb)
         {
-            float randomAngle = Random.Range(0, Mathf.PI * 2);
-            Vector3 instantiationDeltaPos = new Vector3(debrisCollectorInstantiationDistance * Mathf.Cos(randomAngle), debrisCollectorInstantiationDistance * Mathf.Sin(randomAngle), 0f);
-            Vector3 instantiationPos = transform.position + instantiationDeltaPos;
+            if(debrisCollectorPrefab != null)
+            {
+                Debug.Log("Error : Debris Collector has been assigned to station.");
+                float randomAngle = Random.Range(0, Mathf.PI * 2);
+                Vector3 instantiationDeltaPos = new Vector3(debrisCollectorInstantiationDistance * Mathf.Cos(randomAngle), debrisCollectorInstantiationDistance * Mathf.Sin(randomAngle), 0f);
+                Vector3 instantiationPos = transform.position + instantiationDeltaPos;
 
-            GameObject instantiatedDebrisCollector = Instantiate(debrisCollectorPrefab, instantiationPos, Quaternion.identity);
-            debrisCollectorsList.Add(instantiatedDebrisCollector);
-            instantiatedDebrisCollector.transform.SetParent(transform);
+                GameObject instantiatedDebrisCollector = Instantiate(debrisCollectorPrefab, instantiationPos, Quaternion.identity);
+                debrisCollectorsList.Add(instantiatedDebrisCollector);
+                instantiatedDebrisCollector.transform.SetParent(transform);
+            }
+            else
+            {
+                Debug.Log("Error : Debris Collector Prefab hasn't been assigned to station.");
+            }
+
         }
         else
         {

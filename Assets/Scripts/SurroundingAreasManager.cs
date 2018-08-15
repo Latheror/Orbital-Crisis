@@ -34,7 +34,7 @@ public class SurroundingAreasManager : MonoBehaviour {
     {
         for (int i = 0; i < disks.Length; i++)
         {
-            Debug.Log("Building Disk " + (i + 1) + " Building Slots");
+            //Debug.Log("Building Disk " + (i + 1) + " Building Slots");
             BuildDiskBuildingSlots(i);
         }
     }
@@ -55,6 +55,7 @@ public class SurroundingAreasManager : MonoBehaviour {
 
             GameObject instantiatedSlot = Instantiate(satelliteBuildingSlotPrefab, pos, Quaternion.identity);
             instantiatedSlot.GetComponent<BuildingSlot>().SetDefaultColor();
+            instantiatedSlot.GetComponent<BuildingSlot>().SetAngle(angle);
 
             disks[diskNb].diskBuildingSlots.Add(instantiatedSlot);
 

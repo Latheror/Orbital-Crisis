@@ -391,7 +391,7 @@ MonoBehaviour:
   turretBody: {fileID: 1435107765483682}
   turretHead: {fileID: 1844855349267624}
   shootingPoint: {fileID: 1500946707979966}
-  freezingPower: 10
+  freezingFactor: 0.8
   frozenMeteorMaterial: {fileID: 2100000, guid: f53b3e0610f04b049886bdd6a02f644e,
     type: 2}
   defaultMeteorMaterial: {fileID: 2100000, guid: 14ddf8072dbcec54fb25ebb10d07d100,

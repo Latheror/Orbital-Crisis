@@ -108,13 +108,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 098c5da2dcd96bc4f99f78a8d078fcb9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  buildingType:
+    name: 
+    prefab: {fileID: 0}
+    resourceCosts: []
+    requiredEnergy: 0
+    buildingLocationType: 0
+    buildingImage: {fileID: 0}
   buildingName: 
   buildingColor: {r: 0, g: 0, b: 0, a: 0}
   buildingPrefab: {fileID: 0}
   buildingPrice: []
   alocatedEnergy: 0
   hasEnoughEnergy: 0
-  buildingLocationType: 0
+  buildingSpotAngle: 0
+  buildingLocationType: 1
   debrisCollectorPrefab: {fileID: 1510887292880666, guid: 2fc74cbec7cd2d041aec85c9de046e18,
     type: 2}
   debrisCollectorsList: []

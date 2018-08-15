@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class FreezingTurret : Turret {
 
-    public float freezingPower = 5f;
+    public float freezingFactor = 0.8f; // Between 0 and 1
     public Material frozenMeteorMaterial;
     public Material defaultMeteorMaterial;
 
@@ -52,7 +52,7 @@ public class FreezingTurret : Turret {
 
     public void SlowDownTarget()
     {
-        meteorTarget.GetComponent<Meteor>().Freeze(freezingPower);
+        meteorTarget.GetComponent<Meteor>().Freeze(freezingFactor);
     }
 
     public void SetFreezingMaterial()

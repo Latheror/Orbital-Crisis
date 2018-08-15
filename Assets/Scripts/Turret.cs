@@ -80,7 +80,7 @@ public class Turret : Building {
         }
         else
         {
-            Debug.Log("Turret doesn't have enough energy !");
+            //Debug.Log("Turret doesn't have enough energy !");
         }
     }
 
@@ -133,14 +133,14 @@ public class Turret : Building {
             //float angle = Mathf.Atan2(deltaY,deltaX);
             float angle = GeometryManager.GetRadAngleFromXY(deltaX, deltaY);
 
-            Debug.Log("Angle to meteor: " + angle);
+            //Debug.Log("Angle to meteor: " + angle);
 
             // To degree
             angle = angle * 180 / Mathf.PI - 90;
             // Take building spot angle into account
             angle -= buildingSpotAngle;
 
-            Debug.Log("Angle: " + angle);
+            //Debug.Log("Angle: " + angle);
 
             turretHead.transform.localEulerAngles = new Vector3(angle, 0, 0);
 

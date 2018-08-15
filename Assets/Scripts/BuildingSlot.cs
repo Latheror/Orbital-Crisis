@@ -27,6 +27,11 @@ public class BuildingSlot : MonoBehaviour {
         ChangeColor(selectionColor);
     }
 
+    public void SetAngle(float angle)
+    {
+        this.angle = angle;
+    }
+
     public void SetBuilding(Building building)
     {
         hasBuilding = true;

@@ -73,7 +73,9 @@ public class MeteorsManager : MonoBehaviour {
         {
             meteorsList.Remove(meteorToDelete);
             Destroy(meteorToDelete);
-        }else
+            LevelManager.instance.IncrementCurrentLevelDestroyedMeteorsNb(1); 
+        }
+        else
         {
             Debug.Log("Trying to remove a meteor which isn't in the list !");
         }
