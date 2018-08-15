@@ -21,20 +21,20 @@ public class ShopPanel : MonoBehaviour {
     public int buildingsLayout2ItemNb;
     public int nbBuildingShopItemsPerLayout = 5;
     public GameObject[] buildingsLayouts;
+    public GameObject shopItemPanelSelected = null;
+    public Color buildingShopItemDefaultBackgroundColor = Color.blue;
+    public Color buildingShopItemSelectedBackgroundColor;
+    public Color buildingShopItemTooExpensiveBackgroundColor;
 
     public int currentPanelDisplayedIndex;
 
     void Start()
     {
-
         buildingsLayouts = new GameObject[]{buildingsLayout1, buildingsLayout2};
 
         BuildBuildingShopItems();
         currentPanelDisplayedIndex = 0;
     }
-
-
-
 
     public void BuildBuildingShopItems()
     {
@@ -110,6 +110,14 @@ public class ShopPanel : MonoBehaviour {
             buildingsLayouts[currentPanelDisplayedIndex].transform.parent.gameObject.SetActive(false);
             buildingsLayouts[currentPanelDisplayedIndex - 1 ].transform.parent.gameObject.SetActive(true);
             currentPanelDisplayedIndex--;
+        }
+    }
+
+    public void ResetLastShopItemSelected()
+    {
+        if(shopItemPanelSelected != null)
+        {
+            shopItemPanelSelected.GetComponent<BuildingShopItem>().SetBackGroundColor(ShopPanel.instance.buildingShopItemDefaultBackgroundColor);
         }
     }
 

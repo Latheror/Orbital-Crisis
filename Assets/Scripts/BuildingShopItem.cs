@@ -21,7 +21,10 @@ public class BuildingShopItem : MonoBehaviour {
     public void BuildingShopItemClicked()
     {
         Debug.Log("Building Shop Item Clicked !");
+        ShopPanel.instance.ResetLastShopItemSelected();
         BuildingManager.instance.SelectBuilding(buildingType);
+        ShopPanel.instance.shopItemPanelSelected = this.gameObject;
+        SetBackGroundColor(ShopPanel.instance.buildingShopItemSelectedBackgroundColor);
     }
 
     public void SetBuildingNameText(string buildingName)
@@ -34,6 +37,11 @@ public class BuildingShopItem : MonoBehaviour {
         buildingImage.GetComponent<Image>().sprite = image;
     }
 
+    public void SetBackGroundColor(Color color)
+    {
+        this.gameObject.GetComponent<Image>().color = color;
+    }
+
     public void ApplySettings()
     {
         if(buildingType != null)
@@ -43,6 +51,7 @@ public class BuildingShopItem : MonoBehaviour {
             {
                 SetBuildingImage(buildingType.buildingImage);
             }
+            SetBackGroundColor(ShopPanel.instance.buildingShopItemDefaultBackgroundColor);
         }
         else
         {

@@ -271,6 +271,7 @@ MonoBehaviour:
   debrisCollectorsList: []
   maxDebrisCollectorNb: 3
   debrisCollectorInstantiationDistance: 15
+  range: 100
 --- !u!114 &114913138460548730
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -301,3 +302,4 @@ MonoBehaviour:
   debrisCollectorsList: []
   maxDebrisCollectorNb: 10
   debrisCollectorInstantiationDistance: 0
+  range: 0

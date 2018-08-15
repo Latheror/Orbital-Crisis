@@ -8,6 +8,7 @@ public class DebrisCollectorStation : Building {
     public List<GameObject> debrisCollectorsList = new List<GameObject>();
     public int maxDebrisCollectorNb = 3;
     public float debrisCollectorInstantiationDistance = 10f;
+    public float range = 100;
 
     public DebrisCollectorStation(string name) :  base(name)
     {
@@ -33,6 +34,7 @@ public class DebrisCollectorStation : Building {
                 Vector3 instantiationPos = transform.position + instantiationDeltaPos;
 
                 GameObject instantiatedDebrisCollector = Instantiate(debrisCollectorPrefab, instantiationPos, Quaternion.identity);
+                instantiatedDebrisCollector.GetComponent<DebrisCollector>().homeStation = this.gameObject;
                 debrisCollectorsList.Add(instantiatedDebrisCollector);
                 instantiatedDebrisCollector.transform.SetParent(transform);
             }

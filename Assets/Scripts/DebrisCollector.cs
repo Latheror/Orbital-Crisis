@@ -10,6 +10,7 @@ public class DebrisCollector : MonoBehaviour {
     public float movementSpeed = 20f;
     public float rotationSpeed = 20f;
     public bool debrisIsBeingCollected = false;
+    public GameObject homeStation = null;
 
 	// Use this for initialization
 	void Start () {
@@ -57,13 +58,13 @@ public class DebrisCollector : MonoBehaviour {
     public void FollowTargetOrRotateAroundStation()
     {
         LineRenderer lineRenderer = gameObject.GetComponent<LineRenderer>();
-        if(debrisTarget != null)
+        if((debrisTarget != null) && (GetDistanceBetweenTargetAndHomeStation() < homeStation.GetComponent<DebrisCollectorStation>().range))
         {   
             if(! debrisIsBeingCollected)
             {
-                if(DistanceToTarget() > operationDistance)
+                if (DistanceToTarget() > operationDistance)
                 {
-                    transform.position = Vector3.MoveTowards(transform.position, debrisTarget.transform.position, Time.deltaTime * movementSpeed);
+                   transform.position = Vector3.MoveTowards(transform.position, debrisTarget.transform.position, Time.deltaTime * movementSpeed);
                 }
                 else
                 {
@@ -132,5 +133,20 @@ public class DebrisCollector : MonoBehaviour {
         {
             RotateAroundStation();
         }
+    }
+
+    public float GetDistanceBetweenTargetAndHomeStation()
+    {
+        float distance = Mathf.Infinity;
+        if(debrisTarget != null && homeStation != null)
+        {
+            distance = Vector3.Distance(debrisTarget.transform.position, homeStation.transform.position);
+        }
+        else
+        {
+            Debug.Log("Error: Unable to get distance between home station and target, as some of them are not set.");
+        }
+
+        return distance;  
     }
 }

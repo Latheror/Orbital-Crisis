@@ -286,6 +286,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   buildingImage: {fileID: 1483932116629730}
   buildingNameText: {fileID: 114082029633883834}
+  defaultBackgroundColor: {r: 0.21960784, g: 0, b: 0.48235294, a: 0.7058824}
+  selectedBackgroundColor: {r: 0, g: 0.6886792, b: 0.14403895, a: 0.7058824}
+  tooExpensiveBackgroundColor: {r: 0.8207547, g: 0, b: 0, a: 0.7058824}
   buildingType:
     name: 
     prefab: {fileID: 0}

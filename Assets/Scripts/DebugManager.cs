@@ -13,6 +13,13 @@ public class DebugManager : MonoBehaviour {
 
     public GameObject debugArea1;
     public GameObject debugArea2;
+    public bool debugPanelDisplayed = false;
+    public Text showDebugControlsButtonText;
+
+    public void Start()
+    {
+        debugPanelDisplayed = false;
+    }
 
 
     public void SetDebugArea1Text(string text)
@@ -28,6 +35,22 @@ public class DebugManager : MonoBehaviour {
     public void SetDebugArea2Text(string text)
     {
         debugArea2.GetComponent<Text>().text = text;
+    }
+
+    public void ShowDebugControls()
+    {
+        if(debugPanelDisplayed)
+        {
+            this.gameObject.SetActive(false);
+            debugPanelDisplayed = false;
+            showDebugControlsButtonText.text = "Show Debug Actions";
+        }
+        else
+        {
+            this.gameObject.SetActive(true);
+            debugPanelDisplayed = true;
+            showDebugControlsButtonText.text = "Hide Debug Actions";
+        }
     }
 
     //public void DisplayBuildingState()

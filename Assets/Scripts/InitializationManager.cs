@@ -22,7 +22,6 @@ public class InitializationManager : MonoBehaviour {
 
         bm.SetAvailableBuildings();
         bm.buildingState = BuildingManager.BuildingState.Default;
-        DebugManager.instance.DisplayBuildingState();
         bm.mainPlanet = GameManager.instance.mainPlanet;
 
 	}
