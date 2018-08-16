@@ -1,7 +1,7 @@
 # Planet Tower Defense
 2D Game made with Unity. Build defenses around your planet, destroy asteroids and gather resources. 
 
-![alt text](/Assets/Resources/Images/screenshots/menu3.png)
+![alt Menu](/Assets/Resources/Images/screenshots/menu3.png)
 
 ## The game
 Based on the tower defense games, this one trades in classic paths for a more open area.
@@ -10,5 +10,6 @@ Your goal is to defend your planet from incoming asteroids and ennemies. By gath
 
 Different types of [buildings](../../wiki/Buildings) are available, such as turrets or energy production facilities. Some are placed on the planet's ground, and other in orbit.
 
+![alt Game view](/Assets/Resources/Images/screenshots/game3.png)
 
 Visit the [WIKI](../../wiki) ! 
