@@ -1,0 +1,239 @@
+fileFormatVersion: 2
+guid: b2bdd5a90abc8d241887ebbde950e2da
+timeCreated: 1535315430
+licenseType: Free
+ModelImporter:
+  serializedVersion: 22
+  fileIDToRecycleName:
+    100000: BezierCurve
+    100002: Circle
+    100004: Circle_001
+    100006: Circle_002
+    100008: Circle_003
+    100010: Circle_004
+    100012: Circle_005
+    100014: Cube
+    100016: Cube_002
+    100018: Cube_003
+    100020: Cylinder_000
+    100022: Cylinder_001
+    100024: Cylinder_002
+    100026: Cylinder_003
+    100028: //RootNode
+    100030: MiddleCylinder
+    100032: Torus
+    100034: TowerBase
+    400000: BezierCurve
+    400002: Circle
+    400004: Circle_001
+    400006: Circle_002
+    400008: Circle_003
+    400010: Circle_004
+    400012: Circle_005
+    400014: Cube
+    400016: Cube_002
+    400018: Cube_003
+    400020: Cylinder_000
+    400022: Cylinder_001
+    400024: Cylinder_002
+    400026: Cylinder_003
+    400028: //RootNode
+    400030: MiddleCylinder
+    400032: Torus
+    400034: TowerBase
+    2300000: BezierCurve
+    2300002: Circle
+    2300004: Circle_001
+    2300006: Circle_002
+    2300008: Circle_003
+    2300010: Circle_004
+    2300012: Circle_005
+    2300014: Cube
+    2300016: Cube_002
+    2300018: Cube_003
+    2300020: Cylinder_000
+    2300022: Cylinder_001
+    2300024: Cylinder_002
+    2300026: Cylinder_003
+    2300028: MiddleCylinder
+    2300030: Torus
+    2300032: TowerBase
+    3300000: BezierCurve
+    3300002: Circle
+    3300004: Circle_001
+    3300006: Circle_002
+    3300008: Circle_003
+    3300010: Circle_004
+    3300012: Circle_005
+    3300014: Cube
+    3300016: Cube_002
+    3300018: Cube_003
+    3300020: Cylinder_000
+    3300022: Cylinder_001
+    3300024: Cylinder_002
+    3300026: Cylinder_003
+    3300028: MiddleCylinder
+    3300030: Torus
+    3300032: TowerBase
+    4300000: Circle_003
+    4300002: Cube
+    4300004: MiddleCylinder
+    4300006: Torus
+    4300008: Cylinder_003
+    4300010: Cylinder_001
+    4300012: Cylinder_002
+    4300014: Cylinder_000
+    4300016: BezierCurve
+    4300018: Cube_003
+    4300020: Circle_005
+    4300022: Circle_004
+    4300024: Cube_002
+    4300026: TowerBase
+    4300028: Circle_002
+    4300030: Circle
+    4300032: Circle_001
+    7400000: Default Take
+    9500000: //RootNode
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Base
+    second: {fileID: 2100000, guid: 06b0d4aa44fcdbd4588fd138246181f2, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: BoxBorders
+    second: {fileID: 2100000, guid: 518eb47abfe7d3f47b6cb1a0b3acc602, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: BuildingEdges
+    second: {fileID: 2100000, guid: 55530d75b9d349e44962ec9946f513c3, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Cables
+    second: {fileID: 2100000, guid: 7b922783910b03a4a92ede94b0eaa0c9, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: GeneratorsStripes
+    second: {fileID: 2100000, guid: 5cd43a800b9ef8e438a37270fa5bf2cc, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Material
+    second: {fileID: 2100000, guid: 71f3120d98c71a843b587b01df281c28, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Material_001
+    second: {fileID: 2100000, guid: 4245fecf1810a4046982f22f4ea0e41f, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Spirals
+    second: {fileID: 2100000, guid: a9569b6e21fd2e34cab806f421dbc741, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: ToreBorders
+    second: {fileID: 2100000, guid: b3723078a7a0dae4a88e6ce9a73a862a, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: WindowsGlass
+    second: {fileID: 2100000, guid: 373eafe5ca834f1419b1b1c9b0dba34e, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: neons
+    second: {fileID: 2100000, guid: 67cafac376ec6594aa2bca7d987460f2, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: topTorus
+    second: {fileID: 2100000, guid: 77d86c0ea7a843449a961b2f981fd6c0, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: unnamed
+    second: {fileID: 2100000, guid: a68f21580dddcc341a2a43d591ff00dc, type: 2}
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+    materialLocation: 0
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    importAnimatedCustomProperties: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    extraUserProperties: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    importVisibility: 1
+    importBlendShapes: 1
+    importCameras: 1
+    importLights: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+    normalCalculationMode: 4
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    serializedVersion: 2
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    rootMotionBoneRotation: {x: 0, y: 0, z: 0, w: 1}
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 2
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

@@ -7,9 +7,11 @@ public class TouchManager : MonoBehaviour {
     public static TouchManager instance;
 
     public float perspectiveZoomSpeed = 0.5f;        // The rate of change of the field of view in perspective mode.
-    public float orthoZoomSpeed = 0.5f;        // The rate of change of the orthographic size in orthographic mode.
+    public float orthoZoomSpeed = 0.5f;              // The rate of change of the orthographic size in orthographic mode.
     public float minFieldOfView = 20;
     public float maxFieldOfView = 100;
+    public GameObject topPanel;
+    public GameObject bottomPanel;
 
     public Camera camera;
 
@@ -74,20 +76,28 @@ public class TouchManager : MonoBehaviour {
                                  
                                 GameObject touchedObject = hit.transform.gameObject;
                                 Debug.Log("Touched " + touchedObject.transform.name);
-                                if(hit.collider.gameObject.tag == "meteor")
+                                switch(hit.collider.gameObject.tag)
                                 {
-                                    Debug.Log("Touched a meteor !");
-                                    //hit.collider.gameObject.GetComponent<Meteor>().TouchedByPlayer();
-                                }
-                                else if(hit.collider.gameObject.tag == "meteorColliderHolder")
-                                {
-                                    Debug.Log("Touched a meteor collider holder !");
-                                    hit.collider.gameObject.transform.parent.GetComponent<Meteor>().TouchedByPlayer();
-                                }
+                                    case ("meteor"):
+                                    {
+                                        Debug.Log("Touched a meteor !");
+                                        //hit.collider.gameObject.GetComponent<Meteor>().TouchedByPlayer();
+                                        break;
+                                    }
+                                    case ("meteorColliderHolder"):
+                                    {
+                                        Debug.Log("Touched a meteor collider holder !");
+                                        hit.collider.gameObject.transform.parent.GetComponent<Meteor>().TouchedByPlayer();
+                                        break;
+                                    }
+                                    case ("spaceship"):
+                                    {
+                                        Debug.Log("Touched a spaceship !");
+                                        break;
+                                    }
+                                }                              
                             }
                         }
-
-
                     }
                 }
             }
@@ -135,7 +145,7 @@ public class TouchManager : MonoBehaviour {
 
     public bool IsTouchWithinGameArea(Vector3 touchPos)
     {
-        return (((touchPos.y) >= 130) && ((touchPos.y) <= 580));
+        return (((touchPos.y) >= bottomPanel.GetComponent<RectTransform>().sizeDelta.y)) && ((touchPos.y) <= (Screen.height - topPanel.GetComponent<RectTransform>().sizeDelta.y));
     }
 
 

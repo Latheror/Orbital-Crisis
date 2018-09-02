@@ -9,6 +9,7 @@ TagManager:
   - bullet
   - meteorColliderHolder
   - debris
+  - spaceship
   layers:
   - Default
   - TransparentFX

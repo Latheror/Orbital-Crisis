@@ -2,12 +2,13 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 public class DebugManager : MonoBehaviour {
 
     public static DebugManager instance;
     void Awake(){ 
-        if (instance != null){ Debug.LogError("More than one MovementsManager in scene !"); return; } instance = this;
+        if (instance != null){ Debug.LogError("More than one DebugManager in scene !"); return; } instance = this;
     }
 
 
@@ -24,7 +25,7 @@ public class DebugManager : MonoBehaviour {
 
     public void SetDebugArea1Text(string text)
     {
-        debugArea1.GetComponent<Text>().text = text;
+        debugArea1.GetComponent<TextMeshProUGUI>().text = text;
     }
 
     public void DisplayBuildingState()

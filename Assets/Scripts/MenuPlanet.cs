@@ -37,16 +37,39 @@ public class MenuPlanet : MonoBehaviour {
         foreach (ShootingPointAndMeteor couple in shootingPointAndMeteorList)
         {
             LineRenderer lr_1 = couple.shootingPoint.GetComponent<LineRenderer>();
-            if (CanTargetMeteorFromShootingPoint(couple.meteor, couple.shootingPoint))
+            GameObject meteorTarget = ChooseTarget(couple);
+
+            if (meteorTarget != null)
             {
                 lr_1.enabled = true;
-                lr_1.SetPositions(new Vector3[] { couple.shootingPoint.transform.position, couple.meteor.transform.position });
+                lr_1.SetPosition(0, couple.shootingPoint.transform.position);
+                lr_1.SetPosition(1, meteorTarget.transform.position);
+                //lr_1.SetPositions(new Vector3[] { couple.shootingPoint.transform.position, couple.meteor.transform.position });
             }
             else
             {
                 lr_1.enabled = false;
             }
         }
+    }
+
+    public GameObject ChooseTarget(ShootingPointAndMeteor couple)
+    {
+        bool targetChosen = false;
+        GameObject chosenTarget = null;
+        int i = 0;
+
+        while(!targetChosen && (i < couple.meteors.Length))
+        {
+            if(CanTargetMeteorFromShootingPoint(couple.meteors[i], couple.shootingPoint))
+            {
+                chosenTarget = couple.meteors[i];
+                targetChosen = true;
+            }
+            i++;
+        }
+
+        return chosenTarget;
     }
 
     public bool CanTargetMeteorFromShootingPoint(GameObject meteor, GameObject shootingPoint)
@@ -89,6 +112,14 @@ public class MenuPlanet : MonoBehaviour {
         return canTarget;
     }
 
+    public void RotateTowardsPathPart(GameObject translatingObject, GameObject pathPart)
+    {
+        Vector3 targetDir = pathPart.transform.position - translatingObject.transform.position;
+        float rotationStep = /*speed*/ 100 * Time.deltaTime;
+        Vector3 newDir = Vector3.RotateTowards(translatingObject.transform.forward, targetDir, rotationStep, 0.0f);
+        translatingObject.transform.rotation = Quaternion.LookRotation(newDir);
+    }
+
     public void HandleTranslatingObjects()
     {
         foreach (TranslatingObjectAndPath group in translatingObjectAndPathList)
@@ -98,19 +129,26 @@ public class MenuPlanet : MonoBehaviour {
             {
                 // We go towards the path end
                 group.translatingObject.transform.position = Vector3.MoveTowards(group.translatingObject.transform.position, group.pathEnd.transform.position, step);
+
                 // Check if we reached end
                 if (Vector3.Distance(group.translatingObject.transform.position, group.pathEnd.transform.position) <=  reachedPointDelta)
                 {
                     group.goesToward = false;
+                    // We look at the path end
+                    RotateTowardsPathPart(group.translatingObject, group.pathStart);
                 }
             }
             else
             {
                 // We go back towards the path start
                 group.translatingObject.transform.position = Vector3.MoveTowards(group.translatingObject.transform.position, group.pathStart.transform.position, step);
+
+                // Check if we reached start
                 if (Vector3.Distance(group.translatingObject.transform.position, group.pathStart.transform.position) <= reachedPointDelta)
                 {
                     group.goesToward = true;
+                    // We look at the path start
+                    RotateTowardsPathPart(group.translatingObject, group.pathEnd);
                 }
             }
         }
@@ -120,7 +158,7 @@ public class MenuPlanet : MonoBehaviour {
     public struct ShootingPointAndMeteor
     {
         public GameObject shootingPoint;
-        public GameObject meteor;
+        public GameObject[] meteors;
     }
 
 

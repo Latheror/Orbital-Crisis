@@ -6,10 +6,11 @@ public class PanelsManager : MonoBehaviour {
 
     public GameObject controlsPanel;
     public GameObject shopPanel;
+    public GameObject defaultBottomPanel;
 
     // Use this for initialization
     void Start () {
-        
+        SwitchFromShopToControlsPanel();
     }
     
     // Update is called once per frame
@@ -19,14 +20,14 @@ public class PanelsManager : MonoBehaviour {
 
     public void SwitchFromControlsToShopPanel()
     {
-        controlsPanel.SetActive(false);
+        defaultBottomPanel.SetActive(false);
         shopPanel.SetActive(true);
     }
 
     public void SwitchFromShopToControlsPanel()
     {
         shopPanel.SetActive(false);
-        controlsPanel.SetActive(true);
+        defaultBottomPanel.SetActive(true);
     }
 
     public void BackButtonClicked()

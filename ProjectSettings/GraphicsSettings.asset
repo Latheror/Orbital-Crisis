@@ -29,13 +29,17 @@ GraphicsSettings:
     m_Mode: 1
     m_Shader: {fileID: 102, guid: 0000000000000000f000000000000000, type: 0}
   m_AlwaysIncludedShaders:
-  - {fileID: 7, guid: 0000000000000000f000000000000000, type: 0}
-  - {fileID: 15104, guid: 0000000000000000f000000000000000, type: 0}
-  - {fileID: 15105, guid: 0000000000000000f000000000000000, type: 0}
-  - {fileID: 15106, guid: 0000000000000000f000000000000000, type: 0}
-  - {fileID: 10753, guid: 0000000000000000f000000000000000, type: 0}
-  - {fileID: 10770, guid: 0000000000000000f000000000000000, type: 0}
-  - {fileID: 17000, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 4800000, guid: e2204c6c62f801848ba806cf82fe630e, type: 3}
+  - {fileID: 4800000, guid: b742aef46e10eec4e954a7a3bc116e20, type: 3}
+  - {fileID: 4800000, guid: edfcf888cd11d9245b91d2883049a57e, type: 3}
+  - {fileID: 4800000, guid: d1cf17907700cb647aa3ea423ba38f2e, type: 3}
+  - {fileID: 4800000, guid: dca26082f9cb439469295791d9f76fe5, type: 3}
+  - {fileID: 4800000, guid: 4a7755d6b5b67874f89c85f56f95fe97, type: 3}
+  - {fileID: 4800000, guid: cafd18099dfc0114896e0a8b277b81b6, type: 3}
+  - {fileID: 4800000, guid: afc255f7c2be52e41973a3d10a2e632d, type: 3}
+  - {fileID: 4800000, guid: 8e6b9842dbb1a5a4887378afab854e63, type: 3}
+  - {fileID: 4800000, guid: 3c2ea7753c1425145a74d106ec1cd852, type: 3}
+  - {fileID: 4800000, guid: 3a1c68c8292caf046bd21158886c5e40, type: 3}
   - {fileID: 16000, guid: 0000000000000000f000000000000000, type: 0}
   - {fileID: 16002, guid: 0000000000000000f000000000000000, type: 0}
   m_PreloadedShaders: []

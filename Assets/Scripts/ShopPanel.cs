@@ -19,7 +19,7 @@ public class ShopPanel : MonoBehaviour {
     public int buildingsLayout1ItemNb;
     public GameObject buildingsLayout2;
     public int buildingsLayout2ItemNb;
-    public int nbBuildingShopItemsPerLayout = 5;
+    public int nbBuildingShopItemsPerLayout = 6;
     public GameObject[] buildingsLayouts;
     public GameObject shopItemPanelSelected = null;
     public Color buildingShopItemDefaultBackgroundColor = Color.blue;
@@ -34,6 +34,9 @@ public class ShopPanel : MonoBehaviour {
 
         BuildBuildingShopItems();
         currentPanelDisplayedIndex = 0;
+
+        cancelButton.SetActive(false);
+        buildButton.SetActive(false);
     }
 
     public void BuildBuildingShopItems()
