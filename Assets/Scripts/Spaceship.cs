@@ -1,13 +1,20 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+using TMPro;
 
 public class Spaceship : MonoBehaviour {
 
     [Header("Main")]
     public bool isActivated;
     public bool isInAutomaticMode;
-    public float movementSpeed = 100;
+    public float movementSpeed = 100f;
+    public float rotationSpeed = 50f;
+    public bool selected = false;
+    public Vector3 manualDestination = Vector3.zero;
+    public bool manualDestinationReached = false;
+    public float manualDestinationDelta = 20f;
 
     [Header("Parts")]
     public GameObject[] shootingPoints;
@@ -21,15 +28,26 @@ public class Spaceship : MonoBehaviour {
     public float laserSpatialLength = 10f;
     public float damagePower = 20;
 
+    [Header("UI")]
+    public GameObject infoPanel;
+    public TextMeshProUGUI infoPanelModeText;
+    public GameObject infoPanelModeButton;
+    public Color infoPanelAutoModeColor = Color.green;
+    public Color infoPanelManualModeColor = Color.red;
+
     // Use this for initialization
     void Start () {
+        target = null;
         isActivated = true;
         isInAutomaticMode = true;
+        infoPanel.SetActive(false);
+        SetStartingMode();
 	}
 	
 	// Update is called once per frame
 	void Update () {
         UpdateTarget();
+        HandleMovements();
         AttackTarget();
     }
 
@@ -66,9 +84,7 @@ public class Spaceship : MonoBehaviour {
 
             if (nearestEnemy != null)
             {
-
                 target = nearestEnemy;
-
                 if (target != previousTarget)
                 {
                     if (previousTarget != null)
@@ -77,7 +93,6 @@ public class Spaceship : MonoBehaviour {
                     }
                     previousTarget = target;
                 }
-
                 //Debug.Log("New meteor target set: " + target + " - Distance is: " + shortestDistance);
             }
             
@@ -90,24 +105,55 @@ public class Spaceship : MonoBehaviour {
         
     }
 
-    void AttackTarget()
+    void HandleMovements()
     {
-        if(isActivated && target != null)
+        if(!isInAutomaticMode)  // Manual Mode
         {
-            if(isInAutomaticMode)
+            if (! IsCloseEnoughToDestination())
             {
-                if (!IsTargetInRange())
+                // Move towards destination
+                transform.position = Vector3.MoveTowards(transform.position, manualDestination, Time.deltaTime * movementSpeed);
+            }
+            else
+            {
+                if(target != null && IsTargetInRange())
+                {
+                    RotateTowardsTarget();
+                }
+            }
+        }
+        else  // Automatic mode
+        {
+            if (target != null)
+            {
+                if (! IsTargetInRange())
                 {
                     // Go closer to target
                     transform.position = Vector3.MoveTowards(transform.position, target.transform.position, Time.deltaTime * movementSpeed);
                 }
-                
-                if(IsTargetInRangeWithDelta() && pulseFinished)
+
+                RotateTowardsTarget();
+            }
+        }
+    }
+
+    void AttackTarget()
+    {
+        if (isActivated && target != null)
+        {
+            if (isInAutomaticMode) // Automatic Mode
+            {
+                if (IsTargetInRange() && pulseFinished)
                 {
                     StartCoroutine(FireLasersRoutine());
                 }
-
-                RotateTowardsTarget(target);
+            }
+            else  // Manual Mode
+            {
+                if(IsCloseEnoughToDestination() && IsTargetInRange() && pulseFinished)
+                {
+                    StartCoroutine(FireLasersRoutine());
+                }
             }
         }
     }
@@ -122,11 +168,22 @@ public class Spaceship : MonoBehaviour {
         return (Vector3.Distance(transform.position, target.transform.position) <= attackDistance * 2);
     }
 
-    public void RotateTowardsTarget(GameObject target)
+    public void RotateTowardsTarget()
     {
-        Vector3 targetDir = target.transform.position - transform.position;
-        float rotationStep = /*speed*/ 50 * Time.deltaTime;
-        Vector3 newDir = Vector3.RotateTowards(transform.forward, targetDir, rotationStep, 0.0f);
+        if(target != null)
+        {
+            Vector3 targetDir = target.transform.position - transform.position;
+            float rotationStep = rotationSpeed * Time.deltaTime;
+            Vector3 newDir = Vector3.RotateTowards(transform.forward, targetDir, rotationStep, 0.0f);
+            transform.rotation = Quaternion.LookRotation(newDir);
+        }
+    }
+
+    void RotateTowardsManualDestination()
+    {
+        Vector3 destDir = manualDestination - transform.position;
+        float rotationStep = rotationSpeed * Time.deltaTime;
+        Vector3 newDir = Vector3.RotateTowards(transform.forward, destDir, rotationStep, 0.0f);
         transform.rotation = Quaternion.LookRotation(newDir);
     }
 
@@ -208,7 +265,7 @@ public class Spaceship : MonoBehaviour {
     }
 
 
-        private void EnableLasers(bool enable)
+    private void EnableLasers(bool enable)
     {
         foreach (GameObject shootingPoint in shootingPoints)
         {
@@ -222,4 +279,61 @@ public class Spaceship : MonoBehaviour {
         }
     }
 
+    public void Select(bool select)
+    {
+        this.selected = select;
+        if(select)
+        {
+            SpaceshipManager.instance.SelectSpaceship(this.gameObject);
+        }
+        else
+        {
+            SpaceshipManager.instance.DeselectSpaceship();
+        }
+    }
+
+    public void Highlight()
+    {
+
+    }
+
+    public void SwitchMode()
+    {
+        isInAutomaticMode = !isInAutomaticMode;
+        if(isInAutomaticMode){
+            infoPanelModeText.text = "AUTO";
+            infoPanelModeButton.GetComponent<Image>().color = infoPanelAutoModeColor;
+        }else{
+            infoPanelModeText.text = "MANUAL";
+            infoPanelModeButton.GetComponent<Image>().color = infoPanelManualModeColor;
+        }
+        Debug.Log("Switching Mode !");
+    }
+
+    public void SetManualDestination(Vector3 dest)
+    {
+        manualDestination = dest;
+        if(! isInAutomaticMode)
+        {
+            RotateTowardsManualDestination();
+        }
+    }
+
+    public bool IsCloseEnoughToDestination()
+    {
+        return (Vector3.Distance(transform.position, manualDestination) < manualDestinationDelta);
+    }
+
+    public void InfoPanelCloseButtonActions()
+    {
+        infoPanel.SetActive(false);
+        SpaceshipManager.instance.DeselectSpaceship();
+    }
+
+    public void SetStartingMode()
+    {
+        isInAutomaticMode = true;
+        infoPanelModeText.text = "AUTO";
+        infoPanelModeButton.GetComponent<Image>().color = infoPanelAutoModeColor;
+    }
 }

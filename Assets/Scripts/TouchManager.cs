@@ -64,38 +64,56 @@ public class TouchManager : MonoBehaviour {
                     if(IsTouchWithinGameArea(lastTouch))
                     {
                         //Debug.Log("1 Touch during default state.");
-
-                        // TRYING TO CAST A RAY TOWARDS A METEOR
-                        Ray ray = Camera.main.ScreenPointToRay(Input.GetTouch(0).position);
-                        RaycastHit hit;
-                        Debug.DrawRay(ray.origin, ray.direction * 300, Color.yellow, 100f);
-                        if(Physics.Raycast(ray, out hit))
+                        if (GameManager.instance.selectionState == GameManager.SelectionState.SpaceShipSelected)
                         {
-                            Debug.Log(hit.transform.name);
-                            if (hit.collider != null) {
-                                 
-                                GameObject touchedObject = hit.transform.gameObject;
-                                Debug.Log("Touched " + touchedObject.transform.name);
-                                switch(hit.collider.gameObject.tag)
+                            if(SpaceshipManager.instance.selectedSpaceship != null)
+                            {
+                                Vector3 destPos = GeometryManager.instance.GetLocationFromTouchPointOnPlanetPlane(lastTouch);
+                                if (! GeometryManager.instance.IsTouchWithinSpaceshipInfoPanelArea(destPos))
                                 {
-                                    case ("meteor"):
+
+                                    Debug.Log("DestPos: " + destPos);
+                                    SpaceshipManager.instance.selectedSpaceship.GetComponent<Spaceship>().SetManualDestination(destPos);
+                                }
+                            }
+                        }
+                        else
+                        {
+
+                            // Cast a ray
+                            Ray ray = Camera.main.ScreenPointToRay(Input.GetTouch(0).position);
+                            RaycastHit hit;
+                            Debug.DrawRay(ray.origin, ray.direction * 300, Color.yellow, 100f);
+                            if (Physics.Raycast(ray, out hit))
+                            {
+                                Debug.Log(hit.transform.name);
+                                if (hit.collider != null)
+                                {
+
+                                    GameObject touchedObject = hit.transform.gameObject;
+                                    Debug.Log("Touched " + touchedObject.transform.name);
+                                    switch (hit.collider.gameObject.tag)
                                     {
-                                        Debug.Log("Touched a meteor !");
-                                        //hit.collider.gameObject.GetComponent<Meteor>().TouchedByPlayer();
-                                        break;
+                                        case ("meteor"):
+                                            {
+                                                Debug.Log("Touched a meteor !");
+                                                //hit.collider.gameObject.GetComponent<Meteor>().TouchedByPlayer();
+                                                break;
+                                            }
+                                        case ("meteorColliderHolder"):
+                                            {
+                                                Debug.Log("Touched a meteor collider holder !");
+                                                hit.collider.gameObject.transform.parent.GetComponent<Meteor>().TouchedByPlayer();
+                                                break;
+                                            }
+                                        case ("spaceship"):
+                                            {
+                                                Debug.Log("Touched a spaceship !");
+                                                hit.collider.gameObject.GetComponent<Spaceship>().Select(true);
+                                                break;
+                                            }
                                     }
-                                    case ("meteorColliderHolder"):
-                                    {
-                                        Debug.Log("Touched a meteor collider holder !");
-                                        hit.collider.gameObject.transform.parent.GetComponent<Meteor>().TouchedByPlayer();
-                                        break;
-                                    }
-                                    case ("spaceship"):
-                                    {
-                                        Debug.Log("Touched a spaceship !");
-                                        break;
-                                    }
-                                }                              
+                                }
                             }
                         }
                     }
@@ -145,6 +163,10 @@ public class TouchManager : MonoBehaviour {
 
     public bool IsTouchWithinGameArea(Vector3 touchPos)
     {
+        Debug.Log("Touchpos Y: " + touchPos.y);
+        Debug.Log("TopPanel Height: " + topPanel.GetComponent<RectTransform>().sizeDelta.y);
+        Debug.Log("BottomPanel Height: " + bottomPanel.GetComponent<RectTransform>().sizeDelta.y);
+        Debug.Log("Screen Hight: " + Screen.height);
         return (((touchPos.y) >= bottomPanel.GetComponent<RectTransform>().sizeDelta.y)) && ((touchPos.y) <= (Screen.height - topPanel.GetComponent<RectTransform>().sizeDelta.y));
     }
 

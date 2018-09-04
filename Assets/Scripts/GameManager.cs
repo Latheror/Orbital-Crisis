@@ -11,7 +11,10 @@ public class GameManager : MonoBehaviour {
 
     public enum GameState { Default, Pause } 
 
+    public enum SelectionState { Default, SpaceShipSelected }
+
     public GameState gameState;
+    public SelectionState selectionState;
     public GameObject mainPlanet;
     public float objectsDepthOffset;
     public GameObject pausePanel;
@@ -22,6 +25,7 @@ public class GameManager : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
         gameState = GameState.Default;
+        selectionState = SelectionState.Default;
         objectsDepthOffset = mainPlanet.transform.position.z;
 	}
 	

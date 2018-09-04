@@ -78,4 +78,41 @@ public class GeometryManager : MonoBehaviour {
         }
     }
 
+    public Vector3 GetLocationFromTouchPointOnPlanetPlane(Vector3 touchPos)
+    {
+        //Debug.Log("GetLocationFromTouchPointOnPlanetPlane | TouchPos: " + touchPos);
+
+        Ray ray = Camera.main.ScreenPointToRay(touchPos);
+
+        Plane planetPlane = new Plane(Vector3.forward, mainPlanet.transform.position);
+        float distance = 0;
+        Vector3 intersectPointPos = new Vector3(0f, 0f, 0f);
+
+        if (planetPlane.Raycast(ray, out distance))
+        {
+            intersectPointPos = ray.GetPoint(distance);
+        }
+
+        //Debug.Log("GetLocationFromTouchPointOnPlanetPlane | IntersectPointPos: " + intersectPointPos);
+
+        return intersectPointPos;
+    }
+
+    public bool IsTouchWithinSpaceshipInfoPanelArea(Vector3 touchPos)
+    {
+        float touchPosX = touchPos.x;
+        float touchPosY = touchPos.y;
+        float margin = 15;
+        GameObject infoPanel = SpaceshipManager.instance.currentSelectedSpaceshipInfoPanel;
+        float infoPanelLeftBorder = infoPanel.GetComponent<RectTransform>().position.x - infoPanel.GetComponent<RectTransform>().sizeDelta.x / 2;
+        float infoPanelRightBorder = infoPanel.GetComponent<RectTransform>().position.x + infoPanel.GetComponent<RectTransform>().sizeDelta.x / 2;
+        float infoPanelTopBorder = infoPanel.GetComponent<RectTransform>().position.y + infoPanel.GetComponent<RectTransform>().sizeDelta.y / 2;
+        float infoPanelBottomBorder = infoPanel.GetComponent<RectTransform>().position.y - infoPanel.GetComponent<RectTransform>().sizeDelta.y / 2;
+
+        Debug.Log("IsTouchWithinSpaceshipInfoPanelArea | Left: " + infoPanelLeftBorder + " | Right: " + infoPanelRightBorder + " | Top: " + infoPanelTopBorder + " | Bottom: " + infoPanelBottomBorder);
+
+
+        return ((touchPosX >= (infoPanelLeftBorder - margin)) && (touchPosX <= (infoPanelRightBorder + margin)) && (touchPosY >= (infoPanelBottomBorder - margin)) && (touchPosY <= (infoPanelTopBorder + margin)));
+    }
+
 }
