@@ -9,15 +9,18 @@ public class Spaceship : MonoBehaviour {
     [Header("Main")]
     public bool isActivated;
     public bool isInAutomaticMode;
+    public bool selected = false;
+
+    [Header("Movement")]
     public float movementSpeed = 100f;
     public float rotationSpeed = 50f;
-    public bool selected = false;
     public Vector3 manualDestination = Vector3.zero;
     public bool manualDestinationReached = false;
     public float manualDestinationDelta = 20f;
 
     [Header("Parts")]
     public GameObject[] shootingPoints;
+    public GameObject trailOrigin1;
 
     [Header("Attack")]
     public GameObject target;

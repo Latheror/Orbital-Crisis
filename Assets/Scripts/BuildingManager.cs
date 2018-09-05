@@ -78,7 +78,7 @@ public class BuildingManager : MonoBehaviour {
         {
             selectedBuilding = bType;
             buildingState = BuildingState.BuildingSelected;
-            DebugManager.instance.DisplayBuildingState();
+            //DebugManager.instance.DisplayBuildingState();
             ShowCancelButton();
         }
     }
@@ -170,7 +170,7 @@ public class BuildingManager : MonoBehaviour {
         DisplayBuildingPreview();
 
         buildingState = BuildingState.LocationSelected;
-        DebugManager.instance.DisplayBuildingState();
+        //DebugManager.instance.DisplayBuildingState();
         ShopPanel.instance.ShowBuildButton();
     }
 

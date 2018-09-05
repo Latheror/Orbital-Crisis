@@ -99,6 +99,8 @@ public class LevelManager : MonoBehaviour {
         else
         {
             Debug.Log("Last level reached !");
+            levelsList.Add(new Level(currentLevelNumber + 1, null, (currentLevelNumber + 1) * 10));
+            GoToNextLevel();
         }
     }
 
@@ -131,7 +133,7 @@ public class LevelManager : MonoBehaviour {
         }
         else
         {
-            // We are supposed to be before level 1 here. Other cases should be investigated
+            // Before level one
             pressStartPanel.SetActive(false);
             waveInfoPanel.SetActive(true);
             GoToNextLevel();

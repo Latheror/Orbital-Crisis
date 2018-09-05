@@ -144,6 +144,15 @@ public class SurroundingAreasManager : MonoBehaviour {
         disks[diskNb - 1].diskGO.SetActive(true);
         disks[diskNb - 1].unlocked = true;
         unlockedDisksNb++;
+
+        int index = diskNb - 2;
+        while(index >= 0)
+        {
+            //Color newColor = disks[index].diskGO.GetComponent<Renderer>().materials[0].color;
+            //newColor.a = 0;
+            //disks[index].diskGO.GetComponent<Renderer>().materials[0].color = newColor;
+            index--;
+        }
     }
 
     [System.Serializable]
