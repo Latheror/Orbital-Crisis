@@ -10,6 +10,8 @@ TagManager:
   - meteorColliderHolder
   - debris
   - spaceship
+  - allied
+  - enemy
   layers:
   - Default
   - TransparentFX

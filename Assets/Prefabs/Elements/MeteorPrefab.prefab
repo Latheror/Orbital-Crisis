@@ -86,7 +86,6 @@ MeshRenderer:
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
-  m_RenderingLayerMask: 4294967295
   m_Materials:
   - {fileID: 2100000, guid: 14ddf8072dbcec54fb25ebb10d07d100, type: 2}
   m_StaticBatchInfo:
@@ -124,9 +123,9 @@ MeshCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 1
   m_Enabled: 1
-  serializedVersion: 3
+  serializedVersion: 2
   m_Convex: 1
-  m_CookingOptions: 14
+  m_InflateMesh: 0
   m_SkinWidth: 0.01
   m_Mesh: {fileID: 4300000, guid: b15545bad60e6144680a27799d591dc8, type: 3}
 --- !u!64 &64889458569750412
@@ -138,9 +137,9 @@ MeshCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 1
   m_Enabled: 1
-  serializedVersion: 3
+  serializedVersion: 2
   m_Convex: 1
-  m_CookingOptions: 14
+  m_InflateMesh: 0
   m_SkinWidth: 0.01
   m_Mesh: {fileID: 4300000, guid: b15545bad60e6144680a27799d591dc8, type: 3}
 --- !u!114 &114210179066285112
@@ -169,6 +168,8 @@ MonoBehaviour:
   maxApproachSpeed: 20
   isMovingTowardsPlanet: 0
   willLetDebris: 0
+  impactEffect: {fileID: 1287209582324898, guid: 661ae535f669731458cc9dbc49e9f2af,
+    type: 2}
   defaultMeteorMaterial: {fileID: 2100000, guid: 14ddf8072dbcec54fb25ebb10d07d100,
     type: 2}
   touchedByPlayerMaterial: {fileID: 2100000, guid: e6a9c80a59121b145ae2f40382d24b1b,

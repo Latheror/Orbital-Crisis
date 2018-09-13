@@ -40,8 +40,7 @@ public class TouchManager : MonoBehaviour {
             Touch touch1 = Input.GetTouch(0);
             Vector3 touch1Pos = touch1.position;
 
-            //Debug.Log("Touch position : " + touch1Pos);
-
+            //Debug.Log("Touch position : " + touch1Pos)
 
             // Only one touch
             if(Input.touchCount == 1)

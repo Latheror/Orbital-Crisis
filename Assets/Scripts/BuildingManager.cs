@@ -83,15 +83,24 @@ public class BuildingManager : MonoBehaviour {
         }
     }
 
+    public void DeselectBuilding()
+    {
+        selectedBuilding = null;
+    }
+
     public void CancelButton()
     {
         if(buildingState == BuildingState.BuildingSelected || buildingState == BuildingState.LocationSelected)
         {
             buildingState = BuildingState.Default;
+
             DebugManager.instance.DisplayBuildingState();
-            HideCancelButton();
+            ShopPanel.instance.ResetLastShopItemSelected();
+            DeselectBuilding();
             ShopPanel.instance.HideBuildButton();
             mainPlanet.GetComponent<MainPlanet>().ResetAllBuildingSlotsColor();
+            HideCancelButton();
+
             Debug.Log("Leaving Building State.");
         }
     }

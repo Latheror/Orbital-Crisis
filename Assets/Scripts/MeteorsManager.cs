@@ -54,7 +54,7 @@ public class MeteorsManager : MonoBehaviour {
         instantiatedMeteor.transform.SetParent(MeteorsManager.instance.transform);
 
         Meteor meteor = instantiatedMeteor.GetComponent<Meteor>();
-        meteor.setRandomSpeeds();
+        meteor.SetRandomSpeeds();
         meteor.originalSize = meteorSize;
         meteor.size = meteorSize;
         meteor.healthPoints = meteorHealth;

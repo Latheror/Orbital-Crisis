@@ -6,6 +6,7 @@ public class SpaceshipManager : MonoBehaviour {
 
     public GameObject selectedSpaceship;
     public GameObject currentSelectedSpaceshipInfoPanel;
+    public GameObject[] alliedSpaceships;
 
     public static SpaceshipManager instance;
     void Awake()

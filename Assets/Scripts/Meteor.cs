@@ -20,6 +20,7 @@ public class Meteor : MonoBehaviour {
     public float maxApproachSpeed = 20f;
     public bool isMovingTowardsPlanet;
     public bool willLetDebris = false;
+    public GameObject impactEffect;
 
     public Material defaultMeteorMaterial;
     public Material touchedByPlayerMaterial;
@@ -39,7 +40,7 @@ public class Meteor : MonoBehaviour {
         canBeGathered = false;
     }
 
-    public void setRandomSpeeds()
+    public void SetRandomSpeeds()
     {
         currentRotationSpeed = baseRotationSpeed = Random.Range(minRotationSpeed, maxRotationSpeed);
         currentApproachSpeed = baseApproachSpeed = Random.Range(minApproachSpeed, maxApproachSpeed);
@@ -76,7 +77,10 @@ public class Meteor : MonoBehaviour {
 
         ResizeMeteorFromHealth(healthPoints);
 
-        if(healthPoints <= 0)
+        GameObject impactEff = (GameObject)Instantiate(impactEffect, transform.position, transform.rotation);
+        Destroy(impactEff, 2f);
+
+        if (healthPoints <= 0)
         {
             DestroyMeteor();
         }

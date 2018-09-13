@@ -10,6 +10,9 @@ public class Spaceship : MonoBehaviour {
     public bool isActivated;
     public bool isInAutomaticMode;
     public bool selected = false;
+    public bool isAllied = false;
+    public float maxHealth = 100f;
+    public float health = 100f;
 
     [Header("Movement")]
     public float movementSpeed = 100f;
@@ -28,6 +31,7 @@ public class Spaceship : MonoBehaviour {
     public float attackDistance = 20;
     public bool pulseFinished = true;
     public float pulsePeriod = 1f;
+    public float firePeriod = 1f;
     public float laserSpatialLength = 10f;
     public float damagePower = 20;
 
@@ -35,6 +39,8 @@ public class Spaceship : MonoBehaviour {
     public GameObject infoPanel;
     public TextMeshProUGUI infoPanelModeText;
     public GameObject infoPanelModeButton;
+    public GameObject healthBarPanel;
+    public GameObject healthPointsBar;
     public Color infoPanelAutoModeColor = Color.green;
     public Color infoPanelManualModeColor = Color.red;
 
@@ -42,6 +48,7 @@ public class Spaceship : MonoBehaviour {
     void Start () {
         target = null;
         isActivated = true;
+        health = maxHealth;
         isInAutomaticMode = true;
         infoPanel.SetActive(false);
         SetStartingMode();
@@ -49,117 +56,12 @@ public class Spaceship : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        UpdateTarget();
-        HandleMovements();
-        AttackTarget();
+
     }
 
-    void UpdateTarget() {
-
-        // Turrets only work if they have the required energy
-        if (isActivated)
-        {
-            //Debug.Log("Laser Turret | Update target");
-            List<GameObject> meteors = MeteorsManager.instance.meteorsList;
-            float shortestDistance = Mathf.Infinity;
-            GameObject nearestEnemy = null;
-
-            foreach (GameObject meteor in meteors)
-            {
-                //Debug.Log("Meteor in meteors.");
-                //if (meteor.tag == meteorTag)
-                if (meteor.CompareTag("meteor"))
-                {
-                    //Debug.Log("Meteor has meteor tag");
-                    float distanceToEnemy = Vector3.Distance(transform.position, meteor.transform.position);
-                    //Debug.Log("Meteor found - Distance is : " + distanceToEnemy);
-                    if (distanceToEnemy < shortestDistance)
-                    {
-                        shortestDistance = distanceToEnemy;
-                        nearestEnemy = meteor;
-                    }
-                }
-                else
-                {
-                    Debug.Log("Error : Meteor doesn't have Meteor tag ! | Meteor has \"" + meteor.tag.ToString() + "\" tag.");
-                }
-            }
-
-            if (nearestEnemy != null)
-            {
-                target = nearestEnemy;
-                if (target != previousTarget)
-                {
-                    if (previousTarget != null)
-                    {
-                        previousTarget.GetComponent<Meteor>().ResetMeteorSettings();
-                    }
-                    previousTarget = target;
-                }
-                //Debug.Log("New meteor target set: " + target + " - Distance is: " + shortestDistance);
-            }
-            
-
-        }
-        else
-        {
-            //Debug.Log("Spaceship isn't activated !");
-        }
-        
-    }
-
-    void HandleMovements()
-    {
-        if(!isInAutomaticMode)  // Manual Mode
-        {
-            if (! IsCloseEnoughToDestination())
-            {
-                // Move towards destination
-                transform.position = Vector3.MoveTowards(transform.position, manualDestination, Time.deltaTime * movementSpeed);
-            }
-            else
-            {
-                if(target != null && IsTargetInRange())
-                {
-                    RotateTowardsTarget();
-                }
-            }
-        }
-        else  // Automatic mode
-        {
-            if (target != null)
-            {
-                if (! IsTargetInRange())
-                {
-                    // Go closer to target
-                    transform.position = Vector3.MoveTowards(transform.position, target.transform.position, Time.deltaTime * movementSpeed);
-                }
-
-                RotateTowardsTarget();
-            }
-        }
-    }
-
-    void AttackTarget()
-    {
-        if (isActivated && target != null)
-        {
-            if (isInAutomaticMode) // Automatic Mode
-            {
-                if (IsTargetInRange() && pulseFinished)
-                {
-                    StartCoroutine(FireLasersRoutine());
-                }
-            }
-            else  // Manual Mode
-            {
-                if(IsCloseEnoughToDestination() && IsTargetInRange() && pulseFinished)
-                {
-                    StartCoroutine(FireLasersRoutine());
-                }
-            }
-        }
-    }
+    protected virtual void UpdateTarget(){ }
+    protected virtual void HandleMovements() { }
+    protected virtual void AttackTarget() { }
 
     public bool IsTargetInRange()
     {
@@ -182,7 +84,7 @@ public class Spaceship : MonoBehaviour {
         }
     }
 
-    void RotateTowardsManualDestination()
+    protected void RotateTowardsManualDestination()
     {
         Vector3 destDir = manualDestination - transform.position;
         float rotationStep = rotationSpeed * Time.deltaTime;
@@ -190,9 +92,9 @@ public class Spaceship : MonoBehaviour {
         transform.rotation = Quaternion.LookRotation(newDir);
     }
 
-    IEnumerator FireLasersRoutine()
+    protected IEnumerator FireLasersRoutine()
     {
-        Debug.Log("Firing !");
+        //Debug.Log("Firing !");
 
         bool laserReachedTarget = false;
         pulseFinished = false;
@@ -234,7 +136,7 @@ public class Spaceship : MonoBehaviour {
             EnableLasers(true);
 
             // Wait and stop firing
-            yield return new WaitForSeconds(pulsePeriod / 5);
+            yield return new WaitForSeconds(pulsePeriod /5);
             EnableLasers(false);
 
             if (elapsedTime >= pulsePeriod)
@@ -243,13 +145,59 @@ public class Spaceship : MonoBehaviour {
             }
         }
 
-        // Deal damage to meteor
-        if (target != null)
-        {
-            target.GetComponent<Meteor>().DealDamage(damagePower);
-        }
+        // Deal damage to target
+        DealDamageToTarget();
+
+        yield return new WaitForSeconds(firePeriod);
 
         pulseFinished = true;
+    }
+
+    protected void DealDamageToTarget()
+    {
+        if (target != null)
+        {
+            if(target.CompareTag("meteor"))   // Target is a meteor
+            {
+                target.GetComponent<Meteor>().DealDamage(damagePower);
+            }
+            else if(target.CompareTag("spaceship") || target.CompareTag("enemy"))
+            {
+                target.GetComponent<Spaceship>().TakeDamage(damagePower);
+            }
+        }
+    }
+
+    protected void TakeDamage(float damage)
+    {
+        health = Mathf.Max(0, health - damage);
+        UpdateHealthBar();
+        if(health <= 0)
+        {
+            DestroySpaceship();
+        }
+    }
+
+    protected void UpdateHealthBar()
+    {
+        if(healthBarPanel != null && healthPointsBar != null)
+        {
+            float healthBarPanelWidth = healthBarPanel.GetComponent<RectTransform>().rect.width;
+
+            float healthRatio = health / maxHealth;
+
+            RectTransform healthPointsBarRectTransform = healthPointsBar.GetComponent<RectTransform>();
+            healthPointsBarRectTransform.sizeDelta = new Vector2(healthBarPanelWidth * healthRatio, healthPointsBarRectTransform.sizeDelta.y);
+
+        }
+    }
+
+    protected void DestroySpaceship()
+    {
+        Debug.Log("Spaceship has been destroyed !");
+
+        // temporary
+        isActivated = false;
     }
 
     // Not used anymore
@@ -268,7 +216,7 @@ public class Spaceship : MonoBehaviour {
     }
 
 
-    private void EnableLasers(bool enable)
+    protected void EnableLasers(bool enable)
     {
         foreach (GameObject shootingPoint in shootingPoints)
         {

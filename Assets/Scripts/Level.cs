@@ -37,7 +37,7 @@ public class Level {
     // Returns true if level is completed
     public bool IncrementDestroyedMeteorsNb(int nb)
     {
-        Debug.Log("IncrementDestroyedMeteorsNb | Destroyed: " + destroyedMeteorsNb + " | Total: " + levelMeteorsNb);
+        //Debug.Log("IncrementDestroyedMeteorsNb | Destroyed: " + destroyedMeteorsNb + " | Total: " + levelMeteorsNb);
 
         destroyedMeteorsNb += nb;
         if(destroyedMeteorsNb >= levelMeteorsNb)
