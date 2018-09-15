@@ -29,7 +29,7 @@ public class BulletTurret : Turret {
             RotateCanonTowardsTarget();
             
             //Debug.Log("BulletTurret | ShootOnTarget");
-            if(meteorTarget != null)
+            if(target != null)
             {
                 //Debug.Log("BulletTurret | Turret has a meteor target.");
 
@@ -38,7 +38,7 @@ public class BulletTurret : Turret {
                 instantiatedBullet.transform.SetParent(gameObject.transform);
 
                 Bullet bulletScript = instantiatedBullet.GetComponent<Bullet>();
-                bulletScript.SetTarget(meteorTarget);
+                bulletScript.SetTarget(target);
 
                 // bulletPrefab.GetComponent<Renderer>().material.color = Color.red;
 

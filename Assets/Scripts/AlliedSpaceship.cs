@@ -25,32 +25,56 @@ public class AlliedSpaceship : Spaceship {
     protected override void UpdateTarget()
     {
 
-        // Turrets only work if they have the required energy
+        // Spaceships only work if they are activated
         if (isActivated)
         {
             //Debug.Log("Laser Turret | Update target");
             List<GameObject> meteors = MeteorsManager.instance.meteorsList;
+            List<GameObject> enemies = EnemiesManager.instance.enemies;
             float shortestDistance = Mathf.Infinity;
+            int maxPriorityFound = 0;
             GameObject nearestEnemy = null;
 
-            foreach (GameObject meteor in meteors)      // Search for meteors
+            // Search for meteors
+            if (meteors.Count > 0)
             {
-                float distanceToEnemy = Vector3.Distance(transform.position, meteor.transform.position);
-                //Debug.Log("Meteor found - Distance is : " + distanceToEnemy);
-                if (distanceToEnemy < shortestDistance)
+                int priority = EnemiesManager.instance.meteorPriority;
+                if(priority > maxPriorityFound)
                 {
-                    shortestDistance = distanceToEnemy;
-                    nearestEnemy = meteor;
+                    shortestDistance = Mathf.Infinity;
+                    nearestEnemy = null;
+                    maxPriorityFound = priority;
+                    foreach (GameObject meteor in meteors)      
+                    {
+                        float distanceToEnemy = Vector3.Distance(transform.position, meteor.transform.position);
+                        //Debug.Log("Meteor found - Distance is : " + distanceToEnemy);
+                        if (distanceToEnemy < shortestDistance)
+                        {
+                            shortestDistance = distanceToEnemy;
+                            nearestEnemy = meteor;
+                        }
+                    }
                 }
             }
 
-            foreach (GameObject enemy in EnemiesManager.instance.enemies)       // Search for enemies (spaceships, ...)
+            // Search for enemies (spaceships, ...)
+            //Debug.Log("Number of enemy spaceships: " + EnemiesManager.instance.enemies.Count);
+            if (EnemiesManager.instance.enemies.Count > 0)
             {
-                float distanceToEnemy = Vector3.Distance(transform.position, enemy.transform.position);
-                if (distanceToEnemy < shortestDistance /* Temporary */ && enemy.GetComponent<Spaceship>().isActivated)
+                int priority = EnemiesManager.instance.spaceshipsPriority;
+                if (priority > maxPriorityFound)
                 {
-                    shortestDistance = distanceToEnemy;
-                    nearestEnemy = enemy;
+                    shortestDistance = Mathf.Infinity;
+                    nearestEnemy = null;
+                    foreach (GameObject enemy in enemies)       
+                    {
+                        float distanceToEnemy = Vector3.Distance(transform.position, enemy.transform.position);
+                        if (distanceToEnemy < shortestDistance /* Temporary */ && enemy.GetComponent<Spaceship>().isActivated)
+                        {
+                            shortestDistance = distanceToEnemy;
+                            nearestEnemy = enemy;
+                        }
+                    }
                 }
             }
 
@@ -140,5 +164,12 @@ public class AlliedSpaceship : Spaceship {
                 }
             }
         }
+    }
+
+    protected override void DestroySpaceship()
+    {
+        Debug.Log("Allied Spaceship has been destroyed !");
+        // temporary
+        isActivated = false;
     }
 }

@@ -10,7 +10,7 @@ public class BuildingManager : MonoBehaviour {
         if (instance != null){ Debug.LogError("More than one BuildingManager in scene !"); return; } instance = this;
     }
 
-    public enum BuildingState { Default, BuildingSelected, LocationSelected, Building }
+    public enum BuildingState { Default, BuildingSelected, LocationSelected, BuildingAndLocationSelected, Building }
 
     public BuildingState buildingState;
 
@@ -32,6 +32,7 @@ public class BuildingManager : MonoBehaviour {
     public GameObject shockSatellitePrefab;
     public GameObject debrisCollectorStationPrefab;
     public GameObject satelliteSolarStationPrefab;
+    public GameObject healingTurretPrefab;
 
     void Start()
     {   
@@ -70,14 +71,22 @@ public class BuildingManager : MonoBehaviour {
         availableBuildings.Add(new BuildingType("Solar Station", satelliteSolarStationPrefab, 0f, new List<ResourcesManager.ResourceAmount>(){
                                                                                         },
                                                 BuildingType.BuildingLocationType.Disks, "solar_station"));
+        availableBuildings.Add(new BuildingType("Healing Turret", healingTurretPrefab, 15f, new List<ResourcesManager.ResourceAmount>(){
+                                                                                        },
+                                                BuildingType.BuildingLocationType.Planet));
     }
 
     public void SelectBuilding(BuildingType bType)
     {
-        if(buildingState == BuildingState.Default || buildingState == BuildingState.BuildingSelected)
+        if(buildingState == BuildingState.Default || buildingState == BuildingState.BuildingSelected || buildingState == BuildingState.LocationSelected || buildingState == BuildingState.BuildingAndLocationSelected)
         {
             selectedBuilding = bType;
-            buildingState = BuildingState.BuildingSelected;
+            if (buildingState == BuildingState.Default){
+                buildingState = BuildingState.BuildingSelected;
+            }
+            else if (buildingState == BuildingState.LocationSelected) {
+                buildingState = BuildingState.BuildingAndLocationSelected;
+            }
             //DebugManager.instance.DisplayBuildingState();
             ShowCancelButton();
         }
@@ -90,7 +99,8 @@ public class BuildingManager : MonoBehaviour {
 
     public void CancelButton()
     {
-        if(buildingState == BuildingState.BuildingSelected || buildingState == BuildingState.LocationSelected)
+        if(buildingState == BuildingState.BuildingSelected || buildingState == BuildingState.LocationSelected
+            || buildingState == BuildingState.BuildingAndLocationSelected)
         {
             buildingState = BuildingState.Default;
 
@@ -107,7 +117,7 @@ public class BuildingManager : MonoBehaviour {
 
     public void BuildButton()
     {
-        if (buildingState == BuildingState.LocationSelected)
+        if (buildingState == BuildingState.LocationSelected || buildingState == BuildingState.BuildingAndLocationSelected)
         {
             if (chosenBuildingSlot.GetComponent<BuildingSlot>().CanBuildHere())
             {
@@ -121,6 +131,7 @@ public class BuildingManager : MonoBehaviour {
                     HideBuildButton();
                     mainPlanet.GetComponent<MainPlanet>().ResetAllBuildingSlotsColor();
                     SurroundingAreasManager.instance.ResetAllSatelliteBuildingSlotsColor();
+                    ShopPanel.instance.ResetLastShopItemSelected();
                     Debug.Log("Building Placed | Leaving Building State.");
                 }
             }
@@ -178,7 +189,15 @@ public class BuildingManager : MonoBehaviour {
         // Preview
         DisplayBuildingPreview();
 
-        buildingState = BuildingState.LocationSelected;
+        if(buildingState == BuildingState.BuildingSelected)
+        {
+            buildingState = BuildingState.BuildingAndLocationSelected;
+        }
+        else
+        {
+            Debug.Log("Building State error...");
+        }
+
         //DebugManager.instance.DisplayBuildingState();
         ShopPanel.instance.ShowBuildButton();
     }
@@ -208,25 +227,28 @@ public class BuildingManager : MonoBehaviour {
 
     public void BuildBuilding()
     {
-        float buildingSpotAngle = GeometryManager.instance.RadiansToDegrees(chosenBuildingSlot.GetComponent<BuildingSlot>().angle);
-        Vector3 instantiationPosition = chosenBuildingSlot.transform.position;
-        // Instantiate satellite slighly in front of building slot
-        if (selectedBuilding.buildingLocationType == BuildingType.BuildingLocationType.Disks)
+        if(selectedBuilding != null)
         {
-            instantiationPosition += new Vector3(0f,0f,-10f);
-        }
-        GameObject instantiatedBuilding = Instantiate(selectedBuilding.prefab, instantiationPosition, Quaternion.Euler(0f,0f, buildingSpotAngle));
-        buildingList.Add(instantiatedBuilding);
-        instantiatedBuilding.GetComponent<Building>().buildingType = selectedBuilding;
-        instantiatedBuilding.GetComponent<Building>().buildingSpotAngle = buildingSpotAngle;
-        chosenBuildingSlot.GetComponent<BuildingSlot>().SetBuilding(laserTurretPrefab.GetComponent<LaserTurret>());
-        instantiatedBuilding.transform.SetParent(chosenBuildingSlot.transform);
-        Debug.Log("New building instantiated !");
+            float buildingSpotAngle = GeometryManager.instance.RadiansToDegrees(chosenBuildingSlot.GetComponent<BuildingSlot>().angle);
+            Vector3 instantiationPosition = chosenBuildingSlot.transform.position;
+            // Instantiate satellite slighly in front of building slot
+            if (selectedBuilding.buildingLocationType == BuildingType.BuildingLocationType.Disks)
+            {
+                instantiationPosition += new Vector3(0f, 0f, -10f);
+            }
+            GameObject instantiatedBuilding = Instantiate(selectedBuilding.prefab, instantiationPosition, Quaternion.Euler(0f, 0f, buildingSpotAngle));
+            buildingList.Add(instantiatedBuilding);
+            instantiatedBuilding.GetComponent<Building>().buildingType = selectedBuilding;
+            instantiatedBuilding.GetComponent<Building>().buildingSpotAngle = buildingSpotAngle;
+            chosenBuildingSlot.GetComponent<BuildingSlot>().SetBuilding(laserTurretPrefab.GetComponent<LaserTurret>());
+            instantiatedBuilding.transform.SetParent(chosenBuildingSlot.transform);
+            Debug.Log("New building instantiated !");
 
-        EnergyPanel.instance.UpdateEnergyNeedsDisplay();
+            EnergyPanel.instance.UpdateEnergyNeedsDisplay();
 
-        // Distribute the available energy across all buildings
-        EnergyPanel.instance.DistributeEnergy();
+            // Distribute the available energy across all buildings
+            EnergyPanel.instance.DistributeEnergy();
+        }     
     }
 
 
@@ -249,7 +271,7 @@ public class BuildingManager : MonoBehaviour {
 
         // TODO : Maybe these things have nothing to do here ? Put these info in the gameObject script instead ?
         public List<ResourcesManager.ResourceAmount> resourceCosts;
-        public float requiredEnergy;
+        public float requiredEnergy = 0;
 
         public enum BuildingLocationType {Planet, Disks};
         public BuildingLocationType buildingLocationType;

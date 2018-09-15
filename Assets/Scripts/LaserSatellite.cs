@@ -30,12 +30,12 @@ public class LaserSatellite : Turret {
         {
 
             LineRenderer lineRenderer = gameObject.GetComponent<LineRenderer>();
-            if (meteorTarget != null)
+            if (target != null)
             {
                 lineRenderer.enabled = true;
-                GameObject target = meteorTarget;
+                GameObject chosenTarget = target;
                 lineRenderer.SetPosition(0, transform.position);
-                lineRenderer.SetPosition(1, target.transform.position);
+                lineRenderer.SetPosition(1, chosenTarget.transform.position);
 
                 DealDamageToMeteorTarget();
             }

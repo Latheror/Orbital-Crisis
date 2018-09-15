@@ -29,12 +29,12 @@ public class FreezingTurret : Turret {
             RotateCanonTowardsTarget();
 
             LineRenderer lineRenderer = gameObject.GetComponent<LineRenderer>();
-            if(meteorTarget != null)
+            if(target != null)
             {
                 lineRenderer.enabled = true;
-                GameObject target = meteorTarget;
+                GameObject chosenTarget = target;
                 lineRenderer.SetPosition(0, shootingPoint.transform.position);
-                lineRenderer.SetPosition(1, target.transform.position);
+                lineRenderer.SetPosition(1, chosenTarget.transform.position);
                 SlowDownTarget();
                 SetFreezingMaterial();
             }
@@ -52,11 +52,11 @@ public class FreezingTurret : Turret {
 
     public void SlowDownTarget()
     {
-        meteorTarget.GetComponent<Meteor>().Freeze(freezingFactor);
+        target.GetComponent<Meteor>().Freeze(freezingFactor);
     }
 
     public void SetFreezingMaterial()
     {
-        meteorTarget.GetComponent<Renderer>().material = frozenMeteorMaterial;
+        target.GetComponent<Renderer>().material = frozenMeteorMaterial;
     }
 }

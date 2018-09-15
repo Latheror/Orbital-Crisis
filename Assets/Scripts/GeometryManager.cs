@@ -10,6 +10,7 @@ public class GeometryManager : MonoBehaviour {
     }
 
     public GameObject mainPlanet;
+    public float circleFactor = 100f;
 
     // Angle in radians
     public static float GetRadAngleFromXY(float x, float y)
@@ -98,6 +99,27 @@ public class GeometryManager : MonoBehaviour {
         return intersectPointPos;
     }
 
+    public Vector3 GetLocationFromTouchPointOnPlanetPlaneWithOffset(Vector3 touchPos)
+    {
+        //Debug.Log("GetLocationFromTouchPointOnPlanetPlane | TouchPos: " + touchPos);
+
+        Ray ray = Camera.main.ScreenPointToRay(touchPos);
+
+        Plane planetPlane = new Plane(Vector3.forward, mainPlanet.transform.position);
+        float distance = 0;
+        Vector3 intersectPointPos = new Vector3(0f, 0f, 0f);
+
+        if (planetPlane.Raycast(ray, out distance))
+        {
+            intersectPointPos = ray.GetPoint(distance);
+        }
+
+        //Debug.Log("GetLocationFromTouchPointOnPlanetPlane | IntersectPointPos: " + intersectPointPos);
+        intersectPointPos = new Vector3(intersectPointPos.x, intersectPointPos.y, intersectPointPos.z - 50);
+
+        return intersectPointPos;
+    }
+
     public bool IsTouchWithinSpaceshipInfoPanelArea(Vector3 touchPos)
     {
         float touchPosX = touchPos.x;
@@ -113,6 +135,14 @@ public class GeometryManager : MonoBehaviour {
 
 
         return ((touchPosX >= (infoPanelLeftBorder - margin)) && (touchPosX <= (infoPanelRightBorder + margin)) && (touchPosY >= (infoPanelBottomBorder - margin)) && (touchPosY <= (infoPanelTopBorder + margin)));
+    }
+
+    public Vector3 RandomSpawnPosition()
+    {
+        Vector2 randomCirclePos = Random.insideUnitCircle.normalized;
+        Vector3 pos = new Vector3(randomCirclePos.x * circleFactor, randomCirclePos.y * circleFactor, GameManager.instance.objectsDepthOffset);
+
+        return pos;
     }
 
 }

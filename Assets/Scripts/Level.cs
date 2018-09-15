@@ -2,12 +2,14 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+[System.Serializable]
 public class Level {
 
 
     public int levelNb = 0;
     public string levelName = "level";
     public EnemyWave enemyWave;
+    public List<GameObject> enemies;
     // Temporary
     public int levelMeteorsNb = 0;
     public int destroyedMeteorsNb = 0;
@@ -27,11 +29,12 @@ public class Level {
 	}
 
 
-    public Level(int number, string name, int meteorsNb)
+    public Level(int number, string name, int meteorsNb, List<GameObject> enemies)
     {
         this.levelNb = number;
         this.levelName = name;
         this.levelMeteorsNb = meteorsNb;
+        this.enemies = enemies;
     }
 
     // Returns true if level is completed

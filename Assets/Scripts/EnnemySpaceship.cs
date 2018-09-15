@@ -65,4 +65,12 @@ public class EnnemySpaceship : Spaceship {
             }
         }
     }
+
+    protected override void DestroySpaceship()
+    {
+        Debug.Log("Enemy Spaceship has been destroyed !");
+        // temporary
+        isActivated = false;
+        EnemiesManager.instance.enemies.Remove(gameObject);
+    }
 }

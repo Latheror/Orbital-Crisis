@@ -12,6 +12,7 @@ public class TouchManager : MonoBehaviour {
     public float maxFieldOfView = 100;
     public GameObject topPanel;
     public GameObject bottomPanel;
+    public float avoidPanelsMargin = 10f;
 
     public Camera camera;
 
@@ -47,7 +48,8 @@ public class TouchManager : MonoBehaviour {
             {
                 lastTouch = touch1Pos;
 
-                if(BuildingManager.instance.buildingState == BuildingManager.BuildingState.BuildingSelected || BuildingManager.instance.buildingState == BuildingManager.BuildingState.LocationSelected)
+                if(BuildingManager.instance.buildingState == BuildingManager.BuildingState.BuildingSelected || BuildingManager.instance.buildingState == BuildingManager.BuildingState.LocationSelected 
+                    || BuildingManager.instance.buildingState == BuildingManager.BuildingState.BuildingAndLocationSelected)
                 {
                     // The touch is not on the menu panels
                     if(IsTouchWithinGameArea(lastTouch))
@@ -57,10 +59,9 @@ public class TouchManager : MonoBehaviour {
                         //BuildingManager.instance.DisplayBuildingPreview();
                     }
                 }
-                else if(BuildingManager.instance.buildingState == BuildingManager.BuildingState.Default)
+                else if(BuildingManager.instance.buildingState == BuildingManager.BuildingState.Default)    // Touching while in default state
                 {
-                    // Touching while in default state
-                    if(IsTouchWithinGameArea(lastTouch))
+                    if (IsTouchWithinGameArea(lastTouch))
                     {
                         //Debug.Log("1 Touch during default state.");
                         if (GameManager.instance.selectionState == GameManager.SelectionState.SpaceShipSelected)
@@ -162,11 +163,11 @@ public class TouchManager : MonoBehaviour {
 
     public bool IsTouchWithinGameArea(Vector3 touchPos)
     {
-        Debug.Log("Touchpos Y: " + touchPos.y);
-        Debug.Log("TopPanel Height: " + topPanel.GetComponent<RectTransform>().sizeDelta.y);
-        Debug.Log("BottomPanel Height: " + bottomPanel.GetComponent<RectTransform>().sizeDelta.y);
-        Debug.Log("Screen Hight: " + Screen.height);
-        return (((touchPos.y) >= bottomPanel.GetComponent<RectTransform>().sizeDelta.y)) && ((touchPos.y) <= (Screen.height - topPanel.GetComponent<RectTransform>().sizeDelta.y));
+        //Debug.Log("Touchpos Y: " + touchPos.y);
+        //Debug.Log("TopPanel Height: " + topPanel.GetComponent<RectTransform>().sizeDelta.y);
+        //Debug.Log("BottomPanel Height: " + bottomPanel.GetComponent<RectTransform>().sizeDelta.y);
+        //Debug.Log("Screen Hight: " + Screen.height);
+        return (((touchPos.y) >= bottomPanel.GetComponent<RectTransform>().sizeDelta.y + avoidPanelsMargin)) && ((touchPos.y) <= (Screen.height - topPanel.GetComponent<RectTransform>().sizeDelta.y - avoidPanelsMargin));
     }
 
 

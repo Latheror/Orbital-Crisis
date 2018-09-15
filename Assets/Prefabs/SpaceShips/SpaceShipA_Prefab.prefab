@@ -1454,7 +1454,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d751eb8ed452bed4c9b8fe4ad4461e38, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Camera: {fileID: 0}
+  m_Camera: {fileID: 20931230059158664, guid: 5e85257f523c7bf40bc2b9606daa188f, type: 2}
 --- !u!114 &114254515293597414
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1644,6 +1644,7 @@ MonoBehaviour:
   isInAutomaticMode: 0
   selected: 0
   isAllied: 0
+  maxHealth: 100
   health: 100
   movementSpeed: 100
   rotationSpeed: 50
@@ -1665,6 +1666,8 @@ MonoBehaviour:
   infoPanel: {fileID: 1453538719181516}
   infoPanelModeText: {fileID: 114053848756016312}
   infoPanelModeButton: {fileID: 1016162414298250}
+  healthBarPanel: {fileID: 0}
+  healthPointsBar: {fileID: 0}
   infoPanelAutoModeColor: {r: 0, g: 1, b: 0, a: 1}
   infoPanelManualModeColor: {r: 1, g: 0, b: 0, a: 1}
 --- !u!114 &114467134645749316

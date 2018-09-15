@@ -178,6 +178,12 @@ public class Spaceship : MonoBehaviour {
         }
     }
 
+    public void Heal(float healingPower)
+    {
+        health = Mathf.Min(maxHealth, health + healingPower);
+        UpdateHealthBar();
+    }
+
     protected void UpdateHealthBar()
     {
         if(healthBarPanel != null && healthPointsBar != null)
@@ -192,13 +198,7 @@ public class Spaceship : MonoBehaviour {
         }
     }
 
-    protected void DestroySpaceship()
-    {
-        Debug.Log("Spaceship has been destroyed !");
-
-        // temporary
-        isActivated = false;
-    }
+    protected virtual void DestroySpaceship() { }
 
     // Not used anymore
     private void SetLasersPositions(Vector3 pos11, Vector3 pos12, Vector3 pos21, Vector3 pos22)

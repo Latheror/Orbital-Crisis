@@ -11,7 +11,15 @@ public class EnemiesManager : MonoBehaviour {
         instance = this;
     }
 
-    public GameObject[] enemies;
+    public List<GameObject> enemies;
+
+    public int meteorPriority = 1;
+    public int spaceshipsPriority = 2;
+
+    [Header("Enemies")]
+    public GameObject ennemySpaceship_1;
+
+
 
     // Use this for initialization
     void Start () {

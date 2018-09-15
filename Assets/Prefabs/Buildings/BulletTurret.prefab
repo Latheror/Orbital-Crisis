@@ -205,7 +205,6 @@ MeshRenderer:
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
-  m_RenderingLayerMask: 4294967295
   m_Materials:
   - {fileID: 2100000, guid: 5110a534ca5f0d04fbb421193cb7e612, type: 3}
   - {fileID: 2100002, guid: 5110a534ca5f0d04fbb421193cb7e612, type: 3}
@@ -245,7 +244,6 @@ MeshRenderer:
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
-  m_RenderingLayerMask: 4294967295
   m_Materials:
   - {fileID: 2100002, guid: 5110a534ca5f0d04fbb421193cb7e612, type: 3}
   - {fileID: 2100014, guid: 5110a534ca5f0d04fbb421193cb7e612, type: 3}
@@ -284,7 +282,6 @@ MeshRenderer:
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
-  m_RenderingLayerMask: 4294967295
   m_Materials:
   - {fileID: 2100012, guid: 5110a534ca5f0d04fbb421193cb7e612, type: 3}
   - {fileID: 2100008, guid: 5110a534ca5f0d04fbb421193cb7e612, type: 3}
@@ -346,7 +343,6 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!114 &114059324310045668
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -373,11 +369,13 @@ MonoBehaviour:
   hasEnoughEnergy: 0
   buildingSpotAngle: 0
   buildingLocationType: 0
+  offensiveTurret: 1
   previousTarget: {fileID: 0}
-  meteorTarget: {fileID: 0}
+  target: {fileID: 0}
   range: 100
   meteorTag: 
   power: 5
+  healingPower: 0
   hasAngleRange: 1
   angleRange: 4
   turretBase: {fileID: 1226970034198588}

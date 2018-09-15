@@ -4,12 +4,16 @@ using UnityEngine;
 
 public class Turret : Building {
 
+    [Header("General")]
+    public bool offensiveTurret = true;
+
     [Header("Target")]
     public GameObject previousTarget;
-    public GameObject meteorTarget;
+    public GameObject target;
     public float range = 100f;
     public string meteorTag = "meteor";
     public float power = 1f;
+    public float healingPower = 1f;
     public bool hasAngleRange = true;
     public float angleRange = 3f;
 
@@ -35,47 +39,67 @@ public class Turret : Building {
     public void UpdateTarget()
     {
         // Turrets only work if they have the required energy
+        target = null;
         if(hasEnoughEnergy)
         {
-            //Debug.Log("Laser Turret | Update target");
-            List<GameObject> meteors = MeteorsManager.instance.meteorsList;
-            float shortestDistance = Mathf.Infinity;
-            GameObject nearestEnemy = null;
-
-            foreach (GameObject meteor in meteors)
+            if(offensiveTurret) // Attack turret
             {
-                //Debug.Log("Meteor in meteors.");
-                //if (meteor.tag == meteorTag)
-                if (meteor.CompareTag("meteor"))
+                //Debug.Log("Laser Turret | Update target");
+                List<GameObject> meteors = MeteorsManager.instance.meteorsList;
+                float shortestDistance = Mathf.Infinity;
+                GameObject nearestEnemy = null;
+
+                foreach (GameObject meteor in meteors)
                 {
-                    //Debug.Log("Meteor has meteor tag");
                     float distanceToEnemy = Vector3.Distance(transform.position, meteor.transform.position);
                     //Debug.Log("Meteor found - Distance is : " + distanceToEnemy);
-                    if (distanceToEnemy < shortestDistance && CanReachMeteor(meteor))
+                    if (distanceToEnemy < shortestDistance && CanReachTarget(meteor))
                     {
                         shortestDistance = distanceToEnemy;
                         nearestEnemy = meteor;
                     }
                 }
-                else
+
+                if (nearestEnemy != null)
                 {
-                    Debug.Log("Error : Meteor doesn't have Meteor tag ! | Meteor has \"" + meteor.tag.ToString() + "\" tag.");
+                    if (target != previousTarget)
+                    {
+                        if (previousTarget != null)
+                        {
+                            previousTarget.GetComponent<Meteor>().ResetMeteorSettings();
+                        }
+                        previousTarget = target;
+                    }
+
+                    target = nearestEnemy;
+                    Debug.Log("New meteor target set: " + target + " - Distance is: " + shortestDistance);
                 }
             }
-
-            if (nearestEnemy != null)
+            else    // Support turret (healing, ...)
             {
-                if(meteorTarget != previousTarget)
+                List<GameObject> allieds = SpaceshipManager.instance.alliedSpaceships;
+                float shortestDistance = Mathf.Infinity;
+                GameObject nearestAlly = null;
+
+                foreach (GameObject ally in allieds)
                 {
-                    if(previousTarget != null)
+                    float distanceToAlly = Vector3.Distance(transform.position, ally.transform.position);
+                    if (distanceToAlly < shortestDistance && CanReachTarget(ally))
                     {
-                        previousTarget.GetComponent<Meteor>().ResetMeteorSettings();
+                        shortestDistance = distanceToAlly;
+                        nearestAlly = ally;
                     }
-                    previousTarget = meteorTarget;
                 }
 
-                meteorTarget = nearestEnemy;
-                Debug.Log("New meteor target set: " + meteorTarget + " - Distance is: " + shortestDistance);
+                if (nearestAlly != null)
+                {
+                    if (target != previousTarget)
+                    {
+                        previousTarget = target;
+                    }
+                    target = nearestAlly;
+                    Debug.Log("New allied target set: " + target + " - Distance is: " + shortestDistance);
+                }
             }
         }
         else
@@ -86,23 +110,23 @@ public class Turret : Building {
 
 
     // Turrets shouldn't be able to shoot through the planet !
-    public bool CanReachMeteor(GameObject meteor)
+    public bool CanReachTarget(GameObject target)
     {
         bool canReach = false;
 
         if(hasAngleRange == true)
         {
-            float meteorAngle = GeometryManager.GetRadAngleFromXY(meteor.transform.position.x, meteor.transform.position.y);
+            float targetAngle = GeometryManager.GetRadAngleFromXY(target.transform.position.x, target.transform.position.y);
             float turretAngle = GeometryManager.GetRadAngleFromXY(transform.position.x, transform.position.y);
 
-            //Debug.Log("CanReachMeteor | meteorAngle: " + meteorAngle + " | turretAngle: " + turretAngle);
+            Debug.Log("CanReachMeteor | meteorAngle: " + targetAngle + " | turretAngle: " + turretAngle);
 
             float upperLimitAngle = GeometryManager.instance.NormalizeRadianAngle(turretAngle + angleRange / 2);
             float lowerLimitAngle = GeometryManager.instance.NormalizeRadianAngle(turretAngle - angleRange / 2);
 
             //Debug.Log("CanReachMeteor | upperLimitAngle: " + upperLimitAngle + " | lowerLimitAngle: " + lowerLimitAngle);
 
-            canReach =  GeometryManager.instance.IsAngleInRange(turretAngle, angleRange, meteorAngle);
+            canReach =  GeometryManager.instance.IsAngleInRange(turretAngle, angleRange, targetAngle);
         }
         else
         {
@@ -115,17 +139,30 @@ public class Turret : Building {
     public void DealDamageToMeteorTarget()
     {
         //Debug.Log("Dealing damage to meteor");
-        meteorTarget.GetComponent<Meteor>().DealDamage(power);
+        target.GetComponent<Meteor>().DealDamage(power);
+    }
+
+    public void HealTarget()
+    {
+        Debug.Log("Healing ally.");
+        if(!offensiveTurret)
+        {
+            target.GetComponent<Spaceship>().Heal(healingPower);
+        }
+        else
+        {
+            Debug.Log("Can't heal ally. Turret is in offensive mode.");
+        }
     }
 
     protected void RotateCanonTowardsTarget()
     {
-        if(meteorTarget != null)
+        if(target != null)
         {
             float canonX = turretHead.transform.position.x;
-            float targetX = meteorTarget.transform.position.x;
+            float targetX = target.transform.position.x;
             float canonY = turretHead.transform.position.y;
-            float targetY = meteorTarget.transform.position.y;
+            float targetY = target.transform.position.y;
 
             float deltaX = targetX - canonX;
             float deltaY = targetY - canonY;
