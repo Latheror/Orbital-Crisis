@@ -12,6 +12,7 @@ public class EnemiesManager : MonoBehaviour {
     }
 
     public List<GameObject> enemies;
+    public List<GameObject> enemyWrecks;
 
     public int meteorPriority = 1;
     public int spaceshipsPriority = 2;

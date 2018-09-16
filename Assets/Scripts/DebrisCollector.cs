@@ -26,7 +26,7 @@ public class DebrisCollector : MonoBehaviour {
 
     public void UpdateTarget()
     {
-        if(DebrisManager.instance.debrisList.Count > 0 /*&& (! debrisIsBeingCollected)*/)
+        if(DebrisManager.instance.debrisList.Count > 0 || EnemiesManager.instance.enemyWrecks.Count > 0)
         {
             // DEBUG
             if(debrisIsBeingCollected && (debrisTarget == null))
@@ -37,13 +37,28 @@ public class DebrisCollector : MonoBehaviour {
             float minDistance = Mathf.Infinity;
             GameObject closestDesbris = null;
 
-            foreach (var debris in DebrisManager.instance.debrisList)
+            if(DebrisManager.instance.debrisList.Count > 0)
             {
-                float distance = Vector3.Distance(transform.position, debris.transform.position);
-                if(distance < minDistance)
+                foreach (var debris in DebrisManager.instance.debrisList)
                 {
-                    minDistance = distance;
-                    closestDesbris = debris;
+                    float distance = Vector3.Distance(transform.position, debris.transform.position);
+                    if (distance < minDistance)
+                    {
+                        minDistance = distance;
+                        closestDesbris = debris;
+                    }
+                }
+            }
+            if (EnemiesManager.instance.enemyWrecks.Count > 0)
+            {
+                foreach (var wreck in EnemiesManager.instance.enemyWrecks)
+                {
+                    float distance = Vector3.Distance(transform.position, wreck.transform.position);
+                    if (distance < minDistance)
+                    {
+                        minDistance = distance;
+                        closestDesbris = wreck;
+                    }
                 }
             }
 
@@ -110,8 +125,25 @@ public class DebrisCollector : MonoBehaviour {
             yield return new WaitForSeconds(2.0f);
             if(debrisTarget != null)
             {
-                debrisTarget.GetComponent<Debris>().Collect();
+                Debris debris = debrisTarget.GetComponent<Debris>();
+                if(debris != null)
+                {
+                    debris.Collect();
+                }
+                else
+                {
+                    EnemySpaceship enemySpaceship = debrisTarget.GetComponent<EnemySpaceship>();
+                    if (enemySpaceship != null)
+                    {
+                        enemySpaceship.Collect();
+                    }
+                    else
+                    {
+                        Debug.Log("Debris collection error : type of debris unknown !");
+                    }
+                }  
             }
+
             debrisIsBeingCollected = false;
             //Debug.Log("Debris collection ended.");
             debrisTarget = null;

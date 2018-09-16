@@ -6763,7 +6763,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1045219338
 RectTransform:
   m_ObjectHideFlags: 0
@@ -8026,6 +8026,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemies: []
+  enemyWrecks: []
   meteorPriority: 1
   spaceshipsPriority: 2
   ennemySpaceship_1: {fileID: 1614904646610984, guid: 517d69836ba319a4db86f399039bb04a,

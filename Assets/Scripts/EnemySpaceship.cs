@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnnemySpaceship : Spaceship {
+public class EnemySpaceship : Spaceship {
 
 	// Use this for initialization
 	void Start () {
@@ -71,6 +71,20 @@ public class EnnemySpaceship : Spaceship {
         Debug.Log("Enemy Spaceship has been destroyed !");
         isActivated = false; // temporary
         healthBarPanel.SetActive(false);
+        EnemiesManager.instance.enemyWrecks.Add(gameObject);
         EnemiesManager.instance.enemies.Remove(gameObject);
+    }
+
+    public void Collect()
+    {
+        if(!isActivated)
+        {
+            EnemiesManager.instance.enemyWrecks.Remove(gameObject);
+            Destroy(gameObject);
+        }
+        else
+        {
+            Debug.Log("Error: Trying to collect a spaceship which is still activated !");
+        }
     }
 }
