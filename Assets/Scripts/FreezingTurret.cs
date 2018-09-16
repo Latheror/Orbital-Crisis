@@ -45,7 +45,7 @@ public class FreezingTurret : Turret {
         }
         else
         {
-            Debug.Log("Turret doesn't have enough energy !");
+            //Debug.Log("Turret doesn't have enough energy !");
         }
 
     }

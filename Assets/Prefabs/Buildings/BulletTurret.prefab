@@ -382,6 +382,6 @@ MonoBehaviour:
   turretBody: {fileID: 1400877253521842}
   turretHead: {fileID: 1375225316496828}
   shootingPoint: {fileID: 1576620320064892}
-  bulletPrefab: {fileID: 1924764447523708, guid: 11c7f59d43ee3804f9f0e43a36c0e4d4,
+  bulletPrefab: {fileID: 1102555780590952, guid: a099074c57348c24a93e804b74680834,
     type: 2}
   bulletSpeed: 5

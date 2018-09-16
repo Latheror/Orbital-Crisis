@@ -93,13 +93,13 @@ public class Meteor : MonoBehaviour {
         if(willLetDebris)
         {
             SpawnDebris();
-            Debug.Log("A meteor has exploded into debris !");
+            //Debug.Log("A meteor has exploded into debris !");
             MeteorsManager.instance.DeleteMeteor(this.gameObject);
         }
         else
         {
             // The meteor have been destroyed
-            Debug.Log("A meteor has been destroyed !");
+            //Debug.Log("A meteor has been destroyed !");
             MeteorsManager.instance.DeleteMeteor(this.gameObject);
             MeteorsManager.instance.MeteorDestroyed(this);
         }

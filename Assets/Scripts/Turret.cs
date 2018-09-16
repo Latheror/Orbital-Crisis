@@ -72,7 +72,7 @@ public class Turret : Building {
                     }
 
                     target = nearestEnemy;
-                    Debug.Log("New meteor target set: " + target + " - Distance is: " + shortestDistance);
+                    //Debug.Log("New meteor target set: " + target + " - Distance is: " + shortestDistance);
                 }
             }
             else    // Support turret (healing, ...)
@@ -98,7 +98,7 @@ public class Turret : Building {
                         previousTarget = target;
                     }
                     target = nearestAlly;
-                    Debug.Log("New allied target set: " + target + " - Distance is: " + shortestDistance);
+                    //Debug.Log("New allied target set: " + target + " - Distance is: " + shortestDistance);
                 }
             }
         }
@@ -119,7 +119,7 @@ public class Turret : Building {
             float targetAngle = GeometryManager.GetRadAngleFromXY(target.transform.position.x, target.transform.position.y);
             float turretAngle = GeometryManager.GetRadAngleFromXY(transform.position.x, transform.position.y);
 
-            Debug.Log("CanReachMeteor | meteorAngle: " + targetAngle + " | turretAngle: " + turretAngle);
+            //Debug.Log("CanReachMeteor | meteorAngle: " + targetAngle + " | turretAngle: " + turretAngle);
 
             float upperLimitAngle = GeometryManager.instance.NormalizeRadianAngle(turretAngle + angleRange / 2);
             float lowerLimitAngle = GeometryManager.instance.NormalizeRadianAngle(turretAngle - angleRange / 2);

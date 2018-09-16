@@ -209,7 +209,7 @@ public class LevelManager : MonoBehaviour {
             StopCurrentLevel();
             nextLevelButton.SetActive(true);
             remainingEnnemiesPanel.SetActive(false);
-            Debug.Log("All meteors have been destroyed !");
+            Debug.Log("All meteors have been spawned !");
         }
     }
 

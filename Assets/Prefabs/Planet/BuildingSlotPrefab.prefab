@@ -55,7 +55,6 @@ MeshRenderer:
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
-  m_RenderingLayerMask: 4294967295
   m_Materials:
   - {fileID: 2100000, guid: f7b5833233804cd40b7b6f09170badc2, type: 2}
   m_StaticBatchInfo:
@@ -97,4 +96,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   attachedBuilding: {fileID: 0}
   defaultColor: {r: 0, g: 0, b: 0, a: 0}
-  selectionColor: {r: 1, g: 1, b: 1, a: 1}
+  selectionColor: {r: 0, g: 1, b: 0, a: 1}
+  angle: 0
+  hasBuilding: 0

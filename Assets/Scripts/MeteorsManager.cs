@@ -32,13 +32,8 @@ public class MeteorsManager : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        RotateMeteorTestAroundPlanet();
-	}
 
-    public void RotateMeteorTestAroundPlanet()
-    {
-        meteorTest.transform.RotateAround(mainPlanet.transform.position, Vector3.forward, rotationSpeed * Time.deltaTime);
-    }
+	}
 
     public void SpawnNewMeteor()
     {

@@ -16,7 +16,6 @@ public class Building : MonoBehaviour {
     public enum BuildingLocationType {Planet, Disks};
     public BuildingLocationType buildingLocationType;
 
-
     public Building(string name)
     {
         this.buildingName = name;
