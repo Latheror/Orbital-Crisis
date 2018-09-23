@@ -54,7 +54,7 @@ public class BuildingManager : MonoBehaviour {
                                                 BuildingType.BuildingLocationType.Planet, "freezing_turret"));
         availableBuildings.Add(new BuildingType("Power Plant", powerPlantPrefab, 0f, new List<ResourcesManager.ResourceAmount>(){
                                                                                         },
-                                                BuildingType.BuildingLocationType.Planet));
+                                                BuildingType.BuildingLocationType.Planet, "power_plant"));
         availableBuildings.Add(new BuildingType("Mine Building", mineBuildingPrefab, 10f, new List<ResourcesManager.ResourceAmount>(){
                                                                                         },
                                                 BuildingType.BuildingLocationType.Planet));
@@ -63,7 +63,7 @@ public class BuildingManager : MonoBehaviour {
                                                 BuildingType.BuildingLocationType.Disks));
         availableBuildings.Add(new BuildingType("Shock Satellite", shockSatellitePrefab, 10f, new List<ResourcesManager.ResourceAmount>(){
                                                                                         },
-                                                BuildingType.BuildingLocationType.Disks));
+                                                BuildingType.BuildingLocationType.Disks, "shock_satellite"));
         availableBuildings.Add(new BuildingType("Debris Collector Station", debrisCollectorStationPrefab, 10f, new List<ResourcesManager.ResourceAmount>(){
                                                                                         },
                                                 BuildingType.BuildingLocationType.Disks));
