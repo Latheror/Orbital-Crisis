@@ -9,6 +9,8 @@ public class AlliedSpaceship : Spaceship {
         isAllied = true;
         target = null;
         isActivated = true;
+        manualDestination = transform.position;
+        manualDestinationReached = true;
         isInAutomaticMode = true;
         infoPanel.SetActive(false);
         SetStartingMode();

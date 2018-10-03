@@ -38,7 +38,21 @@ public class SpaceshipManager : MonoBehaviour {
 
     public void DeselectSpaceship()
     {
-        selectedSpaceship = null;
-        GameManager.instance.selectionState = GameManager.SelectionState.Default;
+        if (selectedSpaceship != null)
+        {
+            selectedSpaceship.GetComponent<Spaceship>().infoPanel.SetActive(false);
+            currentSelectedSpaceshipInfoPanel = null;
+            selectedSpaceship = null;
+            GameManager.instance.selectionState = GameManager.SelectionState.Default;
+        }
+    }
+
+    public void SetSelectionState(GameManager.SelectionState selectionState)
+    {
+        GameManager.instance.selectionState = selectionState;
+        if (selectionState == GameManager.SelectionState.Default)
+        {
+            DeselectSpaceship();
+        }
     }
 }

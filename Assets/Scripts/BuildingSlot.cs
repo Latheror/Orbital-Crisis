@@ -10,6 +10,7 @@ public class BuildingSlot : MonoBehaviour {
     public Color selectionColor;
     public float angle;
     public bool hasBuilding = false;
+    public BuildingManager.BuildingType.BuildingLocationType locationType;
 
 
     public void ChangeColor(Color color)

@@ -1,0 +1,189 @@
+fileFormatVersion: 2
+guid: cce55a41173c42a49aa27c4fffb886f9
+timeCreated: 1538598116
+licenseType: Free
+ModelImporter:
+  serializedVersion: 22
+  fileIDToRecycleName:
+    100000: Base
+    100002: Body
+    100004: Canon
+    100006: Cube
+    100008: //RootNode
+    400000: Base
+    400002: Body
+    400004: Canon
+    400006: Cube
+    400008: //RootNode
+    2300000: Base
+    2300002: Body
+    2300004: Canon
+    2300006: Cube
+    3300000: Base
+    3300002: Body
+    3300004: Canon
+    3300006: Cube
+    4300000: Cube
+    4300002: Canon
+    4300004: Body
+    4300006: Base
+    7400000: Default Take
+    9500000: //RootNode
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Axis
+    second: {fileID: 2100000, guid: d90d714928983dc4b91afdfad968c67a, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: AxisColor
+    second: {fileID: 2100000, guid: 9ed3ac634e2ca004da85ee2e6237d3d9, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: AxisOutside
+    second: {fileID: 2100000, guid: b553cfeb9b47daa4fbd9acb3e2384229, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: BaseGlow
+    second: {fileID: 2100000, guid: 51bbcdc964d44e24382256b8d692c9eb, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: BottleBorders
+    second: {fileID: 2100000, guid: 9180f9ebf09ac824185370e8a7e7e3df, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: BottleMat
+    second: {fileID: 2100000, guid: f143d3bd542d6f845ac92bcdc8a940d0, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: CanonBand
+    second: {fileID: 2100000, guid: 9898deca96071bb459887e6431b8d3fa, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: CanonBody
+    second: {fileID: 2100000, guid: 31adcd68a836034409c8ab5286b178b6, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: HeadSide
+    second: {fileID: 2100000, guid: 6d6ceb5f2f5e33b49b656b5b357d6cd9, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: LaserGlow
+    second: {fileID: 2100000, guid: e8830b148aef66d408cc767061acc9af, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Mat2
+    second: {fileID: 2100000, guid: 2f2a7b02dbcf00b45a6c16b3e396eaaa, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: MatCorners
+    second: {fileID: 2100000, guid: e4e34f68010569a499a4c5a0ad770c16, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: MatSurevelee
+    second: {fileID: 2100000, guid: 394a013e64942524d8db33f52a78484d, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: MiddlePartMat
+    second: {fileID: 2100000, guid: 7c23166525b14c64b90a38d59eacab08, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Ring
+    second: {fileID: 2100000, guid: 45827de5669672a449328b6ce10deed0, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: SideElements
+    second: {fileID: 2100000, guid: 406ee11bb45b15f47bdc1e8d6fd7ea2a, type: 2}
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+    materialLocation: 0
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    importAnimatedCustomProperties: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    extraUserProperties: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    importVisibility: 1
+    importBlendShapes: 1
+    importCameras: 1
+    importLights: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+    normalCalculationMode: 4
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    serializedVersion: 2
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    rootMotionBoneRotation: {x: 0, y: 0, z: 0, w: 1}
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 2
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

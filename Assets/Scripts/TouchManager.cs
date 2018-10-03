@@ -54,7 +54,7 @@ public class TouchManager : MonoBehaviour {
                     // The touch is not on the menu panels
                     if(IsTouchWithinGameArea(lastTouch))
                     {
-                        Debug.Log("Touching the screen while building prefab is selected | Displaying a building preview ");
+                        //Debug.Log("Touching the screen while building prefab is selected | Displaying a building preview ");
                         BuildingManager.instance.SelectBuildingLocation();
                         //BuildingManager.instance.DisplayBuildingPreview();
                     }
@@ -66,13 +66,13 @@ public class TouchManager : MonoBehaviour {
                         //Debug.Log("1 Touch during default state.");
                         if (GameManager.instance.selectionState == GameManager.SelectionState.SpaceShipSelected)
                         {
-                            if(SpaceshipManager.instance.selectedSpaceship != null)
+                            if(SpaceshipManager.instance.selectedSpaceship != null && !SpaceshipManager.instance.selectedSpaceship.GetComponent<Spaceship>().isInAutomaticMode)
                             {
                                 Vector3 destPos = GeometryManager.instance.GetLocationFromTouchPointOnPlanetPlane(lastTouch);
-                                if (! GeometryManager.instance.IsTouchWithinSpaceshipInfoPanelArea(destPos))
+                                if (! GeometryManager.instance.IsTouchWithinSpaceshipInfoPanelArea(lastTouch) && !GeometryManager.instance.IsTouchWithinSpaceshipInfoPanelArea(destPos))
                                 {
 
-                                    Debug.Log("DestPos: " + destPos);
+                                    Debug.Log("Setting Manual Destination | DestPos: " + destPos);
                                     SpaceshipManager.instance.selectedSpaceship.GetComponent<Spaceship>().SetManualDestination(destPos);
                                 }
                             }
@@ -163,11 +163,14 @@ public class TouchManager : MonoBehaviour {
 
     public bool IsTouchWithinGameArea(Vector3 touchPos)
     {
-        //Debug.Log("Touchpos Y: " + touchPos.y);
-        //Debug.Log("TopPanel Height: " + topPanel.GetComponent<RectTransform>().sizeDelta.y);
-        //Debug.Log("BottomPanel Height: " + bottomPanel.GetComponent<RectTransform>().sizeDelta.y);
-        //Debug.Log("Screen Hight: " + Screen.height);
-        return (((touchPos.y) >= bottomPanel.GetComponent<RectTransform>().sizeDelta.y + avoidPanelsMargin)) && ((touchPos.y) <= (Screen.height - topPanel.GetComponent<RectTransform>().sizeDelta.y - avoidPanelsMargin));
+        bool withinGameArea = false;
+        Debug.Log("Touchpos Y: " + touchPos.y);
+        Debug.Log("TopPanel Height: " + topPanel.GetComponent<RectTransform>().sizeDelta.y);
+        Debug.Log("BottomPanel Height: " + bottomPanel.GetComponent<RectTransform>().sizeDelta.y);
+        Debug.Log("Screen Hight: " + Screen.height);
+        withinGameArea = (((touchPos.y) >= bottomPanel.GetComponent<RectTransform>().sizeDelta.y + avoidPanelsMargin)) && ((touchPos.y) <= (Screen.height - topPanel.GetComponent<RectTransform>().sizeDelta.y - avoidPanelsMargin));
+        Debug.Log("Within Game Area : " + withinGameArea);
+        return withinGameArea;
     }
 
 

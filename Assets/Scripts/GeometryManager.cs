@@ -94,7 +94,8 @@ public class GeometryManager : MonoBehaviour {
             intersectPointPos = ray.GetPoint(distance);
         }
 
-        //Debug.Log("GetLocationFromTouchPointOnPlanetPlane | IntersectPointPos: " + intersectPointPos);
+        Debug.Log("GetLocationFromTouchPointOnPlanetPlane | IntersectPointPos: " + intersectPointPos);
+        intersectPointPos.z = 160;
 
         return intersectPointPos;
     }

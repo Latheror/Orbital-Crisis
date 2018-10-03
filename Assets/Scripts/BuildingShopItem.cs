@@ -25,6 +25,8 @@ public class BuildingShopItem : MonoBehaviour {
         BuildingManager.instance.SelectBuilding(buildingType);
         ShopPanel.instance.shopItemPanelSelected = this.gameObject;
         SetBackGroundColor(ShopPanel.instance.buildingShopItemSelectedBackgroundColor);
+
+        SpaceshipManager.instance.SetSelectionState(GameManager.SelectionState.Default);
     }
 
     public void SetBuildingNameText(string buildingName)

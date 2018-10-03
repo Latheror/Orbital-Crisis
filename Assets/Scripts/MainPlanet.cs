@@ -79,6 +79,7 @@ public class MainPlanet : MonoBehaviour {
 
             buildingSlotList.Add(instantiatedSlot);
 
+            instantiatedSlot.GetComponent<BuildingSlot>().locationType = BuildingManager.BuildingType.BuildingLocationType.Planet;
             instantiatedSlot.GetComponent<BuildingSlot>().SetDefaultColor();
             instantiatedSlot.GetComponent<BuildingSlot>().angle = stepAngle * i;
         }
@@ -123,7 +124,7 @@ public class MainPlanet : MonoBehaviour {
 
     public GameObject FindClosestBuildingSlot(Vector3 pos)
     {
-        Debug.Log("FindClosestBuildingSlot.");
+        //Debug.Log("FindClosestBuildingSlot.");
         float minDist = Mathf.Infinity;
         GameObject closestSlot = null;
 
@@ -131,14 +132,14 @@ public class MainPlanet : MonoBehaviour {
         {
             float dist = Vector3.Distance(pos, buildingSlot.transform.position);
 
-            if(dist < minDist)
+            if(dist < minDist && !buildingSlot.GetComponent<BuildingSlot>().hasBuilding)
             {
                 minDist = dist;
                 closestSlot = buildingSlot;
             }
         }
 
-        Debug.Log("Closest slot found: " + closestSlot + " | Pos: (x=" + closestSlot.transform.position.x + ",y=" + closestSlot.transform.position.y + ")");
+        //Debug.Log("Closest slot found: " + closestSlot + " | Pos: (x=" + closestSlot.transform.position.x + ",y=" + closestSlot.transform.position.y + ")");
         return closestSlot;
     }
 

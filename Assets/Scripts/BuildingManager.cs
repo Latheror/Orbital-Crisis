@@ -81,11 +81,20 @@ public class BuildingManager : MonoBehaviour {
         if(buildingState == BuildingState.Default || buildingState == BuildingState.BuildingSelected || buildingState == BuildingState.LocationSelected || buildingState == BuildingState.BuildingAndLocationSelected)
         {
             selectedBuilding = bType;
-            if (buildingState == BuildingState.Default){
+            if (buildingState == BuildingState.Default)
+            {
                 buildingState = BuildingState.BuildingSelected;
             }
-            else if (buildingState == BuildingState.LocationSelected) {
+            else if (buildingState == BuildingState.LocationSelected)
+            {
+
                 buildingState = BuildingState.BuildingAndLocationSelected;
+            } else if (buildingState == BuildingState.BuildingAndLocationSelected)
+            {
+                if (bType.buildingLocationType != chosenBuildingSlot.GetComponent<BuildingSlot>().locationType)
+                {
+                    DeselectSelectedBuildingSlot();
+                }
             }
             //DebugManager.instance.DisplayBuildingState();
             ShowCancelButton();
@@ -195,7 +204,7 @@ public class BuildingManager : MonoBehaviour {
         }
         else
         {
-            Debug.Log("Building State error...");
+            //Debug.Log("Building State error...");
         }
 
         //DebugManager.instance.DisplayBuildingState();
@@ -249,6 +258,29 @@ public class BuildingManager : MonoBehaviour {
             // Distribute the available energy across all buildings
             EnergyPanel.instance.DistributeEnergy();
         }     
+    }
+
+    public void DeselectSelectedBuildingSlot()
+    {
+        if(chosenBuildingSlot.GetComponent<BuildingSlot>().locationType == BuildingType.BuildingLocationType.Planet)    // Planet slot
+        {
+            GameManager.instance.mainPlanet.GetComponent<MainPlanet>().ResetAllBuildingSlotsColor();
+        }
+        else    // Satellite slot
+        {
+            SurroundingAreasManager.instance.ResetAllSatelliteBuildingSlotsColor();
+        }
+
+        chosenBuildingSlot = null;
+
+        if(buildingState == BuildingState.BuildingAndLocationSelected)
+        {
+            buildingState = BuildingState.BuildingSelected;
+        }else if(buildingState == BuildingState.BuildingSelected)
+        {
+            buildingState = BuildingState.Default;
+        }
+
     }
 
 

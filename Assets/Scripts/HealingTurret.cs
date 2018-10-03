@@ -24,7 +24,7 @@ public class HealingTurret : Turret {
     {
         if (hasEnoughEnergy)
         {
-            //RotateCanonTowardsTarget();       // No model yet
+            RotateCanonTowardsTarget();       // No model yet
 
             LineRenderer lineRenderer = gameObject.GetComponent<LineRenderer>();
             if (target != null)

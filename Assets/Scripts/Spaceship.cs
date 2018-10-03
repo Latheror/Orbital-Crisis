@@ -17,7 +17,7 @@ public class Spaceship : MonoBehaviour {
     [Header("Movement")]
     public float movementSpeed = 100f;
     public float rotationSpeed = 50f;
-    public Vector3 manualDestination = Vector3.zero;
+    public Vector3 manualDestination;
     public bool manualDestinationReached = false;
     public float manualDestinationDelta = 20f;
 
@@ -49,6 +49,8 @@ public class Spaceship : MonoBehaviour {
         target = null;
         isActivated = true;
         health = maxHealth;
+        manualDestination = transform.position;
+        manualDestinationReached = true;
         isInAutomaticMode = true;
         infoPanel.SetActive(false);
         SetStartingMode();
@@ -277,7 +279,6 @@ public class Spaceship : MonoBehaviour {
 
     public void InfoPanelCloseButtonActions()
     {
-        infoPanel.SetActive(false);
         SpaceshipManager.instance.DeselectSpaceship();
     }
 

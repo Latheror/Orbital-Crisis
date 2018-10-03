@@ -93,7 +93,7 @@ public class LevelManager : MonoBehaviour {
     {
         if(currentLevelNumber < levelsList.Count)
         {
-            Debug.Log("Going to next level.");
+            Debug.Log("Going to next level | Nb: " + currentLevelNumber);
             currentLevelNumber++;
             currentLevel = GetLevelFromNumber(currentLevelNumber);
             DisplayWaveNumber();
@@ -103,7 +103,7 @@ public class LevelManager : MonoBehaviour {
             remainingEnnemiesPanel.SetActive(true);
 
             // Unlock satellite disks (Temporary solution)
-            if(diskUnlockingLevelNbs[SurroundingAreasManager.instance.unlockedDisksNb - 1] == currentLevelNumber)
+            if ((diskUnlockingLevelNbs.Length >= SurroundingAreasManager.instance.unlockedDisksNb) && (diskUnlockingLevelNbs[SurroundingAreasManager.instance.unlockedDisksNb - 1] == currentLevelNumber))
             {
                 SurroundingAreasManager.instance.UnlockNextDisk();
             }
@@ -113,7 +113,7 @@ public class LevelManager : MonoBehaviour {
         else
         {
             Debug.Log("Last level reached !");
-            levelsList.Add(new Level(currentLevelNumber + 1, null, (currentLevelNumber + 1) * 10, new List<GameObject> {EnemiesManager.instance.ennemySpaceship_1 }));
+            levelsList.Add(new Level(currentLevelNumber + 1, "Level Nb " + (currentLevelNumber + 1), (currentLevelNumber + 1) * 10, new List<GameObject> {EnemiesManager.instance.ennemySpaceship_1 }));
             GoToNextLevel();
         }
     }

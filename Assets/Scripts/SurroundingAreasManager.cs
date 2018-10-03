@@ -54,6 +54,8 @@ public class SurroundingAreasManager : MonoBehaviour {
             Vector3 pos = new Vector3(Mathf.Cos(angle) * radius, Mathf.Sin(angle) * radius, mainPlanet.transform.position.z);
 
             GameObject instantiatedSlot = Instantiate(satelliteBuildingSlotPrefab, pos, Quaternion.identity);
+
+            instantiatedSlot.GetComponent<BuildingSlot>().locationType = BuildingManager.BuildingType.BuildingLocationType.Disks;
             instantiatedSlot.GetComponent<BuildingSlot>().SetDefaultColor();
             instantiatedSlot.GetComponent<BuildingSlot>().SetAngle(angle);
 
@@ -77,7 +79,7 @@ public class SurroundingAreasManager : MonoBehaviour {
     // First disk is number 0
     public GameObject FindClosestDiskBuildingSlot(Vector3 pos, int diskNb)
     {
-        Debug.Log("FindClosestDiskBuildingSlot.");
+        //Debug.Log("FindClosestDiskBuildingSlot.");
         float minDist = Mathf.Infinity;
         GameObject closestSlot = null;
 
@@ -87,20 +89,20 @@ public class SurroundingAreasManager : MonoBehaviour {
         {
             float dist = Vector3.Distance(pos, buildingSlot.transform.position);
 
-            if(dist < minDist)
+            if(dist < minDist && !buildingSlot.GetComponent<BuildingSlot>().hasBuilding)
             {
                 minDist = dist;
                 closestSlot = buildingSlot;
             }
         }
 
-        Debug.Log("Closest slot found: " + closestSlot + " | Pos: (x=" + closestSlot.transform.position.x + ",y=" + closestSlot.transform.position.y + ")");
+        //Debug.Log("Closest slot found: " + closestSlot + " | Pos: (x=" + closestSlot.transform.position.x + ",y=" + closestSlot.transform.position.y + ")");
         return closestSlot;
     }
 
     public GameObject FindClosestBuildingSlotInUnlockedDisks(Vector3 pos)
     {
-        Debug.Log("FindClosestDiskBuildingSlot."); 
+        //Debug.Log("FindClosestDiskBuildingSlot."); 
         float minDist = Mathf.Infinity;
         GameObject closestSlot = null;
 
