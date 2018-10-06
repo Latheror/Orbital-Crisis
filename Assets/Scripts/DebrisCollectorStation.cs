@@ -4,18 +4,21 @@ using UnityEngine;
 
 public class DebrisCollectorStation : Building {
 
-    public GameObject debrisCollectorPrefab;
-    public List<GameObject> debrisCollectorsList = new List<GameObject>();
+    [Header("Settings")]
     public int maxDebrisCollectorNb = 3;
     public float debrisCollectorInstantiationDistance = 10f;
     public float range = 100;
+
+    [Header("Operation")]
+    public List<GameObject> debrisCollectorsList = new List<GameObject>();
+
+    [Header("Prefabs")]
+    public GameObject debrisCollectorPrefab;
 
     public DebrisCollectorStation(string name) :  base(name)
     {
         Debug.Log("DebrisCollectorStation constructor");
     }
-
-
 
     void Start()
     {

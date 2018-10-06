@@ -6,19 +6,22 @@ public class ResourcesManager : MonoBehaviour {
 
     public static ResourcesManager instance;
 
+    [Header("Settings")]
     public List<ResourceType> availableResources = new List<ResourceType>();
-
-    public List<ResourceAmount> currentResourceAmounts = new List<ResourceAmount>();
-    //public Dictionary<string, ResourceAmount> currentResourceAmountsDictionnary = new Dictionary<string, ResourceAmount>();
-
     public List<ResourceAmount> startResourceAmounts = new List<ResourceAmount>();
-
-    public GameObject resourceIndicatorLayout;
-    public GameObject resourceIndicatorPrefab;
-
     public int productionEnergy;
     public int consumptionEnergy;
 
+    [Header("Operation")]
+    public List<ResourceAmount> currentResourceAmounts = new List<ResourceAmount>();
+    //public Dictionary<string, ResourceAmount> currentResourceAmountsDictionnary = new Dictionary<string, ResourceAmount>();
+
+    [Header("UI")]
+    public GameObject resourceIndicatorLayout;
+
+    [Header("Prefabs")]
+    public GameObject resourceIndicatorPrefab;
+         
 
     void Awake()
     {
@@ -29,9 +32,9 @@ public class ResourcesManager : MonoBehaviour {
     // Types of resources and their info
     public void InitializeResources()
     {
-        availableResources.Add(new ResourceType("steel", Color.grey, 500));
-        availableResources.Add(new ResourceType("silver", Color.white, 500));
-        availableResources.Add(new ResourceType("carbon", Color.black, 500));
+        availableResources.Add(new ResourceType("steel", Color.grey, null, 500));
+        availableResources.Add(new ResourceType("silver", Color.white, null, 500));
+        availableResources.Add(new ResourceType("carbon", Color.black, null, 500));
     }
 
     // Set starting resource amounts
@@ -54,20 +57,6 @@ public class ResourcesManager : MonoBehaviour {
             if(resAmount.resourceType.Equals(rType))
             {
                 toGiveBack = resAmount;
-                break;
-            }
-        }
-        return toGiveBack;
-    }
-
-    public ResourceType GetResourceFromCurrentListFromName(string resourceName)
-    {
-        ResourceType toGiveBack = null;
-        foreach (var res in availableResources)
-        {
-            if(res.resourceName.Equals(resourceName))
-            {
-                toGiveBack = res;
                 break;
             }
         }
@@ -146,6 +135,21 @@ public class ResourcesManager : MonoBehaviour {
         {
             PayResource(GetResourceFromCurrentList(cost.resourceType).resourceType, cost.amount);
         }
+
+        ShopPanel.instance.UpdateShopItems();
+    }
+
+    public ResourceType GetResourceTypeByName(string rName)
+    {
+        ResourceType resourceType = null;
+        foreach (ResourceType rType in availableResources)
+        {
+            if(rType.resourceName == rName)
+            {
+                resourceType = rType;
+            }
+        }
+        return resourceType;
     }
 
 
@@ -164,11 +168,13 @@ public class ResourcesManager : MonoBehaviour {
         public int startAmount;
         public ResourceAmount currentResourceAmount;
         public GameObject resourceIndicator;
+        public Sprite resourceImage;
 
-        public ResourceType(string name, Color color, int startAmount)
+        public ResourceType(string name, Color color, Sprite image, int startAmount)
         {
             this.resourceName = name;
             this.color = color;
+            this.resourceImage = image;
             this.startAmount = startAmount;
         }
 
@@ -188,6 +194,18 @@ public class ResourcesManager : MonoBehaviour {
         {
             //Debug.Log("Building a ResourceAmount | ResourceType: " + resourceType.resourceName + " | Amount: " + amount);
             this.resourceType = resourceType;
+            this.amount = amount;
+        }
+
+        public ResourceAmount(string resourceTypeName, int amount)
+        {
+            ResourceType temp = ResourcesManager.instance.GetResourceTypeByName(resourceTypeName);
+            if(temp != null) {
+                resourceType = temp;
+            }
+            else {
+                Debug.Log("Can't construct ResourceAmount : ResourceTypeName is unknown !");
+            }
             this.amount = amount;
         }
     }

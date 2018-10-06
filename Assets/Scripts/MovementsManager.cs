@@ -6,7 +6,10 @@ public class MovementsManager : MonoBehaviour {
 
     public static MovementsManager instance;
 
+    [Header("World")]
     public GameObject mainPlanet;
+
+    [Header("Settings")]
     public float rotate_speed = 1f;
     public float skyBoxRotationSpeed = 1f;
 
@@ -22,10 +25,12 @@ public class MovementsManager : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
+        if (GameManager.instance.gameState == GameManager.GameState.Default)
+        {
+            RotatePlanet();
 
-        RotatePlanet();
-
-        RotateSkyBox();
+            RotateSkyBox();
+        }
 
 	}
 

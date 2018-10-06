@@ -9,8 +9,13 @@ public class SurroundingAreasManager : MonoBehaviour {
         if (instance != null){ Debug.LogError("More than one SurroundingAreasManager in scene !"); return; } instance = this;
     }
 
+    [Header("World")]
     public GameObject mainPlanet;
+
+    [Header("Prefabs")]
     public GameObject satelliteBuildingSlotPrefab;
+
+    [Header("Operation")]
     public int unlockedDisksNb = 1;
 
     [Header("Disks")]
@@ -109,7 +114,7 @@ public class SurroundingAreasManager : MonoBehaviour {
         for (int i = 0; i < unlockedDisksNb; i++)
         {
             GameObject closestSpotFromDisk = FindClosestDiskBuildingSlot(pos, i);
-            if((Vector3.Distance(pos, closestSpotFromDisk.transform.position)) < minDist)
+            if(closestSpotFromDisk != null && (Vector3.Distance(pos, closestSpotFromDisk.transform.position)) < minDist)
             {
                 minDist = (Vector3.Distance(pos, closestSpotFromDisk.transform.position));
                 closestSlot = closestSpotFromDisk;

@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class SpaceshipManager : MonoBehaviour {
 
+    [Header("Operation")]
     public GameObject selectedSpaceship;
     public GameObject currentSelectedSpaceshipInfoPanel;
     public List<GameObject> alliedSpaceships;

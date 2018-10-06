@@ -6,16 +6,21 @@ public class TouchManager : MonoBehaviour {
 
     public static TouchManager instance;
 
+    [Header("World")]
+    public Camera camera;
+
+    [Header("Settings")]
     public float perspectiveZoomSpeed = 0.5f;        // The rate of change of the field of view in perspective mode.
     public float orthoZoomSpeed = 0.5f;              // The rate of change of the orthographic size in orthographic mode.
     public float minFieldOfView = 20;
     public float maxFieldOfView = 100;
-    public GameObject topPanel;
-    public GameObject bottomPanel;
     public float avoidPanelsMargin = 10f;
 
-    public Camera camera;
+    [Header("UI")]
+    public GameObject topPanel;
+    public GameObject bottomPanel;
 
+    [Header("Operation")]
     public Vector3 lastTouch;
 
     void Awake(){ 
@@ -164,12 +169,12 @@ public class TouchManager : MonoBehaviour {
     public bool IsTouchWithinGameArea(Vector3 touchPos)
     {
         bool withinGameArea = false;
-        Debug.Log("Touchpos Y: " + touchPos.y);
-        Debug.Log("TopPanel Height: " + topPanel.GetComponent<RectTransform>().sizeDelta.y);
-        Debug.Log("BottomPanel Height: " + bottomPanel.GetComponent<RectTransform>().sizeDelta.y);
-        Debug.Log("Screen Hight: " + Screen.height);
+        //Debug.Log("Touchpos Y: " + touchPos.y);
+        //Debug.Log("TopPanel Height: " + topPanel.GetComponent<RectTransform>().sizeDelta.y);
+        //Debug.Log("BottomPanel Height: " + bottomPanel.GetComponent<RectTransform>().sizeDelta.y);
+        //Debug.Log("Screen Hight: " + Screen.height);
         withinGameArea = (((touchPos.y) >= bottomPanel.GetComponent<RectTransform>().sizeDelta.y + avoidPanelsMargin)) && ((touchPos.y) <= (Screen.height - topPanel.GetComponent<RectTransform>().sizeDelta.y - avoidPanelsMargin));
-        Debug.Log("Within Game Area : " + withinGameArea);
+        //Debug.Log("Within Game Area : " + withinGameArea);
         return withinGameArea;
     }
 

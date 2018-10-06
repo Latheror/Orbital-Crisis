@@ -6,9 +6,14 @@ public class MeteorsManager : MonoBehaviour {
 
     public static MeteorsManager instance;
 
+    [Header("World")]
     public GameObject mainPlanet;
+
+    [Header("Prefabs")]
     public GameObject meteorPrefab;
     public GameObject meteorTest;
+
+    [Header("Settings")]
     public float rotationSpeed = 20f;
     public float spawnOffset = 30f;
     public float circleFactor = 50f;
@@ -18,6 +23,7 @@ public class MeteorsManager : MonoBehaviour {
     public float healthPointsAtMaxSize = 30;
     public int valuePerSizeUnit = 10;
 
+    [Header("Operation")]
     public List<GameObject> meteorsList;
 
 
@@ -60,6 +66,13 @@ public class MeteorsManager : MonoBehaviour {
 
         // TODO : Remove
         instantiatedMeteor.GetComponent<Meteor>().TestMeteorFunction();
+    }
+
+    public void SpawnNewMeteors(int nb){
+        while(nb > 0){
+            SpawnNewMeteor();
+            nb--;
+        }         
     }
 
     public void DeleteMeteor(GameObject meteorToDelete)

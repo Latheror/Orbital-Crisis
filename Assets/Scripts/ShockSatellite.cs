@@ -4,11 +4,17 @@ using UnityEngine;
 
 public class ShockSatellite : Building {
 
-    public GameObject shockWave;
+    [Header("Settings")]
     public float range = 50f;
-    public List<GameObject> inRangeMeteors;
     public float damagePower = 20f;
     public float actionDelay = 5f;
+
+    [Header("Operation")]
+    public List<GameObject> inRangeMeteors;
+
+    [Header("Parts")]
+    public GameObject shockWave;
+
 
 	// Use this for initialization
 	void Start () {
@@ -36,15 +42,18 @@ public class ShockSatellite : Building {
 
     public void PlayAnimation()
     {
-        Debug.Log("ShockSatellite Play");
-        if(hasEnoughEnergy)
+        if (GameManager.instance.gameState == GameManager.GameState.Default)
         {
-            Animator animator = GetComponent<Animator>();
-            animator.SetBool("StartAnimation", true);
-        }
-        else
-        {
-            Debug.Log("ShockSatellite doesn't have enough energy !");
+            Debug.Log("ShockSatellite Play");
+            if (hasEnoughEnergy)
+            {
+                Animator animator = GetComponent<Animator>();
+                animator.SetBool("StartAnimation", true);
+            }
+            else
+            {
+                Debug.Log("ShockSatellite doesn't have enough energy !");
+            }
         }
     }
 

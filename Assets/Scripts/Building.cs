@@ -12,6 +12,7 @@ public class Building : MonoBehaviour {
     public float alocatedEnergy;
     public bool hasEnoughEnergy = false;
     public float buildingSpotAngle = 0f;
+    public int currentTier = 1;
 
     public enum BuildingLocationType {Planet, Disks};
     public BuildingLocationType buildingLocationType;

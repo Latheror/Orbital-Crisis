@@ -4,9 +4,14 @@ using UnityEngine;
 
 public class PlanetExpansionManager : MonoBehaviour {
 
+    [Header("World")]
     public GameObject mainPlanetGO;
-    public MainPlanet mainPlanet; 
+    public MainPlanet mainPlanet;
+
+    [Header("Operation")]
     public List<GameObject> buildingSlots;
+
+    [Header("Prefabs")]
     public GameObject buildingSlotPrefab;
     public GameObject buildingSlotsParent;
 

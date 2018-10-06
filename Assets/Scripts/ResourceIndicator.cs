@@ -6,8 +6,10 @@ using UnityEngine.UI;
 
 public class ResourceIndicator : MonoBehaviour {
 
+    [Header("Settings")]
     public ResourcesManager.ResourceAmount resourceAmount;
 
+    [Header("UI")]
     public GameObject resourceImage;
     public TextMeshProUGUI resourceNameText;
     public TextMeshProUGUI resourceValueText;

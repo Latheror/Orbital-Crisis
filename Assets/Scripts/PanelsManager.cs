@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class PanelsManager : MonoBehaviour {
 
+    [Header("UI")]
     public GameObject controlsPanel;
     public GameObject shopPanel;
     public GameObject defaultBottomPanel;

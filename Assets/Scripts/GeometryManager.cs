@@ -9,8 +9,11 @@ public class GeometryManager : MonoBehaviour {
         if (instance != null){ Debug.LogError("More than one MeteorsManager in scene !"); return; } instance = this;
     }
 
-    public GameObject mainPlanet;
+    [Header("Settings")]
     public float circleFactor = 100f;
+
+    [Header("World")]
+    public GameObject mainPlanet;
 
     // Angle in radians
     public static float GetRadAngleFromXY(float x, float y)

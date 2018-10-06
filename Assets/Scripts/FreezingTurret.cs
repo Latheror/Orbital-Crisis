@@ -4,7 +4,10 @@ using UnityEngine;
 
 public class FreezingTurret : Turret {
 
+    [Header("Settings")]
     public float freezingFactor = 0.8f; // Between 0 and 1
+
+    [Header("Prefabs")]
     public Material frozenMeteorMaterial;
     public Material defaultMeteorMaterial;
 
@@ -24,30 +27,32 @@ public class FreezingTurret : Turret {
 
     public void FreezeTarget()
     {
-        if(hasEnoughEnergy)
+        if (GameManager.instance.gameState == GameManager.GameState.Default)
         {
-            RotateCanonTowardsTarget();
-
-            LineRenderer lineRenderer = gameObject.GetComponent<LineRenderer>();
-            if(target != null)
+            if (hasEnoughEnergy)
             {
-                lineRenderer.enabled = true;
-                GameObject chosenTarget = target;
-                lineRenderer.SetPosition(0, shootingPoint.transform.position);
-                lineRenderer.SetPosition(1, chosenTarget.transform.position);
-                SlowDownTarget();
-                SetFreezingMaterial();
+                RotateCanonTowardsTarget();
+
+                LineRenderer lineRenderer = gameObject.GetComponent<LineRenderer>();
+                if (target != null)
+                {
+                    lineRenderer.enabled = true;
+                    GameObject chosenTarget = target;
+                    lineRenderer.SetPosition(0, shootingPoint.transform.position);
+                    lineRenderer.SetPosition(1, chosenTarget.transform.position);
+                    SlowDownTarget();
+                    SetFreezingMaterial();
+                }
+                else
+                {
+                    lineRenderer.enabled = false;
+                }
             }
             else
             {
-                lineRenderer.enabled = false;
+                //Debug.Log("Turret doesn't have enough energy !");
             }
         }
-        else
-        {
-            //Debug.Log("Turret doesn't have enough energy !");
-        }
-
     }
 
     public void SlowDownTarget()

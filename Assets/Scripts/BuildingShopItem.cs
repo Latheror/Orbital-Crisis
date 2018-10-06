@@ -6,17 +6,30 @@ using TMPro;
 
 public class BuildingShopItem : MonoBehaviour {
 
+    [Header("UI")]
     public GameObject buildingImage;
     public TextMeshProUGUI buildingNameText;
+    public GameObject buildingCostsPanel;
+    public List<GameObject> buildingCostPanelList = new List<GameObject>();
+
+    [Header("Prefabs")]
+    public GameObject resourceCostPanelPrefab;
 
     public BuildingManager.BuildingType buildingType;
     // public TextMeshProUGUI building
 
-    // TODO
-    //public void SetInfos()
-    //{
-    //    SetBuildingNameText
-    //}
+    public void Start()
+    {
+
+    }
+
+    public void SetInfos()
+    {
+        ApplyBuildingNameText();
+        ApplyBuildingImage();
+        SetBackGroundColor(ShopPanel.instance.buildingShopItemDefaultBackgroundColor);
+        BuildCostsList();
+    }
 
     public void BuildingShopItemClicked()
     {
@@ -24,19 +37,29 @@ public class BuildingShopItem : MonoBehaviour {
         ShopPanel.instance.ResetLastShopItemSelected();
         BuildingManager.instance.SelectBuilding(buildingType);
         ShopPanel.instance.shopItemPanelSelected = this.gameObject;
-        SetBackGroundColor(ShopPanel.instance.buildingShopItemSelectedBackgroundColor);
+        if(ResourcesManager.instance.CanPay(buildingType))
+        {
+            SetBackGroundColor(ShopPanel.instance.buildingShopItemSelectedCanPayBackgroundColor);
+        }
+        else
+        {
+            SetBackGroundColor(ShopPanel.instance.buildingShopItemSelectedCantPayBackgroundColor);
+        }
 
         SpaceshipManager.instance.SetSelectionState(GameManager.SelectionState.Default);
     }
 
-    public void SetBuildingNameText(string buildingName)
+    public void ApplyBuildingNameText()
     {
-        buildingNameText.text = buildingName;
+        buildingNameText.text = buildingType.name;
     }
 
-    public void SetBuildingImage(Sprite image)
+    public void ApplyBuildingImage()
     {
-        buildingImage.GetComponent<Image>().sprite = image;
+        if (buildingType.buildingImage != null)
+        {
+            buildingImage.GetComponent<Image>().sprite = buildingType.buildingImage;
+        }
     }
 
     public void SetBackGroundColor(Color color)
@@ -44,21 +67,30 @@ public class BuildingShopItem : MonoBehaviour {
         this.gameObject.GetComponent<Image>().color = color;
     }
 
-    public void ApplySettings()
+    public void BuildCostsList()
     {
-        if(buildingType != null)
+        foreach (ResourcesManager.ResourceAmount resourceAmount in buildingType.resourceCosts)
         {
-            SetBuildingNameText(buildingType.name);
-            if(buildingType.buildingImage != null)
-            {
-                SetBuildingImage(buildingType.buildingImage);
-            }
-            SetBackGroundColor(ShopPanel.instance.buildingShopItemDefaultBackgroundColor);
-        }
-        else
-        {
-            Debug.Log("Can't build Building Shop Item | Building type not assigned.");
+            GameObject instantiatedResourceCostPanel = Instantiate(resourceCostPanelPrefab, buildingCostsPanel.transform.position, Quaternion.identity);
+            instantiatedResourceCostPanel.transform.SetParent(buildingCostsPanel.transform, false);
+
+            ResourceCostPanel rcPanel = instantiatedResourceCostPanel.GetComponent<ResourceCostPanel>();
+            rcPanel.SetInfos(resourceAmount);
+            rcPanel.BuildPanel();
+
+            Debug.Log("BuildCostsList | Building: " + buildingType.name + " | Resource: " + resourceAmount.resourceType.resourceName + " | Adding to list");
+            buildingCostPanelList.Add(instantiatedResourceCostPanel);
+
+            Debug.Log("Nb CostPanels: " + buildingCostPanelList.Count);
         }
     }
 
+    public void UpdateResourcesAvailabilityIndicators()
+    {
+        Debug.Log("UpdateResourcesAvailabilityIndicators | " + buildingType.name + " | ResourcesNb: " + buildingCostPanelList.Count);
+        foreach (GameObject costPanel in buildingCostPanelList)
+        {
+            costPanel.GetComponent<ResourceCostPanel>().UpdateResourceAvailabilityIndicator();
+        }
+    }
 }

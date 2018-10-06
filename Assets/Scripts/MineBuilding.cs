@@ -23,19 +23,24 @@ public class MineBuilding : Building {
 
     public void Produce()
     {
-        if(hasEnoughEnergy)
+        if (GameManager.instance.gameState == GameManager.GameState.Default)
         {
-            foreach (var productionUnit in production)
+            if (hasEnoughEnergy)
             {
-                ResourcesManager.ResourceType rType = productionUnit.resourceType;
-                int amount = productionUnit.amount;
+                foreach (var productionUnit in production)
+                {
+                    ResourcesManager.ResourceType rType = productionUnit.resourceType;
+                    int amount = productionUnit.amount;
 
-                ResourcesManager.instance.ProduceResource(rType, amount);
+                    ResourcesManager.instance.ProduceResource(rType, amount);
+                }
+
+                ShopPanel.instance.UpdateShopItems();
             }
-        }
-        else
-        {
-            Debug.Log("Mine can't produce, energy requirement isn't met !");
+            else
+            {
+                Debug.Log("Mine can't produce, energy requirement isn't met !");
+            }
         }
     }
 }

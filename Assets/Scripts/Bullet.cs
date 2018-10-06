@@ -4,12 +4,13 @@ using UnityEngine;
 
 public class Bullet : MonoBehaviour {
 
-	public GameObject target;
+    [Header("General")]
+    public GameObject target;
     public float speed = 50f;
     public float damage = 10f;
     public float rotationSpeed = 10f;
 
-    void Update()
+    void Start()
     {
         //ChaseTarget();
         InvokeRepeating("ChaseTarget", 0f, 0.5f);
@@ -22,16 +23,20 @@ public class Bullet : MonoBehaviour {
 
     public void ChaseTarget()
     {
-        if(target != null)
+        if(GameManager.instance.gameState == GameManager.GameState.Default)
         {
-            transform.position = Vector3.MoveTowards(transform.position, target.transform.position, speed * Time.deltaTime);
-            RotateTowardsTarget();
+            if (target != null)
+            {
+                transform.position = Vector3.MoveTowards(transform.position, target.transform.position, speed * Time.deltaTime);
+                RotateTowardsTarget();
+            }
+            else
+            {
+                // The target has already been destroyed
+                DestroyBullet();
+            }
         }
-        else
-        {
-            // The target has already been destroyed
-            DestroyBullet();
-        }
+
     }
 
     public void DestroyBullet()

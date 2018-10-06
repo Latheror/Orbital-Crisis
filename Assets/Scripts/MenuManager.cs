@@ -5,6 +5,7 @@ using UnityEngine.SceneManagement;
 
 public class MenuManager : MonoBehaviour {
 
+    [Header("Settings")]
     public float skyBoxRotationSpeed = 5f;
 
 	// Use this for initialization

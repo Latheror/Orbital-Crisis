@@ -18,9 +18,12 @@ public class AlliedSpaceship : Spaceship {
 	
 	// Update is called once per frame
 	void Update () {
-        UpdateTarget();
-        HandleMovements();
-        AttackTarget();
+        if (GameManager.instance.gameState == GameManager.GameState.Default)
+        {
+            UpdateTarget();
+            HandleMovements();
+            AttackTarget();
+        }
     }
 
 

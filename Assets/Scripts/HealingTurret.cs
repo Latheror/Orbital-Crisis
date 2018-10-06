@@ -22,31 +22,34 @@ public class HealingTurret : Turret {
 
     public void LockOnTarget()
     {
-        if (hasEnoughEnergy)
+        if (GameManager.instance.gameState == GameManager.GameState.Default)
         {
-            RotateCanonTowardsTarget();       // No model yet
-
-            LineRenderer lineRenderer = gameObject.GetComponent<LineRenderer>();
-            if (target != null)
+            if (hasEnoughEnergy)
             {
-                if(target.GetComponent<Spaceship>().health < target.GetComponent<Spaceship>().maxHealth)    // Target has not full health
-                {
-                    lineRenderer.enabled = true;
-                    GameObject chosenTarget = target;
-                    lineRenderer.SetPosition(0, shootingPoint.transform.position);
-                    lineRenderer.SetPosition(1, chosenTarget.transform.position);
+                RotateCanonTowardsTarget();       // No model yet
 
-                    HealTarget();
+                LineRenderer lineRenderer = gameObject.GetComponent<LineRenderer>();
+                if (target != null)
+                {
+                    if (target.GetComponent<Spaceship>().health < target.GetComponent<Spaceship>().maxHealth)    // Target has not full health
+                    {
+                        lineRenderer.enabled = true;
+                        GameObject chosenTarget = target;
+                        lineRenderer.SetPosition(0, shootingPoint.transform.position);
+                        lineRenderer.SetPosition(1, chosenTarget.transform.position);
+
+                        HealTarget();
+                    }
+                    else
+                    {
+                        lineRenderer.enabled = false;
+                    }
+
                 }
                 else
                 {
                     lineRenderer.enabled = false;
                 }
-
-            }
-            else
-            {
-                lineRenderer.enabled = false;
             }
         }
     }

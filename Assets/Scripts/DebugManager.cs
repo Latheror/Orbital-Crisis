@@ -11,7 +11,7 @@ public class DebugManager : MonoBehaviour {
         if (instance != null){ Debug.LogError("More than one DebugManager in scene !"); return; } instance = this;
     }
 
-
+    [Header("UI")]
     public GameObject debugArea1;
     public GameObject debugArea2;
     public bool debugPanelDisplayed = false;

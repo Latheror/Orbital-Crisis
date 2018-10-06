@@ -4,14 +4,15 @@ using UnityEngine;
 
 public class BuildingSlot : MonoBehaviour {
 
-	public Building attachedBuilding = null;
-
-    public Color defaultColor;
-    public Color selectionColor;
+    [Header("Attached Building")]
+    public Building attachedBuilding = null;
     public float angle;
     public bool hasBuilding = false;
     public BuildingManager.BuildingType.BuildingLocationType locationType;
 
+    [Header("UI")]
+    public Color defaultColor;
+    public Color selectionColor;
 
     public void ChangeColor(Color color)
     {

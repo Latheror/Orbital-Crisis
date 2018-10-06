@@ -17,6 +17,7 @@ public class Turret : Building {
     public bool hasAngleRange = true;
     public float angleRange = 3f;
 
+    [Header("Parts")]
     public GameObject turretBase;
     public GameObject turretBody;
     public GameObject turretHead;
@@ -38,73 +39,76 @@ public class Turret : Building {
 
     public void UpdateTarget()
     {
-        // Turrets only work if they have the required energy
-        target = null;
-        if(hasEnoughEnergy)
+        if (GameManager.instance.gameState == GameManager.GameState.Default)
         {
-            if(offensiveTurret) // Attack turret
+            // Turrets only work if they have the required energy
+            target = null;
+            if (hasEnoughEnergy)
             {
-                //Debug.Log("Laser Turret | Update target");
-                List<GameObject> meteors = MeteorsManager.instance.meteorsList;
-                float shortestDistance = Mathf.Infinity;
-                GameObject nearestEnemy = null;
-
-                foreach (GameObject meteor in meteors)
+                if (offensiveTurret) // Attack turret
                 {
-                    float distanceToEnemy = Vector3.Distance(transform.position, meteor.transform.position);
-                    //Debug.Log("Meteor found - Distance is : " + distanceToEnemy);
-                    if (distanceToEnemy < shortestDistance && CanReachTarget(meteor))
-                    {
-                        shortestDistance = distanceToEnemy;
-                        nearestEnemy = meteor;
-                    }
-                }
+                    //Debug.Log("Laser Turret | Update target");
+                    List<GameObject> meteors = MeteorsManager.instance.meteorsList;
+                    float shortestDistance = Mathf.Infinity;
+                    GameObject nearestEnemy = null;
 
-                if (nearestEnemy != null)
-                {
-                    if (target != previousTarget)
+                    foreach (GameObject meteor in meteors)
                     {
-                        if (previousTarget != null)
+                        float distanceToEnemy = Vector3.Distance(transform.position, meteor.transform.position);
+                        //Debug.Log("Meteor found - Distance is : " + distanceToEnemy);
+                        if (distanceToEnemy < shortestDistance && CanReachTarget(meteor))
                         {
-                            previousTarget.GetComponent<Meteor>().ResetMeteorSettings();
+                            shortestDistance = distanceToEnemy;
+                            nearestEnemy = meteor;
                         }
-                        previousTarget = target;
                     }
 
-                    target = nearestEnemy;
-                    //Debug.Log("New meteor target set: " + target + " - Distance is: " + shortestDistance);
+                    if (nearestEnemy != null)
+                    {
+                        if (target != previousTarget)
+                        {
+                            if (previousTarget != null)
+                            {
+                                previousTarget.GetComponent<Meteor>().ResetMeteorSettings();
+                            }
+                            previousTarget = target;
+                        }
+
+                        target = nearestEnemy;
+                        //Debug.Log("New meteor target set: " + target + " - Distance is: " + shortestDistance);
+                    }
+                }
+                else    // Support turret (healing, ...)
+                {
+                    List<GameObject> allieds = SpaceshipManager.instance.alliedSpaceships;
+                    float shortestDistance = Mathf.Infinity;
+                    GameObject nearestAlly = null;
+
+                    foreach (GameObject ally in allieds)
+                    {
+                        float distanceToAlly = Vector3.Distance(transform.position, ally.transform.position);
+                        if (distanceToAlly < shortestDistance && CanReachTarget(ally))
+                        {
+                            shortestDistance = distanceToAlly;
+                            nearestAlly = ally;
+                        }
+                    }
+
+                    if (nearestAlly != null)
+                    {
+                        if (target != previousTarget)
+                        {
+                            previousTarget = target;
+                        }
+                        target = nearestAlly;
+                        //Debug.Log("New allied target set: " + target + " - Distance is: " + shortestDistance);
+                    }
                 }
             }
-            else    // Support turret (healing, ...)
+            else
             {
-                List<GameObject> allieds = SpaceshipManager.instance.alliedSpaceships;
-                float shortestDistance = Mathf.Infinity;
-                GameObject nearestAlly = null;
-
-                foreach (GameObject ally in allieds)
-                {
-                    float distanceToAlly = Vector3.Distance(transform.position, ally.transform.position);
-                    if (distanceToAlly < shortestDistance && CanReachTarget(ally))
-                    {
-                        shortestDistance = distanceToAlly;
-                        nearestAlly = ally;
-                    }
-                }
-
-                if (nearestAlly != null)
-                {
-                    if (target != previousTarget)
-                    {
-                        previousTarget = target;
-                    }
-                    target = nearestAlly;
-                    //Debug.Log("New allied target set: " + target + " - Distance is: " + shortestDistance);
-                }
+                //Debug.Log("Turret doesn't have enough energy !");
             }
-        }
-        else
-        {
-            //Debug.Log("Turret doesn't have enough energy !");
         }
     }
 

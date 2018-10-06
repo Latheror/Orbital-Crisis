@@ -5,9 +5,9 @@ using UnityEngine;
 [System.Serializable]
 public class Meteor : MonoBehaviour {
 
+    [Header("Settings")]
     public float originalSize;
     public float size;
-    public float healthPoints;
     public bool canBeGathered;
     public float minRotationSpeed = 5f;
     public float maxRotationSpeed = 40f;
@@ -15,15 +15,19 @@ public class Meteor : MonoBehaviour {
     public float currentRotationSpeed = 20f;
     public bool isRotating;
     public float baseApproachSpeed = 5f;
-    public float currentApproachSpeed = 5f;
     public float minApproachSpeed = 5f;
     public float maxApproachSpeed = 20f;
     public bool isMovingTowardsPlanet;
     public bool willLetDebris = false;
-    public GameObject impactEffect;
 
+    [Header("Prefabs")]
+    public GameObject impactEffect;
     public Material defaultMeteorMaterial;
     public Material touchedByPlayerMaterial;
+
+    [Header("Operation")]
+    public float currentApproachSpeed = 5f;
+    public float healthPoints;
 
 	// Use this for initialization
 	void Start () {
@@ -32,7 +36,10 @@ public class Meteor : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        ExecuteMovements();
+        if (GameManager.instance.gameState == GameManager.GameState.Default)
+        {
+            ExecuteMovements();
+        }
 	}
 
     public Meteor()

@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class PowerPlant : Building {
 
+    [Header("Settings")]
     public float energyProduction = 50f;
 
     public PowerPlant(string name) :  base(name)

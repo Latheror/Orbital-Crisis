@@ -4,16 +4,20 @@ using UnityEngine;
 
 public class DebrisCollector : MonoBehaviour {
 
+    [Header("Settings")]
     public int resourcesPerUnitOfSize = 10;
-    public GameObject debrisTarget = null;
     public float operationDistance = 50f;
     public float movementSpeed = 20f;
     public float rotationSpeed = 20f;
+
+    [Header("Operation")]
+    public GameObject debrisTarget = null;
     public bool debrisIsBeingCollected = false;
     public GameObject homeStation = null;
 
-	// Use this for initialization
-	void Start () {
+
+    // Use this for initialization
+    void Start () {
         InvokeRepeating("UpdateTarget", 0f, 0.2f);
         debrisIsBeingCollected = false;
 	}
@@ -26,47 +30,50 @@ public class DebrisCollector : MonoBehaviour {
 
     public void UpdateTarget()
     {
-        if(DebrisManager.instance.debrisList.Count > 0 || EnemiesManager.instance.enemyWrecks.Count > 0)
+        if (GameManager.instance.gameState == GameManager.GameState.Default)
         {
-            // DEBUG
-            if(debrisIsBeingCollected && (debrisTarget == null))
+            if (DebrisManager.instance.debrisList.Count > 0 || EnemiesManager.instance.enemyWrecks.Count > 0)
             {
-                debrisIsBeingCollected = false;
-            }
-
-            float minDistance = Mathf.Infinity;
-            GameObject closestDesbris = null;
-
-            if(DebrisManager.instance.debrisList.Count > 0)
-            {
-                foreach (var debris in DebrisManager.instance.debrisList)
+                // DEBUG
+                if (debrisIsBeingCollected && (debrisTarget == null))
                 {
-                    float distance = Vector3.Distance(transform.position, debris.transform.position);
-                    if (distance < minDistance)
+                    debrisIsBeingCollected = false;
+                }
+
+                float minDistance = Mathf.Infinity;
+                GameObject closestDesbris = null;
+
+                if (DebrisManager.instance.debrisList.Count > 0)
+                {
+                    foreach (var debris in DebrisManager.instance.debrisList)
                     {
-                        minDistance = distance;
-                        closestDesbris = debris;
+                        float distance = Vector3.Distance(transform.position, debris.transform.position);
+                        if (distance < minDistance)
+                        {
+                            minDistance = distance;
+                            closestDesbris = debris;
+                        }
                     }
                 }
-            }
-            if (EnemiesManager.instance.enemyWrecks.Count > 0)
-            {
-                foreach (var wreck in EnemiesManager.instance.enemyWrecks)
+                if (EnemiesManager.instance.enemyWrecks.Count > 0)
                 {
-                    float distance = Vector3.Distance(transform.position, wreck.transform.position);
-                    if (distance < minDistance)
+                    foreach (var wreck in EnemiesManager.instance.enemyWrecks)
                     {
-                        minDistance = distance;
-                        closestDesbris = wreck;
+                        float distance = Vector3.Distance(transform.position, wreck.transform.position);
+                        if (distance < minDistance)
+                        {
+                            minDistance = distance;
+                            closestDesbris = wreck;
+                        }
                     }
                 }
-            }
 
-            debrisTarget = closestDesbris;
-        }
-        else
-        {
-            debrisTarget = null;
+                debrisTarget = closestDesbris;
+            }
+            else
+            {
+                debrisTarget = null;
+            }
         }
     }
 

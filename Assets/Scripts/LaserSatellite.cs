@@ -26,24 +26,27 @@ public class LaserSatellite : Turret {
 
     public void FireOnTarget()
     {
-        if (hasEnoughEnergy)
+        if (GameManager.instance.gameState == GameManager.GameState.Default)
         {
-
-            LineRenderer lineRenderer = gameObject.GetComponent<LineRenderer>();
-            if (target != null)
+            if (hasEnoughEnergy)
             {
-                lineRenderer.enabled = true;
-                GameObject chosenTarget = target;
-                lineRenderer.SetPosition(0, transform.position);
-                lineRenderer.SetPosition(1, chosenTarget.transform.position);
 
-                DealDamageToMeteorTarget();
-            }
-            else
-            {
-                lineRenderer.enabled = false;
-            }
+                LineRenderer lineRenderer = gameObject.GetComponent<LineRenderer>();
+                if (target != null)
+                {
+                    lineRenderer.enabled = true;
+                    GameObject chosenTarget = target;
+                    lineRenderer.SetPosition(0, transform.position);
+                    lineRenderer.SetPosition(1, chosenTarget.transform.position);
 
+                    DealDamageToMeteorTarget();
+                }
+                else
+                {
+                    lineRenderer.enabled = false;
+                }
+
+            }
         }
     }
 }

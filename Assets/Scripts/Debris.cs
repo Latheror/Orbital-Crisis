@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Debris : MonoBehaviour {
 
+    [Header("Settings")]
     public float originalSize;
     public float size;
     public float lifeTime = 30f;
@@ -25,7 +26,7 @@ public class Debris : MonoBehaviour {
 
     public void Collect(/*float collectionPower*/)
     {
-        ResourcesManager.instance.ProduceResource(ResourcesManager.instance.GetResourceFromCurrentListFromName("steel"), resourcesToGather);
+        ResourcesManager.instance.ProduceResource(ResourcesManager.instance.GetResourceTypeByName("steel"), resourcesToGather);
         Vanish();
     }
 

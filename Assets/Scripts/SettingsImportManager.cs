@@ -39,8 +39,7 @@ public class SettingsImportManager : MonoBehaviour {
 
             switch(buildingNode.Attributes["name"].Value)
             {
-                case "laser_turret" :
-                {
+                case "laser_turret" : {
                     XmlNode tiersNode = buildingNode.SelectSingleNode("tiers");
                     XmlNode tierNode = tiersNode.SelectSingleNode("tier");
                     XmlNode traitsNode = tierNode.SelectSingleNode("traits");
@@ -69,8 +68,13 @@ public class SettingsImportManager : MonoBehaviour {
                     break;
 
                 }
-                default :
-                {
+                case "missile_turret": {
+                    break;
+                }
+                case "freezing_turret": {
+                    break;
+                }
+                default : {
                     break;
                 }
             }
@@ -85,8 +89,47 @@ public class SettingsImportManager : MonoBehaviour {
 
         foreach (XmlNode buildingNode in productionBuildingsNode.ChildNodes) {
             Debug.Log("Production Building: " + buildingNode.Attributes["name"].Value);
+
+            switch (buildingNode.Attributes["name"].Value)
+            {
+                case "power_plant": {
+                        Debug.Log("Getting PowerPlant settings");
+                        PowerPlant powerPlant = BuildingManager.instance.powerPlantPrefab.GetComponent<PowerPlant>();
+                        XmlNode tiersNode = GetChildNode_Tiers(buildingNode);
+                        XmlNode tier_1_Node = GetChildNode_Tier(tiersNode);
+                        XmlNode traitsNode = GetChildNode_Traits(tier_1_Node);
+                        XmlNode productionPowerNode = traitsNode.SelectSingleNode("powerProduction");
+                        if (productionPowerNode != null){
+                            powerPlant.energyProduction = float.Parse(productionPowerNode.InnerText);
+                        } else {
+                            Debug.Log("No productionPowerNode node found.");
+                        }
+                        break;
+                }
+                case "recycling_station": {
+                    break;
+                }
+            }
         }
+
+
+
+
+
     }
+
+    public XmlNode GetChildNode_Tiers(XmlNode parent){
+        return parent.SelectSingleNode("tiers");
+    }
+
+    public XmlNode GetChildNode_Tier(XmlNode parent){
+        return parent.SelectSingleNode("tier");
+    }
+
+    public XmlNode GetChildNode_Traits(XmlNode parent){
+        return parent.SelectSingleNode("traits");
+    }
+
 
 
 

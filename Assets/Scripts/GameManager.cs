@@ -12,13 +12,19 @@ public class GameManager : MonoBehaviour {
     }
 
     public enum GameState { Default, Pause } 
-
     public enum SelectionState { Default, SpaceShipSelected }
 
+    [Header("Settings")]
+    public float objectsDepthOffset;
+
+    [Header("Operation")]
     public GameState gameState;
     public SelectionState selectionState;
+
+    [Header("World")]
     public GameObject mainPlanet;
-    public float objectsDepthOffset;
+
+    [Header("UI")]
     public GameObject pausePanel;
     public GameObject pauseButton;
 

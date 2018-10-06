@@ -12,6 +12,7 @@ public class InitializationManager : MonoBehaviour {
 
     public BuildingManager bm;
     public ResourcesManager rm;
+    public ShopPanel sp;
 
 	// Use this for initialization
 	void Start () {
@@ -24,7 +25,9 @@ public class InitializationManager : MonoBehaviour {
         bm.buildingState = BuildingManager.BuildingState.Default;
         bm.mainPlanet = GameManager.instance.mainPlanet;
 
-	}
+        sp.BuildStartBuildingShopItems();
+
+    }
 	
 	// Update is called once per frame
 	void Update () {

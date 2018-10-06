@@ -9,9 +9,14 @@ public class DebrisManager : MonoBehaviour {
         if (instance != null){ Debug.LogError("More than one DebrisManager in scene !"); return; } instance = this;
     }
 
-    public GameObject debrisPrefab;
-    public List<GameObject> debrisList = new List<GameObject>();
+    [Header("Settings")]
     public float spawnRadius = 10f;
+
+    [Header("Prefabs")]
+    public GameObject debrisPrefab;
+
+    [Header("Operation")]
+    public List<GameObject> debrisList = new List<GameObject>();
 
     public void SpawnDebris(Vector3 pos, float originalMeteorSize)
     {

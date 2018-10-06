@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class EnergyBar : MonoBehaviour {
 
+    [Header("UI")]
     public GameObject[] energyLevels;
 
 	// Use this for initialization

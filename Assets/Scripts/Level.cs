@@ -5,13 +5,16 @@ using UnityEngine;
 [System.Serializable]
 public class Level {
 
-
+    [Header("Settings")]
     public int levelNb = 0;
     public string levelName = "level";
+    public int levelMeteorsNb = 0;
+    public int meteorSerieNb = 1;
+    public float timeBetweenSpawns = 1f;
     public EnemyWave enemyWave;
     public List<GameObject> enemies;
-    // Temporary
-    public int levelMeteorsNb = 0;
+
+    [Header("Operation")]
     public int destroyedMeteorsNb = 0;
     public bool levelCompleted = false;
     public bool allLevelMeteorsDestroyed = false;
@@ -29,11 +32,13 @@ public class Level {
 	}
 
 
-    public Level(int number, string name, int meteorsNb, List<GameObject> enemies)
+    public Level(int number, string name, int meteorsNb, int meteorSerieNb, float timeBetweenSpawns, List<GameObject> enemies)
     {
         this.levelNb = number;
         this.levelName = name;
         this.levelMeteorsNb = meteorsNb;
+        this.meteorSerieNb = meteorSerieNb;
+        this.timeBetweenSpawns = timeBetweenSpawns;
         this.enemies = enemies;
     }
 

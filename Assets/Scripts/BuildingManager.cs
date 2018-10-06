@@ -12,15 +12,18 @@ public class BuildingManager : MonoBehaviour {
 
     public enum BuildingState { Default, BuildingSelected, LocationSelected, BuildingAndLocationSelected, Building }
 
-    public BuildingState buildingState;
-
-    public GameObject buildingPreviewIndicator;
+    [Header("World")]
     public GameObject mainPlanet;
+
+    [Header("Building Stage")]
+    public BuildingState buildingState;
+    public GameObject buildingPreviewIndicator;
     public GameObject chosenBuildingSlot;
-    public List<GameObject> buildingList = new List<GameObject>();
     public BuildingType selectedBuilding = null;
 
+    [Header("Buildings")]
     public List<BuildingType> availableBuildings = new List<BuildingType>();
+    public List<GameObject> buildingList = new List<GameObject>();
 
     [Header("Building Prefabs")]
     public GameObject laserTurretPrefab;
@@ -43,37 +46,40 @@ public class BuildingManager : MonoBehaviour {
     public void SetAvailableBuildings()
     {
         availableBuildings.Add(new BuildingType("Laser Turret", laserTurretPrefab, 25f, new List<ResourcesManager.ResourceAmount>(){
-                                                                                            new ResourcesManager.ResourceAmount(ResourcesManager.instance.GetResourceFromCurrentListFromName("steel"), 100)
+                new ResourcesManager.ResourceAmount("carbon", 50),
+                new ResourcesManager.ResourceAmount("steel", 505),
+                new ResourcesManager.ResourceAmount("steel", 80),
                                                                                         },
-                                                BuildingType.BuildingLocationType.Planet, "laser_turret"));
+                                                BuildingType.BuildingLocationType.Planet, "laser_turret", 3, 0));
         availableBuildings.Add(new BuildingType("Bullet Turret", bulletTurretPrefab, 20f, new List<ResourcesManager.ResourceAmount>(){
+                new ResourcesManager.ResourceAmount("steel", 50)
                                                                                         },
-                                                BuildingType.BuildingLocationType.Planet, "bullet_turret"));
+                                                BuildingType.BuildingLocationType.Planet, "bullet_turret", 3, 0));
         availableBuildings.Add(new BuildingType("Freezing Turret", freezingTurretPrefab, 10f, new List<ResourcesManager.ResourceAmount>(){
+                new ResourcesManager.ResourceAmount("silver", 40)
                                                                                         },
-                                                BuildingType.BuildingLocationType.Planet, "freezing_turret"));
+                                                BuildingType.BuildingLocationType.Planet, "freezing_turret", 3, 2));
         availableBuildings.Add(new BuildingType("Power Plant", powerPlantPrefab, 0f, new List<ResourcesManager.ResourceAmount>(){
                                                                                         },
-                                                BuildingType.BuildingLocationType.Planet, "power_plant"));
+                                                BuildingType.BuildingLocationType.Planet, "power_plant", 3, 0));
         availableBuildings.Add(new BuildingType("Mine Building", mineBuildingPrefab, 10f, new List<ResourcesManager.ResourceAmount>(){
                                                                                         },
-                                                BuildingType.BuildingLocationType.Planet));
+                                                BuildingType.BuildingLocationType.Planet, "", 3, /*5*/ 0));
         availableBuildings.Add(new BuildingType("Laser Satellite", laserSatellitePrefab, 10f, new List<ResourcesManager.ResourceAmount>(){
                                                                                         },
-                                                BuildingType.BuildingLocationType.Disks));
+                                                BuildingType.BuildingLocationType.Disks, "", 3, 3));
         availableBuildings.Add(new BuildingType("Shock Satellite", shockSatellitePrefab, 10f, new List<ResourcesManager.ResourceAmount>(){
                                                                                         },
-                                                BuildingType.BuildingLocationType.Disks, "shock_satellite"));
-        availableBuildings.Add(new BuildingType("Debris Collector Station", debrisCollectorStationPrefab, 10f, new List<ResourcesManager.ResourceAmount>(){
+                                                BuildingType.BuildingLocationType.Disks, "shock_satellite", 3, 4));
+        availableBuildings.Add(new BuildingType("Recycling Station", debrisCollectorStationPrefab, 10f, new List<ResourcesManager.ResourceAmount>(){
                                                                                         },
-                                                BuildingType.BuildingLocationType.Disks));
-
+                                                BuildingType.BuildingLocationType.Disks, "recycling_station", 3, 5));
         availableBuildings.Add(new BuildingType("Solar Station", satelliteSolarStationPrefab, 0f, new List<ResourcesManager.ResourceAmount>(){
                                                                                         },
-                                                BuildingType.BuildingLocationType.Disks, "solar_station"));
+                                                BuildingType.BuildingLocationType.Disks, "solar_station", 3, 6));
         availableBuildings.Add(new BuildingType("Healing Turret", healingTurretPrefab, 15f, new List<ResourcesManager.ResourceAmount>(){
                                                                                         },
-                                                BuildingType.BuildingLocationType.Planet));
+                                                BuildingType.BuildingLocationType.Planet, "healing_turret", 3, 7));
     }
 
     public void SelectBuilding(BuildingType bType)
@@ -94,6 +100,10 @@ public class BuildingManager : MonoBehaviour {
                 if (bType.buildingLocationType != chosenBuildingSlot.GetComponent<BuildingSlot>().locationType)
                 {
                     DeselectSelectedBuildingSlot();
+                }
+                if ((ResourcesManager.instance.CanPay(selectedBuilding)))
+                {
+                    ShopPanel.instance.ShowBuildButton();
                 }
             }
             //DebugManager.instance.DisplayBuildingState();
@@ -152,10 +162,7 @@ public class BuildingManager : MonoBehaviour {
     public void ShowBuildButton(){ ShopPanel.instance.ShowBuildButton(); }
     public void HideBuildButton(){ ShopPanel.instance.HideBuildButton(); }
 
-    public void DisplayBuildingPreview()
-    {
-        //buildingPreviewIndicator.transform.position = chosenBuildingSlot.transform.position;
-
+    public void DisplayBuildingPreview(){
         chosenBuildingSlot.GetComponent<BuildingSlot>().SetSelectionColor();
     }
 
@@ -208,7 +215,11 @@ public class BuildingManager : MonoBehaviour {
         }
 
         //DebugManager.instance.DisplayBuildingState();
-        ShopPanel.instance.ShowBuildButton();
+        if((ResourcesManager.instance.CanPay(selectedBuilding)))
+        {
+            ShopPanel.instance.ShowBuildButton();
+        }
+        
     }
 
     public GameObject SelectBuildingSpot()
@@ -283,6 +294,20 @@ public class BuildingManager : MonoBehaviour {
 
     }
 
+    public void UnlockBuildingType(BuildingManager.BuildingType bType)
+    {
+        if (!bType.isUnlocked)
+        {
+            ShopPanel.instance.AddBuildingShopItem(bType);
+            bType.isUnlocked = true;
+            Debug.Log("Building \"" + bType.name + "\" unlocked.");
+        }
+        else
+        {
+            Debug.Log("Building : " + bType.name + " is already unlocked !");
+        }
+    }
+
 
     // TODO : Only testing purpose
     public void TestBuildButton()
@@ -300,45 +325,16 @@ public class BuildingManager : MonoBehaviour {
 
         public string name;
         public GameObject prefab;
-
-        // TODO : Maybe these things have nothing to do here ? Put these info in the gameObject script instead ?
         public List<ResourcesManager.ResourceAmount> resourceCosts;
         public float requiredEnergy = 0;
-
         public enum BuildingLocationType {Planet, Disks};
         public BuildingLocationType buildingLocationType;
-
         public Sprite buildingImage;
+        public int maxTier = 3;
+        public bool isUnlocked = true;
+        public int unlockedAtLevelNb = 0;
 
-
-        //public Building buildingScript;
-        // Its in the prefab !
-
-        public BuildingType(string name, GameObject prefab, float requiredEnergy)
-        {
-            this.name = name;
-            this.prefab = prefab;
-            this.requiredEnergy = requiredEnergy;
-        }
-
-        public BuildingType(string name, GameObject prefab, float requiredEnergy, List<ResourcesManager.ResourceAmount> cost)
-        {
-            this.name = name;
-            this.prefab = prefab;
-            this.requiredEnergy = requiredEnergy;
-            this.resourceCosts = cost;
-        }
-
-        public BuildingType(string name, GameObject prefab, float requiredEnergy, List<ResourcesManager.ResourceAmount> cost, BuildingLocationType buildingLocationType)
-        {
-            this.name = name;
-            this.prefab = prefab;
-            this.requiredEnergy = requiredEnergy;
-            this.resourceCosts = cost;
-            this.buildingLocationType = buildingLocationType;
-        }
-
-        public BuildingType(string name, GameObject prefab, float requiredEnergy, List<ResourcesManager.ResourceAmount> cost, BuildingLocationType buildingLocationType, string imageName)
+        public BuildingType(string name, GameObject prefab, float requiredEnergy, List<ResourcesManager.ResourceAmount> cost, BuildingLocationType buildingLocationType, string imageName, int maxTier, int unlockedAtLevelNb)
         {
             this.name = name;
             this.prefab = prefab;
@@ -346,8 +342,10 @@ public class BuildingManager : MonoBehaviour {
             this.resourceCosts = cost;
             this.buildingLocationType = buildingLocationType;
             this.buildingImage = Resources.Load<Sprite>("Images/Buildings/" + imageName);
+            this.maxTier = maxTier;
+            this.isUnlocked = (unlockedAtLevelNb == 0) ? true : false;
+            this.unlockedAtLevelNb = unlockedAtLevelNb;
         }
-
     }
 
 }

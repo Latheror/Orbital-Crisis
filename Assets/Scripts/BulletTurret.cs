@@ -4,8 +4,11 @@ using UnityEngine;
 
 public class BulletTurret : Turret {
 
-    public GameObject bulletPrefab;
+    [Header("Settings")]
     public float bulletSpeed = 5f;
+
+    [Header("Prefabs")]
+    public GameObject bulletPrefab;
 
 	// Use this for initialization
 	void Start () {
@@ -24,34 +27,37 @@ public class BulletTurret : Turret {
 
     public void ShootOnTarget()
     {
-        if(hasEnoughEnergy)
+        if (GameManager.instance.gameState == GameManager.GameState.Default)
         {
-            RotateCanonTowardsTarget();
-            
-            //Debug.Log("BulletTurret | ShootOnTarget");
-            if(target != null)
+            if (hasEnoughEnergy)
             {
-                //Debug.Log("BulletTurret | Turret has a meteor target.");
+                RotateCanonTowardsTarget();
 
-                // Instantiate a bullet
-                GameObject instantiatedBullet = Instantiate(bulletPrefab, shootingPoint.transform.position, Quaternion.identity);
-                instantiatedBullet.transform.SetParent(gameObject.transform);
+                //Debug.Log("BulletTurret | ShootOnTarget");
+                if (target != null)
+                {
+                    //Debug.Log("BulletTurret | Turret has a meteor target.");
 
-                Bullet bulletScript = instantiatedBullet.GetComponent<Bullet>();
-                bulletScript.SetTarget(target);
+                    // Instantiate a bullet
+                    GameObject instantiatedBullet = Instantiate(bulletPrefab, shootingPoint.transform.position, Quaternion.identity);
+                    instantiatedBullet.transform.SetParent(gameObject.transform);
 
-                // bulletPrefab.GetComponent<Renderer>().material.color = Color.red;
+                    Bullet bulletScript = instantiatedBullet.GetComponent<Bullet>();
+                    bulletScript.SetTarget(target);
 
+                    // bulletPrefab.GetComponent<Renderer>().material.color = Color.red;
+
+                }
+                else
+                {
+
+
+                }
             }
             else
             {
-                
-
+                //Debug.Log("Turret doesn't have enough energy !");
             }
-        }
-        else
-        {
-            //Debug.Log("Turret doesn't have enough energy !");
         }
     }
 }

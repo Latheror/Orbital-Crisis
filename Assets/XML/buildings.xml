@@ -43,6 +43,18 @@
     </building>
   </turrets>
   <production>
+	<building name="power_plant">
+		<tiers>
+			<tier t="1">
+				<traits>
+					<powerProduction>60</powerProduction>
+				</traits>
+			</tier>
+		</tiers>
+	</building>
+	<building name="recycling_station">
+	
+	</building>	
     <building name="steel_mine">
       <tiers>
           <tier t="1">

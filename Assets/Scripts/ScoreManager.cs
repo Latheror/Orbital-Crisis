@@ -11,11 +11,11 @@ public class ScoreManager : MonoBehaviour {
         if (instance != null){ Debug.LogError("More than one ScoreManager in scene !"); return; } instance = this;
     }
 
-
+    [Header("Operation")]
     public float score;
+
+    [Header("UI")]
     public GameObject scoreValueIndicator;
-
-
 
 
     void Start()

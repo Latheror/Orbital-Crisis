@@ -10,12 +10,13 @@ public class EnergyPanel : MonoBehaviour {
         if (instance != null){ Debug.LogError("More than one EnergyPanel in scene !"); return; } instance = this;
     }
 
+    [Header("Settings")]
     public float energyProduction;
     public float energyConsumption;
 
+    [Header("UI")]
     public TextMeshProUGUI energyProductionText;
     public TextMeshProUGUI energyConsumptionText;
-
     public GameObject energyBar;
 
 	// Use this for initialization

@@ -1,0 +1,184 @@
+fileFormatVersion: 2
+guid: 16eab4571b87da546a2bb95937b9ee9c
+timeCreated: 1538686607
+licenseType: Free
+ModelImporter:
+  serializedVersion: 22
+  fileIDToRecycleName:
+    100000: Circle
+    100002: Cube
+    100004: Cube_001
+    100006: Cube_002
+    100008: Cylinder
+    100010: Cylinder_001
+    100012: Cylinder_002
+    100014: //RootNode
+    400000: Circle
+    400002: Cube
+    400004: Cube_001
+    400006: Cube_002
+    400008: Cylinder
+    400010: Cylinder_001
+    400012: Cylinder_002
+    400014: //RootNode
+    2300000: Circle
+    2300002: Cube
+    2300004: Cube_001
+    2300006: Cube_002
+    2300008: Cylinder
+    2300010: Cylinder_001
+    2300012: Cylinder_002
+    3300000: Circle
+    3300002: Cube
+    3300004: Cube_001
+    3300006: Cube_002
+    3300008: Cylinder
+    3300010: Cylinder_001
+    3300012: Cylinder_002
+    4300000: Cylinder_002
+    4300002: Cube_002
+    4300004: Circle
+    4300006: Cylinder_001
+    4300008: Cylinder
+    4300010: Cube_001
+    4300012: Cube
+    7400000: Default Take
+    9500000: //RootNode
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: BaseBorder
+    second: {fileID: 2100000, guid: 3f7de352361f5c0429fa27e9b8799844, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: CenterCylinderAxis
+    second: {fileID: 2100000, guid: 089486d9b8776e04c9cf47ff77f01f33, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: CenterCylinderSecond
+    second: {fileID: 2100000, guid: 367b913b1c0896040a53f5cfd1bf3b61, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: GearAxis
+    second: {fileID: 2100000, guid: 1234482a3053b424da5b83c0f96f6117, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: GearMain
+    second: {fileID: 2100000, guid: 11718031aead9504dabb2279ca4b17d9, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: GearSecond
+    second: {fileID: 2100000, guid: 8087ebbc156198644a5768253d882ea4, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: GearThird
+    second: {fileID: 2100000, guid: 463fc776cc9cee242bf383367bb8e8b0, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Material
+    second: {fileID: 2100000, guid: 71f3120d98c71a843b587b01df281c28, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Pilar_1
+    second: {fileID: 2100000, guid: 8109c3159cd00ee4cb08a957652f2696, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: WallBand
+    second: {fileID: 2100000, guid: ec44614129f77d04ca765bfb778993c3, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: WallMain
+    second: {fileID: 2100000, guid: 3846e103cbd8d144ba2d6aa15ff23dc2, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: unnamed
+    second: {fileID: 2100000, guid: a68f21580dddcc341a2a43d591ff00dc, type: 2}
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+    materialLocation: 0
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    importAnimatedCustomProperties: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    extraUserProperties: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    importVisibility: 1
+    importBlendShapes: 1
+    importCameras: 1
+    importLights: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+    normalCalculationMode: 4
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    serializedVersion: 2
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    rootMotionBoneRotation: {x: 0, y: 0, z: 0, w: 1}
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 2
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

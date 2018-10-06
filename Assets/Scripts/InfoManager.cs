@@ -10,7 +10,10 @@ public class InfoManager : MonoBehaviour {
         if (instance != null){ Debug.LogError("More than one InfoManager in scene !"); return; } instance = this;
     }
 
+    [Header("Operation")]
     public int nbMeteorCollisions;
+
+    [Header("UI")]
     public TextMeshProUGUI meteorCollisionsValue;
 
     void Start()

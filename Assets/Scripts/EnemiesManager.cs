@@ -11,11 +11,13 @@ public class EnemiesManager : MonoBehaviour {
         instance = this;
     }
 
-    public List<GameObject> enemies;
-    public List<GameObject> enemyWrecks;
-
+    [Header("Settings")]
     public int meteorPriority = 1;
     public int spaceshipsPriority = 2;
+
+    [Header("Operation")]
+    public List<GameObject> enemies;
+    public List<GameObject> enemyWrecks;
 
     [Header("Enemies")]
     public GameObject ennemySpaceship_1;
