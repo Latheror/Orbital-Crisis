@@ -13,6 +13,8 @@ public class PlanetExpansionManager : MonoBehaviour {
 
     [Header("Prefabs")]
     public GameObject buildingSlotPrefab;
+
+
     public GameObject buildingSlotsParent;
 
 	// Use this for initialization
