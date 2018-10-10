@@ -7,7 +7,7 @@ public class TouchManager : MonoBehaviour {
     public static TouchManager instance;
 
     [Header("World")]
-    public Camera camera;
+    public new Camera camera;
 
     [Header("Settings")]
     public float perspectiveZoomSpeed = 0.5f;        // The rate of change of the field of view in perspective mode.
@@ -77,7 +77,7 @@ public class TouchManager : MonoBehaviour {
                                 if (! GeometryManager.instance.IsTouchWithinSpaceshipInfoPanelArea(lastTouch) && !GeometryManager.instance.IsTouchWithinSpaceshipInfoPanelArea(destPos))
                                 {
 
-                                    Debug.Log("Setting Manual Destination | DestPos: " + destPos);
+                                    //Debug.Log("Setting Manual Destination | DestPos: " + destPos);
                                     SpaceshipManager.instance.selectedSpaceship.GetComponent<Spaceship>().SetManualDestination(destPos);
                                 }
                             }

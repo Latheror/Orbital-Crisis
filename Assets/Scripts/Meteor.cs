@@ -36,7 +36,7 @@ public class Meteor : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        if (GameManager.instance.gameState == GameManager.GameState.Default)
+        if (GameManager.instance != null && GameManager.instance.gameState == GameManager.GameState.Default)
         {
             ExecuteMovements();
         }

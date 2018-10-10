@@ -12,6 +12,7 @@ TagManager:
   - spaceship
   - allied
   - enemy
+  - gatherable
   layers:
   - Default
   - TransparentFX

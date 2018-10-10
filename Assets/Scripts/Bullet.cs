@@ -13,7 +13,12 @@ public class Bullet : MonoBehaviour {
     void Start()
     {
         //ChaseTarget();
-        InvokeRepeating("ChaseTarget", 0f, 0.5f);
+        //InvokeRepeating("ChaseTarget", 0f, 0.05f);
+    }
+
+    private void Update()
+    {
+        ChaseTarget();
     }
 
     public void SetTarget(GameObject newTarget)

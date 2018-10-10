@@ -32,6 +32,7 @@ public class GameManager : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
+        Screen.orientation = ScreenOrientation.AutoRotation;
         gameState = GameState.Default;
         selectionState = SelectionState.Default;
         objectsDepthOffset = mainPlanet.transform.position.z;

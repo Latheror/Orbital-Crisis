@@ -10,8 +10,8 @@ public class MenuManager : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		
-	}
+        Screen.orientation = ScreenOrientation.AutoRotation;
+    }
 	
 	// Update is called once per frame
 	void Update () {

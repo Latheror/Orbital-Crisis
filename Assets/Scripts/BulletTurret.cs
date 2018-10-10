@@ -5,7 +5,7 @@ using UnityEngine;
 public class BulletTurret : Turret {
 
     [Header("Settings")]
-    public float bulletSpeed = 5f;
+    public float bulletSpeed = 100f;
 
     [Header("Prefabs")]
     public GameObject bulletPrefab;
@@ -15,8 +15,8 @@ public class BulletTurret : Turret {
 
         buildingLocationType = BuildingLocationType.Planet;
 
-        InvokeRepeating("UpdateTarget", 0f, 0.5f);
-        InvokeRepeating("ShootOnTarget", 0f, 1f); 
+        InvokeRepeating("UpdateTarget", 0f, 0.05f);
+        InvokeRepeating("ShootOnTarget", 0f, 1.5f); 
 	}
 	
     public BulletTurret(string name) :  base(name)
@@ -44,6 +44,7 @@ public class BulletTurret : Turret {
 
                     Bullet bulletScript = instantiatedBullet.GetComponent<Bullet>();
                     bulletScript.SetTarget(target);
+                    bulletScript.speed = bulletSpeed;
 
                     // bulletPrefab.GetComponent<Renderer>().material.color = Color.red;
 

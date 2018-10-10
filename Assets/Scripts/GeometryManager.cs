@@ -97,7 +97,7 @@ public class GeometryManager : MonoBehaviour {
             intersectPointPos = ray.GetPoint(distance);
         }
 
-        Debug.Log("GetLocationFromTouchPointOnPlanetPlane | IntersectPointPos: " + intersectPointPos);
+        //Debug.Log("GetLocationFromTouchPointOnPlanetPlane | IntersectPointPos: " + intersectPointPos);
         intersectPointPos.z = 160;
 
         return intersectPointPos;
@@ -135,7 +135,7 @@ public class GeometryManager : MonoBehaviour {
         float infoPanelTopBorder = infoPanel.GetComponent<RectTransform>().position.y + infoPanel.GetComponent<RectTransform>().sizeDelta.y / 2;
         float infoPanelBottomBorder = infoPanel.GetComponent<RectTransform>().position.y - infoPanel.GetComponent<RectTransform>().sizeDelta.y / 2;
 
-        Debug.Log("IsTouchWithinSpaceshipInfoPanelArea | Left: " + infoPanelLeftBorder + " | Right: " + infoPanelRightBorder + " | Top: " + infoPanelTopBorder + " | Bottom: " + infoPanelBottomBorder);
+        //Debug.Log("IsTouchWithinSpaceshipInfoPanelArea | Left: " + infoPanelLeftBorder + " | Right: " + infoPanelRightBorder + " | Top: " + infoPanelTopBorder + " | Bottom: " + infoPanelBottomBorder);
 
 
         return ((touchPosX >= (infoPanelLeftBorder - margin)) && (touchPosX <= (infoPanelRightBorder + margin)) && (touchPosY >= (infoPanelBottomBorder - margin)) && (touchPosY <= (infoPanelTopBorder + margin)));

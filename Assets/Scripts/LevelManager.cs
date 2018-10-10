@@ -108,17 +108,29 @@ public class LevelManager : MonoBehaviour {
                 SurroundingAreasManager.instance.UnlockNextDisk();
             }
 
-            // Unlock building(s)
-            BuildingManager bManager = BuildingManager.instance;
-            foreach(BuildingManager.BuildingType bType in bManager.availableBuildings)
+            // Get unlocked building(s)
+            List<BuildingManager.BuildingType> unlockedBuildings = UnlockedBuildingsAtLevelNb(currentLevelNumber);
+            if(unlockedBuildings.Count > 0)
             {
-                if(!bType.isUnlocked && bType.unlockedAtLevelNb == currentLevelNumber)
-                {
-                    bManager.UnlockBuildingType(bType);
-                }
-            }
+                Debug.Log("Buildings are unlocked at this level.");
 
-            LaunchNewWave();
+                // Unlock building(s)
+                BuildingManager bManager = BuildingManager.instance;
+                foreach (BuildingManager.BuildingType bType in unlockedBuildings)
+                {
+                    if (!bType.isUnlocked && bType.unlockedAtLevelNb == currentLevelNumber)
+                    {
+                        bManager.UnlockBuildingType(bType);
+                    }
+                }
+
+                EventsInfoManager.instance.DisplayNewBuildingsInfo(unlockedBuildings);
+            }
+            else
+            {
+                LaunchNewWave();
+                GatherablesManager.instance.NewWaveActions(currentLevelNumber);
+            }
         }
         else
         {
@@ -126,6 +138,12 @@ public class LevelManager : MonoBehaviour {
             levelsList.Add(new Level(currentLevelNumber + 1, "Level Nb " + (currentLevelNumber + 1), (currentLevelNumber + 1) * 10, (currentLevelNumber + 1), 1f, new List<GameObject> {EnemiesManager.instance.ennemySpaceship_1 }));
             GoToNextLevel();
         }
+    }
+
+    public void ResumeNewLevelActionsAfterNewBuildingInfoDisplay()
+    {
+        LaunchNewWave();
+        GatherablesManager.instance.NewWaveActions(currentLevelNumber);
     }
 
     public void IncrementCurrentLevelDestroyedMeteorsNb(int nb)
@@ -251,6 +269,19 @@ public class LevelManager : MonoBehaviour {
             GameObject instantiatedEnemy = Instantiate(enemy, GeometryManager.instance.RandomSpawnPosition(), Quaternion.identity);
             EnemiesManager.instance.enemies.Add(instantiatedEnemy);
         }
+    }
+
+    public List<BuildingManager.BuildingType> UnlockedBuildingsAtLevelNb(int nb)
+    {
+        List<BuildingManager.BuildingType> bTypes = new List<BuildingManager.BuildingType>();
+        foreach (BuildingManager.BuildingType buildingType in BuildingManager.instance.availableBuildings)
+        {
+            if(buildingType.unlockedAtLevelNb == nb && !buildingType.isUnlocked)
+            {
+                bTypes.Add(buildingType);
+            }
+        }
+        return bTypes;
     }
 
 

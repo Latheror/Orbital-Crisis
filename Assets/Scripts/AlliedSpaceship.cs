@@ -177,4 +177,16 @@ public class AlliedSpaceship : Spaceship {
         // temporary
         isActivated = false;
     }
+
+    void OnCollisionEnter(Collision col)
+    {
+        //Debug.Log("Spaceship collided with : " + col.gameObject.name);
+        if (col.gameObject.CompareTag("gatherable"))
+        {
+            Debug.Log("Touched gatherable object !");
+            Gatherable g = col.gameObject.GetComponent<Gatherable>();
+            g.ActOnSpaceship(this);
+            
+        }
+    }
 }

@@ -47,8 +47,8 @@ public class BuildingManager : MonoBehaviour {
     {
         availableBuildings.Add(new BuildingType("Laser Turret", laserTurretPrefab, 25f, new List<ResourcesManager.ResourceAmount>(){
                 new ResourcesManager.ResourceAmount("carbon", 50),
-                new ResourcesManager.ResourceAmount("steel", 505),
-                new ResourcesManager.ResourceAmount("steel", 80),
+                new ResourcesManager.ResourceAmount("steel", 50),
+                new ResourcesManager.ResourceAmount("carbon", 50),
                                                                                         },
                                                 BuildingType.BuildingLocationType.Planet, "laser_turret", 3, 0));
         availableBuildings.Add(new BuildingType("Bullet Turret", bulletTurretPrefab, 20f, new List<ResourcesManager.ResourceAmount>(){
