@@ -124,7 +124,7 @@ public class GeometryManager : MonoBehaviour {
         return intersectPointPos;
     }
 
-    public bool IsTouchWithinSpaceshipInfoPanelArea(Vector3 touchPos)
+    /*public bool IsTouchWithinSpaceshipInfoPanelArea(Vector3 touchPos)
     {
         float touchPosX = touchPos.x;
         float touchPosY = touchPos.y;
@@ -139,7 +139,7 @@ public class GeometryManager : MonoBehaviour {
 
 
         return ((touchPosX >= (infoPanelLeftBorder - margin)) && (touchPosX <= (infoPanelRightBorder + margin)) && (touchPosY >= (infoPanelBottomBorder - margin)) && (touchPosY <= (infoPanelTopBorder + margin)));
-    }
+    }*/
 
     public Vector3 RandomSpawnPosition()
     {

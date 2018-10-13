@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 public class BuildingsUnlockedPanel : MonoBehaviour {
 
@@ -13,7 +14,9 @@ public class BuildingsUnlockedPanel : MonoBehaviour {
     }
 
     [Header("UI")]
-    public GameObject buildingImage;
+    public GameObject buildingImageUI;
+    public TextMeshProUGUI buildingNameTextUI;
+    public TextMeshProUGUI buildingDescriptionTextUI;
 
     [Header("Settings")]
     public BuildingManager.BuildingType buildingType;
@@ -31,11 +34,23 @@ public class BuildingsUnlockedPanel : MonoBehaviour {
     public void SetInfo()
     {
         SetBuildingImage();
+        SetBuildingName();
+        SetBuildingDescription();
     }
 
     private void SetBuildingImage()
     {
-        buildingImage.GetComponent<Image>().sprite = buildingType.buildingImage;
+        buildingImageUI.GetComponent<Image>().sprite = buildingType.buildingImage;
+    }
+
+    private void SetBuildingName()
+    {
+        buildingNameTextUI.text = buildingType.name;
+    }
+
+    private void SetBuildingDescription()
+    {
+        buildingDescriptionTextUI.text = buildingType.description;
     }
 
     public void DisplayNewBuildingsInfo(List<BuildingManager.BuildingType> newBuildingTypes)

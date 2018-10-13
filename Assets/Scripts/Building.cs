@@ -14,6 +14,8 @@ public class Building : MonoBehaviour {
     public float buildingSpotAngle = 0f;
     public int currentTier = 1;
 
+    public float currentRequiredEnergy = 10f;
+
     public enum BuildingLocationType {Planet, Disks};
     public BuildingLocationType buildingLocationType;
 

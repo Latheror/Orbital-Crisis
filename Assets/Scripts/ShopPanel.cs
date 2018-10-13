@@ -11,7 +11,6 @@ public class ShopPanel : MonoBehaviour {
     public int buildingsLayout1ItemNb;
     public int buildingsLayout2ItemNb;
     public int nbBuildingShopItemsPerLayout = 6;
-    public GameObject[] buildingsLayouts;
     public Color buildingShopItemDefaultBackgroundColor = Color.blue;
     public Color buildingShopItemSelectedCanPayBackgroundColor;
     public Color buildingShopItemSelectedCantPayBackgroundColor;
@@ -20,12 +19,14 @@ public class ShopPanel : MonoBehaviour {
     public GameObject shopItemPanelSelected = null;
     public List<GameObject> buildingShopItemList;
     public int currentPanelDisplayedIndex;
+    public int[] buildingLayoutsItemNbs;
 
     [Header("UI")]
     public GameObject cancelButton;
     public GameObject buildButton;
-    public GameObject buildingsLayout1;
-    public GameObject buildingsLayout2;
+    public List<GameObject> buildingsLayouts;
+    public GameObject previousLayoutButton;
+    public GameObject nextLayoutButton;
 
     [Header("Prefabs")]
     public GameObject buildingShopItemPrefab;
@@ -37,7 +38,7 @@ public class ShopPanel : MonoBehaviour {
         if (instance != null) { Debug.LogError("More than one ShopPanel in scene !"); return; }
         instance = this;
         buildingShopItemList = new List<GameObject>();
-        buildingsLayouts = new GameObject[] { buildingsLayout1, buildingsLayout2 };
+        buildingLayoutsItemNbs = new int[] { 0, 0, 0 };    // Change this later
     }
 
     void Start()
@@ -51,9 +52,6 @@ public class ShopPanel : MonoBehaviour {
 
     public void BuildStartBuildingShopItems()
     {
-        buildingsLayout1ItemNb = 0;
-        buildingsLayout2ItemNb = 0;
-
         foreach (BuildingManager.BuildingType buildingType in BuildingManager.instance.availableBuildings)
         {
             if (buildingType.isUnlocked)
@@ -61,27 +59,33 @@ public class ShopPanel : MonoBehaviour {
                 AddBuildingShopItem(buildingType);
             }
         }
+
+        UpdateLayoutChangeButtons();
     }
 
     public void AddBuildingShopItem(BuildingManager.BuildingType buildingType)
     {
-        GameObject instantiatedBuildingShopItem = Instantiate(buildingShopItemPrefab, buildingsLayout1.transform.position, Quaternion.identity);
-        if (buildingsLayout1ItemNb < nbBuildingShopItemsPerLayout)
+        for(int i = 0; i< buildingsLayouts.Count; i++)
         {
-            instantiatedBuildingShopItem.transform.SetParent(buildingsLayout1.transform, false);
-            buildingsLayout1ItemNb++;
-        }
-        else
-        {
-            instantiatedBuildingShopItem.transform.SetParent(buildingsLayout2.transform, false);
-            buildingsLayout2ItemNb++;
-        }
+            if(buildingLayoutsItemNbs[i] < nbBuildingShopItemsPerLayout) // There is some room in this layout
+            {
+                GameObject instantiatedBuildingShopItem = Instantiate(buildingShopItemPrefab, buildingsLayouts[i].transform.position, Quaternion.identity);
+                instantiatedBuildingShopItem.transform.SetParent(buildingsLayouts[i].transform, false);
+                buildingLayoutsItemNbs[i] ++;
 
-        buildingShopItemList.Add(instantiatedBuildingShopItem);
+                Debug.Log("Nb of building items in layout " + i + " is: " + buildingLayoutsItemNbs[i]);
 
-        BuildingShopItem item = instantiatedBuildingShopItem.GetComponent<BuildingShopItem>();
-        item.buildingType = buildingType;
-        item.SetInfos();      
+                buildingShopItemList.Add(instantiatedBuildingShopItem);
+
+                BuildingShopItem item = instantiatedBuildingShopItem.GetComponent<BuildingShopItem>();
+                item.buildingType = buildingType;
+                item.SetInfos();
+
+                UpdateLayoutChangeButtons();
+
+                break;
+            }
+        } 
     }
 
     public void CancelButtonClicked()
@@ -116,12 +120,14 @@ public class ShopPanel : MonoBehaviour {
 
     public void NextLayoutButton()
     {
-        if(currentPanelDisplayedIndex < buildingsLayouts.Length - 1)
+        if(currentPanelDisplayedIndex < buildingsLayouts.Count - 1)
         {
             buildingsLayouts[currentPanelDisplayedIndex].transform.parent.gameObject.SetActive(false);
             buildingsLayouts[currentPanelDisplayedIndex + 1 ].transform.parent.gameObject.SetActive(true);
             currentPanelDisplayedIndex++;
         }
+
+        UpdateLayoutChangeButtons();
     }
 
     public void PreviousPanelButton()
@@ -132,6 +138,8 @@ public class ShopPanel : MonoBehaviour {
             buildingsLayouts[currentPanelDisplayedIndex - 1 ].transform.parent.gameObject.SetActive(true);
             currentPanelDisplayedIndex--;
         }
+
+        UpdateLayoutChangeButtons();
     }
 
     public void ResetLastShopItemSelected()
@@ -149,6 +157,12 @@ public class ShopPanel : MonoBehaviour {
         {
             shopItem.GetComponent<BuildingShopItem>().UpdateResourcesAvailabilityIndicators();
         }
+    }
+
+    public void UpdateLayoutChangeButtons()
+    {
+        previousLayoutButton.SetActive((currentPanelDisplayedIndex == 0)?false:true);
+        nextLayoutButton.SetActive((buildingLayoutsItemNbs[currentPanelDisplayedIndex + 1] > 0) ? true : false);
     }
 
 }

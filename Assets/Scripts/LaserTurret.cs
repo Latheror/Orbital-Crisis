@@ -4,7 +4,14 @@ using UnityEngine;
 
 public class LaserTurret : Turret {
 
-	void Start () {
+    [Header("Tier 2")]
+    public float power_tier_2 = 20f;
+    //public float 
+
+    [Header("Tier 3")]
+    public float power_tier_3 = 30f;
+
+    void Start () {
 
         buildingLocationType = BuildingLocationType.Planet;
 

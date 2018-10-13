@@ -301,7 +301,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &1458519313675326
 GameObject:
   m_ObjectHideFlags: 0
@@ -1281,11 +1281,11 @@ MonoBehaviour:
     lineCount: 1
     pageCount: 1
     materialCount: 1
-  m_havePropertiesChanged: 0
+  m_havePropertiesChanged: 1
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_spriteAnimator: {fileID: 0}
-  m_isInputParsingRequired: 0
+  m_isInputParsingRequired: 1
   m_inputSource: 0
   m_hasFontAssetChanged: 0
   m_subTextObjects:
@@ -1433,11 +1433,11 @@ MonoBehaviour:
     lineCount: 1
     pageCount: 1
     materialCount: 1
-  m_havePropertiesChanged: 0
+  m_havePropertiesChanged: 1
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_spriteAnimator: {fileID: 0}
-  m_isInputParsingRequired: 0
+  m_isInputParsingRequired: 1
   m_inputSource: 0
   m_hasFontAssetChanged: 0
   m_subTextObjects:
@@ -1702,6 +1702,8 @@ MonoBehaviour:
   isAllied: 0
   maxHealth: 100
   health: 100
+  shield: 100
+  maxShield: 100
   movementSpeed: 100
   rotationSpeed: 20
   manualDestination: {x: 0, y: 0, z: 0}
@@ -1719,13 +1721,8 @@ MonoBehaviour:
   firePeriod: 0.5
   laserSpatialLength: 10
   damagePower: 20
-  infoPanel: {fileID: 1453538719181516}
-  infoPanelModeText: {fileID: 114053848756016312}
-  infoPanelModeButton: {fileID: 1016162414298250}
   healthBarPanel: {fileID: 1830093464443428}
   healthPointsBar: {fileID: 1064421955083390}
-  infoPanelAutoModeColor: {r: 0, g: 1, b: 0, a: 1}
-  infoPanelManualModeColor: {r: 1, g: 0, b: 0, a: 1}
 --- !u!114 &114467134645749316
 MonoBehaviour:
   m_ObjectHideFlags: 1

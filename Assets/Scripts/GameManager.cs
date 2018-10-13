@@ -12,7 +12,7 @@ public class GameManager : MonoBehaviour {
     }
 
     public enum GameState { Default, Pause } 
-    public enum SelectionState { Default, SpaceShipSelected }
+    public enum SelectionState { Default, SpaceshipSelected }
 
     [Header("Settings")]
     public float objectsDepthOffset;

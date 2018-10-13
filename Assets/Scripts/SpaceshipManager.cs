@@ -31,18 +31,17 @@ public class SpaceshipManager : MonoBehaviour {
     public void SelectSpaceship(GameObject spaceship)
     {
         selectedSpaceship = spaceship;
-        GameManager.instance.selectionState = GameManager.SelectionState.SpaceShipSelected;
+        GameManager.instance.selectionState = GameManager.SelectionState.SpaceshipSelected;
         spaceship.GetComponent<Spaceship>().Highlight();
-        spaceship.GetComponent<Spaceship>().infoPanel.SetActive(true);
-        currentSelectedSpaceshipInfoPanel = spaceship.GetComponent<Spaceship>().infoPanel;
+
+        SpaceshipInfoPanel.instance.SelectSpaceshipActions();
     }
 
     public void DeselectSpaceship()
     {
         if (selectedSpaceship != null)
         {
-            selectedSpaceship.GetComponent<Spaceship>().infoPanel.SetActive(false);
-            currentSelectedSpaceshipInfoPanel = null;
+            SpaceshipInfoPanel.instance.DeselectSpaceshipActions();
             selectedSpaceship = null;
             GameManager.instance.selectionState = GameManager.SelectionState.Default;
         }

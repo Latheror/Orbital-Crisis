@@ -13,6 +13,8 @@ public class Spaceship : MonoBehaviour {
     public bool isAllied = false;
     public float maxHealth = 100f;
     public float health = 100f;
+    public float shield = 100f;
+    public float maxShield = 100f;
 
     [Header("Movement")]
     public float movementSpeed = 100f;
@@ -36,13 +38,13 @@ public class Spaceship : MonoBehaviour {
     public float damagePower = 20;
 
     [Header("UI")]
-    public GameObject infoPanel;
-    public TextMeshProUGUI infoPanelModeText;
-    public GameObject infoPanelModeButton;
+    //public GameObject infoPanel;
+    //public TextMeshProUGUI infoPanelModeText;
+    //public GameObject infoPanelModeButton;
     public GameObject healthBarPanel;
     public GameObject healthPointsBar;
-    public Color infoPanelAutoModeColor = Color.green;
-    public Color infoPanelManualModeColor = Color.red;
+    //public Color infoPanelAutoModeColor = Color.green;
+    //public Color infoPanelManualModeColor = Color.red;
 
     // Use this for initialization
     void Start () {
@@ -52,7 +54,7 @@ public class Spaceship : MonoBehaviour {
         manualDestination = transform.position;
         manualDestinationReached = true;
         isInAutomaticMode = true;
-        infoPanel.SetActive(false);
+        //infoPanel.SetActive(false);
         SetStartingMode();
 	}
 	
@@ -178,6 +180,10 @@ public class Spaceship : MonoBehaviour {
         {
             DestroySpaceship();
         }
+        else
+        {
+            SpaceshipInfoPanel.instance.UpdateInfo();
+        }
     }
 
     public void Heal(float healingPower)
@@ -252,14 +258,8 @@ public class Spaceship : MonoBehaviour {
 
     public void SwitchMode()
     {
-        isInAutomaticMode = !isInAutomaticMode;
-        if(isInAutomaticMode){
-            infoPanelModeText.text = "AUTO";
-            infoPanelModeButton.GetComponent<Image>().color = infoPanelAutoModeColor;
-        }else{
-            infoPanelModeText.text = "MANUAL";
-            infoPanelModeButton.GetComponent<Image>().color = infoPanelManualModeColor;
-        }
+        this.isInAutomaticMode = ! this.isInAutomaticMode;
+        SpaceshipInfoPanel.instance.UpdateModeDisplay();
         Debug.Log("Switching Mode !");
     }
 
@@ -285,7 +285,6 @@ public class Spaceship : MonoBehaviour {
     public void SetStartingMode()
     {
         isInAutomaticMode = true;
-        infoPanelModeText.text = "AUTO";
-        infoPanelModeButton.GetComponent<Image>().color = infoPanelAutoModeColor;
+        SpaceshipInfoPanel.instance.UpdateModeDisplay();
     }
 }

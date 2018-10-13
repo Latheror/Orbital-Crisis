@@ -12,7 +12,7 @@ public class AlliedSpaceship : Spaceship {
         manualDestination = transform.position;
         manualDestinationReached = true;
         isInAutomaticMode = true;
-        infoPanel.SetActive(false);
+        //infoPanel.SetActive(false);
         SetStartingMode();
     }
 	
@@ -119,34 +119,38 @@ public class AlliedSpaceship : Spaceship {
 
     protected override void HandleMovements()
     {
-        if (!isInAutomaticMode)  // Manual Mode
+        if(isActivated)
         {
-            if (!IsCloseEnoughToDestination())
+            if (!isInAutomaticMode)  // Manual Mode
             {
-                // Move towards destination
-                transform.position = Vector3.MoveTowards(transform.position, manualDestination, Time.deltaTime * movementSpeed);
-            }
-            else
-            {
-                if (target != null && IsTargetInRange())
+                if (!IsCloseEnoughToDestination())
                 {
+                    // Move towards destination
+                    transform.position = Vector3.MoveTowards(transform.position, manualDestination, Time.deltaTime * movementSpeed);
+                }
+                else
+                {
+                    if (target != null && IsTargetInRange())
+                    {
+                        RotateTowardsTarget();
+                    }
+                }
+            }
+            else  // Automatic mode
+            {
+                if (target != null)
+                {
+                    if (!IsTargetInRange())
+                    {
+                        // Go closer to target
+                        transform.position = Vector3.MoveTowards(transform.position, target.transform.position, Time.deltaTime * movementSpeed);
+                    }
+
                     RotateTowardsTarget();
                 }
             }
         }
-        else  // Automatic mode
-        {
-            if (target != null)
-            {
-                if (!IsTargetInRange())
-                {
-                    // Go closer to target
-                    transform.position = Vector3.MoveTowards(transform.position, target.transform.position, Time.deltaTime * movementSpeed);
-                }
-
-                RotateTowardsTarget();
-            }
-        }
+      
     }
 
     protected override void AttackTarget()

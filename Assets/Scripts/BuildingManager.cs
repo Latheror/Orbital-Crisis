@@ -48,38 +48,52 @@ public class BuildingManager : MonoBehaviour {
         availableBuildings.Add(new BuildingType("Laser Turret", laserTurretPrefab, 25f, new List<ResourcesManager.ResourceAmount>(){
                 new ResourcesManager.ResourceAmount("carbon", 50),
                 new ResourcesManager.ResourceAmount("steel", 50),
-                new ResourcesManager.ResourceAmount("carbon", 50),
-                                                                                        },
-                                                BuildingType.BuildingLocationType.Planet, "laser_turret", 3, 0));
-        availableBuildings.Add(new BuildingType("Bullet Turret", bulletTurretPrefab, 20f, new List<ResourcesManager.ResourceAmount>(){
-                new ResourcesManager.ResourceAmount("steel", 50)
-                                                                                        },
-                                                BuildingType.BuildingLocationType.Planet, "bullet_turret", 3, 0));
+                new ResourcesManager.ResourceAmount("carbon", 50)},
+                                                BuildingType.BuildingLocationType.Planet, "laser_turret", 3, 0,
+                                                "Powerful turret firing a laser beam at incoming ennemies."
+                                                ));
+
+        availableBuildings.Add(new BuildingType("Missile Turret", bulletTurretPrefab, 20f, new List<ResourcesManager.ResourceAmount>(){
+                new ResourcesManager.ResourceAmount("steel", 50)},
+                                                BuildingType.BuildingLocationType.Planet, "bullet_turret", 3, 0,
+                                                "Shoots missiles at incoming ennemies."));
+
         availableBuildings.Add(new BuildingType("Freezing Turret", freezingTurretPrefab, 10f, new List<ResourcesManager.ResourceAmount>(){
-                new ResourcesManager.ResourceAmount("silver", 40)
-                                                                                        },
-                                                BuildingType.BuildingLocationType.Planet, "freezing_turret", 3, 2));
+                new ResourcesManager.ResourceAmount("silver", 40)},
+                                                BuildingType.BuildingLocationType.Planet, "freezing_turret", 3, 2,
+                                                "Freezes nearby ennemies and slow them down."));
+
         availableBuildings.Add(new BuildingType("Power Plant", powerPlantPrefab, 0f, new List<ResourcesManager.ResourceAmount>(){
                                                                                         },
-                                                BuildingType.BuildingLocationType.Planet, "power_plant", 3, 0));
+                                                BuildingType.BuildingLocationType.Planet, "power_plant", 3, 0,
+                                                "Provides energy to your infrastructures."));
+
         availableBuildings.Add(new BuildingType("Mine Building", mineBuildingPrefab, 10f, new List<ResourcesManager.ResourceAmount>(){
                                                                                         },
-                                                BuildingType.BuildingLocationType.Planet, "", 3, /*5*/ 0));
+                                                BuildingType.BuildingLocationType.Planet, "", 3, 0,
+                                                "Gather resources needed to build infrastructures."));
+
         availableBuildings.Add(new BuildingType("Laser Satellite", laserSatellitePrefab, 10f, new List<ResourcesManager.ResourceAmount>(){
                                                                                         },
-                                                BuildingType.BuildingLocationType.Disks, "", 3, 3));
+                                                BuildingType.BuildingLocationType.Disks, "", 3, 3,
+                                                "Satellite firing at nearby ennemies."));
+
         availableBuildings.Add(new BuildingType("Shock Satellite", shockSatellitePrefab, 10f, new List<ResourcesManager.ResourceAmount>(){
                                                                                         },
-                                                BuildingType.BuildingLocationType.Disks, "shock_satellite", 3, 4));
+                                                BuildingType.BuildingLocationType.Disks, "shock_satellite", 3, 4,
+                                                "Satellite building dealing damage salves in a circle around it."));
         availableBuildings.Add(new BuildingType("Recycling Station", debrisCollectorStationPrefab, 10f, new List<ResourcesManager.ResourceAmount>(){
                                                                                         },
-                                                BuildingType.BuildingLocationType.Disks, "recycling_station", 3, 5));
+                                                BuildingType.BuildingLocationType.Disks, "recycling_station", 3, 5,
+                                                "Satellite base of recycling shuttles, able to recycle meteor debris and ennemy spaceship wrecks."));
         availableBuildings.Add(new BuildingType("Solar Station", satelliteSolarStationPrefab, 0f, new List<ResourcesManager.ResourceAmount>(){
                                                                                         },
-                                                BuildingType.BuildingLocationType.Disks, "solar_station", 3, 6));
+                                                BuildingType.BuildingLocationType.Disks, "solar_station", 3, 6,
+                                                "A satellite covered by solar panels, providing energy to your infrastructures."));
         availableBuildings.Add(new BuildingType("Healing Turret", healingTurretPrefab, 15f, new List<ResourcesManager.ResourceAmount>(){
                                                                                         },
-                                                BuildingType.BuildingLocationType.Planet, "healing_turret", 3, 7));
+                                                BuildingType.BuildingLocationType.Planet, "healing_turret", 3, 7,
+                                                "Turret able to restore your spaceships health."));
     }
 
     public void SelectBuilding(BuildingType bType)
@@ -333,8 +347,9 @@ public class BuildingManager : MonoBehaviour {
         public int maxTier = 3;
         public bool isUnlocked = true;
         public int unlockedAtLevelNb = 0;
+        public string description;
 
-        public BuildingType(string name, GameObject prefab, float requiredEnergy, List<ResourcesManager.ResourceAmount> cost, BuildingLocationType buildingLocationType, string imageName, int maxTier, int unlockedAtLevelNb)
+        public BuildingType(string name, GameObject prefab, float requiredEnergy, List<ResourcesManager.ResourceAmount> cost, BuildingLocationType buildingLocationType, string imageName, int maxTier, int unlockedAtLevelNb, string description)
         {
             this.name = name;
             this.prefab = prefab;
@@ -345,6 +360,7 @@ public class BuildingManager : MonoBehaviour {
             this.maxTier = maxTier;
             this.isUnlocked = (unlockedAtLevelNb == 0) ? true : false;
             this.unlockedAtLevelNb = unlockedAtLevelNb;
+            this.description = description;
         }
     }
 
