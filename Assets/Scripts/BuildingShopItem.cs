@@ -45,8 +45,6 @@ public class BuildingShopItem : MonoBehaviour {
         {
             SetBackGroundColor(ShopPanel.instance.buildingShopItemSelectedCantPayBackgroundColor);
         }
-
-        SpaceshipManager.instance.SetSelectionState(GameManager.SelectionState.Default);
     }
 
     public void ApplyBuildingNameText()

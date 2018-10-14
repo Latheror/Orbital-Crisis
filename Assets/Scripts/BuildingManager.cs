@@ -50,55 +50,97 @@ public class BuildingManager : MonoBehaviour {
                 new ResourcesManager.ResourceAmount("steel", 50),
                 new ResourcesManager.ResourceAmount("carbon", 50)},
                                                 BuildingType.BuildingLocationType.Planet, "laser_turret", 3, 0,
-                                                "Powerful turret firing a laser beam at incoming ennemies."
-                                                ));
+                                                "Powerful turret firing a laser beam at incoming ennemies.",
+                new List<ResourcesManager.UpgradeCost>(){
+                    new ResourcesManager.UpgradeCost(2, new List<ResourcesManager.ResourceAmount>(){
+                        new ResourcesManager.ResourceAmount("carbon", 50),
+                        new ResourcesManager.ResourceAmount("steel", 30),
+                    }),
+                    new ResourcesManager.UpgradeCost(3, new List<ResourcesManager.ResourceAmount>(){
+                        new ResourcesManager.ResourceAmount("steel", 50)
+                    })
+                },
+                true
+                ));
 
         availableBuildings.Add(new BuildingType("Missile Turret", bulletTurretPrefab, 20f, new List<ResourcesManager.ResourceAmount>(){
                 new ResourcesManager.ResourceAmount("steel", 50)},
                                                 BuildingType.BuildingLocationType.Planet, "bullet_turret", 3, 0,
-                                                "Shoots missiles at incoming ennemies."));
+                                                "Shoots missiles at incoming ennemies.",
+                new List<ResourcesManager.UpgradeCost>() { },
+                true
+                ));
 
         availableBuildings.Add(new BuildingType("Freezing Turret", freezingTurretPrefab, 10f, new List<ResourcesManager.ResourceAmount>(){
                 new ResourcesManager.ResourceAmount("silver", 40)},
                                                 BuildingType.BuildingLocationType.Planet, "freezing_turret", 3, 2,
-                                                "Freezes nearby ennemies and slow them down."));
+                                                "Freezes nearby ennemies and slow them down.",
+                new List<ResourcesManager.UpgradeCost>() { },
+                true
+                ));
 
         availableBuildings.Add(new BuildingType("Power Plant", powerPlantPrefab, 0f, new List<ResourcesManager.ResourceAmount>(){
                                                                                         },
                                                 BuildingType.BuildingLocationType.Planet, "power_plant", 3, 0,
-                                                "Provides energy to your infrastructures."));
+                                                "Provides energy to your infrastructures.",
+                new List<ResourcesManager.UpgradeCost>() { },
+                false
+                ));
 
         availableBuildings.Add(new BuildingType("Mine Building", mineBuildingPrefab, 10f, new List<ResourcesManager.ResourceAmount>(){
                                                                                         },
                                                 BuildingType.BuildingLocationType.Planet, "", 3, 0,
-                                                "Gather resources needed to build infrastructures."));
+                                                "Gather resources needed to build infrastructures.",
+                new List<ResourcesManager.UpgradeCost>() { },
+                false
+                ));
 
         availableBuildings.Add(new BuildingType("Laser Satellite", laserSatellitePrefab, 10f, new List<ResourcesManager.ResourceAmount>(){
                                                                                         },
                                                 BuildingType.BuildingLocationType.Disks, "", 3, 3,
-                                                "Satellite firing at nearby ennemies."));
+                                                "Satellite firing at nearby ennemies.",
+                new List<ResourcesManager.UpgradeCost>() { },
+                true
+                ));
 
         availableBuildings.Add(new BuildingType("Shock Satellite", shockSatellitePrefab, 10f, new List<ResourcesManager.ResourceAmount>(){
                                                                                         },
                                                 BuildingType.BuildingLocationType.Disks, "shock_satellite", 3, 4,
-                                                "Satellite building dealing damage salves in a circle around it."));
+                                                "Satellite building dealing damage salves in a circle around it.",
+                new List<ResourcesManager.UpgradeCost>() { },
+                true
+                ));
+
         availableBuildings.Add(new BuildingType("Recycling Station", debrisCollectorStationPrefab, 10f, new List<ResourcesManager.ResourceAmount>(){
                                                                                         },
                                                 BuildingType.BuildingLocationType.Disks, "recycling_station", 3, 5,
-                                                "Satellite base of recycling shuttles, able to recycle meteor debris and ennemy spaceship wrecks."));
+                                                "Satellite base of recycling shuttles, able to recycle meteor debris and ennemy spaceship wrecks.",
+                new List<ResourcesManager.UpgradeCost>() { },
+                true
+                ));
+
         availableBuildings.Add(new BuildingType("Solar Station", satelliteSolarStationPrefab, 0f, new List<ResourcesManager.ResourceAmount>(){
                                                                                         },
                                                 BuildingType.BuildingLocationType.Disks, "solar_station", 3, 6,
-                                                "A satellite covered by solar panels, providing energy to your infrastructures."));
+                                                "A satellite covered by solar panels, providing energy to your infrastructures.",
+                new List<ResourcesManager.UpgradeCost>() { },
+                false
+                ));
+
         availableBuildings.Add(new BuildingType("Healing Turret", healingTurretPrefab, 15f, new List<ResourcesManager.ResourceAmount>(){
                                                                                         },
                                                 BuildingType.BuildingLocationType.Planet, "healing_turret", 3, 7,
-                                                "Turret able to restore your spaceships health."));
+                                                "Turret able to restore your spaceships health.",
+                new List<ResourcesManager.UpgradeCost>() { },
+                true
+                ));
     }
 
     public void SelectBuilding(BuildingType bType)
     {
-        if(buildingState == BuildingState.Default || buildingState == BuildingState.BuildingSelected || buildingState == BuildingState.LocationSelected || buildingState == BuildingState.BuildingAndLocationSelected)
+        GameManager.instance.ChangeSelectionState(GameManager.SelectionState.ShopItemSelected);
+
+        if (buildingState == BuildingState.Default || buildingState == BuildingState.BuildingSelected || buildingState == BuildingState.LocationSelected || buildingState == BuildingState.BuildingAndLocationSelected)
         {
             selectedBuilding = bType;
             if (buildingState == BuildingState.Default)
@@ -159,6 +201,7 @@ public class BuildingManager : MonoBehaviour {
                     ResourcesManager.instance.Pay(selectedBuilding);
 
                     BuildBuilding();
+
                     buildingState = BuildingState.Default;
                     HideCancelButton();
                     HideBuildButton();
@@ -169,6 +212,8 @@ public class BuildingManager : MonoBehaviour {
                 }
             }
         }
+
+        GameManager.instance.ChangeSelectionState(GameManager.SelectionState.Default);
     }
 
     public void ShowCancelButton(){ ShopPanel.instance.ShowCancelButton(); }
@@ -274,6 +319,7 @@ public class BuildingManager : MonoBehaviour {
             buildingList.Add(instantiatedBuilding);
             instantiatedBuilding.GetComponent<Building>().buildingType = selectedBuilding;
             instantiatedBuilding.GetComponent<Building>().buildingSpotAngle = buildingSpotAngle;
+            instantiatedBuilding.GetComponent<Building>().currentTier = 1;
             chosenBuildingSlot.GetComponent<BuildingSlot>().SetBuilding(laserTurretPrefab.GetComponent<LaserTurret>());
             instantiatedBuilding.transform.SetParent(chosenBuildingSlot.transform);
             Debug.Log("New building instantiated !");
@@ -348,8 +394,10 @@ public class BuildingManager : MonoBehaviour {
         public bool isUnlocked = true;
         public int unlockedAtLevelNb = 0;
         public string description;
+        public List<ResourcesManager.UpgradeCost> upgradeCosts;
+        public bool hasRange;
 
-        public BuildingType(string name, GameObject prefab, float requiredEnergy, List<ResourcesManager.ResourceAmount> cost, BuildingLocationType buildingLocationType, string imageName, int maxTier, int unlockedAtLevelNb, string description)
+        public BuildingType(string name, GameObject prefab, float requiredEnergy, List<ResourcesManager.ResourceAmount> cost, BuildingLocationType buildingLocationType, string imageName, int maxTier, int unlockedAtLevelNb, string description, List<ResourcesManager.UpgradeCost> upgradeCosts, bool hasRange)
         {
             this.name = name;
             this.prefab = prefab;
@@ -361,6 +409,23 @@ public class BuildingManager : MonoBehaviour {
             this.isUnlocked = (unlockedAtLevelNb == 0) ? true : false;
             this.unlockedAtLevelNb = unlockedAtLevelNb;
             this.description = description;
+            this.upgradeCosts = upgradeCosts;
+            this.hasRange = hasRange;
+        }
+
+        public List<ResourcesManager.ResourceAmount> GetUpgradeCostsForTierNb(int tierNb)
+        {
+            List<ResourcesManager.ResourceAmount> costs = new List<ResourcesManager.ResourceAmount>();
+            foreach (ResourcesManager.UpgradeCost upgradeCost in upgradeCosts)
+            {
+                if(upgradeCost.tierIndex == tierNb) // Matching tier nb
+                {
+                    Debug.Log("Found matching UpgradeCostList");
+                    costs = upgradeCost.resourceCosts;
+                    break;
+                }
+            }
+            return costs;
         }
     }
 

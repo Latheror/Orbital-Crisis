@@ -12,7 +12,7 @@ public class GameManager : MonoBehaviour {
     }
 
     public enum GameState { Default, Pause } 
-    public enum SelectionState { Default, SpaceshipSelected }
+    public enum SelectionState { Default, SpaceshipSelected, ShopItemSelected, BuildingSelected }
 
     [Header("Settings")]
     public float objectsDepthOffset;
@@ -65,5 +65,35 @@ public class GameManager : MonoBehaviour {
     public void PauseMenuButtonAction()
     {
         SceneManager.LoadSceneAsync(0);
+    }
+
+    public void ChangeSelectionState(SelectionState state)
+    {
+        selectionState = state;
+        switch (state)
+        {
+            case SelectionState.Default:
+            {
+                    SpaceshipManager.instance.DeselectSpaceship();
+                    BuildingInfoPanel.instance.Deselection();
+                    break;
+            }
+            case SelectionState.SpaceshipSelected:
+            {
+                    BuildingInfoPanel.instance.Deselection();
+                    break;
+            }
+            case SelectionState.BuildingSelected:
+            {
+                    SpaceshipManager.instance.DeselectSpaceship();
+                    break;
+            }
+            case SelectionState.ShopItemSelected:
+            {
+                    SpaceshipManager.instance.DeselectSpaceship();
+                    BuildingInfoPanel.instance.Deselection();
+                    break;
+            }
+        }
     }
 }

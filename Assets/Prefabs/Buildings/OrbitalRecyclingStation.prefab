@@ -8,15 +8,15 @@ Prefab:
     m_TransformParent: {fileID: 0}
     m_Modifications: []
     m_RemovedComponents: []
-  m_ParentPrefab: {fileID: 0}
+  m_SourcePrefab: {fileID: 0}
   m_RootGameObject: {fileID: 1535573970657042}
-  m_IsPrefabParent: 1
+  m_IsPrefabAsset: 1
 --- !u!1 &1001192285496738
 GameObject:
   m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  serializedVersion: 5
+  serializedVersion: 6
   m_Component:
   - component: {fileID: 4517843631114422}
   - component: {fileID: 33808550855079124}
@@ -31,9 +31,9 @@ GameObject:
 --- !u!1 &1232797082863754
 GameObject:
   m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  serializedVersion: 5
+  serializedVersion: 6
   m_Component:
   - component: {fileID: 4586155475677820}
   - component: {fileID: 95937218154745130}
@@ -48,15 +48,16 @@ GameObject:
 --- !u!1 &1535573970657042
 GameObject:
   m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  serializedVersion: 5
+  serializedVersion: 6
   m_Component:
   - component: {fileID: 4850059290937518}
   - component: {fileID: 114707608026528764}
+  - component: {fileID: 65048524756946018}
   m_Layer: 0
   m_Name: OrbitalRecyclingStation
-  m_TagString: Untagged
+  m_TagString: building
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -64,9 +65,9 @@ GameObject:
 --- !u!1 &1567192237532842
 GameObject:
   m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  serializedVersion: 5
+  serializedVersion: 6
   m_Component:
   - component: {fileID: 4071283248555628}
   - component: {fileID: 33234081310185098}
@@ -81,7 +82,7 @@ GameObject:
 --- !u!4 &4071283248555628
 Transform:
   m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1567192237532842}
   m_LocalRotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071068}
@@ -94,7 +95,7 @@ Transform:
 --- !u!4 &4517843631114422
 Transform:
   m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1001192285496738}
   m_LocalRotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071068}
@@ -107,7 +108,7 @@ Transform:
 --- !u!4 &4586155475677820
 Transform:
   m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1232797082863754}
   m_LocalRotation: {x: 0.6949493, y: -0.6899155, z: -0.13055845, w: -0.15497316}
@@ -122,11 +123,11 @@ Transform:
 --- !u!4 &4850059290937518
 Transform:
   m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1535573970657042}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: -27.37413, y: 131.80139, z: -217.73322}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4586155475677820}
@@ -136,7 +137,7 @@ Transform:
 --- !u!23 &23081957947095840
 MeshRenderer:
   m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1001192285496738}
   m_Enabled: 1
@@ -176,7 +177,7 @@ MeshRenderer:
 --- !u!23 &23305555697284268
 MeshRenderer:
   m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1567192237532842}
   m_Enabled: 1
@@ -211,22 +212,34 @@ MeshRenderer:
 --- !u!33 &33234081310185098
 MeshFilter:
   m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1567192237532842}
   m_Mesh: {fileID: 4300002, guid: a9072657ad79c4640bd13e595b5ab0f8, type: 3}
 --- !u!33 &33808550855079124
 MeshFilter:
   m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1001192285496738}
   m_Mesh: {fileID: 4300000, guid: a9072657ad79c4640bd13e595b5ab0f8, type: 3}
+--- !u!65 &65048524756946018
+BoxCollider:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1535573970657042}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 19.1, y: 26.1, z: 21}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!95 &95937218154745130
 Animator:
   serializedVersion: 3
   m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1232797082863754}
   m_Enabled: 1
@@ -243,7 +256,7 @@ Animator:
 --- !u!114 &114707608026528764
 MonoBehaviour:
   m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1535573970657042}
   m_Enabled: 1
@@ -258,6 +271,10 @@ MonoBehaviour:
     requiredEnergy: 0
     buildingLocationType: 0
     buildingImage: {fileID: 0}
+    maxTier: 0
+    isUnlocked: 0
+    unlockedAtLevelNb: 0
+    description: 
   buildingName: 
   buildingColor: {r: 0, g: 0, b: 0, a: 0}
   buildingPrefab: {fileID: 0}
@@ -265,17 +282,19 @@ MonoBehaviour:
   alocatedEnergy: 0
   hasEnoughEnergy: 0
   buildingSpotAngle: 0
+  currentTier: 0
+  currentRequiredEnergy: 0
   buildingLocationType: 1
-  debrisCollectorPrefab: {fileID: 1510887292880666, guid: 2fc74cbec7cd2d041aec85c9de046e18,
-    type: 2}
-  debrisCollectorsList: []
   maxDebrisCollectorNb: 3
   debrisCollectorInstantiationDistance: 15
   range: 100
+  debrisCollectorsList: []
+  debrisCollectorPrefab: {fileID: 1510887292880666, guid: 2fc74cbec7cd2d041aec85c9de046e18,
+    type: 2}
 --- !u!114 &114913138460548730
 MonoBehaviour:
   m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1232797082863754}
   m_Enabled: 1
@@ -290,6 +309,10 @@ MonoBehaviour:
     requiredEnergy: 0
     buildingLocationType: 0
     buildingImage: {fileID: 0}
+    maxTier: 0
+    isUnlocked: 0
+    unlockedAtLevelNb: 0
+    description: 
   buildingName: 
   buildingColor: {r: 0, g: 0, b: 0, a: 0}
   buildingPrefab: {fileID: 0}
@@ -297,9 +320,11 @@ MonoBehaviour:
   alocatedEnergy: 0
   hasEnoughEnergy: 0
   buildingSpotAngle: 0
+  currentTier: 0
+  currentRequiredEnergy: 0
   buildingLocationType: 1
-  debrisCollectorPrefab: {fileID: 0}
-  debrisCollectorsList: []
   maxDebrisCollectorNb: 10
   debrisCollectorInstantiationDistance: 0
   range: 0
+  debrisCollectorsList: []
+  debrisCollectorPrefab: {fileID: 0}

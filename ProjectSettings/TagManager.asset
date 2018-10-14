@@ -13,6 +13,7 @@ TagManager:
   - allied
   - enemy
   - gatherable
+  - building
   layers:
   - Default
   - TransparentFX

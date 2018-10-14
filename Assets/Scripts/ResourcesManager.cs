@@ -210,5 +210,16 @@ public class ResourcesManager : MonoBehaviour {
         }
     }
 
+    [System.Serializable]
+    public class UpgradeCost
+    {
+        public int tierIndex;
+        public List<ResourceAmount> resourceCosts;
 
+        public UpgradeCost(int tierIndex, List<ResourceAmount> resourceCosts)
+        {
+            this.tierIndex = tierIndex;
+            this.resourceCosts = resourceCosts;
+        }
+    }
 }

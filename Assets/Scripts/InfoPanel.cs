@@ -15,9 +15,10 @@ public class InfoPanel : MonoBehaviour {
     }
 
     public GameObject spaceshipInfoPanel;
+    public GameObject buildingInfoPanel;
 
-	// Use this for initialization
-	void Start () {
+    // Use this for initialization
+    void Start () {
 		
 	}
 	

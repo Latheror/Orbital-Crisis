@@ -190,6 +190,7 @@ public class Spaceship : MonoBehaviour {
     {
         health = Mathf.Min(maxHealth, health + healingPower);
         UpdateHealthBar();
+        SpaceshipInfoPanel.instance.UpdateInfo();
     }
 
     protected void UpdateHealthBar()

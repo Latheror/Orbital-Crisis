@@ -30,6 +30,7 @@ public class ResourceCostPanel : MonoBehaviour {
 
     public void SetInfos(ResourcesManager.ResourceAmount resourceAmount)
     {
+        this.resourceType = resourceAmount.resourceType;
         this.costAmount = resourceAmount.amount;
         this.resourceType = resourceAmount.resourceType;
         this.resourceImage = resourceAmount.resourceType.resourceImage;

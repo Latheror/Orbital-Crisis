@@ -71,9 +71,10 @@ GameObject:
   m_Component:
   - component: {fileID: 4403277967872570}
   - component: {fileID: 114059324310045668}
+  - component: {fileID: 65385151151980468}
   m_Layer: 0
   m_Name: MissileTurret
-  m_TagString: Untagged
+  m_TagString: building
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -144,7 +145,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1558098935793764}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: -38.47692, y: 126.08132, z: -171.60919}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4664963005362326}
@@ -329,6 +330,18 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1375225316496828}
   m_Mesh: {fileID: 4300000, guid: 5110a534ca5f0d04fbb421193cb7e612, type: 3}
+--- !u!65 &65385151151980468
+BoxCollider:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1558098935793764}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 28.247137, y: 24.903656, z: 20}
+  m_Center: {x: 11.6433935, y: 1.4667892, z: 0}
 --- !u!95 &95803847736691000
 Animator:
   serializedVersion: 3
@@ -377,6 +390,7 @@ MonoBehaviour:
   hasEnoughEnergy: 0
   buildingSpotAngle: 0
   currentTier: 0
+  currentRequiredEnergy: 0
   buildingLocationType: 0
   offensiveTurret: 1
   previousTarget: {fileID: 0}

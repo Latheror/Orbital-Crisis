@@ -53,7 +53,7 @@ public class Bullet : MonoBehaviour {
     {
         if(other.gameObject.tag == "meteor")
         {
-            Debug.Log("Bullet hit a meteor !");
+            //Debug.Log("Bullet hit a meteor !");
             other.gameObject.GetComponent<Meteor>().DealDamage(damage);
             DestroyBullet();
         }
