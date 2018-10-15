@@ -1,7 +1,7 @@
 # Planet Tower Defense
 2D Mobile Game made with Unity3D. Build defenses around your planet, destroy asteroids and gather resources. 
 
-![alt Menu](/Assets/Resources/Images/screenshots/menu3.png)
+![alt Menu](/Assets/Resources/Images/screenshots/menu10.png)
 
 ## The game
 Based on the tower defense games, this one trades in classic paths for a more open area.
