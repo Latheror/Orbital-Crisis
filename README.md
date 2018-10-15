@@ -13,3 +13,5 @@ Different types of [buildings](../../wiki/Buildings) are available, such as turr
 ![alt Game view](/Assets/Resources/Images/screenshots/game10.PNG)
 
 Visit the [WIKI](../../wiki) ! 
+
+You are welcome to contribute to the project. Don't hesitate to contact me :).
