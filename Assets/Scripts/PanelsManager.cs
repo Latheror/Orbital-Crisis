@@ -35,5 +35,6 @@ public class PanelsManager : MonoBehaviour {
     {
         SwitchFromShopToControlsPanel();
         BuildingManager.instance.buildingState = BuildingManager.BuildingState.Default;
+        GameManager.instance.ChangeSelectionState(GameManager.SelectionState.Default);
     }
 }

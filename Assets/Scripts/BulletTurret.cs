@@ -6,6 +6,19 @@ public class BulletTurret : Turret {
 
     [Header("Settings")]
     public float bulletSpeed = 100f;
+    public float bulletPower = 10f;
+
+    [Header("Tier 2")]
+    public float range_tier_2 = 150;
+    public float bulletSpeed_tier_2 = 120f;
+    public float bulletPower_tier_2 = 15f;
+    public float energyConsumption_tier_2 = 25;
+
+    [Header("Tier 3")]
+    public float range_tier_3 = 200;
+    public float bulletSpeed_tier_3 = 140f;
+    public float bulletPower_tier_3 = 20f;
+    public float energyConsumption_tier_3 = 40;
 
     [Header("Prefabs")]
     public GameObject bulletPrefab;
@@ -45,6 +58,7 @@ public class BulletTurret : Turret {
                     Bullet bulletScript = instantiatedBullet.GetComponent<Bullet>();
                     bulletScript.SetTarget(target);
                     bulletScript.speed = bulletSpeed;
+                    bulletScript.power = bulletPower;
 
                     // bulletPrefab.GetComponent<Renderer>().material.color = Color.red;
 
@@ -58,6 +72,31 @@ public class BulletTurret : Turret {
             else
             {
                 //Debug.Log("Turret doesn't have enough energy !");
+            }
+        }
+    }
+
+    public override void ApplyCurrentTierSettings()
+    {
+        Debug.Log("ApplyCurrentTierSettings | LASER TURRET | CurrentTier: " + currentTier);
+        switch (currentTier)
+        {
+            case 2:
+            {
+                range = range_tier_2;
+                bulletSpeed = bulletSpeed_tier_2;
+                bulletPower = bulletPower_tier_2;
+                energyConsumption = energyConsumption_tier_2;
+                break;
+
+            }
+            case 3:
+            {
+                range = range_tier_3;
+                bulletSpeed = bulletSpeed_tier_3;
+                bulletPower = bulletPower_tier_3;
+                energyConsumption = energyConsumption_tier_3;
+                break;
             }
         }
     }

@@ -10,12 +10,9 @@ public class Turret : Building {
     [Header("Target")]
     public GameObject previousTarget;
     public GameObject target;
-    public float range = 100f;
     public string meteorTag = "meteor";
     public float power = 1f;
     public float healingPower = 1f;
-    public bool hasAngleRange = true;
-    public float angleRange = 3f;
 
     [Header("Parts")]
     public GameObject turretBase;
@@ -116,28 +113,38 @@ public class Turret : Building {
     // Turrets shouldn't be able to shoot through the planet !
     public bool CanReachTarget(GameObject target)
     {
-        bool canReach = false;
+        bool canReachAngle = false;
+        bool canReachDistance = false;
 
-        if(hasAngleRange == true)
+        if (GeometryManager.instance.AreObjectsInRange(gameObject, target, range))
         {
-            float targetAngle = GeometryManager.GetRadAngleFromXY(target.transform.position.x, target.transform.position.y);
-            float turretAngle = GeometryManager.GetRadAngleFromXY(transform.position.x, transform.position.y);
+            canReachDistance = true;
 
-            //Debug.Log("CanReachMeteor | meteorAngle: " + targetAngle + " | turretAngle: " + turretAngle);
+            if (hasAngleRange == true)
+            {
+                float targetAngle = GeometryManager.GetRadAngleFromXY(target.transform.position.x, target.transform.position.y);
+                float turretAngle = GeometryManager.GetRadAngleFromXY(transform.position.x, transform.position.y);
 
-            float upperLimitAngle = GeometryManager.instance.NormalizeRadianAngle(turretAngle + angleRange / 2);
-            float lowerLimitAngle = GeometryManager.instance.NormalizeRadianAngle(turretAngle - angleRange / 2);
+                //Debug.Log("CanReachMeteor | meteorAngle: " + targetAngle + " | turretAngle: " + turretAngle);
 
-            //Debug.Log("CanReachMeteor | upperLimitAngle: " + upperLimitAngle + " | lowerLimitAngle: " + lowerLimitAngle);
+                float upperLimitAngle = GeometryManager.instance.NormalizeRadianAngle(turretAngle + angleRange / 2);
+                float lowerLimitAngle = GeometryManager.instance.NormalizeRadianAngle(turretAngle - angleRange / 2);
 
-            canReach =  GeometryManager.instance.IsAngleInRange(turretAngle, angleRange, targetAngle);
+                //Debug.Log("CanReachMeteor | upperLimitAngle: " + upperLimitAngle + " | lowerLimitAngle: " + lowerLimitAngle);
+
+                canReachAngle = GeometryManager.instance.IsAngleInRange(turretAngle, angleRange, targetAngle);
+            }
+            else
+            {
+                canReachAngle = true;
+            }
         }
         else
         {
-            canReach = true;
-        }      
+            canReachDistance = false;
+        }
 
-        return canReach;
+        return (canReachDistance && canReachAngle);
     }
 
     public void DealDamageToMeteorTarget()
@@ -179,7 +186,7 @@ public class Turret : Building {
             // To degree
             angle = angle * 180 / Mathf.PI - 90;
             // Take building spot angle into account
-            angle -= buildingSpotAngle;
+            angle -= buildingSpotAngleDeg;
 
             //Debug.Log("Angle: " + angle);
 

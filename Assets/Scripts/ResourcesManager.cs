@@ -32,9 +32,9 @@ public class ResourcesManager : MonoBehaviour {
     // Types of resources and their info
     public void InitializeResources()
     {
-        availableResources.Add(new ResourceType("steel", Color.grey, null, 500));
-        availableResources.Add(new ResourceType("silver", Color.white, null, 500));
-        availableResources.Add(new ResourceType("carbon", Color.black, null, 500));
+        availableResources.Add(new ResourceType("steel", Color.grey, "coal", 500));
+        availableResources.Add(new ResourceType("silver", Color.white, "coal", 500));
+        availableResources.Add(new ResourceType("carbon", Color.black, "coal", 500));
     }
 
     // Set starting resource amounts
@@ -91,6 +91,9 @@ public class ResourcesManager : MonoBehaviour {
                 break;
             }
         }
+
+        ShopPanel.instance.UpdateShopItems();
+        BuildingInfoPanel.instance.UpdateInfo();
     }
 
     public void PayResource(ResourceType resourceType, int amount)
@@ -104,6 +107,14 @@ public class ResourcesManager : MonoBehaviour {
         {
             DecreaseResource(resourceType, amount);
         }
+
+        ShopPanel.instance.UpdateShopItems();
+        BuildingInfoPanel.instance.UpdateInfo();
+    }
+
+    public void PayResourceAmount(ResourceAmount resourceAmount)
+    {
+        PayResource(resourceAmount.resourceType, resourceAmount.amount);
     }
 
     public void DecreaseResource(ResourceType resourceType, int amount)
@@ -113,7 +124,7 @@ public class ResourcesManager : MonoBehaviour {
     }
 
     // Check if we have enough resources to build a building
-    public bool CanPay(BuildingManager.BuildingType bType)
+    public bool CanPayConstruction(BuildingManager.BuildingType bType)
     {
         bool canPay = true;
 
@@ -129,7 +140,7 @@ public class ResourcesManager : MonoBehaviour {
         return canPay;
     }
 
-    public void Pay(BuildingManager.BuildingType bType)
+    public void PayConstruction(BuildingManager.BuildingType bType)
     {
         foreach (var cost in bType.resourceCosts)
         {
@@ -137,6 +148,7 @@ public class ResourcesManager : MonoBehaviour {
         }
 
         ShopPanel.instance.UpdateShopItems();
+        BuildingInfoPanel.instance.UpdateInfo();
     }
 
     public ResourceType GetResourceTypeByName(string rName)
@@ -150,6 +162,48 @@ public class ResourcesManager : MonoBehaviour {
             }
         }
         return resourceType;
+    }
+
+    public bool CanPayUpgradeCosts(Building building)
+    {
+        bool canPay = true;
+
+        List<ResourceAmount> upgradeCosts =  building.GetComponent<Building>().GetUpgradeCostsForNextTier();
+
+        foreach (ResourceAmount resourceAmount in upgradeCosts)
+        {
+            if( ! instance.CanPayResourceAmount(resourceAmount))
+            {
+                canPay = false;
+                break;
+            }
+        }
+
+        return canPay;
+    }
+
+    public bool PayUpgradeCosts(Building building)
+    {
+        bool payWorked = false;
+
+        List<ResourceAmount> upgradeCosts = building.GetComponent<Building>().GetUpgradeCostsForNextTier();
+        foreach (ResourceAmount resourceAmount in upgradeCosts)
+        {
+            PayResourceAmount(resourceAmount);
+        }
+
+        payWorked = true;   // Temporary
+        return payWorked;
+    }
+
+    public bool CanPayResource(ResourceType r, int amount)
+    {
+        return((GetResourceFromCurrentList(r).amount) >= amount);
+    }
+
+    public bool CanPayResourceAmount(ResourceAmount rAmount)
+    {
+        return ((GetResourceFromCurrentList(rAmount.resourceType).amount) >= rAmount.amount);
     }
 
 
@@ -170,11 +224,11 @@ public class ResourcesManager : MonoBehaviour {
         public GameObject resourceIndicator;
         public Sprite resourceImage;
 
-        public ResourceType(string name, Color color, Sprite image, int startAmount)
+        public ResourceType(string name, Color color, string imageName, int startAmount)
         {
             this.resourceName = name;
             this.color = color;
-            this.resourceImage = image;
+            this.resourceImage = Resources.Load<Sprite>("Images/Resources/" + imageName);
             this.startAmount = startAmount;
         }
 

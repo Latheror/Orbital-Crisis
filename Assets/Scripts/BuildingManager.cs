@@ -47,20 +47,20 @@ public class BuildingManager : MonoBehaviour {
     {
         availableBuildings.Add(new BuildingType("Laser Turret", laserTurretPrefab, 25f, new List<ResourcesManager.ResourceAmount>(){
                 new ResourcesManager.ResourceAmount("carbon", 50),
-                new ResourcesManager.ResourceAmount("steel", 50),
-                new ResourcesManager.ResourceAmount("carbon", 50)},
+                new ResourcesManager.ResourceAmount("steel", 75),
+                new ResourcesManager.ResourceAmount("silver", 50)},
                                                 BuildingType.BuildingLocationType.Planet, "laser_turret", 3, 0,
                                                 "Powerful turret firing a laser beam at incoming ennemies.",
                 new List<ResourcesManager.UpgradeCost>(){
                     new ResourcesManager.UpgradeCost(2, new List<ResourcesManager.ResourceAmount>(){
-                        new ResourcesManager.ResourceAmount("carbon", 50),
-                        new ResourcesManager.ResourceAmount("steel", 30),
+                        new ResourcesManager.ResourceAmount("carbon", 150),
+                        new ResourcesManager.ResourceAmount("steel", 120),
                     }),
                     new ResourcesManager.UpgradeCost(3, new List<ResourcesManager.ResourceAmount>(){
                         new ResourcesManager.ResourceAmount("steel", 50)
                     })
                 },
-                true
+                true, false
                 ));
 
         availableBuildings.Add(new BuildingType("Missile Turret", bulletTurretPrefab, 20f, new List<ResourcesManager.ResourceAmount>(){
@@ -68,7 +68,7 @@ public class BuildingManager : MonoBehaviour {
                                                 BuildingType.BuildingLocationType.Planet, "bullet_turret", 3, 0,
                                                 "Shoots missiles at incoming ennemies.",
                 new List<ResourcesManager.UpgradeCost>() { },
-                true
+                true, false
                 ));
 
         availableBuildings.Add(new BuildingType("Freezing Turret", freezingTurretPrefab, 10f, new List<ResourcesManager.ResourceAmount>(){
@@ -76,7 +76,7 @@ public class BuildingManager : MonoBehaviour {
                                                 BuildingType.BuildingLocationType.Planet, "freezing_turret", 3, 2,
                                                 "Freezes nearby ennemies and slow them down.",
                 new List<ResourcesManager.UpgradeCost>() { },
-                true
+                true, false
                 ));
 
         availableBuildings.Add(new BuildingType("Power Plant", powerPlantPrefab, 0f, new List<ResourcesManager.ResourceAmount>(){
@@ -84,7 +84,7 @@ public class BuildingManager : MonoBehaviour {
                                                 BuildingType.BuildingLocationType.Planet, "power_plant", 3, 0,
                                                 "Provides energy to your infrastructures.",
                 new List<ResourcesManager.UpgradeCost>() { },
-                false
+                false, true
                 ));
 
         availableBuildings.Add(new BuildingType("Mine Building", mineBuildingPrefab, 10f, new List<ResourcesManager.ResourceAmount>(){
@@ -92,7 +92,7 @@ public class BuildingManager : MonoBehaviour {
                                                 BuildingType.BuildingLocationType.Planet, "", 3, 0,
                                                 "Gather resources needed to build infrastructures.",
                 new List<ResourcesManager.UpgradeCost>() { },
-                false
+                false, false
                 ));
 
         availableBuildings.Add(new BuildingType("Laser Satellite", laserSatellitePrefab, 10f, new List<ResourcesManager.ResourceAmount>(){
@@ -100,7 +100,7 @@ public class BuildingManager : MonoBehaviour {
                                                 BuildingType.BuildingLocationType.Disks, "", 3, 3,
                                                 "Satellite firing at nearby ennemies.",
                 new List<ResourcesManager.UpgradeCost>() { },
-                true
+                true, false
                 ));
 
         availableBuildings.Add(new BuildingType("Shock Satellite", shockSatellitePrefab, 10f, new List<ResourcesManager.ResourceAmount>(){
@@ -108,7 +108,7 @@ public class BuildingManager : MonoBehaviour {
                                                 BuildingType.BuildingLocationType.Disks, "shock_satellite", 3, 4,
                                                 "Satellite building dealing damage salves in a circle around it.",
                 new List<ResourcesManager.UpgradeCost>() { },
-                true
+                true, false
                 ));
 
         availableBuildings.Add(new BuildingType("Recycling Station", debrisCollectorStationPrefab, 10f, new List<ResourcesManager.ResourceAmount>(){
@@ -116,7 +116,7 @@ public class BuildingManager : MonoBehaviour {
                                                 BuildingType.BuildingLocationType.Disks, "recycling_station", 3, 5,
                                                 "Satellite base of recycling shuttles, able to recycle meteor debris and ennemy spaceship wrecks.",
                 new List<ResourcesManager.UpgradeCost>() { },
-                true
+                true, false
                 ));
 
         availableBuildings.Add(new BuildingType("Solar Station", satelliteSolarStationPrefab, 0f, new List<ResourcesManager.ResourceAmount>(){
@@ -124,7 +124,7 @@ public class BuildingManager : MonoBehaviour {
                                                 BuildingType.BuildingLocationType.Disks, "solar_station", 3, 6,
                                                 "A satellite covered by solar panels, providing energy to your infrastructures.",
                 new List<ResourcesManager.UpgradeCost>() { },
-                false
+                false, true
                 ));
 
         availableBuildings.Add(new BuildingType("Healing Turret", healingTurretPrefab, 15f, new List<ResourcesManager.ResourceAmount>(){
@@ -132,7 +132,7 @@ public class BuildingManager : MonoBehaviour {
                                                 BuildingType.BuildingLocationType.Planet, "healing_turret", 3, 7,
                                                 "Turret able to restore your spaceships health.",
                 new List<ResourcesManager.UpgradeCost>() { },
-                true
+                true, false
                 ));
     }
 
@@ -157,7 +157,7 @@ public class BuildingManager : MonoBehaviour {
                 {
                     DeselectSelectedBuildingSlot();
                 }
-                if ((ResourcesManager.instance.CanPay(selectedBuilding)))
+                if ((ResourcesManager.instance.CanPayConstruction(selectedBuilding)))
                 {
                     ShopPanel.instance.ShowBuildButton();
                 }
@@ -186,7 +186,7 @@ public class BuildingManager : MonoBehaviour {
             mainPlanet.GetComponent<MainPlanet>().ResetAllBuildingSlotsColor();
             HideCancelButton();
 
-            Debug.Log("Leaving Building State.");
+            //Debug.Log("Leaving Building State.");
         }
     }
 
@@ -196,9 +196,9 @@ public class BuildingManager : MonoBehaviour {
         {
             if (chosenBuildingSlot.GetComponent<BuildingSlot>().CanBuildHere())
             {
-                if (ResourcesManager.instance.CanPay(selectedBuilding))
+                if (ResourcesManager.instance.CanPayConstruction(selectedBuilding))
                 {
-                    ResourcesManager.instance.Pay(selectedBuilding);
+                    ResourcesManager.instance.PayConstruction(selectedBuilding);
 
                     BuildBuilding();
 
@@ -208,7 +208,7 @@ public class BuildingManager : MonoBehaviour {
                     mainPlanet.GetComponent<MainPlanet>().ResetAllBuildingSlotsColor();
                     SurroundingAreasManager.instance.ResetAllSatelliteBuildingSlotsColor();
                     ShopPanel.instance.ResetLastShopItemSelected();
-                    Debug.Log("Building Placed | Leaving Building State.");
+                    //Debug.Log("Building Placed | Leaving Building State.");
                 }
             }
         }
@@ -274,7 +274,7 @@ public class BuildingManager : MonoBehaviour {
         }
 
         //DebugManager.instance.DisplayBuildingState();
-        if((ResourcesManager.instance.CanPay(selectedBuilding)))
+        if((ResourcesManager.instance.CanPayConstruction(selectedBuilding)))
         {
             ShopPanel.instance.ShowBuildButton();
         }
@@ -308,26 +308,29 @@ public class BuildingManager : MonoBehaviour {
     {
         if(selectedBuilding != null)
         {
-            float buildingSpotAngle = GeometryManager.instance.RadiansToDegrees(chosenBuildingSlot.GetComponent<BuildingSlot>().angle);
+            float buildingSpotAngle_rad = chosenBuildingSlot.GetComponent<BuildingSlot>().angleRad;
+            float buildingSpotAngle_deg = GeometryManager.instance.RadiansToDegrees(buildingSpotAngle_rad);
+
             Vector3 instantiationPosition = chosenBuildingSlot.transform.position;
             // Instantiate satellite slighly in front of building slot
             if (selectedBuilding.buildingLocationType == BuildingType.BuildingLocationType.Disks)
             {
                 instantiationPosition += new Vector3(0f, 0f, -10f);
             }
-            GameObject instantiatedBuilding = Instantiate(selectedBuilding.prefab, instantiationPosition, Quaternion.Euler(0f, 0f, buildingSpotAngle));
+            GameObject instantiatedBuilding = Instantiate(selectedBuilding.prefab, instantiationPosition, Quaternion.Euler(0f, 0f, buildingSpotAngle_deg));
             buildingList.Add(instantiatedBuilding);
             instantiatedBuilding.GetComponent<Building>().buildingType = selectedBuilding;
-            instantiatedBuilding.GetComponent<Building>().buildingSpotAngle = buildingSpotAngle;
+            instantiatedBuilding.GetComponent<Building>().buildingSpotAngleRad = buildingSpotAngle_rad;
+            instantiatedBuilding.GetComponent<Building>().buildingSpotAngleDeg = buildingSpotAngle_deg;
             instantiatedBuilding.GetComponent<Building>().currentTier = 1;
+            instantiatedBuilding.GetComponent<Building>().energyConsumption = selectedBuilding.energyConsumption;
+            instantiatedBuilding.GetComponent<Building>().buildingSpot = chosenBuildingSlot;
             chosenBuildingSlot.GetComponent<BuildingSlot>().SetBuilding(laserTurretPrefab.GetComponent<LaserTurret>());
             instantiatedBuilding.transform.SetParent(chosenBuildingSlot.transform);
-            Debug.Log("New building instantiated !");
-
-            EnergyPanel.instance.UpdateEnergyNeedsDisplay();
+            //Debug.Log("New building instantiated !");
 
             // Distribute the available energy across all buildings
-            EnergyPanel.instance.DistributeEnergy();
+            EnergyPanel.instance.UpdateEnergyProductionAndConsumption();
         }     
     }
 
@@ -360,11 +363,11 @@ public class BuildingManager : MonoBehaviour {
         {
             ShopPanel.instance.AddBuildingShopItem(bType);
             bType.isUnlocked = true;
-            Debug.Log("Building \"" + bType.name + "\" unlocked.");
+            //Debug.Log("Building \"" + bType.name + "\" unlocked.");
         }
         else
         {
-            Debug.Log("Building : " + bType.name + " is already unlocked !");
+            //Debug.Log("Building : " + bType.name + " is already unlocked !");
         }
     }
 
@@ -376,7 +379,7 @@ public class BuildingManager : MonoBehaviour {
         if(buildingState == BuildingState.Default)
         {
             buildingState = BuildingState.Building;
-            Debug.Log("Entering Building State.");
+            //Debug.Log("Entering Building State.");
         }
     }
 
@@ -386,7 +389,7 @@ public class BuildingManager : MonoBehaviour {
         public string name;
         public GameObject prefab;
         public List<ResourcesManager.ResourceAmount> resourceCosts;
-        public float requiredEnergy = 0;
+        public float energyConsumption = 0;
         public enum BuildingLocationType {Planet, Disks};
         public BuildingLocationType buildingLocationType;
         public Sprite buildingImage;
@@ -396,12 +399,13 @@ public class BuildingManager : MonoBehaviour {
         public string description;
         public List<ResourcesManager.UpgradeCost> upgradeCosts;
         public bool hasRange;
+        public bool producesEnergy;
 
-        public BuildingType(string name, GameObject prefab, float requiredEnergy, List<ResourcesManager.ResourceAmount> cost, BuildingLocationType buildingLocationType, string imageName, int maxTier, int unlockedAtLevelNb, string description, List<ResourcesManager.UpgradeCost> upgradeCosts, bool hasRange)
+        public BuildingType(string name, GameObject prefab, float energyConsumption, List<ResourcesManager.ResourceAmount> cost, BuildingLocationType buildingLocationType, string imageName, int maxTier, int unlockedAtLevelNb, string description, List<ResourcesManager.UpgradeCost> upgradeCosts, bool hasRange, bool producesEnergy)
         {
             this.name = name;
             this.prefab = prefab;
-            this.requiredEnergy = requiredEnergy;
+            this.energyConsumption = energyConsumption;
             this.resourceCosts = cost;
             this.buildingLocationType = buildingLocationType;
             this.buildingImage = Resources.Load<Sprite>("Images/Buildings/" + imageName);
@@ -411,6 +415,7 @@ public class BuildingManager : MonoBehaviour {
             this.description = description;
             this.upgradeCosts = upgradeCosts;
             this.hasRange = hasRange;
+            this.producesEnergy = producesEnergy;
         }
 
         public List<ResourcesManager.ResourceAmount> GetUpgradeCostsForTierNb(int tierNb)

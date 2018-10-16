@@ -100,7 +100,7 @@ public class SpaceshipInfoPanel : MonoBehaviour {
         }
         else
         {
-            Debug.LogError("SetInfo: No selected Spaceship !");
+            Debug.Log("SetInfo: No selected Spaceship !");
         }
     }
 

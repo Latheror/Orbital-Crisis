@@ -7,7 +7,17 @@ public class DebrisCollectorStation : Building {
     [Header("Settings")]
     public int maxDebrisCollectorNb = 3;
     public float debrisCollectorInstantiationDistance = 10f;
-    public float range = 100;
+    public float collectionTime = 0.5f;
+
+    [Header("Tier 2")]
+    public float collectionTime_tier_2 = 0.4f;
+    public float range_tier_2 = 200f;
+    public float energyConsumption_tier_2 = 25;
+
+    [Header("Tier 3")]
+    public float collectionTime_tier_3 = 0.3f;
+    public float range_tier_3 = 300f;
+    public float energyConsumption_tier_3 = 40;
 
     [Header("Operation")]
     public List<GameObject> debrisCollectorsList = new List<GameObject>();
@@ -22,6 +32,7 @@ public class DebrisCollectorStation : Building {
 
     void Start()
     {
+        range = 100;
         LaunchDebrisCollector();
     }
 
@@ -37,7 +48,8 @@ public class DebrisCollectorStation : Building {
                 Vector3 instantiationPos = transform.position + instantiationDeltaPos;
 
                 GameObject instantiatedDebrisCollector = Instantiate(debrisCollectorPrefab, instantiationPos, Quaternion.identity);
-                instantiatedDebrisCollector.GetComponent<DebrisCollector>().homeStation = this.gameObject;
+                instantiatedDebrisCollector.GetComponent<DebrisCollector>().homeStation = gameObject;
+                instantiatedDebrisCollector.GetComponent<DebrisCollector>().collectionTime = collectionTime;
                 debrisCollectorsList.Add(instantiatedDebrisCollector);
                 instantiatedDebrisCollector.transform.SetParent(transform);
             }
@@ -53,5 +65,40 @@ public class DebrisCollectorStation : Building {
         }
     }
 
-	
+    public override void ApplyCurrentTierSettings()
+    {
+        Debug.Log("ApplyCurrentTierSettings | LASER TURRET | CurrentTier: " + currentTier);
+        switch (currentTier)
+        {
+            case 2:
+            {
+                range = range_tier_2;
+                collectionTime = collectionTime_tier_2;
+                energyConsumption = energyConsumption_tier_2;
+                break;
+
+            }
+            case 3:
+            {
+                range = range_tier_3;
+                collectionTime = collectionTime_tier_2;
+                energyConsumption = energyConsumption_tier_3;
+                break;
+            }
+        }
+
+        LaunchDebrisCollector();
+        UpdateCollectorsSettings();
+
+    }
+
+    public void UpdateCollectorsSettings()
+    {
+        foreach (GameObject debrisCollector in debrisCollectorsList)
+        {
+            debrisCollector.GetComponent<DebrisCollector>().collectionTime = collectionTime;
+        }
+    }
+
+
 }

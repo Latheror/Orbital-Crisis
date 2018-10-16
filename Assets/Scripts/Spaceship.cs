@@ -259,7 +259,11 @@ public class Spaceship : MonoBehaviour {
 
     public void SwitchMode()
     {
-        this.isInAutomaticMode = ! this.isInAutomaticMode;
+        isInAutomaticMode = ! isInAutomaticMode;
+        if(!isInAutomaticMode)
+        {
+            manualDestination = transform.position;           
+        }
         SpaceshipInfoPanel.instance.UpdateModeDisplay();
         Debug.Log("Switching Mode !");
     }

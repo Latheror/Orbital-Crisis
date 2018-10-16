@@ -69,31 +69,38 @@ public class GameManager : MonoBehaviour {
 
     public void ChangeSelectionState(SelectionState state)
     {
-        selectionState = state;
-        switch (state)
+        if(selectionState != state)
         {
-            case SelectionState.Default:
+            selectionState = state;
+            switch (state)
             {
-                    SpaceshipManager.instance.DeselectSpaceship();
-                    BuildingInfoPanel.instance.Deselection();
-                    break;
+                case SelectionState.Default:
+                {
+                        SpaceshipManager.instance.DeselectSpaceship();
+                        BuildingInfoPanel.instance.Deselection();
+                        break;
+                }
+                case SelectionState.SpaceshipSelected:
+                {
+                        BuildingInfoPanel.instance.Deselection();
+                        break;
+                }
+                case SelectionState.BuildingSelected:
+                {
+                        SpaceshipManager.instance.DeselectSpaceship();
+                        break;
+                }
+                case SelectionState.ShopItemSelected:
+                {
+                        SpaceshipManager.instance.DeselectSpaceship();
+                        BuildingInfoPanel.instance.Deselection();
+                        break;
+                }
             }
-            case SelectionState.SpaceshipSelected:
-            {
-                    BuildingInfoPanel.instance.Deselection();
-                    break;
-            }
-            case SelectionState.BuildingSelected:
-            {
-                    SpaceshipManager.instance.DeselectSpaceship();
-                    break;
-            }
-            case SelectionState.ShopItemSelected:
-            {
-                    SpaceshipManager.instance.DeselectSpaceship();
-                    BuildingInfoPanel.instance.Deselection();
-                    break;
-            }
+        }
+        else
+        {
+
         }
     }
 }

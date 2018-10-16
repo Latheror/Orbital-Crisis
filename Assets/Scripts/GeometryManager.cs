@@ -149,4 +149,9 @@ public class GeometryManager : MonoBehaviour {
         return pos;
     }
 
+    public bool AreObjectsInRange(GameObject obj1, GameObject obj2, float range)
+    {
+        return (Vector3.Distance(obj1.transform.position, obj2.transform.position) <= range);
+    }
+
 }

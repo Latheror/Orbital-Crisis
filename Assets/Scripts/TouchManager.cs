@@ -70,14 +70,17 @@ public class TouchManager : MonoBehaviour {
                         // Cast a ray
                         Ray ray = Camera.main.ScreenPointToRay(Input.GetTouch(0).position);
                         RaycastHit hit;
-                        Debug.DrawRay(ray.origin, ray.direction * 300, Color.yellow, 100f);
+
+                        bool otherPriorityElementTouched = false;
+
+                        //Debug.DrawRay(ray.origin, ray.direction * 300, Color.yellow, 100f);
                         if (Physics.Raycast(ray, out hit))
                         {
-                            Debug.Log(hit.transform.name);
+                            //Debug.Log(hit.transform.name);
                             if (hit.collider != null)
                             {
                                 GameObject touchedObject = hit.transform.gameObject;
-                                Debug.Log("Touched " + touchedObject.transform.name);
+                                //Debug.Log("Touched " + touchedObject.transform.name);
                                 switch (hit.collider.gameObject.tag)
                                 {
                                     case ("meteor"):
@@ -96,28 +99,31 @@ public class TouchManager : MonoBehaviour {
                                         {
                                             Debug.Log("Touched a spaceship !");
                                             hit.collider.gameObject.GetComponent<Spaceship>().Select(true);
+                                        otherPriorityElementTouched = true;
                                             break;
                                         }
                                     case ("building"):
                                         {
-                                            //Debug.Log("Touched a building !");
+                                            Debug.Log("Touched a building !");
                                             InfrastructureManager.instance.BuildingTouched(hit.collider.gameObject);
+                                            otherPriorityElementTouched = true;
                                             break;
                                         }
                                 }
                             }
                         }
-                        else
 
-                        //Debug.Log("1 Touch during default state.");
                         if (GameManager.instance.selectionState == GameManager.SelectionState.SpaceshipSelected)
                         {
-                            if (SpaceshipManager.instance.selectedSpaceship != null && !SpaceshipManager.instance.selectedSpaceship.GetComponent<Spaceship>().isInAutomaticMode)
+                            if (!otherPriorityElementTouched)
                             {
-                                Vector3 destPos = GeometryManager.instance.GetLocationFromTouchPointOnPlanetPlane(lastTouch);
+                                if (SpaceshipManager.instance.selectedSpaceship != null && !SpaceshipManager.instance.selectedSpaceship.GetComponent<Spaceship>().isInAutomaticMode)
+                                {
+                                    Vector3 destPos = GeometryManager.instance.GetLocationFromTouchPointOnPlanetPlane(lastTouch);
 
-                                //Debug.Log("Setting Manual Destination | DestPos: " + destPos);
-                                SpaceshipManager.instance.selectedSpaceship.GetComponent<Spaceship>().SetManualDestination(destPos);
+                                    //Debug.Log("Setting Manual Destination | DestPos: " + destPos);
+                                    SpaceshipManager.instance.selectedSpaceship.GetComponent<Spaceship>().SetManualDestination(destPos);
+                                }
                             }
                         }
                         else

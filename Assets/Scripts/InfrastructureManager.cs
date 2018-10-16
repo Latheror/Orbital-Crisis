@@ -12,6 +12,7 @@ public class InfrastructureManager : MonoBehaviour {
     }
 
     public GameObject selectedBuilding;
+    public GameObject previouslySelectedBuilding;
 
     // Use this for initialization
     void Start () {
@@ -28,7 +29,12 @@ public class InfrastructureManager : MonoBehaviour {
         selectedBuilding = building;
         Debug.Log(selectedBuilding.GetComponent<Building>().buildingType.name + " selected.");
 
-        GameManager.instance.selectionState = GameManager.SelectionState.BuildingSelected;
+        GameManager.instance.ChangeSelectionState(GameManager.SelectionState.BuildingSelected);
+
+        if (previouslySelectedBuilding != null)
+        {
+            previouslySelectedBuilding.GetComponent<Building>().BuildingDeselected();
+        }
 
         // Transmit info to BuildingInfoPanel
         BuildingInfoPanel.instance.BuildingTouched(selectedBuilding);
@@ -36,5 +42,41 @@ public class InfrastructureManager : MonoBehaviour {
         // Transmit info to concerned building script
         selectedBuilding.GetComponent<Building>().BuildingTouched();
 
+        previouslySelectedBuilding = selectedBuilding;
+    }
+
+    public bool UpgradeBuildingRequest(GameObject building)
+    {
+        bool requestAccepted = false;
+        Debug.Log("UpgradeBuildingRequest");
+        if (ResourcesManager.instance.CanPayUpgradeCosts(building.GetComponent<Building>()))
+        {
+            if(ResourcesManager.instance.PayUpgradeCosts(building.GetComponent<Building>()))
+            {
+                Debug.Log("UpgradeBuilding : Can pay upgrade");
+                building.GetComponent<Building>().UpgradeToNextTier();
+                requestAccepted = true;
+            }
+        }
+        else
+        {
+            Debug.Log("UpgradeBuilding : Can't pay upgrade !");
+        }
+        return requestAccepted;
+    }
+
+    public void DestroyBuilding(GameObject building)
+    {
+        building.GetComponent<Building>().DestroyBuildingSpecificActions();
+
+        building.GetComponent<Building>().buildingSpot.GetComponent<BuildingSlot>().RemoveBuilding();
+
+        BuildingManager.instance.buildingList.Remove(building);
+
+        EnergyPanel.instance.UpdateEnergyProductionAndConsumption();
+
+        GameManager.instance.ChangeSelectionState(GameManager.SelectionState.Default);
+
+        Destroy(building);
     }
 }

@@ -21,11 +21,16 @@ public class BuildingInfoPanel : MonoBehaviour {
     public GameObject upgradeCostsLayout;
     public GameObject upgradeCostPanelPrefab;
     public List<GameObject> upgradeCostPanelsList;
+    public GameObject destroyButton;
+    public TextMeshProUGUI tierNbText;
 
     public GameObject selectedBuilding;
 
-	// Use this for initialization
-	void Start () {
+    public Color upgradePossibleColor = Color.green;
+    public Color upgradeImpossibleColor = Color.red;
+
+    // Use this for initialization
+    void Start () {
 
     }
 	
@@ -39,17 +44,23 @@ public class BuildingInfoPanel : MonoBehaviour {
         buildingNamePanel.GetComponent<TextMeshProUGUI>().text = selectedBuilding.GetComponent<Building>().buildingType.name;
     }
 
+    void SetTierText()
+    {
+        tierNbText.text = (selectedBuilding.GetComponent<Building>().currentTier.ToString());
+    }
+
+
     public void BuildUpgradeCostsLayout()
     {
-        Debug.Log("BuildUpgradeCostsLayout");
+        //Debug.Log("BuildUpgradeCostsLayout");
         EmptyUpgradeCostPanelsList();
 
         List<ResourcesManager.ResourceAmount> resourceAmounts = selectedBuilding.GetComponent<Building>().GetUpgradeCostsForNextTier();
-        Debug.Log("Upgrade costs nb: " + resourceAmounts.Count);
+        //Debug.Log("Upgrade costs nb: " + resourceAmounts.Count);
 
         foreach (ResourcesManager.ResourceAmount resourceAmount in resourceAmounts)
         {
-            Debug.Log("Adding resource indicator to Upgrade panel: " + resourceAmount.resourceType.resourceName);
+            //Debug.Log("Adding resource indicator to Upgrade panel: " + resourceAmount.resourceType.resourceName);
 
             GameObject instantiatedUpgradeCostPanel = Instantiate(upgradeCostPanelPrefab, upgradeCostsLayout.transform.position, Quaternion.identity);
             instantiatedUpgradeCostPanel.transform.SetParent(upgradeCostsLayout.transform, false);
@@ -59,6 +70,8 @@ public class BuildingInfoPanel : MonoBehaviour {
 
             upgradeCostPanelsList.Add(instantiatedUpgradeCostPanel);
         }
+
+        UpdateInfo();
     }
 
     public void EmptyUpgradeCostPanelsList()
@@ -74,6 +87,7 @@ public class BuildingInfoPanel : MonoBehaviour {
     {
         SetImage();
         SetName();
+        SetTierText();
         BuildUpgradeCostsLayout();
     }
 
@@ -90,13 +104,14 @@ public class BuildingInfoPanel : MonoBehaviour {
     public void UpgradeButtonClicked()
     {
         Debug.Log("UpgradeButtonClicked");
+        InfrastructureManager.instance.UpgradeBuildingRequest(selectedBuilding.gameObject);
     }
 
     public void BuildingTouched(GameObject building)
     {
-        BuildingInfoPanel.instance.DisplayInfo(true);
-        BuildingInfoPanel.instance.SetSelectedBuilding(building);
-        BuildingInfoPanel.instance.SetInfo();
+        DisplayInfo(true);
+        SetSelectedBuilding(building);
+        SetInfo();
     }
 
     public void Deselection()
@@ -106,5 +121,35 @@ public class BuildingInfoPanel : MonoBehaviour {
         {
             selectedBuilding.GetComponent<Building>().BuildingDeselected();
         }
+    }
+
+    public void UpdateResourceAvailabilityIndicators()
+    {
+        bool isUpgradeAvailable = true;
+        foreach (GameObject upgradeCostPanel in upgradeCostPanelsList)
+        {
+            upgradeCostPanel.GetComponent<ResourceCostPanel>().UpdateResourceAvailabilityIndicator();
+            if (! upgradeCostPanel.GetComponent<ResourceCostPanel>().resourceAvailable)
+            {
+                isUpgradeAvailable = false;
+            }
+        }
+        UpgradeUpdateButtonColor(isUpgradeAvailable);
+    }
+
+    public void UpdateInfo()
+    {
+        UpdateResourceAvailabilityIndicators();
+    }
+
+    public void UpgradeUpdateButtonColor(bool upgradeAvailable)
+    {
+        upgradeButton.GetComponent<Image>().color = (upgradeAvailable) ? upgradePossibleColor : upgradeImpossibleColor;
+    }
+
+    public void DestroyButtonClicked()
+    {
+        InfrastructureManager.instance.DestroyBuilding(selectedBuilding);
+        DisplayInfo(false);
     }
 }

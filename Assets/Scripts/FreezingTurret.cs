@@ -7,6 +7,16 @@ public class FreezingTurret : Turret {
     [Header("Settings")]
     public float freezingFactor = 0.8f; // Between 0 and 1
 
+    [Header("Tier 2")]
+    public float freezingFactor_tier_2 = 0.7f;
+    public float range_tier_2 = 200f;
+    public float energyConsumption_tier_2 = 25;
+
+    [Header("Tier 3")]
+    public float freezingFactor_tier_3 = 0.9f;
+    public float range_tier_3 = 300f;
+    public float energyConsumption_tier_3 = 40;
+
     [Header("Prefabs")]
     public Material frozenMeteorMaterial;
     public Material defaultMeteorMaterial;
@@ -63,5 +73,27 @@ public class FreezingTurret : Turret {
     public void SetFreezingMaterial()
     {
         target.GetComponent<Renderer>().material = frozenMeteorMaterial;
+    }
+
+    public override void ApplyCurrentTierSettings()
+    {
+        Debug.Log("ApplyCurrentTierSettings | LASER TURRET | CurrentTier: " + currentTier);
+        switch (currentTier)
+        {
+            case 2:
+            {
+                freezingFactor = freezingFactor_tier_2;
+                range = range_tier_2;
+                energyConsumption = energyConsumption_tier_2;
+                break;
+            }
+            case 3:
+            {
+                freezingFactor = freezingFactor_tier_3;
+                range = range_tier_3;
+                energyConsumption = energyConsumption_tier_3;
+                break;
+            }
+        }
     }
 }

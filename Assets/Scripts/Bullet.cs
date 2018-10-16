@@ -7,7 +7,7 @@ public class Bullet : MonoBehaviour {
     [Header("General")]
     public GameObject target;
     public float speed = 50f;
-    public float damage = 10f;
+    public float power = 10f;
     public float rotationSpeed = 10f;
 
     void Start()
@@ -54,7 +54,7 @@ public class Bullet : MonoBehaviour {
         if(other.gameObject.tag == "meteor")
         {
             //Debug.Log("Bullet hit a meteor !");
-            other.gameObject.GetComponent<Meteor>().DealDamage(damage);
+            other.gameObject.GetComponent<Meteor>().DealDamage(power);
             DestroyBullet();
         }
     }

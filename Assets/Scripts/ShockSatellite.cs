@@ -5,9 +5,18 @@ using UnityEngine;
 public class ShockSatellite : Building {
 
     [Header("Settings")]
-    public float range = 50f;
     public float damagePower = 20f;
     public float actionDelay = 5f;
+
+    [Header("Tier 2")]
+    public float damagePower_tier_2 = 25f;
+    public float range_tier_2 = 100f;
+    public float actionDelay_tier_2 = 4f;
+
+    [Header("Tier 3")]
+    public float damagePower_tier_3 = 30f;
+    public float range_tier_3 = 150f;
+    public float actionDelay_tier_3 = 3f;
 
     [Header("Operation")]
     public List<GameObject> inRangeMeteors;
@@ -18,6 +27,7 @@ public class ShockSatellite : Building {
 
 	// Use this for initialization
 	void Start () {
+        range = 50f;
         InvokeRepeating("PlayAnimation", 0f, actionDelay);
 	}
 	
@@ -71,6 +81,29 @@ public class ShockSatellite : Building {
         foreach (var meteor in inRangeMeteors)
         {
             meteor.GetComponent<Meteor>().DealDamage(damagePower);
+        }
+    }
+
+    public override void ApplyCurrentTierSettings()
+    {
+        Debug.Log("ApplyCurrentTierSettings | LASER TURRET | CurrentTier: " + currentTier);
+        switch (currentTier)
+        {
+            case 2:
+            {
+                damagePower = damagePower_tier_2;
+                range = range_tier_2;
+                actionDelay = actionDelay_tier_2;
+                break;
+
+            }
+            case 3:
+            {
+                damagePower = damagePower_tier_3;
+                range = range_tier_3;
+                actionDelay = actionDelay_tier_3;
+                break;
+            }
         }
     }
 }

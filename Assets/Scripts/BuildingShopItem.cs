@@ -33,11 +33,11 @@ public class BuildingShopItem : MonoBehaviour {
 
     public void BuildingShopItemClicked()
     {
-        Debug.Log("Building Shop Item Clicked !");
+        //Debug.Log("Building Shop Item Clicked !");
         ShopPanel.instance.ResetLastShopItemSelected();
         BuildingManager.instance.SelectBuilding(buildingType);
         ShopPanel.instance.shopItemPanelSelected = this.gameObject;
-        if(ResourcesManager.instance.CanPay(buildingType))
+        if(ResourcesManager.instance.CanPayConstruction(buildingType))
         {
             SetBackGroundColor(ShopPanel.instance.buildingShopItemSelectedCanPayBackgroundColor);
         }
@@ -76,16 +76,16 @@ public class BuildingShopItem : MonoBehaviour {
             rcPanel.SetInfos(resourceAmount);
             rcPanel.BuildPanel();
 
-            Debug.Log("BuildCostsList | Building: " + buildingType.name + " | Resource: " + resourceAmount.resourceType.resourceName + " | Adding to list");
+            //Debug.Log("BuildCostsList | Building: " + buildingType.name + " | Resource: " + resourceAmount.resourceType.resourceName + " | Adding to list");
             buildingCostPanelList.Add(instantiatedResourceCostPanel);
 
-            Debug.Log("Nb CostPanels: " + buildingCostPanelList.Count);
+            //Debug.Log("Nb CostPanels: " + buildingCostPanelList.Count);
         }
     }
 
     public void UpdateResourcesAvailabilityIndicators()
     {
-        Debug.Log("UpdateResourcesAvailabilityIndicators | " + buildingType.name + " | ResourcesNb: " + buildingCostPanelList.Count);
+        //Debug.Log("UpdateResourcesAvailabilityIndicators | " + buildingType.name + " | ResourcesNb: " + buildingCostPanelList.Count);
         foreach (GameObject costPanel in buildingCostPanelList)
         {
             costPanel.GetComponent<ResourceCostPanel>().UpdateResourceAvailabilityIndicator();

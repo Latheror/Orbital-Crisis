@@ -81,7 +81,7 @@ public class MainPlanet : MonoBehaviour {
 
             instantiatedSlot.GetComponent<BuildingSlot>().locationType = BuildingManager.BuildingType.BuildingLocationType.Planet;
             instantiatedSlot.GetComponent<BuildingSlot>().SetDefaultColor();
-            instantiatedSlot.GetComponent<BuildingSlot>().angle = stepAngle * i;
+            instantiatedSlot.GetComponent<BuildingSlot>().angleRad = stepAngle * i;
         }
 
         ResetAllBuildingSlotsColor();

@@ -14,7 +14,6 @@ public class PowerPlant : Building {
 
 	// Use this for initialization
 	void Start () {
-        InitializeEnergyContribution();
         //buildingLocationType = BuildingLocationType.Planet;
 	}
 	
@@ -23,11 +22,4 @@ public class PowerPlant : Building {
 		
 	}
 
-
-
-    public void InitializeEnergyContribution()
-    {
-        EnergyPanel.instance.IncreaseEnergyProduction(energyProduction);
-        EnergyPanel.instance.DistributeEnergy();
-    }
 }

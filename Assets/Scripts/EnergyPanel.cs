@@ -88,18 +88,6 @@ public class EnergyPanel : MonoBehaviour {
     }
 
 
-    public void UpdateEnergyNeedsDisplay()
-    {
-        float totalEnergyNeeded = 0f;
-
-        foreach (GameObject building in BuildingManager.instance.buildingList)
-        {
-            totalEnergyNeeded += building.GetComponent<Building>().buildingType.requiredEnergy;
-        }
-
-        SetEnergyConsumption(totalEnergyNeeded);
-    }
-
     public void DistributeEnergy()
     {
         float totalEnergyToDistribute = energyProduction;
@@ -107,7 +95,7 @@ public class EnergyPanel : MonoBehaviour {
         foreach (GameObject building in BuildingManager.instance.buildingList)
         {
             Building b = building.GetComponent<Building>();
-            if(totalEnergyToDistribute < b.buildingType.requiredEnergy)
+            if(totalEnergyToDistribute < b.energyConsumption)
             {
                 // We don't have enough energy to satisfy this building's needs
                 b.alocatedEnergy = totalEnergyToDistribute;
@@ -116,10 +104,35 @@ public class EnergyPanel : MonoBehaviour {
             }
             else
             {
-                b.alocatedEnergy = b.buildingType.requiredEnergy;
+                b.alocatedEnergy = b.energyConsumption;
                 b.hasEnoughEnergy = true;
-                totalEnergyToDistribute -= b.buildingType.requiredEnergy;
+                totalEnergyToDistribute -= b.energyConsumption;
             }
         }
+    }
+
+    public void UpdateEnergyProductionAndConsumption()
+    {
+        float totalEnergyProduction = 0;
+        float TotalEnergyConsumption = 0;
+
+        foreach (GameObject building in BuildingManager.instance.buildingList)
+        {
+            if(building.GetComponent<Building>().buildingType.producesEnergy)   // Produces energy
+            {
+                totalEnergyProduction += building.GetComponent<PowerPlant>().energyProduction;
+            }
+            else    // Consumes energy
+            {
+                TotalEnergyConsumption += building.GetComponent<Building>().energyConsumption;
+            }
+        }
+
+        SetEnergyProduction(totalEnergyProduction);
+        SetEnergyConsumption(TotalEnergyConsumption);
+
+        DistributeEnergy();
+
+        UpdateEnergyLevels();
     }
 }

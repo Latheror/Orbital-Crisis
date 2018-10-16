@@ -39,7 +39,7 @@ public class PlanetExpansionManager : MonoBehaviour {
             Vector3 newPos = new Vector3(Mathf.Cos(angle) * radius, Mathf.Sin(angle) * radius, transform.position.z);
 
             buildingSlots[i].transform.position = newPos;
-            buildingSlots[i].GetComponent<BuildingSlot>().angle = angle;
+            buildingSlots[i].GetComponent<BuildingSlot>().angleRad = angle;
         }
 
         // Instantiate a last one
@@ -52,7 +52,7 @@ public class PlanetExpansionManager : MonoBehaviour {
         mainPlanet.buildingSlotList.Add(newInstantiatedSlot);
 
         newInstantiatedSlot.GetComponent<BuildingSlot>().SetDefaultColor();
-        newInstantiatedSlot.GetComponent<BuildingSlot>().angle = lastAngle;
+        newInstantiatedSlot.GetComponent<BuildingSlot>().angleRad = lastAngle;
        
 
     }

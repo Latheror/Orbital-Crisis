@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Building : MonoBehaviour {
 
+    [Header("Building Common")]
     public BuildingManager.BuildingType buildingType;
     public string buildingName;
     public Color buildingColor;
@@ -11,11 +12,18 @@ public class Building : MonoBehaviour {
 	public List<ResourcesManager.ResourceAmount> buildingPrice;
     public float alocatedEnergy;
     public bool hasEnoughEnergy = false;
-    public float buildingSpotAngle = 0f;
+    public float buildingSpotAngleDeg = 0f;
+    public float buildingSpotAngleRad = 0f;
     public int currentTier = 1;
     public GameObject rangeCircle;
-
-    public float currentRequiredEnergy = 10f;
+    public GameObject rangeIndicator;
+    public GameObject rangeIndicatorStart;
+    public float range = 100f;
+    public bool hasAngleRange = true;
+    public float angleRange = 3f;
+    public int rangeIndicatorNbPoints = 10;
+    public float energyConsumption = 10f;
+    public GameObject buildingSpot;
 
     public enum BuildingLocationType {Planet, Disks};
     public BuildingLocationType buildingLocationType;
@@ -31,11 +39,12 @@ public class Building : MonoBehaviour {
         return buildingType.GetUpgradeCostsForTierNb(currentTier + 1);
     }
 
-    public virtual void BuildingTouched(){
+    public void BuildingTouched(){
 
         if (buildingType.hasRange)
         {
-            DisplayRangeCircle(true);
+            //DisplayRangeCircle(true);
+            DisplayRangeIndicator(true);
         }
     }
 
@@ -43,7 +52,8 @@ public class Building : MonoBehaviour {
     {
         if (buildingType.hasRange)
         {
-            DisplayRangeCircle(false);
+            //DisplayRangeCircle(false);
+            DisplayRangeIndicator(false);
         }
     }
 
@@ -55,8 +65,92 @@ public class Building : MonoBehaviour {
         }
         else
         {
-            Debug.LogError("DisplayRangeCircle: No range circle object !");
+            Debug.Log("DisplayRangeCircle: No range circle object !");
         }
     }
 
+    public void DisplayRangeIndicator(bool display)
+    {
+        if (rangeIndicator != null && rangeIndicatorStart != null)
+        {
+            LineRenderer lr = rangeIndicator.GetComponent<LineRenderer>();
+            if (display)
+            {
+                float radius = range;
+                Debug.Log("DisplayRangeIndicator | Radius: " + radius + " | BuildingSpotAngleRad: " + buildingSpotAngleRad + " | RangeIndicatorNbPoints: " + rangeIndicatorNbPoints);
+
+                if (hasAngleRange)  // Ground Towers
+                {
+                    float totalAngle = angleRange;
+                    float anglePortion = totalAngle / rangeIndicatorNbPoints;
+
+                    rangeIndicator.GetComponent<LineRenderer>().positionCount = rangeIndicatorNbPoints + 3;
+
+                    // Set Line Renderer points
+                    rangeIndicator.GetComponent<LineRenderer>().SetPosition(0, rangeIndicatorStart.transform.position);     // Origin
+
+                    for (int i = 0; i <= rangeIndicatorNbPoints; i++)
+                    {
+                        float angle_i = (i * anglePortion) - (totalAngle / 2) + buildingSpotAngleRad;
+                        //Debug.Log("Angle [" + i + "] : " + angle_i);
+                        Vector3 pos_i = new Vector3(gameObject.transform.position.x + radius * Mathf.Cos(angle_i), gameObject.transform.position.y + radius * Mathf.Sin(angle_i), gameObject.transform.position.z);
+                        rangeIndicator.GetComponent<LineRenderer>().SetPosition(i + 1, pos_i);
+                    }
+
+                    rangeIndicator.GetComponent<LineRenderer>().SetPosition(rangeIndicatorNbPoints + 2, rangeIndicatorStart.transform.position);     // End
+
+                    lr.enabled = true;
+                } 
+                else    // Satellites
+                {
+                    float totalAngle = Mathf.PI * 2;
+                    float anglePortion = totalAngle / rangeIndicatorNbPoints;
+
+                    rangeIndicator.GetComponent<LineRenderer>().positionCount = rangeIndicatorNbPoints + 1;
+
+                    for (int i = 0; i <= rangeIndicatorNbPoints; i++)
+                    {
+                        float angle_i = (i * anglePortion);
+                        //Debug.Log("Angle [" + i + "] : " + angle_i);
+                        Vector3 pos_i = new Vector3(gameObject.transform.position.x + radius * Mathf.Cos(angle_i), gameObject.transform.position.y + radius * Mathf.Sin(angle_i), gameObject.transform.position.z);
+                        rangeIndicator.GetComponent<LineRenderer>().SetPosition(i, pos_i);
+                    }
+
+                    lr.enabled = true;
+                }
+            }
+            else
+            {
+                lr.enabled = false;
+            }
+        }
+        else
+        {
+            Debug.Log("Can't display range indicator. Objects not referenced.");
+        }
+    }
+
+    public void UpgradeToNextTier()
+    {
+        if(currentTier < buildingType.maxTier)
+        {
+            Debug.Log("Can go to next tier");
+            currentTier++;
+            ApplyCurrentTierSettings();
+
+            // Refresh info panels, range indicator...
+            DisplayRangeIndicator(true);
+            BuildingInfoPanel.instance.SetInfo();
+
+            EnergyPanel.instance.UpdateEnergyProductionAndConsumption();
+        }
+        else
+        {
+            Debug.Log("Max tier already reached !");
+        }
+    }
+
+    public virtual void ApplyCurrentTierSettings(){}
+
+    public virtual void DestroyBuildingSpecificActions(){}
 }

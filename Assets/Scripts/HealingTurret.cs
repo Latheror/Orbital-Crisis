@@ -4,8 +4,16 @@ using UnityEngine;
 
 public class HealingTurret : Turret {
 
-	// Use this for initialization
-	void Start () {
+    [Header("Tier 2")]
+    public float healingPower_tier_2;
+    public float range_tier_2;
+
+    [Header("Tier 3")]
+    public float healingPower_tier_3;
+    public float range_tier_3;
+
+    // Use this for initialization
+    void Start () {
         InvokeRepeating("UpdateTarget", 0f, 0.5f);
         InvokeRepeating("LockOnTarget", 0f, 0.1f);
     }
@@ -54,7 +62,26 @@ public class HealingTurret : Turret {
         }
     }
 
+    public override void ApplyCurrentTierSettings()
+    {
+        Debug.Log("ApplyCurrentTierSettings | HEALING TURRET | CurrentTier: " + currentTier);
+        switch (currentTier)
+        {
+            case 2:
+            {
+                healingPower = healingPower_tier_2;
+                range = range_tier_2;
+                break;
 
+            }
+            case 3:
+            {
+                healingPower = healingPower_tier_3;
+                range = range_tier_3;
+                break;
+            }
+        }
+    }
 
 
 

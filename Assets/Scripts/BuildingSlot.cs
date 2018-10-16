@@ -6,7 +6,7 @@ public class BuildingSlot : MonoBehaviour {
 
     [Header("Attached Building")]
     public Building attachedBuilding = null;
-    public float angle;
+    public float angleRad;
     public bool hasBuilding = false;
     public BuildingManager.BuildingType.BuildingLocationType locationType;
 
@@ -31,7 +31,7 @@ public class BuildingSlot : MonoBehaviour {
 
     public void SetAngle(float angle)
     {
-        this.angle = angle;
+        this.angleRad = angle;
     }
 
     public void SetBuilding(Building building)
@@ -43,6 +43,12 @@ public class BuildingSlot : MonoBehaviour {
     public bool CanBuildHere()
     {
         return (hasBuilding == false && attachedBuilding == null);
+    }
+
+    public void RemoveBuilding()
+    {
+        attachedBuilding = null;
+        hasBuilding = false;
     }
 
 }

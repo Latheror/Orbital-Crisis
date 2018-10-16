@@ -120,25 +120,33 @@ MonoBehaviour:
     isUnlocked: 0
     unlockedAtLevelNb: 0
     description: 
+    upgradeCosts: []
+    hasRange: 0
+    producesEnergy: 0
   buildingName: 
   buildingColor: {r: 0, g: 0, b: 0, a: 0}
   buildingPrefab: {fileID: 0}
   buildingPrice: []
   alocatedEnergy: 0
   hasEnoughEnergy: 0
-  buildingSpotAngle: 0
+  buildingSpotAngleDeg: 0
+  buildingSpotAngleRad: 0
   currentTier: 0
-  currentRequiredEnergy: 0
+  rangeCircle: {fileID: 0}
+  rangeIndicator: {fileID: 0}
+  rangeIndicatorStart: {fileID: 0}
+  range: 0
+  hasAngleRange: 0
+  angleRange: 0
+  rangeIndicatorNbPoints: 0
+  energyConsumption: 20
   buildingLocationType: 1
   offensiveTurret: 1
   previousTarget: {fileID: 0}
   target: {fileID: 0}
-  range: 0
   meteorTag: 
   power: 0
   healingPower: 0
-  hasAngleRange: 0
-  angleRange: 0
   turretBase: {fileID: 0}
   turretBody: {fileID: 0}
   turretHead: {fileID: 0}

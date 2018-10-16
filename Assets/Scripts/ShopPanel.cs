@@ -73,7 +73,7 @@ public class ShopPanel : MonoBehaviour {
                 instantiatedBuildingShopItem.transform.SetParent(buildingsLayouts[i].transform, false);
                 buildingLayoutsItemNbs[i] ++;
 
-                Debug.Log("Nb of building items in layout " + i + " is: " + buildingLayoutsItemNbs[i]);
+                //Debug.Log("Nb of building items in layout " + i + " is: " + buildingLayoutsItemNbs[i]);
 
                 buildingShopItemList.Add(instantiatedBuildingShopItem);
 
@@ -152,7 +152,7 @@ public class ShopPanel : MonoBehaviour {
 
     public void UpdateShopItems()
     {
-        Debug.Log("UpdateShopItems");
+        //Debug.Log("UpdateShopItems");
         foreach (GameObject shopItem in buildingShopItemList)
         {
             shopItem.GetComponent<BuildingShopItem>().UpdateResourcesAvailabilityIndicators();

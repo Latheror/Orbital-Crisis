@@ -18,8 +18,10 @@ public class ResourceCostPanel : MonoBehaviour {
     public Color resourceAmountAvailableColor = Color.green;
     public Color resourceAmountUnavailableColor = Color.red;
 
-	// Use this for initialization
-	void Start () {
+    public bool resourceAvailable = false;
+
+    // Use this for initialization
+    void Start () {
         UpdateResourceAvailabilityIndicator();
     }
 	
@@ -30,10 +32,14 @@ public class ResourceCostPanel : MonoBehaviour {
 
     public void SetInfos(ResourcesManager.ResourceAmount resourceAmount)
     {
-        this.resourceType = resourceAmount.resourceType;
-        this.costAmount = resourceAmount.amount;
-        this.resourceType = resourceAmount.resourceType;
-        this.resourceImage = resourceAmount.resourceType.resourceImage;
+        resourceType = resourceAmount.resourceType;
+        costAmount = resourceAmount.amount;
+        resourceType = resourceAmount.resourceType;
+        resourceImage = resourceAmount.resourceType.resourceImage;
+
+        SetCostAmount();
+        SetResourceImage();
+        UpdateResourceAvailabilityIndicator();
     }
 
     public void BuildPanel()
@@ -64,14 +70,18 @@ public class ResourceCostPanel : MonoBehaviour {
 
     public void UpdateResourceAvailabilityIndicator()
     {
-        Debug.Log("UpdateResourceAvailabilityIndicator | Resource: " + resourceType.resourceName);
+        //Debug.Log("UpdateResourceAvailabilityIndicator | Resource: " + resourceType.resourceName);
         if (ResourcesManager.instance.GetResourceFromCurrentList(resourceType).amount >= costAmount)
         {
+            resourceAvailable = true;
             SetAvailableResourceColor(true);
         }
         else
         {
+            resourceAvailable = false;
             SetAvailableResourceColor(false);
         }
+
+        SetAvailableResourceColor(resourceAvailable);
     }
 }

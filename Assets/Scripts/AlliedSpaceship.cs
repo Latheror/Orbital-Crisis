@@ -177,7 +177,7 @@ public class AlliedSpaceship : Spaceship {
 
     protected override void DestroySpaceship()
     {
-        Debug.Log("Allied Spaceship has been destroyed !");
+        //Debug.Log("Allied Spaceship has been destroyed !");
         // temporary
         isActivated = false;
     }
@@ -187,7 +187,7 @@ public class AlliedSpaceship : Spaceship {
         //Debug.Log("Spaceship collided with : " + col.gameObject.name);
         if (col.gameObject.CompareTag("gatherable"))
         {
-            Debug.Log("Touched gatherable object !");
+            //Debug.Log("Touched gatherable object !");
             Gatherable g = col.gameObject.GetComponent<Gatherable>();
             g.ActOnSpaceship(this);
             
