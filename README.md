@@ -4,7 +4,7 @@ Mobile Game made with Unity3D. Build defenses around your planet, destroy astero
 ![alt Menu](/Assets/Resources/Images/screenshots/menu10.png)
 
 ## The game
-Based on "tower defense" games, this one trades in classic paths for a more open area.
+Based on "Tower Defense" games, this one trades in classic paths for a more open area.
 
 Your goal is to defend your planet from incoming asteroids and ennemies. By gathering [resources](../../wiki/Resources), you'll be able to build defensive infrastructure, and survive waves of ennemies.
 
