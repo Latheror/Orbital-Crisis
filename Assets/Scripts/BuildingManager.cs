@@ -113,7 +113,7 @@ public class BuildingManager : MonoBehaviour {
 
         availableBuildings.Add(new BuildingType("Recycling Station", debrisCollectorStationPrefab, 10f, new List<ResourcesManager.ResourceAmount>(){
                                                                                         },
-                                                BuildingType.BuildingLocationType.Disks, "recycling_station", 3, 5,
+                                                BuildingType.BuildingLocationType.Disks, "recycling_station", 3, 0,
                                                 "Satellite base of recycling shuttles, able to recycle meteor debris and ennemy spaceship wrecks.",
                 new List<ResourcesManager.UpgradeCost>() { },
                 true, false

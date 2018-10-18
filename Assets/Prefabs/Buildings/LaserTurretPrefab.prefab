@@ -150,7 +150,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1611410533432066}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -58.555946, y: -38.35654, z: -50.526924}
+  m_LocalPosition: {x: 83.51738, y: -5.324696, z: -80.64757}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4842592810230808}
@@ -468,17 +468,17 @@ MonoBehaviour:
   offensiveTurret: 1
   previousTarget: {fileID: 0}
   target: {fileID: 0}
-  meteorTag: 
-  power: 5
+  meteorTag: meteor
+  power: 3
   healingPower: 0
   turretBase: {fileID: 1459057759605530}
   turretBody: {fileID: 1456415355609882}
   turretHead: {fileID: 1170484623087142}
   shootingPoint: {fileID: 1632271507654466}
-  power_tier_2: 7
+  power_tier_2: 5
   range_tier_2: 100
   energyConsumption_tier_2: 20
-  power_tier_3: 9
+  power_tier_3: 7
   range_tier_3: 120
   energyConsumption_tier_3: 30
 --- !u!114 &114368917767193182

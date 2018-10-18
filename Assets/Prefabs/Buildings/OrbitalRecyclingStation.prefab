@@ -366,6 +366,7 @@ MonoBehaviour:
   angleRange: 0
   rangeIndicatorNbPoints: 30
   energyConsumption: 20
+  buildingSpot: {fileID: 0}
   buildingLocationType: 1
   maxDebrisCollectorNb: 3
   debrisCollectorInstantiationDistance: 15
@@ -377,7 +378,7 @@ MonoBehaviour:
   range_tier_3: 200
   energyConsumption_tier_3: 40
   debrisCollectorsList: []
-  debrisCollectorPrefab: {fileID: 1510887292880666, guid: 2fc74cbec7cd2d041aec85c9de046e18,
+  debrisCollectorPrefab: {fileID: 1344428516494916, guid: 93ec1e37a8d3ebb42aa4a46448325c2a,
     type: 2}
 --- !u!114 &114913138460548730
 MonoBehaviour:
@@ -421,6 +422,7 @@ MonoBehaviour:
   angleRange: 0
   rangeIndicatorNbPoints: 0
   energyConsumption: 0
+  buildingSpot: {fileID: 0}
   buildingLocationType: 1
   maxDebrisCollectorNb: 10
   debrisCollectorInstantiationDistance: 0

@@ -6,10 +6,11 @@ public class DebrisCollector : MonoBehaviour {
 
     [Header("Settings")]
     public int resourcesPerUnitOfSize = 10;
-    public float operationDistance = 50f;
+    public float operationDistance = 20;
     public float movementSpeed = 20f;
     public float rotationSpeed = 20f;
     public float collectionTime = 0.5f;
+    public GameObject shootingPoint;
 
     [Header("Operation")]
     public GameObject debrisTarget = null;
@@ -21,6 +22,7 @@ public class DebrisCollector : MonoBehaviour {
     void Start () {
         InvokeRepeating("UpdateTarget", 0f, 0.2f);
         debrisIsBeingCollected = false;
+        debrisTarget = null;
 	}
 
     void Update()
@@ -31,16 +33,11 @@ public class DebrisCollector : MonoBehaviour {
 
     public void UpdateTarget()
     {
-        Debug.Log("Debris collector | Update Target");
-        if (GameManager.instance.gameState == GameManager.GameState.Default && debrisTarget == null)
+        if (GameManager.instance.gameState == GameManager.GameState.Default && debrisTarget == null && !debrisIsBeingCollected)
         {
+            Debug.Log("Debris collector | Update Target. No target. | A total of " + DebrisManager.instance.debrisList.Count + " meteors are available.");
             if (DebrisManager.instance.debrisList.Count > 0 || EnemiesManager.instance.enemyWrecks.Count > 0)
             {
-                if(debrisIsBeingCollected)
-                {
-                    debrisIsBeingCollected = false;
-                }
-
                 float minDistance = Mathf.Infinity;
                 GameObject closestDesbris = null;
 
@@ -95,29 +92,33 @@ public class DebrisCollector : MonoBehaviour {
 
     public void FollowTargetOrRotateAroundStation()
     {
-        LineRenderer lineRenderer = gameObject.GetComponent<LineRenderer>();
-        if((debrisTarget != null) && (GetDistanceBetweenTargetAndHomeStation() < homeStation.GetComponent<DebrisCollectorStation>().range))
-        {   
-            if(! debrisIsBeingCollected)
+        if (!debrisIsBeingCollected)
+        {
+            LineRenderer lineRenderer = gameObject.GetComponent<LineRenderer>();
+            if ((debrisTarget != null) && (GetDistanceBetweenTargetAndHomeStation() < homeStation.GetComponent<DebrisCollectorStation>().range))
             {
-                if (DistanceToTarget() > operationDistance)
+                if (!debrisIsBeingCollected)
                 {
-                   transform.position = Vector3.MoveTowards(transform.position, debrisTarget.transform.position, Time.deltaTime * movementSpeed);
-                }
-                else
-                {
-                    lineRenderer.enabled = true;
-                    lineRenderer.SetPosition(0, transform.position);
-                    lineRenderer.SetPosition(1, debrisTarget.transform.position);
+                    if (DistanceToTarget() > operationDistance)
+                    {
+                        transform.position = Vector3.MoveTowards(transform.position, debrisTarget.transform.position, Time.deltaTime * movementSpeed);
+                        RotateTowardsTarget();
+                    }
+                    else
+                    {
+                        lineRenderer.enabled = true;
+                        lineRenderer.SetPosition(0, shootingPoint.transform.position);
+                        lineRenderer.SetPosition(1, debrisTarget.transform.position);
 
-                    StartCoroutine("CollectDebris");
+                        StartCoroutine("CollectDebris");
+                    }
                 }
             }
-        }
-        else
-        {
-            lineRenderer.enabled = false;
-            ComeBackAroundStationAndRotate();
+            else
+            {
+                lineRenderer.enabled = false;
+                ComeBackAroundStationAndRotate();
+            }
         }
     }
 
@@ -164,6 +165,8 @@ public class DebrisCollector : MonoBehaviour {
             }
         }
 
+        LineRenderer lineRenderer = gameObject.GetComponent<LineRenderer>();
+        lineRenderer.enabled = false;
         debrisIsBeingCollected = false;
         Debug.Log("Debris collection ended.");        
     }
@@ -178,6 +181,7 @@ public class DebrisCollector : MonoBehaviour {
         if(Vector3.Distance(transform.position, transform.parent.transform.position) > operationDistance)
         {
             ComeBackAroundStation();
+            RotateTowardsStation();
         }
         else
         {
@@ -198,5 +202,27 @@ public class DebrisCollector : MonoBehaviour {
         }
 
         return distance;  
+    }
+
+    public void RotateTowardsTarget()
+    {
+        if (debrisTarget != null)
+        {
+            Vector3 targetDir = debrisTarget.transform.position - transform.position;
+            float rotationStep = rotationSpeed * Time.deltaTime;
+            Vector3 newDir = Vector3.RotateTowards(transform.forward, targetDir, rotationStep, 0.0f);
+            transform.rotation = Quaternion.LookRotation(newDir);
+        }
+    }
+
+    public void RotateTowardsStation()
+    {
+        if (debrisTarget != null)
+        {
+            Vector3 stationDir = homeStation.transform.position - transform.position;
+            float rotationStep = rotationSpeed * Time.deltaTime;
+            Vector3 newDir = Vector3.RotateTowards(transform.forward, stationDir, rotationStep, 0.0f);
+            transform.rotation = Quaternion.LookRotation(newDir);
+        }
     }
 }
