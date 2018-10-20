@@ -32,7 +32,6 @@ public class DebrisCollectorStation : Building {
 
     void Start()
     {
-        range = 100;
         LaunchDebrisCollector();
     }
 

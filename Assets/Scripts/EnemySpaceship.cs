@@ -9,13 +9,13 @@ public class EnemySpaceship : Spaceship {
         isAllied = false;
         isActivated = true;
         target = null;
+        InvokeRepeating("UpdateTarget", 0f, 0.2f);
     }
 
     // Update is called once per frame
     void Update () {
         if (GameManager.instance.gameState == GameManager.GameState.Default)
         {
-            UpdateTarget();
             HandleMovements();
             AttackTarget();
         }
@@ -24,17 +24,27 @@ public class EnemySpaceship : Spaceship {
     
     protected override void UpdateTarget()
     {
-        if(isActivated)
+        target = null;
+        if (isActivated)
         {
             float minDist = Mathf.Infinity;
 
             foreach (GameObject alliedSpaceship in SpaceshipManager.instance.alliedSpaceships)
             {
                 float dist = Vector3.Distance(transform.position, alliedSpaceship.transform.position);
-                if (dist < minDist)
+                if ((dist < minDist) && (alliedSpaceship.GetComponent<Spaceship>().isActivated))
                 {
                     target = alliedSpaceship;
                 }
+            }
+
+            if(target != null)
+            {
+                Debug.Log("Ennemy target | Target set");
+            }
+            else
+            {
+
             }
         }
     }

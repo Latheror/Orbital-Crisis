@@ -12,6 +12,7 @@ public class MeteorsManager : MonoBehaviour {
     [Header("Prefabs")]
     public GameObject meteorPrefab;
     public GameObject meteorTest;
+    public List<GameObject> meteorPrefabsList;
 
     [Header("Settings")]
     public float rotationSpeed = 20f;
@@ -43,6 +44,8 @@ public class MeteorsManager : MonoBehaviour {
 
     public void SpawnNewMeteor()
     {
+        GameObject meteorModel = meteorPrefabsList[(Random.Range(0, meteorPrefabsList.Count))];
+
         Vector2 randomCirclePos = Random.insideUnitCircle.normalized;
         Vector3 pos = new Vector3(randomCirclePos.x * circleFactor, randomCirclePos.y * circleFactor, GameManager.instance.objectsDepthOffset);
 
@@ -50,7 +53,7 @@ public class MeteorsManager : MonoBehaviour {
         float meteorHealth = GetMeteorHealthFromSize(meteorSize);
 
         // Instantiate Meteor Prefab
-        GameObject instantiatedMeteor = Instantiate(meteorPrefab, pos, Quaternion.Euler(Random.Range(0f,360f),Random.Range(0f,360f),Random.Range(0f,360f)));
+        GameObject instantiatedMeteor = Instantiate(meteorModel, pos, Quaternion.Euler(Random.Range(0f,360f),Random.Range(0f,360f),Random.Range(0f,360f)));
         instantiatedMeteor.transform.localScale = new Vector3(meteorSize, meteorSize, meteorSize);
         instantiatedMeteor.transform.SetParent(MeteorsManager.instance.transform);
 

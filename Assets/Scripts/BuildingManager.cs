@@ -331,6 +331,12 @@ public class BuildingManager : MonoBehaviour {
 
             // Distribute the available energy across all buildings
             EnergyPanel.instance.UpdateEnergyProductionAndConsumption();
+
+            // Building type lists
+            if(selectedBuilding.name == "Recycling Station")
+            {
+                InfrastructureManager.instance.recyclingStationsList.Add(instantiatedBuilding);
+            }
         }     
     }
 

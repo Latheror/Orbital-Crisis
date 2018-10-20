@@ -1,0 +1,132 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1001 &100100000
+Prefab:
+  m_ObjectHideFlags: 1
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications: []
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 0}
+  m_RootGameObject: {fileID: 1899281416409494}
+  m_IsPrefabAsset: 1
+--- !u!1 &1899281416409494
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4582230259617130}
+  - component: {fileID: 33186521844759974}
+  - component: {fileID: 23956980198185914}
+  - component: {fileID: 136541088937120238}
+  - component: {fileID: 114056006483630566}
+  m_Layer: 0
+  m_Name: MeteorPrefab2
+  m_TagString: meteor
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4582230259617130
+Transform:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1899281416409494}
+  m_LocalRotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071068}
+  m_LocalPosition: {x: -53.819427, y: 74.43976, z: -133.80621}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!23 &23956980198185914
+MeshRenderer:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1899281416409494}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RenderingLayerMask: 4294967295
+  m_Materials:
+  - {fileID: 2100004, guid: 3a7fbf38cf9e20442add64e8960ac0e9, type: 3}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 0
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+--- !u!33 &33186521844759974
+MeshFilter:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1899281416409494}
+  m_Mesh: {fileID: 4300000, guid: 3a7fbf38cf9e20442add64e8960ac0e9, type: 3}
+--- !u!114 &114056006483630566
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1899281416409494}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: de04dd796b83f0a4ea22f28479398c1b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  originalSize: 0
+  size: 0
+  canBeGathered: 0
+  minRotationSpeed: 5
+  maxRotationSpeed: 40
+  baseRotationSpeed: 20
+  currentRotationSpeed: 20
+  isRotating: 0
+  baseApproachSpeed: 5
+  minApproachSpeed: 5
+  maxApproachSpeed: 20
+  isMovingTowardsPlanet: 0
+  willLetDebris: 0
+  impactEffect: {fileID: 1287209582324898, guid: 661ae535f669731458cc9dbc49e9f2af,
+    type: 2}
+  defaultMeteorMaterial: {fileID: 2100000, guid: 14ddf8072dbcec54fb25ebb10d07d100,
+    type: 2}
+  touchedByPlayerMaterial: {fileID: 2100000, guid: e6a9c80a59121b145ae2f40382d24b1b,
+    type: 2}
+  currentApproachSpeed: 5
+  healthPoints: 0
+--- !u!136 &136541088937120238
+CapsuleCollider:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1899281416409494}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  m_Radius: 1.0750003
+  m_Height: 3.1500008
+  m_Direction: 1
+  m_Center: {x: 0.091648996, y: 0.3202081, z: 0.011512998}

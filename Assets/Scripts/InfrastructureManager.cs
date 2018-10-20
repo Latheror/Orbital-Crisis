@@ -14,6 +14,8 @@ public class InfrastructureManager : MonoBehaviour {
     public GameObject selectedBuilding;
     public GameObject previouslySelectedBuilding;
 
+    public List<GameObject> recyclingStationsList = new List<GameObject>();
+
     // Use this for initialization
     void Start () {
 		
@@ -72,6 +74,12 @@ public class InfrastructureManager : MonoBehaviour {
         building.GetComponent<Building>().buildingSpot.GetComponent<BuildingSlot>().RemoveBuilding();
 
         BuildingManager.instance.buildingList.Remove(building);
+
+        // Building type lists
+        if(building.GetComponent<Building>().buildingType.name == "Recycling Station")
+        {
+            InfrastructureManager.instance.recyclingStationsList.Remove(building);
+        }
 
         EnergyPanel.instance.UpdateEnergyProductionAndConsumption();
 

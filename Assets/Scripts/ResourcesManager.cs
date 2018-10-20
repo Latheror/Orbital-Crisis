@@ -12,6 +12,10 @@ public class ResourcesManager : MonoBehaviour {
     public int productionEnergy;
     public int consumptionEnergy;
 
+    public Color steelColor;
+    public Color silverColor;
+    public Color carbonColor;
+
     [Header("Operation")]
     public List<ResourceAmount> currentResourceAmounts = new List<ResourceAmount>();
     //public Dictionary<string, ResourceAmount> currentResourceAmountsDictionnary = new Dictionary<string, ResourceAmount>();
@@ -32,9 +36,9 @@ public class ResourcesManager : MonoBehaviour {
     // Types of resources and their info
     public void InitializeResources()
     {
-        availableResources.Add(new ResourceType("steel", Color.grey, "coal", 500));
-        availableResources.Add(new ResourceType("silver", Color.white, "coal", 500));
-        availableResources.Add(new ResourceType("carbon", Color.black, "coal", 500));
+        availableResources.Add(new ResourceType("steel", steelColor, "coal", 500));
+        availableResources.Add(new ResourceType("silver", silverColor, "coal", 500));
+        availableResources.Add(new ResourceType("carbon", carbonColor, "coal", 500));
     }
 
     // Set starting resource amounts

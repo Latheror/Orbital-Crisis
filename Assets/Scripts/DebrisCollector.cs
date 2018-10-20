@@ -33,7 +33,7 @@ public class DebrisCollector : MonoBehaviour {
 
     public void UpdateTarget()
     {
-        if (GameManager.instance.gameState == GameManager.GameState.Default && debrisTarget == null && !debrisIsBeingCollected)
+        if (GameManager.instance.gameState == GameManager.GameState.Default && !debrisIsBeingCollected)
         {
             Debug.Log("Debris collector | Update Target. No target. | A total of " + DebrisManager.instance.debrisList.Count + " meteors are available.");
             if (DebrisManager.instance.debrisList.Count > 0 || EnemiesManager.instance.enemyWrecks.Count > 0)
@@ -79,12 +79,15 @@ public class DebrisCollector : MonoBehaviour {
     public bool IsTargetAlreadyTaken(GameObject target)
     {
         bool alreadyTaken = false;
-        foreach (GameObject collector in homeStation.GetComponent<DebrisCollectorStation>().debrisCollectorsList)
+        foreach (GameObject recyclingStation in InfrastructureManager.instance.recyclingStationsList)
         {
-            if((collector != gameObject) && collector.GetComponent<DebrisCollector>().debrisTarget == target)
+            foreach (GameObject collector in recyclingStation.GetComponent<DebrisCollectorStation>().debrisCollectorsList)
             {
-                alreadyTaken = true;
-                break;
+                if ((collector != gameObject) && collector.GetComponent<DebrisCollector>().debrisTarget == target)
+                {
+                    alreadyTaken = true;
+                    break;
+                }
             }
         }
         return alreadyTaken;
@@ -97,21 +100,18 @@ public class DebrisCollector : MonoBehaviour {
             LineRenderer lineRenderer = gameObject.GetComponent<LineRenderer>();
             if ((debrisTarget != null) && (GetDistanceBetweenTargetAndHomeStation() < homeStation.GetComponent<DebrisCollectorStation>().range))
             {
-                if (!debrisIsBeingCollected)
+                if (DistanceToTarget() > operationDistance)
                 {
-                    if (DistanceToTarget() > operationDistance)
-                    {
-                        transform.position = Vector3.MoveTowards(transform.position, debrisTarget.transform.position, Time.deltaTime * movementSpeed);
-                        RotateTowardsTarget();
-                    }
-                    else
-                    {
-                        lineRenderer.enabled = true;
-                        lineRenderer.SetPosition(0, shootingPoint.transform.position);
-                        lineRenderer.SetPosition(1, debrisTarget.transform.position);
+                    transform.position = Vector3.MoveTowards(transform.position, debrisTarget.transform.position, Time.deltaTime * movementSpeed);
+                    RotateTowardsTarget();
+                }
+                else
+                {
+                    lineRenderer.enabled = true;
+                    lineRenderer.SetPosition(0, shootingPoint.transform.position);
+                    lineRenderer.SetPosition(1, debrisTarget.transform.position);
 
-                        StartCoroutine("CollectDebris");
-                    }
+                    StartCoroutine("CollectDebris");
                 }
             }
             else

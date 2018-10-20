@@ -361,7 +361,7 @@ MonoBehaviour:
   rangeCircle: {fileID: 0}
   rangeIndicator: {fileID: 1589679628154170}
   rangeIndicatorStart: {fileID: 1400306970272354}
-  range: 100
+  range: 50
   hasAngleRange: 0
   angleRange: 0
   rangeIndicatorNbPoints: 30
@@ -372,10 +372,10 @@ MonoBehaviour:
   debrisCollectorInstantiationDistance: 15
   collectionTime: 2
   collectionTime_tier_2: 1.6
-  range_tier_2: 150
+  range_tier_2: 70
   energyConsumption_tier_2: 30
   collectionTime_tier_3: 1.2
-  range_tier_3: 200
+  range_tier_3: 90
   energyConsumption_tier_3: 40
   debrisCollectorsList: []
   debrisCollectorPrefab: {fileID: 1344428516494916, guid: 93ec1e37a8d3ebb42aa4a46448325c2a,
