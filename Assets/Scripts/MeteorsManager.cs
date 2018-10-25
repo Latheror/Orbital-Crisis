@@ -55,7 +55,7 @@ public class MeteorsManager : MonoBehaviour {
         // Instantiate Meteor Prefab
         GameObject instantiatedMeteor = Instantiate(meteorModel, pos, Quaternion.Euler(Random.Range(0f,360f),Random.Range(0f,360f),Random.Range(0f,360f)));
         instantiatedMeteor.transform.localScale = new Vector3(meteorSize, meteorSize, meteorSize);
-        instantiatedMeteor.transform.SetParent(MeteorsManager.instance.transform);
+        instantiatedMeteor.transform.SetParent(transform);
 
         Meteor meteor = instantiatedMeteor.GetComponent<Meteor>();
         meteor.SetRandomSpeeds();

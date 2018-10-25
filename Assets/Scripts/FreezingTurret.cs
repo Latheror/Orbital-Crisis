@@ -30,7 +30,7 @@ public class FreezingTurret : Turret {
         InvokeRepeating("FreezeTarget", 0f, 0.1f); 
     }
 	
-    public FreezingTurret(string name) :  base(name)
+    public FreezingTurret()
     {
         Debug.Log("FreezingTurret constructor");
     }

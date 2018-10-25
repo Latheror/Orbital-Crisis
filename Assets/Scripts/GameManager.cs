@@ -76,25 +76,28 @@ public class GameManager : MonoBehaviour {
             {
                 case SelectionState.Default:
                 {
-                        SpaceshipManager.instance.DeselectSpaceship();
-                        BuildingInfoPanel.instance.Deselection();
-                        break;
+                    SpaceshipManager.instance.DeselectSpaceship();
+                    BuildingInfoPanel.instance.Deselection();
+                    SpaceportInfoPanel.instance.DisplayPanel(false);
+                    break;
                 }
                 case SelectionState.SpaceshipSelected:
                 {
-                        BuildingInfoPanel.instance.Deselection();
-                        break;
+                    BuildingInfoPanel.instance.Deselection();
+                    SpaceportInfoPanel.instance.DisplayPanel(false);
+                    break;
                 }
                 case SelectionState.BuildingSelected:
                 {
-                        SpaceshipManager.instance.DeselectSpaceship();
-                        break;
+                    SpaceshipManager.instance.DeselectSpaceship();
+                    break;
                 }
                 case SelectionState.ShopItemSelected:
                 {
-                        SpaceshipManager.instance.DeselectSpaceship();
-                        BuildingInfoPanel.instance.Deselection();
-                        break;
+                    SpaceshipManager.instance.DeselectSpaceship();
+                    BuildingInfoPanel.instance.Deselection();
+                    SpaceportInfoPanel.instance.DisplayPanel(false);
+                    break;
                 }
             }
         }

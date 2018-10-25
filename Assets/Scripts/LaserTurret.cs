@@ -23,7 +23,7 @@ public class LaserTurret : Turret {
         InvokeRepeating("LockOnTarget", 0f, 0.1f); 
 	}
 	
-    public LaserTurret(string name) :  base(name)
+    public LaserTurret()
     {
         Debug.Log("LaserTurret constructor");
     }

@@ -84,13 +84,18 @@ public class Meteor : MonoBehaviour {
 
         ResizeMeteorFromHealth(healthPoints);
 
-        GameObject impactEff = (GameObject)Instantiate(impactEffect, transform.position, transform.rotation);
-        Destroy(impactEff, 2f);
+        InstantiateImpactEffect();
 
         if (healthPoints <= 0)
         {
             DestroyMeteor();
         }
+    }
+
+    public void InstantiateImpactEffect()
+    {
+        GameObject impactEff = Instantiate(impactEffect, transform.position, transform.rotation);
+        Destroy(impactEff, 2f);
     }
 
     public void DestroyMeteor()

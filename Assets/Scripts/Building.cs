@@ -24,14 +24,12 @@ public class Building : MonoBehaviour {
     public int rangeIndicatorNbPoints = 10;
     public float energyConsumption = 10f;
     public GameObject buildingSpot;
+    public List<string> tags;
 
     public enum BuildingLocationType {Planet, Disks};
     public BuildingLocationType buildingLocationType;
 
-    public Building(string name)
-    {
-        this.buildingName = name;
-    }
+    public Building(){}
 
     public List<ResourcesManager.ResourceAmount> GetUpgradeCostsForNextTier()
     {
@@ -148,6 +146,20 @@ public class Building : MonoBehaviour {
         {
             Debug.Log("Max tier already reached !");
         }
+    }
+
+    public bool HasTag(string searchedTag)
+    {
+        bool hasTag = false;
+        foreach (string tag in tags)
+        {
+            if(tag == searchedTag)
+            {
+                hasTag = true;
+                break;
+            }
+        }
+        return hasTag;
     }
 
     public virtual void ApplyCurrentTierSettings(){}

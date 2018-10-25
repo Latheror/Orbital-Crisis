@@ -7,7 +7,7 @@ public class PowerPlant : Building {
     [Header("Settings")]
     public float energyProduction = 50f;
 
-    public PowerPlant(string name) :  base(name)
+    public PowerPlant()
     {
         //Debug.Log("PowerPlant constructor");
     }

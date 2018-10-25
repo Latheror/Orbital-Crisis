@@ -44,6 +44,9 @@ public class InfrastructureManager : MonoBehaviour {
         // Transmit info to concerned building script
         selectedBuilding.GetComponent<Building>().BuildingTouched();
 
+        // Take actions based on building "Tags" list
+        BuildingTagsActions(selectedBuilding);
+
         previouslySelectedBuilding = selectedBuilding;
     }
 
@@ -78,7 +81,7 @@ public class InfrastructureManager : MonoBehaviour {
         // Building type lists
         if(building.GetComponent<Building>().buildingType.name == "Recycling Station")
         {
-            InfrastructureManager.instance.recyclingStationsList.Remove(building);
+            recyclingStationsList.Remove(building);
         }
 
         EnergyPanel.instance.UpdateEnergyProductionAndConsumption();
@@ -86,5 +89,16 @@ public class InfrastructureManager : MonoBehaviour {
         GameManager.instance.ChangeSelectionState(GameManager.SelectionState.Default);
 
         Destroy(building);
+    }
+
+    public void BuildingTagsActions(GameObject building)
+    {
+        Debug.Log("BuildingTagsActions");
+        if(building.GetComponent<Building>().HasTag("spaceport"))
+        {
+            Debug.Log("Spaceport Touched !");
+
+            SpaceportInfoPanel.instance.SpaceportTouched(building);
+        }
     }
 }

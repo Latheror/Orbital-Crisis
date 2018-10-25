@@ -15,6 +15,7 @@ public class Spaceship : MonoBehaviour {
     public float health = 100f;
     public float shield = 100f;
     public float maxShield = 100f;
+    public GameObject homeSpaceport;
 
     [Header("Movement")]
     public float movementSpeed = 100f;
@@ -69,7 +70,12 @@ public class Spaceship : MonoBehaviour {
 
     public bool IsTargetInRange()
     {
-        return (Vector3.Distance(transform.position, target.transform.position) <= attackDistance);
+        bool isInRange = false;
+        if(target != null)
+        {
+            isInRange = (Vector3.Distance(transform.position, target.transform.position) <= attackDistance);
+        }
+        return isInRange; 
     }
 
     public bool IsTargetInRangeWithDelta()

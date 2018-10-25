@@ -25,7 +25,7 @@ public class DebrisCollectorStation : Building {
     [Header("Prefabs")]
     public GameObject debrisCollectorPrefab;
 
-    public DebrisCollectorStation(string name) :  base(name)
+    public DebrisCollectorStation()
     {
         Debug.Log("DebrisCollectorStation constructor");
     }

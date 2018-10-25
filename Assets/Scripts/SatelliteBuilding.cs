@@ -9,7 +9,7 @@ public class SatelliteBuilding : Building {
         buildingLocationType = BuildingLocationType.Disks;
 	}
 	
-    public SatelliteBuilding(string name) :  base(name)
+    public SatelliteBuilding()
     {
         Debug.Log("SatelliteBuilding constructor");
     }

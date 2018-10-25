@@ -35,7 +35,7 @@ public class DebrisCollector : MonoBehaviour {
     {
         if (GameManager.instance.gameState == GameManager.GameState.Default && !debrisIsBeingCollected)
         {
-            Debug.Log("Debris collector | Update Target. No target. | A total of " + DebrisManager.instance.debrisList.Count + " meteors are available.");
+            //Debug.Log("Debris collector | Update Target. No target. | A total of " + DebrisManager.instance.debrisList.Count + " meteors are available.");
             if (DebrisManager.instance.debrisList.Count > 0 || EnemiesManager.instance.enemyWrecks.Count > 0)
             {
                 float minDistance = Mathf.Infinity;
@@ -67,11 +67,11 @@ public class DebrisCollector : MonoBehaviour {
                 }
 
                 debrisTarget = closestDesbris;
-                Debug.Log("New target chosen");
+                //Debug.Log("New target chosen");
             }
             else
             {
-                Debug.Log("No target found");
+                //Debug.Log("No target found");
             }
         }
     }
@@ -142,10 +142,10 @@ public class DebrisCollector : MonoBehaviour {
 
 
     IEnumerator CollectDebris() {
-        Debug.Log("Collect Debris");
+        //Debug.Log("Collect Debris");
         if(debrisTarget != null)
         {
-            Debug.Log("Starting debris collection.");
+            //Debug.Log("Starting debris collection.");
             debrisIsBeingCollected = true;
             yield return new WaitForSeconds(collectionTime);
 
@@ -161,14 +161,14 @@ public class DebrisCollector : MonoBehaviour {
             }
             else
             {
-                Debug.Log("Debris collection error : type of debris unknown !");
+                //Debug.Log("Debris collection error : type of debris unknown !");
             }
         }
 
         LineRenderer lineRenderer = gameObject.GetComponent<LineRenderer>();
         lineRenderer.enabled = false;
         debrisIsBeingCollected = false;
-        Debug.Log("Debris collection ended.");        
+        //Debug.Log("Debris collection ended.");        
     }
 
     public void ComeBackAroundStation()

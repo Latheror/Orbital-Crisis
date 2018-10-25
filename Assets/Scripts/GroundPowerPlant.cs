@@ -20,7 +20,7 @@ public class GroundPowerPlant : PowerPlant {
 		
 	}
 
-    public GroundPowerPlant(string name) :  base(name)
+    public GroundPowerPlant()
     {
         Debug.Log("GroundPowerPlant constructor");
     }

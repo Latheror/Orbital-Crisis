@@ -161,26 +161,28 @@ public class LevelManager : MonoBehaviour {
 
     public void NextLevelRequest()
     {
-        if(currentLevel != null)
+        if(GameManager.instance.gameState == GameManager.GameState.Default)
         {
-            if (currentLevelAllMeteorsSpawned)
+            if (currentLevel != null)
             {
-                StopCurrentLevel();
-                GoToNextLevel();
+                if (currentLevelAllMeteorsSpawned)
+                {
+                    StopCurrentLevel();
+                    GoToNextLevel();
+                }
+                else
+                {
+                    Debug.Log("Can't go to next level, current one isn't completed !");
+                }
             }
             else
             {
-                Debug.Log("Can't go to next level, current one isn't completed !");
+                // Before level one
+                pressStartPanel.SetActive(false);
+                waveInfoPanel.SetActive(true);
+                GoToNextLevel();
             }
         }
-        else
-        {
-            // Before level one
-            pressStartPanel.SetActive(false);
-            waveInfoPanel.SetActive(true);
-            GoToNextLevel();
-        }
-
     }
 
     public void StopCurrentLevel()

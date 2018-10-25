@@ -9,7 +9,7 @@ public class MineBuilding : Building {
                                                                                                            
 
 
-    public MineBuilding(string name, List<ResourcesManager.ResourceAmount> production) : base(name)
+    public MineBuilding(List<ResourcesManager.ResourceAmount> production) : base()
     {
         this.production = production;
     }

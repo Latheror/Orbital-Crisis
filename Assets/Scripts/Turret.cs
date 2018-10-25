@@ -21,9 +21,9 @@ public class Turret : Building {
     public GameObject shootingPoint;
 
 
-    public Turret(string name) :  base(name)
+    public Turret()
     {
-        Debug.Log("LaserTurret constructor");
+        //Debug.Log("LaserTurret constructor");
     }
 
     void Start()

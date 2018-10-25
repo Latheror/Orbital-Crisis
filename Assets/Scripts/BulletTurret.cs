@@ -32,7 +32,7 @@ public class BulletTurret : Turret {
         InvokeRepeating("ShootOnTarget", 0f, 1.5f); 
 	}
 	
-    public BulletTurret(string name) :  base(name)
+    public BulletTurret()
     {
         Debug.Log("BulletTurret constructor");
     }

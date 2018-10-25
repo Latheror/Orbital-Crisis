@@ -47,7 +47,9 @@ public class SurroundingAreasManager : MonoBehaviour {
     public void BuildDiskBuildingSlots(int diskNb)
     {
         float stepAngle = Mathf.PI * 2 / disks[diskNb].buildingSlotsNb;
-        float radius = disks[diskNb].diskGO.transform.localScale.x / 2 * 0.85f;
+        float diskScale = disks[diskNb].diskGO.transform.localScale.x;
+        Debug.Log("BuildDiskBuildingSlots | Disk Nb: " + diskNb + " scale: " + diskScale);
+        float radius = (diskScale / 2) - 20;
 
         //Debug.Log("StepAngle: " + stepAngle);
 

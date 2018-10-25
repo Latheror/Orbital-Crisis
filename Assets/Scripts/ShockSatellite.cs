@@ -31,7 +31,7 @@ public class ShockSatellite : Building {
         InvokeRepeating("PlayAnimation", 0f, actionDelay);
 	}
 	
-    public ShockSatellite(string name) :  base(name)
+    public ShockSatellite()
     {
         Debug.Log("ShockSatellite constructor");
     }

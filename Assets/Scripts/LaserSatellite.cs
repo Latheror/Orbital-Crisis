@@ -19,7 +19,7 @@ public class LaserSatellite : Turret {
 		
 	}
 
-    public LaserSatellite(string name) :  base(name)
+    public LaserSatellite()
     {
         Debug.Log("LaserSatellite constructor");
     }

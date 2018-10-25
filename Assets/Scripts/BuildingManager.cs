@@ -36,6 +36,7 @@ public class BuildingManager : MonoBehaviour {
     public GameObject debrisCollectorStationPrefab;
     public GameObject satelliteSolarStationPrefab;
     public GameObject healingTurretPrefab;
+    public GameObject spaceportPrefab;
 
     void Start()
     {   
@@ -113,7 +114,7 @@ public class BuildingManager : MonoBehaviour {
 
         availableBuildings.Add(new BuildingType("Recycling Station", debrisCollectorStationPrefab, 10f, new List<ResourcesManager.ResourceAmount>(){
                                                                                         },
-                                                BuildingType.BuildingLocationType.Disks, "recycling_station", 3, 0,
+                                                BuildingType.BuildingLocationType.Disks, "recycling_station", 3, 5,
                                                 "Satellite base of recycling shuttles, able to recycle meteor debris and ennemy spaceship wrecks.",
                 new List<ResourcesManager.UpgradeCost>() { },
                 true, false
@@ -134,6 +135,15 @@ public class BuildingManager : MonoBehaviour {
                 new List<ResourcesManager.UpgradeCost>() { },
                 true, false
                 ));
+
+        availableBuildings.Add(new BuildingType("Spaceport", spaceportPrefab, 15f, new List<ResourcesManager.ResourceAmount>()
+        {
+        },
+                                        BuildingType.BuildingLocationType.Disks, "spaceport", 3, 8,
+                                        "Build new spaceships and recruit pilots in the spaceport.",
+        new List<ResourcesManager.UpgradeCost>() { },
+        false, false
+        ));
     }
 
     public void SelectBuilding(BuildingType bType)

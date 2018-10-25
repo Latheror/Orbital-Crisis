@@ -99,7 +99,7 @@ public class TouchManager : MonoBehaviour {
                                         {
                                             Debug.Log("Touched a spaceship !");
                                             hit.collider.gameObject.GetComponent<Spaceship>().Select(true);
-                                        otherPriorityElementTouched = true;
+                                            otherPriorityElementTouched = true;
                                             break;
                                         }
                                     case ("building"):

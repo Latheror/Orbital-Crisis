@@ -23,7 +23,7 @@ public class HealingTurret : Turret {
         UpdateTarget();	
 	}
 
-    public HealingTurret(string name) : base(name)
+    public HealingTurret()
     {
         Debug.Log("Healing turret constructor");
     }

@@ -20,6 +20,7 @@ public class SpaceshipInfoPanel : MonoBehaviour {
     public TextMeshProUGUI shieldNumbersText;
     public GameObject modeButton;
     public TextMeshProUGUI modeButtonText;
+    public GameObject modePanel;
 
     public Color autoModeColor = Color.green;
     public Color manualModeColor = Color.red;
@@ -62,12 +63,12 @@ public class SpaceshipInfoPanel : MonoBehaviour {
             if (SpaceshipManager.instance.selectedSpaceship.GetComponent<Spaceship>().isInAutomaticMode)
             {
                 modeButtonText.text = "AUTO";
-                modeButton.GetComponent<Image>().color = autoModeColor;
+                modePanel.GetComponent<Image>().color = autoModeColor;
             }
             else
             {
                 modeButtonText.text = "MANUAL";
-                modeButton.GetComponent<Image>().color = manualModeColor;
+                modePanel.GetComponent<Image>().color = manualModeColor;
             }
         }
     }

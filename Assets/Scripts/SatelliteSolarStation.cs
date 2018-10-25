@@ -20,7 +20,7 @@ public class SatelliteSolarStation : PowerPlant {
 		
 	}
 
-    public SatelliteSolarStation(string name) :  base(name)
+    public SatelliteSolarStation()
     {
         //Debug.Log("SatelliteSolarStation constructor");
         buildingLocationType = BuildingLocationType.Disks;

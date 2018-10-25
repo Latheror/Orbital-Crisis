@@ -45,6 +45,23 @@ public class MenuPlanet : MonoBehaviour {
                 lr_1.SetPosition(0, couple.shootingPoint.transform.position);
                 lr_1.SetPosition(1, meteorTarget.transform.position);
                 //lr_1.SetPositions(new Vector3[] { couple.shootingPoint.transform.position, couple.meteor.transform.position });
+                meteorTarget.GetComponent<MenuOrbitingObject>().isBeingTargeted = true;
+
+                //Debug.Log("Couple previous target: " + couple.previousTarget);
+
+                if (couple.previousTarget != null)
+                {
+                    //Debug.Log("Previous target not null.");
+                    if (couple.previousTarget != meteorTarget)
+                    {
+                        //Debug.Log("Setting isBeingTargeted to false.");
+                        couple.previousTarget.GetComponent<MenuOrbitingObject>().isBeingTargeted = false;
+                    }
+                }
+
+                couple.SetPreviousTarget(meteorTarget);
+
+                //Debug.Log("Previous target after set: " + couple.previousTarget);
             }
             else
             {
@@ -114,10 +131,7 @@ public class MenuPlanet : MonoBehaviour {
 
     public void RotateTowardsPathPart(GameObject translatingObject, GameObject pathPart)
     {
-        Vector3 targetDir = pathPart.transform.position - translatingObject.transform.position;
-        float rotationStep = /*speed*/ 100 * Time.deltaTime;
-        Vector3 newDir = Vector3.RotateTowards(translatingObject.transform.forward, targetDir, rotationStep, 0.0f);
-        translatingObject.transform.rotation = Quaternion.LookRotation(newDir);
+        translatingObject.transform.LookAt(pathPart.transform);
     }
 
     public void HandleTranslatingObjects()
@@ -155,10 +169,17 @@ public class MenuPlanet : MonoBehaviour {
     }
 
     [System.Serializable]
-    public struct ShootingPointAndMeteor
+    public class ShootingPointAndMeteor
     {
         public GameObject shootingPoint;
         public GameObject[] meteors;
+        public GameObject previousTarget;
+
+        public void SetPreviousTarget(GameObject prevTarget)
+        {
+            //Debug.Log("Setting previous target to: " + prevTarget);
+            previousTarget = prevTarget;
+        }
     }
 
 
