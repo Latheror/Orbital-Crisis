@@ -18,10 +18,11 @@ public class MeteorsManager : MonoBehaviour {
     public float rotationSpeed = 20f;
     public float spawnOffset = 30f;
     public float circleFactor = 50f;
-    public float meteorSpawnMinSize = 5;
-    public float meteorSpawnMaxSize = 15;
-    public float healthPointsAtMinSize = 10;
-    public float healthPointsAtMaxSize = 30;
+    public float meteorSpawnMinSize = 5f;
+    public float meteorSpawnMaxSize = 15f;
+    public float healthPointsAtMinSize = 10f;
+    public float healthPointsAtMaxSize = 30f;
+    public float healthSizeFactor = 1f;
     public int valuePerSizeUnit = 10;
 
     [Header("Operation")]
@@ -35,12 +36,19 @@ public class MeteorsManager : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
         meteorsList = new List<GameObject>();
+        CalculateHealthSizeFactor();
 	}
 	
 	// Update is called once per frame
 	void Update () {
 
 	}
+
+    public void CalculateHealthSizeFactor()
+    {
+        healthSizeFactor = (healthPointsAtMaxSize - healthPointsAtMinSize) / (meteorSpawnMaxSize - meteorSpawnMinSize);
+        Debug.Log("healthSizeFactor: " + healthSizeFactor);
+    }
 
     public void SpawnNewMeteor()
     {
@@ -54,8 +62,10 @@ public class MeteorsManager : MonoBehaviour {
 
         // Instantiate Meteor Prefab
         GameObject instantiatedMeteor = Instantiate(meteorModel, pos, Quaternion.Euler(Random.Range(0f,360f),Random.Range(0f,360f),Random.Range(0f,360f)));
-        instantiatedMeteor.transform.localScale = new Vector3(meteorSize, meteorSize, meteorSize);
         instantiatedMeteor.transform.SetParent(transform);
+        instantiatedMeteor.transform.localScale = new Vector3(meteorSize, meteorSize, meteorSize);
+
+        //Debug.Log("Spawning a meteor with size: " + meteorSize + " and health: " + meteorHealth);
 
         Meteor meteor = instantiatedMeteor.GetComponent<Meteor>();
         meteor.SetRandomSpeeds();
@@ -104,14 +114,33 @@ public class MeteorsManager : MonoBehaviour {
 
     public float GetMeteorHealthFromSize(float size)
     {
-        return (size - meteorSpawnMinSize) * (healthPointsAtMaxSize - healthPointsAtMinSize) / (meteorSpawnMaxSize - meteorSpawnMinSize) + healthPointsAtMinSize;
-        // MAP : (x - in_min) * (out_max - out_min) / (in_max - in_min) + out_min;
+        if (size >= meteorSpawnMinSize && size <= meteorSpawnMaxSize)
+        {
+            //return (size - meteorSpawnMinSize) * (healthPointsAtMaxSize - healthPointsAtMinSize) / (meteorSpawnMaxSize - meteorSpawnMinSize) + healthPointsAtMinSize;
+            return (healthSizeFactor * (size - meteorSpawnMinSize) + healthPointsAtMinSize);
+            // MAP : y = (x - in_min) * (out_max - out_min) / (in_max - in_min) + out_min;
+            // IN: Size, OUT: Health
+        }
+        else
+        {
+            Debug.LogError("GetMeteorHealthFromSize | Size out of range: " + size);
+            return healthPointsAtMinSize;
+        }
     }
 
     public float GetMeteorSizeFromHealth(float health)
     {
-        return ((health)*(meteorSpawnMaxSize - meteorSpawnMinSize) - healthPointsAtMinSize)/(healthPointsAtMaxSize - healthPointsAtMinSize) + meteorSpawnMinSize;
-        // MAP : (x - in_min) * (out_max - out_min) / (in_max - in_min) + out_min;
+        if(health >= healthPointsAtMinSize && health <= healthPointsAtMaxSize)
+        {
+            //return ((health)*(meteorSpawnMaxSize - meteorSpawnMinSize) - healthPointsAtMinSize)/(healthPointsAtMaxSize - healthPointsAtMinSize) + meteorSpawnMinSize;
+            //return ((health - healthPointsAtMaxSize) * (meteorSpawnMaxSize + meteorSpawnMinSize) / (healthPointsAtMaxSize - healthPointsAtMinSize) + meteorSpawnMinSize);
+            return (((health - healthPointsAtMinSize) / (healthSizeFactor)) + meteorSpawnMinSize);
+            // MAP : x = (y - out_min) * (in_max - in_min) / (out_max - out_min) + in_min
+        }
+        else
+        {
+            return meteorSpawnMinSize;
+        }
     }
 
     public void MeteorDestroyed(Meteor meteor)

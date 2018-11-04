@@ -14,10 +14,11 @@ public class AlliedSpaceship : Spaceship {
         isInAutomaticMode = true;
         //infoPanel.SetActive(false);
         SetStartingMode();
+        InvokeRepeating("RegenerateShield", 0f, shieldRegenerationDelay);
     }
-	
-	// Update is called once per frame
-	void Update () {
+
+    // Update is called once per frame
+    void Update () {
         if (GameManager.instance.gameState == GameManager.GameState.Default)
         {
             UpdateTarget();
@@ -29,7 +30,6 @@ public class AlliedSpaceship : Spaceship {
 
     protected override void UpdateTarget()
     {
-
         // Spaceships only work if they are activated
         if (isActivated)
         {
@@ -83,7 +83,6 @@ public class AlliedSpaceship : Spaceship {
                 }
             }
 
-
             if (nearestEnemy != null)
             {
                 target = nearestEnemy;
@@ -106,27 +105,57 @@ public class AlliedSpaceship : Spaceship {
                 target = null;
                 previousTarget = target;
             }
-
-
-
         }
         else
         {
             //Debug.Log("Spaceship isn't activated !");
         }
-
     }
 
     protected override void HandleMovements()
     {
         if(isActivated)
         {
+            // Set manual destination to target
+            if(isInAutomaticMode && target != null)
+            {
+                SetManualDestination(target.transform.position);
+            }
+
+            if (manualDestination != null)
+            {
+                // Check if path towards destination intersects with planet
+                if (!IsCloseEnoughToDestination() && (GeometryManager.instance.SegmentIntersectWithPlanet(gameObject.transform.position, manualDestination)))
+                {
+                    Debug.Log("HandleMovements | Setting a temp dest");
+                    float spaceshipPosAngle = GeometryManager.GetRadAngleFromXY(transform.position.x, transform.position.y);
+                    float spaceshipPosDistance = GeometryManager.instance.GetDistanceFromPlanetCenter(transform.position);
+                    Debug.Log("spaceshipPosAngle: " + spaceshipPosAngle + " | spaceshipPosDistance: " + spaceshipPosDistance);
+                    float manualDestPosAngle = GeometryManager.GetRadAngleFromXY(manualDestination.x, manualDestination.y);
+                    float manualDestPosDistance = GeometryManager.instance.GetDistanceFromPlanetCenter(manualDestination);
+                    Debug.Log("manualDestPosAngle: " + manualDestPosAngle + " | manualDestPosDistance: " + manualDestPosDistance);
+
+                    // Mean angle
+                    float meanAngle = GeometryManager.GetMeanAngle(spaceshipPosAngle, manualDestPosAngle);
+                    float meanDistance = Mathf.Max((manualDestPosAngle + manualDestPosDistance) / 2, 10);
+                    Debug.Log("meanAngle: " + meanAngle + " | meanDistance: " + meanDistance);
+
+                    tempDestination = new Vector3(meanDistance * Mathf.Cos(meanAngle), meanDistance * Mathf.Sin(meanAngle), manualDestination.z);
+                }
+                else
+                {
+                    // Set temp dest to manual dest
+                    tempDestination = manualDestination;
+                }
+            }
+
             if (!isInAutomaticMode)  // Manual Mode
             {
                 if (!IsCloseEnoughToDestination())
                 {
                     // Move towards destination
-                    transform.position = Vector3.MoveTowards(transform.position, manualDestination, Time.deltaTime * movementSpeed);
+                    transform.position = Vector3.MoveTowards(transform.position, tempDestination, Time.deltaTime * movementSpeed);
+                    RotateTowardsTempDest();
                 }
                 else
                 {
@@ -143,14 +172,12 @@ public class AlliedSpaceship : Spaceship {
                     if (!IsTargetInRange())
                     {
                         // Go closer to target
-                        transform.position = Vector3.MoveTowards(transform.position, target.transform.position, Time.deltaTime * movementSpeed);
+                        transform.position = Vector3.MoveTowards(transform.position, tempDestination, Time.deltaTime * movementSpeed);
                     }
-
-                    RotateTowardsTarget();
+                    RotateTowardsTempDest();
                 }
             }
         }
-      
     }
 
     protected override void AttackTarget()
@@ -180,6 +207,8 @@ public class AlliedSpaceship : Spaceship {
         //Debug.Log("Allied Spaceship has been destroyed !");
         // temporary
         isActivated = false;
+        SpaceshipManager.instance.alliedSpaceships.Remove(gameObject);
+        Destroy(gameObject);
     }
 
     void OnCollisionEnter(Collision col)
@@ -189,8 +218,7 @@ public class AlliedSpaceship : Spaceship {
         {
             //Debug.Log("Touched gatherable object !");
             Gatherable g = col.gameObject.GetComponent<Gatherable>();
-            g.ActOnSpaceship(this);
-            
+            g.ActOnSpaceship(this);       
         }
     }
 }

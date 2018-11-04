@@ -32,7 +32,7 @@ public class FreezingTurret : Turret {
 	
     public FreezingTurret()
     {
-        Debug.Log("FreezingTurret constructor");
+        //Debug.Log("FreezingTurret constructor");
     }
 
     public void FreezeTarget()
@@ -77,7 +77,7 @@ public class FreezingTurret : Turret {
 
     public override void ApplyCurrentTierSettings()
     {
-        Debug.Log("ApplyCurrentTierSettings | LASER TURRET | CurrentTier: " + currentTier);
+        Debug.Log("ApplyCurrentTierSettings | FREEZING TURRET | CurrentTier: " + currentTier);
         switch (currentTier)
         {
             case 2:

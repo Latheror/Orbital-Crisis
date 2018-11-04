@@ -34,7 +34,7 @@ public class BulletTurret : Turret {
 	
     public BulletTurret()
     {
-        Debug.Log("BulletTurret constructor");
+        //Debug.Log("BulletTurret constructor");
     }
 
 

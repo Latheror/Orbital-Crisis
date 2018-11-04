@@ -119,10 +119,13 @@ public class TouchManager : MonoBehaviour {
                             {
                                 if (SpaceshipManager.instance.selectedSpaceship != null && !SpaceshipManager.instance.selectedSpaceship.GetComponent<Spaceship>().isInAutomaticMode)
                                 {
-                                    Vector3 destPos = GeometryManager.instance.GetLocationFromTouchPointOnPlanetPlane(lastTouch);
+                                    Vector3 touchedPos = GeometryManager.instance.GetLocationFromTouchPointOnPlanetPlane(lastTouch);
 
                                     //Debug.Log("Setting Manual Destination | DestPos: " + destPos);
-                                    SpaceshipManager.instance.selectedSpaceship.GetComponent<Spaceship>().SetManualDestination(destPos);
+                                    if(!GeometryManager.PosWithinPlanetArea(touchedPos))
+                                    {
+                                        SpaceshipManager.instance.selectedSpaceship.GetComponent<Spaceship>().SetManualDestination(touchedPos);
+                                    }
                                 }
                             }
                         }

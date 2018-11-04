@@ -25,7 +25,7 @@ public class LaserTurret : Turret {
 	
     public LaserTurret()
     {
-        Debug.Log("LaserTurret constructor");
+        //Debug.Log("LaserTurret constructor");
     }
 
     public void LockOnTarget()

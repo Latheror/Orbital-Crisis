@@ -48,12 +48,12 @@ public class SpaceshipInfoPanel : MonoBehaviour {
 
     void UpdateHealthInfo()
     {
-        SetHealthText((int)SpaceshipManager.instance.selectedSpaceship.GetComponent<Spaceship>().health, (int)SpaceshipManager.instance.selectedSpaceship.GetComponent<Spaceship>().maxHealth);
+        SetHealthText((int)SpaceshipManager.instance.selectedSpaceship.GetComponent<Spaceship>().healthPoints, (int)SpaceshipManager.instance.selectedSpaceship.GetComponent<Spaceship>().maxHealth);
     }
 
     void UpdateShieldInfo()
     {
-        SetShieldText((int)SpaceshipManager.instance.selectedSpaceship.GetComponent<Spaceship>().shield, (int)SpaceshipManager.instance.selectedSpaceship.GetComponent<Spaceship>().maxShield);
+        SetShieldText((int)SpaceshipManager.instance.selectedSpaceship.GetComponent<Spaceship>().shieldPoints, (int)SpaceshipManager.instance.selectedSpaceship.GetComponent<Spaceship>().maxShield);
     }
 
     public void UpdateModeDisplay()
@@ -109,5 +109,10 @@ public class SpaceshipInfoPanel : MonoBehaviour {
     {
         SpaceshipManager.instance.selectedSpaceship.GetComponent<Spaceship>().SwitchMode();
         UpdateModeDisplay();
+    }
+
+    public void CloseButtonClicked()
+    {
+        GameManager.instance.ChangeSelectionState(GameManager.SelectionState.Default);
     }
 }

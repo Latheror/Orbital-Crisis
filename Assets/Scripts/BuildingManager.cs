@@ -37,6 +37,7 @@ public class BuildingManager : MonoBehaviour {
     public GameObject satelliteSolarStationPrefab;
     public GameObject healingTurretPrefab;
     public GameObject spaceportPrefab;
+    public GameObject stormSatellitePrefab;
 
     void Start()
     {   
@@ -66,7 +67,7 @@ public class BuildingManager : MonoBehaviour {
 
         availableBuildings.Add(new BuildingType("Missile Turret", bulletTurretPrefab, 20f, new List<ResourcesManager.ResourceAmount>(){
                 new ResourcesManager.ResourceAmount("steel", 50)},
-                                                BuildingType.BuildingLocationType.Planet, "bullet_turret", 3, 0,
+                                                BuildingType.BuildingLocationType.Planet, "bullet_turret", 3, 2,
                                                 "Shoots missiles at incoming ennemies.",
                 new List<ResourcesManager.UpgradeCost>() { },
                 true, false
@@ -74,7 +75,7 @@ public class BuildingManager : MonoBehaviour {
 
         availableBuildings.Add(new BuildingType("Freezing Turret", freezingTurretPrefab, 10f, new List<ResourcesManager.ResourceAmount>(){
                 new ResourcesManager.ResourceAmount("silver", 40)},
-                                                BuildingType.BuildingLocationType.Planet, "freezing_turret", 3, 2,
+                                                BuildingType.BuildingLocationType.Planet, "freezing_turret", 3, 3,
                                                 "Freezes nearby ennemies and slow them down.",
                 new List<ResourcesManager.UpgradeCost>() { },
                 true, false
@@ -90,20 +91,20 @@ public class BuildingManager : MonoBehaviour {
 
         availableBuildings.Add(new BuildingType("Mine Building", mineBuildingPrefab, 10f, new List<ResourcesManager.ResourceAmount>(){
                                                                                         },
-                                                BuildingType.BuildingLocationType.Planet, "", 3, 0,
+                                                BuildingType.BuildingLocationType.Planet, "production/mine", 3, 0,
                                                 "Gather resources needed to build infrastructures.",
                 new List<ResourcesManager.UpgradeCost>() { },
                 false, false
                 ));
 
-        availableBuildings.Add(new BuildingType("Laser Satellite", laserSatellitePrefab, 10f, new List<ResourcesManager.ResourceAmount>(){
+        /*availableBuildings.Add(new BuildingType("Laser Satellite", laserSatellitePrefab, 10f, new List<ResourcesManager.ResourceAmount>(){
                                                                                         },
                                                 BuildingType.BuildingLocationType.Disks, "", 3, 3,
                                                 "Satellite firing at nearby ennemies.",
                 new List<ResourcesManager.UpgradeCost>() { },
                 true, false
                 ));
-
+        */
         availableBuildings.Add(new BuildingType("Shock Satellite", shockSatellitePrefab, 10f, new List<ResourcesManager.ResourceAmount>(){
                                                                                         },
                                                 BuildingType.BuildingLocationType.Disks, "shock_satellite", 3, 4,
@@ -143,6 +144,15 @@ public class BuildingManager : MonoBehaviour {
                                         "Build new spaceships and recruit pilots in the spaceport.",
         new List<ResourcesManager.UpgradeCost>() { },
         false, false
+        ));
+
+        availableBuildings.Add(new BuildingType("Storm Satellite", stormSatellitePrefab, 30f, new List<ResourcesManager.ResourceAmount>()
+        {
+        },
+                                        BuildingType.BuildingLocationType.Disks, "Satellites/storm_satellite_t", 3, 9,
+                                        "A satellite able to transfer damages between nearby ennemies.",
+        new List<ResourcesManager.UpgradeCost>() { },
+        true, false
         ));
     }
 
@@ -319,7 +329,7 @@ public class BuildingManager : MonoBehaviour {
         if(selectedBuilding != null)
         {
             float buildingSpotAngle_rad = chosenBuildingSlot.GetComponent<BuildingSlot>().angleRad;
-            float buildingSpotAngle_deg = GeometryManager.instance.RadiansToDegrees(buildingSpotAngle_rad);
+            float buildingSpotAngle_deg = GeometryManager.RadiansToDegrees(buildingSpotAngle_rad);
 
             Vector3 instantiationPosition = chosenBuildingSlot.transform.position;
             // Instantiate satellite slighly in front of building slot

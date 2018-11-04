@@ -152,4 +152,9 @@ public class BuildingInfoPanel : MonoBehaviour {
         InfrastructureManager.instance.DestroyBuilding(selectedBuilding);
         DisplayInfo(false);
     }
+
+    public void CloseButtonClicked()
+    {
+        GameManager.instance.ChangeSelectionState(GameManager.SelectionState.Default);
+    }
 }

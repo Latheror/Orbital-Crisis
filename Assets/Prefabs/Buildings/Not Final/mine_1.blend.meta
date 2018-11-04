@@ -1,9 +1,7 @@
 fileFormatVersion: 2
 guid: 16eab4571b87da546a2bb95937b9ee9c
-timeCreated: 1538686607
-licenseType: Free
 ModelImporter:
-  serializedVersion: 22
+  serializedVersion: 23
   fileIDToRecycleName:
     100000: Circle
     100002: Cube
@@ -13,6 +11,8 @@ ModelImporter:
     100010: Cylinder_001
     100012: Cylinder_002
     100014: //RootNode
+    100016: Gear1
+    100018: Gear2
     400000: Circle
     400002: Cube
     400004: Cube_001
@@ -21,6 +21,8 @@ ModelImporter:
     400010: Cylinder_001
     400012: Cylinder_002
     400014: //RootNode
+    400016: Gear1
+    400018: Gear2
     2300000: Circle
     2300002: Cube
     2300004: Cube_001
@@ -28,6 +30,8 @@ ModelImporter:
     2300008: Cylinder
     2300010: Cylinder_001
     2300012: Cylinder_002
+    2300014: Gear1
+    2300016: Gear2
     3300000: Circle
     3300002: Cube
     3300004: Cube_001
@@ -35,6 +39,8 @@ ModelImporter:
     3300008: Cylinder
     3300010: Cylinder_001
     3300012: Cylinder_002
+    3300014: Gear1
+    3300016: Gear2
     4300000: Cylinder_002
     4300002: Cube_002
     4300004: Circle
@@ -42,6 +48,8 @@ ModelImporter:
     4300008: Cylinder
     4300010: Cube_001
     4300012: Cube
+    4300014: Gear2
+    4300016: Gear1
     7400000: Default Take
     9500000: //RootNode
   externalObjects:
@@ -88,6 +96,11 @@ ModelImporter:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
+      name: Material_001
+    second: {fileID: 2100000, guid: 4245fecf1810a4046982f22f4ea0e41f, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
       name: Pilar_1
     second: {fileID: 2100000, guid: 8109c3159cd00ee4cb08a957652f2696, type: 2}
   - first:
@@ -95,6 +108,16 @@ ModelImporter:
       assembly: UnityEngine.CoreModule
       name: WallBand
     second: {fileID: 2100000, guid: ec44614129f77d04ca765bfb778993c3, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: WallBands1
+    second: {fileID: 2100000, guid: dd865c5b38069d24ca6574adc51be280, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: WallBorders
+    second: {fileID: 2100000, guid: 6b6341e3c81cef54a81eb53553d05df5, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
@@ -123,6 +146,7 @@ ModelImporter:
     animationRetargetingWarnings: 
     animationDoRetargetingWarnings: 0
     importAnimatedCustomProperties: 0
+    importConstraints: 0
     animationCompression: 1
     animationRotationError: 0.5
     animationPositionError: 0.5
@@ -147,11 +171,15 @@ ModelImporter:
     optimizeMeshForGPU: 1
     keepQuads: 0
     weldVertices: 1
+    preserveHierarchy: 0
+    indexFormat: 0
     secondaryUVAngleDistortion: 8
     secondaryUVAreaDistortion: 15.000001
     secondaryUVHardAngle: 88
     secondaryUVPackMargin: 4
     useFileScale: 1
+    previousCalculatedGlobalScale: 1
+    hasPreviousCalculatedGlobalScale: 1
   tangentSpace:
     normalSmoothAngle: 60
     normalImportMode: 0
@@ -171,7 +199,6 @@ ModelImporter:
     legStretch: 0.05
     feetSpacing: 0
     rootMotionBoneName: 
-    rootMotionBoneRotation: {x: 0, y: 0, z: 0, w: 1}
     hasTranslationDoF: 0
     hasExtraRoot: 0
     skeletonHasParents: 1

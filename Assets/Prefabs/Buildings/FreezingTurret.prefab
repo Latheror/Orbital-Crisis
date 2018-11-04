@@ -441,7 +441,7 @@ MonoBehaviour:
     name: 
     prefab: {fileID: 0}
     resourceCosts: []
-    requiredEnergy: 0
+    energyConsumption: 0
     buildingLocationType: 0
     buildingImage: {fileID: 0}
     maxTier: 0
@@ -463,23 +463,31 @@ MonoBehaviour:
   rangeCircle: {fileID: 0}
   rangeIndicator: {fileID: 1178863021682148}
   rangeIndicatorStart: {fileID: 1943136268715378}
-  range: 150
+  range: 100
   hasAngleRange: 1
   angleRange: 3
   rangeIndicatorNbPoints: 20
   energyConsumption: 15
+  buildingSpot: {fileID: 0}
+  tags: []
   buildingLocationType: 0
   offensiveTurret: 1
   previousTarget: {fileID: 0}
   target: {fileID: 0}
   meteorTag: 
-  power: 0
+  power: 5
   healingPower: 0
   turretBase: {fileID: 1000623650468096}
   turretBody: {fileID: 1009253208243454}
   turretHead: {fileID: 1722494253634270}
   shootingPoint: {fileID: 1949804214951534}
   freezingFactor: 0.5
+  freezingFactor_tier_2: 0.7
+  range_tier_2: 150
+  energyConsumption_tier_2: 25
+  freezingFactor_tier_3: 0.9
+  range_tier_3: 200
+  energyConsumption_tier_3: 40
   frozenMeteorMaterial: {fileID: 2100000, guid: f53b3e0610f04b049886bdd6a02f644e,
     type: 2}
   defaultMeteorMaterial: {fileID: 2100000, guid: 14ddf8072dbcec54fb25ebb10d07d100,

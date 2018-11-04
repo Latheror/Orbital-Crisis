@@ -12,9 +12,12 @@ public class Spaceship : MonoBehaviour {
     public bool selected = false;
     public bool isAllied = false;
     public float maxHealth = 100f;
-    public float health = 100f;
-    public float shield = 100f;
+    public float healthPoints = 100f;
+    public bool hasShield;
+    public float shieldPoints = 100f;
     public float maxShield = 100f;
+    public float shieldRegenerationDelay = 3f;
+    public float shieldRegenerationAmount = 5f;
     public GameObject homeSpaceport;
 
     [Header("Movement")]
@@ -23,6 +26,7 @@ public class Spaceship : MonoBehaviour {
     public Vector3 manualDestination;
     public bool manualDestinationReached = false;
     public float manualDestinationDelta = 20f;
+    public Vector3 tempDestination;
 
     [Header("Parts")]
     public GameObject[] shootingPoints;
@@ -44,6 +48,8 @@ public class Spaceship : MonoBehaviour {
     //public GameObject infoPanelModeButton;
     public GameObject healthBarPanel;
     public GameObject healthPointsBar;
+    public GameObject shieldBarPanel;
+    public GameObject shieldPointsBar;
     //public Color infoPanelAutoModeColor = Color.green;
     //public Color infoPanelManualModeColor = Color.red;
 
@@ -51,7 +57,7 @@ public class Spaceship : MonoBehaviour {
     void Start () {
         target = null;
         isActivated = true;
-        health = maxHealth;
+        healthPoints = maxHealth;
         manualDestination = transform.position;
         manualDestinationReached = true;
         isInAutomaticMode = true;
@@ -92,6 +98,14 @@ public class Spaceship : MonoBehaviour {
             Vector3 newDir = Vector3.RotateTowards(transform.forward, targetDir, rotationStep, 0.0f);
             transform.rotation = Quaternion.LookRotation(newDir);
         }
+    }
+
+    public void RotateTowardsTempDest()
+    {
+        Vector3 targetDir = tempDestination - transform.position;
+        float rotationStep = rotationSpeed * Time.deltaTime;
+        Vector3 newDir = Vector3.RotateTowards(transform.forward, targetDir, rotationStep, 0.0f);
+        transform.rotation = Quaternion.LookRotation(newDir);
     }
 
     protected void RotateTowardsManualDestination()
@@ -180,21 +194,29 @@ public class Spaceship : MonoBehaviour {
 
     protected void TakeDamage(float damage)
     {
-        health = Mathf.Max(0, health - damage);
-        UpdateHealthBar();
-        if(health <= 0)
+        if(hasShield)
         {
-            DestroySpaceship();
+            float damageTakenByShield = AbsorbDamageInShield(damage);
+            if (damage > damageTakenByShield)    // Shield down to zero, decrease healthpoints
+            {
+                float remainingDamage = damage - damageTakenByShield;
+                DecreaseHealthPoints(remainingDamage);
+            }
         }
         else
         {
-            SpaceshipInfoPanel.instance.UpdateInfo();
+            DecreaseHealthPoints(damage);
+        }
+
+        if(healthPoints <= 0)
+        {
+            DestroySpaceship();
         }
     }
 
     public void Heal(float healingPower)
     {
-        health = Mathf.Min(maxHealth, health + healingPower);
+        healthPoints = Mathf.Min(maxHealth, healthPoints + healingPower);
         UpdateHealthBar();
         SpaceshipInfoPanel.instance.UpdateInfo();
     }
@@ -205,11 +227,23 @@ public class Spaceship : MonoBehaviour {
         {
             float healthBarPanelWidth = healthBarPanel.GetComponent<RectTransform>().rect.width;
 
-            float healthRatio = health / maxHealth;
+            float healthRatio = healthPoints / maxHealth;
 
             RectTransform healthPointsBarRectTransform = healthPointsBar.GetComponent<RectTransform>();
             healthPointsBarRectTransform.sizeDelta = new Vector2(healthBarPanelWidth * healthRatio, healthPointsBarRectTransform.sizeDelta.y);
+        }
+    }
 
+    protected void UpdateShieldBar()
+    {
+        if (shieldBarPanel != null && shieldPointsBar != null)
+        {
+            float shieldBarPanelWidth = shieldBarPanel.GetComponent<RectTransform>().rect.width;
+
+            float shieldRatio = shieldPoints / maxShield;
+
+            RectTransform shieldPointsBarRectTransform = shieldPointsBar.GetComponent<RectTransform>();
+            shieldPointsBarRectTransform.sizeDelta = new Vector2(shieldBarPanelWidth * shieldRatio, shieldPointsBarRectTransform.sizeDelta.y);
         }
     }
 
@@ -277,10 +311,6 @@ public class Spaceship : MonoBehaviour {
     public void SetManualDestination(Vector3 dest)
     {
         manualDestination = dest;
-        if(! isInAutomaticMode)
-        {
-            RotateTowardsManualDestination();
-        }
     }
 
     public bool IsCloseEnoughToDestination()
@@ -297,5 +327,50 @@ public class Spaceship : MonoBehaviour {
     {
         isInAutomaticMode = true;
         SpaceshipInfoPanel.instance.UpdateModeDisplay();
+    }
+
+    public void DecreaseHealthPoints(float amount)
+    {
+        healthPoints = Mathf.Max(0f, healthPoints - amount);
+        UpdateHealthBar();
+        SpaceshipInfoPanel.instance.UpdateInfo();
+    }
+
+    public void IncreaseHealthPoints(float amount)
+    {
+        healthPoints = Mathf.Min(maxHealth, healthPoints + amount);
+        UpdateHealthBar();
+        SpaceshipInfoPanel.instance.UpdateInfo();
+    }
+
+    public void DecreaseShieldPoints(float amount)
+    {
+        shieldPoints = Mathf.Max(0f, shieldPoints - amount);
+        UpdateShieldBar();
+        SpaceshipInfoPanel.instance.UpdateInfo();
+    }
+
+    public void IncreaseShieldPoints(float amount)
+    {
+        shieldPoints = Mathf.Min(maxShield, shieldPoints + amount);
+        UpdateShieldBar();
+        SpaceshipInfoPanel.instance.UpdateInfo();
+    }
+
+    public void RegenerateShield()
+    {
+        Debug.Log("RegenerateShield");
+        if(shieldPoints < maxShield)
+        {
+            IncreaseShieldPoints(shieldRegenerationAmount);
+        }
+    }
+
+    public float AbsorbDamageInShield(float amount)
+    {
+        float shieldPointsBefore = shieldPoints;
+        DecreaseShieldPoints(amount);
+        float shieldPointsAfter = shieldPoints;
+        return (shieldPointsBefore - shieldPointsAfter);
     }
 }

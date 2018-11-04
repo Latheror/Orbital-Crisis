@@ -81,14 +81,15 @@ public class Meteor : MonoBehaviour {
     {
         //Debug.Log("Dealing " + amount + " damages to meteor.");
         healthPoints -= amount;
-
-        ResizeMeteorFromHealth(healthPoints);
-
         InstantiateImpactEffect();
 
         if (healthPoints <= 0)
         {
             DestroyMeteor();
+        }
+        else
+        {
+            ResizeMeteorFromHealth(healthPoints);
         }
     }
 
@@ -106,13 +107,13 @@ public class Meteor : MonoBehaviour {
         {
             SpawnDebris();
             //Debug.Log("A meteor has exploded into debris !");
-            MeteorsManager.instance.DeleteMeteor(this.gameObject);
+            MeteorsManager.instance.DeleteMeteor(gameObject);
         }
         else
         {
             // The meteor have been destroyed
             //Debug.Log("A meteor has been destroyed !");
-            MeteorsManager.instance.DeleteMeteor(this.gameObject);
+            MeteorsManager.instance.DeleteMeteor(gameObject);
             MeteorsManager.instance.MeteorDestroyed(this);
         }
     }
@@ -121,6 +122,7 @@ public class Meteor : MonoBehaviour {
     {
         float newSize = MeteorsManager.instance.GetMeteorSizeFromHealth(health);
         size = newSize;
+        //Debug.Log("Downsizing meteor from [" + transform.localScale.x + "] to [" + newSize + "]");
         transform.localScale = new Vector3(newSize, newSize, newSize);
     }
 

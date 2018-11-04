@@ -6,6 +6,8 @@ public class MineBuilding : Building {
 
     //public List<ResourcesManager.ResourceAmount> production;
     public List<ResourcesManager.ResourceAmount> production = new List<ResourcesManager.ResourceAmount>();
+
+    public float productionDelay = 2f;
                                                                                                            
 
 
@@ -16,9 +18,11 @@ public class MineBuilding : Building {
 
     void Start()
     {
-        production.Add(new ResourcesManager.ResourceAmount(ResourcesManager.instance.availableResources.Find(item => item.resourceName == "steel"), 1));
+        production.Add(new ResourcesManager.ResourceAmount(ResourcesManager.instance.GetResourceTypeByName("steel"), 1));
+        production.Add(new ResourcesManager.ResourceAmount(ResourcesManager.instance.GetResourceTypeByName("silver"), 1));
+        production.Add(new ResourcesManager.ResourceAmount(ResourcesManager.instance.GetResourceTypeByName("carbon"), 1));
 
-        InvokeRepeating("Produce", 0f, 2f);
+        InvokeRepeating("Produce", 0f, productionDelay);
     }
 
     public void Produce()

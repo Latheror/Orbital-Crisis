@@ -27,7 +27,7 @@ public class DebrisCollectorStation : Building {
 
     public DebrisCollectorStation()
     {
-        Debug.Log("DebrisCollectorStation constructor");
+        //Debug.Log("DebrisCollectorStation constructor");
     }
 
     void Start()

@@ -33,7 +33,7 @@ public class ShockSatellite : Building {
 	
     public ShockSatellite()
     {
-        Debug.Log("ShockSatellite constructor");
+        //Debug.Log("ShockSatellite constructor");
     }
 
     public void GetInRangeMeteors()
@@ -54,7 +54,7 @@ public class ShockSatellite : Building {
     {
         if (GameManager.instance.gameState == GameManager.GameState.Default)
         {
-            Debug.Log("ShockSatellite Play");
+            //Debug.Log("ShockSatellite Play");
             if (hasEnoughEnergy)
             {
                 Animator animator = GetComponent<Animator>();
@@ -62,7 +62,7 @@ public class ShockSatellite : Building {
             }
             else
             {
-                Debug.Log("ShockSatellite doesn't have enough energy !");
+                //Debug.Log("ShockSatellite doesn't have enough energy !");
             }
         }
     }
@@ -70,7 +70,7 @@ public class ShockSatellite : Building {
 
     public void MiddleAnimationEvent()
     {
-        Debug.Log("MiddleAnimationEvent");
+        //Debug.Log("MiddleAnimationEvent");
         GetInRangeMeteors();
         DealDamageToInRangeMeteors();
         GetComponent<Animator>().SetBool("StartAnimation", false);
@@ -86,7 +86,7 @@ public class ShockSatellite : Building {
 
     public override void ApplyCurrentTierSettings()
     {
-        Debug.Log("ApplyCurrentTierSettings | LASER TURRET | CurrentTier: " + currentTier);
+        //Debug.Log("ApplyCurrentTierSettings | LASER TURRET | CurrentTier: " + currentTier);
         switch (currentTier)
         {
             case 2:

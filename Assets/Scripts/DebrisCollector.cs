@@ -57,11 +57,14 @@ public class DebrisCollector : MonoBehaviour {
                 {
                     foreach (var wreck in EnemiesManager.instance.enemyWrecks)
                     {
-                        float distance = Vector3.Distance(transform.position, wreck.transform.position);
-                        if (distance < minDistance && !IsTargetAlreadyTaken(wreck))
+                        if(wreck != null)
                         {
-                            minDistance = distance;
-                            closestDesbris = wreck;
+                            float distance = Vector3.Distance(transform.position, wreck.transform.position);
+                            if (distance < minDistance && !IsTargetAlreadyTaken(wreck))
+                            {
+                                minDistance = distance;
+                                closestDesbris = wreck;
+                            }
                         }
                     }
                 }

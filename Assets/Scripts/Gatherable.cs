@@ -10,14 +10,15 @@ public class Gatherable : MonoBehaviour {
     public new string name;
     public GatherableType type;
     public int healingPower = 50;
+    public float timeBeforeDespawn = 30f;
 
 	// Use this for initialization
 	void Start () {
-		
-	}
-	
-	// Update is called once per frame
-	void Update () {
+        InvokeRepeating("SelfDestruct", timeBeforeDespawn, 0f);
+    }
+
+    // Update is called once per frame
+    void Update () {
 		
 	}
 
@@ -35,5 +36,10 @@ public class Gatherable : MonoBehaviour {
         }
 
         Remove();
+    }
+
+    public void SelfDestruct()
+    {
+        Destroy(gameObject);
     }
 }

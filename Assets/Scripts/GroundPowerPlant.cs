@@ -22,7 +22,7 @@ public class GroundPowerPlant : PowerPlant {
 
     public GroundPowerPlant()
     {
-        Debug.Log("GroundPowerPlant constructor");
+        //Debug.Log("GroundPowerPlant constructor");
     }
 
     public override void ApplyCurrentTierSettings()
