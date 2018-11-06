@@ -11,7 +11,7 @@ public class SettingsImportManager : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-        ImportBuildingsSettings();
+        //ImportBuildingsSettings();
 	}
 	
 	// Update is called once per frame

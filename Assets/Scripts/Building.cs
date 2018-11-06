@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 public class Building : MonoBehaviour {
 
@@ -33,7 +34,7 @@ public class Building : MonoBehaviour {
 
     public List<ResourcesManager.ResourceAmount> GetUpgradeCostsForNextTier()
     {
-        Debug.Log("GetUpgradeCostsForNextTier | Current tier: " + currentTier);
+        //Debug.Log("GetUpgradeCostsForNextTier | Current tier: " + currentTier);
         return buildingType.GetUpgradeCostsForTierNb(currentTier + 1);
     }
 
@@ -75,7 +76,7 @@ public class Building : MonoBehaviour {
             if (display)
             {
                 float radius = range;
-                Debug.Log("DisplayRangeIndicator | Radius: " + radius + " | BuildingSpotAngleRad: " + buildingSpotAngleRad + " | RangeIndicatorNbPoints: " + rangeIndicatorNbPoints);
+                //Debug.Log("DisplayRangeIndicator | Radius: " + radius + " | BuildingSpotAngleRad: " + buildingSpotAngleRad + " | RangeIndicatorNbPoints: " + rangeIndicatorNbPoints);
 
                 if (hasAngleRange)  // Ground Towers
                 {
@@ -132,7 +133,7 @@ public class Building : MonoBehaviour {
     {
         if(currentTier < buildingType.maxTier)
         {
-            Debug.Log("Can go to next tier");
+            //Debug.Log("Can go to next tier");
             currentTier++;
             ApplyCurrentTierSettings();
 
@@ -144,7 +145,7 @@ public class Building : MonoBehaviour {
         }
         else
         {
-            Debug.Log("Max tier already reached !");
+            //Debug.Log("Max tier already reached !");
         }
     }
 
@@ -165,4 +166,17 @@ public class Building : MonoBehaviour {
     public virtual void ApplyCurrentTierSettings(){}
 
     public virtual void DestroyBuildingSpecificActions(){}
+
+    [Serializable]
+    public class BuildingData
+    {
+        public int buildingTypeID;
+        public int buildingSlotID;
+
+        public BuildingData(Building b)
+        {
+            buildingTypeID = b.buildingType.id;
+            buildingSlotID = b.buildingSpot.GetComponent<BuildingSlot>().id;
+        }
+    }
 }

@@ -85,26 +85,26 @@ public class TouchManager : MonoBehaviour {
                                 {
                                     case ("meteor"):
                                         {
-                                            Debug.Log("Touched a meteor !");
+                                            //Debug.Log("Touched a meteor !");
                                             //hit.collider.gameObject.GetComponent<Meteor>().TouchedByPlayer();
                                             break;
                                         }
                                     case ("meteorColliderHolder"):
                                         {
-                                            Debug.Log("Touched a meteor collider holder !");
+                                            //Debug.Log("Touched a meteor collider holder !");
                                             hit.collider.gameObject.transform.parent.GetComponent<Meteor>().TouchedByPlayer();
                                             break;
                                         }
                                     case ("spaceship"):
                                         {
-                                            Debug.Log("Touched a spaceship !");
+                                            //Debug.Log("Touched a spaceship !");
                                             hit.collider.gameObject.GetComponent<Spaceship>().Select(true);
                                             otherPriorityElementTouched = true;
                                             break;
                                         }
                                     case ("building"):
                                         {
-                                            Debug.Log("Touched a building !");
+                                            //Debug.Log("Touched a building !");
                                             InfrastructureManager.instance.BuildingTouched(hit.collider.gameObject);
                                             otherPriorityElementTouched = true;
                                             break;

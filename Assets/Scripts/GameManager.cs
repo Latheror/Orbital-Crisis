@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using System;
 
 
 public class GameManager : MonoBehaviour {
@@ -32,7 +33,6 @@ public class GameManager : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-        Screen.orientation = ScreenOrientation.AutoRotation;
         gameState = GameState.Default;
         selectionState = SelectionState.Default;
         objectsDepthOffset = mainPlanet.transform.position.z;
@@ -104,6 +104,20 @@ public class GameManager : MonoBehaviour {
         else
         {
 
+        }
+    }
+
+
+    [Serializable]
+    public class GameSavedVariables
+    {
+        public int levelReached;
+        public int unlockedDisks;
+
+        public GameSavedVariables(int currentLevelNb, int unlockedOrbits)
+        {
+            this.levelReached = currentLevelNb;
+            this.unlockedDisks = unlockedOrbits;
         }
     }
 }

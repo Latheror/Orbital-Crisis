@@ -30,6 +30,7 @@ public class ResourceIndicator : MonoBehaviour {
         resourceNameText.text = resource.resourceName;
         resourceValueText.text = resource.startAmount.ToString();
         GetComponent<Image>().color = resource.color;
+        resourceImage.GetComponent<Image>().sprite = resource.resourceImage;
     }
 
     public void SetResourceValueText(int value)

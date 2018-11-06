@@ -21,7 +21,7 @@ public class LaserSatellite : Turret {
 
     public LaserSatellite()
     {
-        Debug.Log("LaserSatellite constructor");
+        //Debug.Log("LaserSatellite constructor");
     }
 
     public void FireOnTarget()

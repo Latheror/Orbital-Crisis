@@ -127,18 +127,18 @@ public class AlliedSpaceship : Spaceship {
                 // Check if path towards destination intersects with planet
                 if (!IsCloseEnoughToDestination() && (GeometryManager.instance.SegmentIntersectWithPlanet(gameObject.transform.position, manualDestination)))
                 {
-                    Debug.Log("HandleMovements | Setting a temp dest");
+                    //Debug.Log("HandleMovements | Setting a temp dest");
                     float spaceshipPosAngle = GeometryManager.GetRadAngleFromXY(transform.position.x, transform.position.y);
                     float spaceshipPosDistance = GeometryManager.instance.GetDistanceFromPlanetCenter(transform.position);
-                    Debug.Log("spaceshipPosAngle: " + spaceshipPosAngle + " | spaceshipPosDistance: " + spaceshipPosDistance);
+                    //Debug.Log("spaceshipPosAngle: " + spaceshipPosAngle + " | spaceshipPosDistance: " + spaceshipPosDistance);
                     float manualDestPosAngle = GeometryManager.GetRadAngleFromXY(manualDestination.x, manualDestination.y);
                     float manualDestPosDistance = GeometryManager.instance.GetDistanceFromPlanetCenter(manualDestination);
-                    Debug.Log("manualDestPosAngle: " + manualDestPosAngle + " | manualDestPosDistance: " + manualDestPosDistance);
+                    //Debug.Log("manualDestPosAngle: " + manualDestPosAngle + " | manualDestPosDistance: " + manualDestPosDistance);
 
                     // Mean angle
                     float meanAngle = GeometryManager.GetMeanAngle(spaceshipPosAngle, manualDestPosAngle);
                     float meanDistance = Mathf.Max((manualDestPosAngle + manualDestPosDistance) / 2, 10);
-                    Debug.Log("meanAngle: " + meanAngle + " | meanDistance: " + meanDistance);
+                    //Debug.Log("meanAngle: " + meanAngle + " | meanDistance: " + meanDistance);
 
                     tempDestination = new Vector3(meanDistance * Mathf.Cos(meanAngle), meanDistance * Mathf.Sin(meanAngle), manualDestination.z);
                 }

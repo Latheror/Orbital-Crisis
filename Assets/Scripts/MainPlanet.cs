@@ -22,7 +22,7 @@ public class MainPlanet : MonoBehaviour {
     {
         size = transform.localScale.x;
 
-        BuildBuildingSlots();
+        BuildGroundBuildingSlots();
 
         currentSurroundingLevelsShown = 0;
         //InvokeRepeating("AnimateSurroundingLevels", 0f, 0.5f);
@@ -63,7 +63,7 @@ public class MainPlanet : MonoBehaviour {
         Camera.main.fieldOfView *= 0.9f;
     }
 
-    public void BuildBuildingSlots()
+    public void BuildGroundBuildingSlots()
     {
         Debug.Log("Building building slots.");
         float stepAngle = 2*Mathf.PI / nbStartBuildingSlots;
@@ -80,7 +80,9 @@ public class MainPlanet : MonoBehaviour {
             instantiatedSlot.transform.SetParent(buildingSlotsParent.transform);
 
             buildingSlotList.Add(instantiatedSlot);
+            BuildingSlotManager.instance.buildingSlots.Add(instantiatedSlot);
 
+            instantiatedSlot.GetComponent<BuildingSlot>().id = (100 + i);
             instantiatedSlot.GetComponent<BuildingSlot>().locationType = BuildingManager.BuildingType.BuildingLocationType.Planet;
             instantiatedSlot.GetComponent<BuildingSlot>().SetDefaultColor();
             instantiatedSlot.GetComponent<BuildingSlot>().angleRad = stepAngle * i;

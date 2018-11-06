@@ -4,11 +4,14 @@ using UnityEngine;
 
 public class BuildingSlot : MonoBehaviour {
 
-    [Header("Attached Building")]
-    public Building attachedBuilding = null;
+    [Header("Info")]
+    public int id;  // Ground: "1xx", Satellite: "2xx"
     public float angleRad;
     public bool hasBuilding = false;
     public BuildingManager.BuildingType.BuildingLocationType locationType;
+
+    [Header("Attached Building")]
+    public Building attachedBuilding = null;
 
     [Header("UI")]
     public Color defaultColor;

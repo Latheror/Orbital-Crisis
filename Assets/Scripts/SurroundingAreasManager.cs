@@ -48,7 +48,7 @@ public class SurroundingAreasManager : MonoBehaviour {
     {
         float stepAngle = Mathf.PI * 2 / disks[diskNb].buildingSlotsNb;
         float diskScale = disks[diskNb].diskGO.transform.localScale.x;
-        Debug.Log("BuildDiskBuildingSlots | Disk Nb: " + diskNb + " scale: " + diskScale);
+        //Debug.Log("BuildDiskBuildingSlots | Disk Nb: " + diskNb + " scale: " + diskScale);
         float radius = (diskScale / 2) - 20;
 
         //Debug.Log("StepAngle: " + stepAngle);
@@ -61,7 +61,9 @@ public class SurroundingAreasManager : MonoBehaviour {
             Vector3 pos = new Vector3(Mathf.Cos(angle) * radius, Mathf.Sin(angle) * radius, mainPlanet.transform.position.z);
 
             GameObject instantiatedSlot = Instantiate(satelliteBuildingSlotPrefab, pos, Quaternion.identity);
+            BuildingSlotManager.instance.buildingSlots.Add(instantiatedSlot);
 
+            instantiatedSlot.GetComponent<BuildingSlot>().id = (200 + 100*diskNb + j);
             instantiatedSlot.GetComponent<BuildingSlot>().locationType = BuildingManager.BuildingType.BuildingLocationType.Disks;
             instantiatedSlot.GetComponent<BuildingSlot>().SetDefaultColor();
             instantiatedSlot.GetComponent<BuildingSlot>().SetAngle(angle);

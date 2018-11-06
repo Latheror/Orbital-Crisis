@@ -47,7 +47,7 @@ public class MeteorsManager : MonoBehaviour {
     public void CalculateHealthSizeFactor()
     {
         healthSizeFactor = (healthPointsAtMaxSize - healthPointsAtMinSize) / (meteorSpawnMaxSize - meteorSpawnMinSize);
-        Debug.Log("healthSizeFactor: " + healthSizeFactor);
+        //Debug.Log("healthSizeFactor: " + healthSizeFactor);
     }
 
     public void SpawnNewMeteor()
@@ -104,7 +104,7 @@ public class MeteorsManager : MonoBehaviour {
 
     public void DeleteAllMeteors()
     {
-        Debug.Log("Deleting all meteors");
+        //Debug.Log("Deleting all meteors");
         foreach (GameObject meteor in meteorsList.ToArray())
         {
             meteorsList.Remove(meteor);

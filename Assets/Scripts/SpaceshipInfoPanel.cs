@@ -75,7 +75,7 @@ public class SpaceshipInfoPanel : MonoBehaviour {
 
     public void SelectSpaceshipActions()
     {
-        Debug.Log("SelectSpaceshipActions");
+        //Debug.Log("SelectSpaceshipActions");
 
         // Set all information
         UpdateInfo();
@@ -86,7 +86,7 @@ public class SpaceshipInfoPanel : MonoBehaviour {
 
     public void DeselectSpaceshipActions()
     {
-        Debug.Log("DeselectSpaceshipActions");
+        //Debug.Log("DeselectSpaceshipActions");
         displayPanel.SetActive(false);
     }
 
@@ -94,7 +94,7 @@ public class SpaceshipInfoPanel : MonoBehaviour {
     {
         if(SpaceshipManager.instance.selectedSpaceship != null)
         {
-            Debug.Log("Update Spaceship panel info");
+            //Debug.Log("Update Spaceship panel info");
             UpdateHealthInfo();
             UpdateShieldInfo();
             UpdateModeDisplay();

@@ -53,19 +53,19 @@ public class InfrastructureManager : MonoBehaviour {
     public bool UpgradeBuildingRequest(GameObject building)
     {
         bool requestAccepted = false;
-        Debug.Log("UpgradeBuildingRequest");
+        //Debug.Log("UpgradeBuildingRequest");
         if (ResourcesManager.instance.CanPayUpgradeCosts(building.GetComponent<Building>()))
         {
             if(ResourcesManager.instance.PayUpgradeCosts(building.GetComponent<Building>()))
             {
-                Debug.Log("UpgradeBuilding : Can pay upgrade");
+                //Debug.Log("UpgradeBuilding : Can pay upgrade");
                 building.GetComponent<Building>().UpgradeToNextTier();
                 requestAccepted = true;
             }
         }
         else
         {
-            Debug.Log("UpgradeBuilding : Can't pay upgrade !");
+            //Debug.Log("UpgradeBuilding : Can't pay upgrade !");
         }
         return requestAccepted;
     }
@@ -99,6 +99,14 @@ public class InfrastructureManager : MonoBehaviour {
             Debug.Log("Spaceport Touched !");
 
             SpaceportInfoPanel.instance.SpaceportTouched(building);
+        }
+    }
+
+    public void ClearBuildings()
+    {
+        foreach (GameObject building in BuildingManager.instance.buildingList.ToArray())
+        {
+            DestroyBuilding(building);
         }
     }
 }

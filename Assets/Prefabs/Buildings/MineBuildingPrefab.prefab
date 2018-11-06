@@ -125,6 +125,7 @@ GameObject:
   - component: {fileID: 23249219202328248}
   - component: {fileID: 114567005485433694}
   - component: {fileID: 95883597264301672}
+  - component: {fileID: 65500245240144756}
   m_Layer: 0
   m_Name: MineBuildingPrefab
   m_TagString: building
@@ -198,7 +199,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1895668203335350}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 44.2, y: -1.8, z: 163.4}
+  m_LocalPosition: {x: -46.706795, y: -31.714993, z: 163.4}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4960678855071394}
@@ -639,6 +640,18 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1861870819095986}
   m_Mesh: {fileID: 4300016, guid: 16eab4571b87da546a2bb95937b9ee9c, type: 3}
+--- !u!65 &65500245240144756
+BoxCollider:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1895668203335350}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 31.128342, y: 20, z: 20}
+  m_Center: {x: 11.128338, y: 0, z: 0}
 --- !u!95 &95095980007834470
 Animator:
   serializedVersion: 3
@@ -687,6 +700,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   buildingType:
+    id: 0
     name: 
     prefab: {fileID: 0}
     resourceCosts: []

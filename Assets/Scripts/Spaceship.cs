@@ -359,7 +359,7 @@ public class Spaceship : MonoBehaviour {
 
     public void RegenerateShield()
     {
-        Debug.Log("RegenerateShield");
+        //Debug.Log("RegenerateShield");
         if(shieldPoints < maxShield)
         {
             IncreaseShieldPoints(shieldRegenerationAmount);

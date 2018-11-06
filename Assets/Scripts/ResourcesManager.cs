@@ -15,6 +15,8 @@ public class ResourcesManager : MonoBehaviour {
     public Color steelColor;
     public Color silverColor;
     public Color carbonColor;
+    public Color compositeColor;
+    public Color electronicsColor;
 
     [Header("Operation")]
     public List<ResourceAmount> currentResourceAmounts = new List<ResourceAmount>();
@@ -36,9 +38,11 @@ public class ResourcesManager : MonoBehaviour {
     // Types of resources and their info
     public void InitializeResources()
     {
-        availableResources.Add(new ResourceType("steel", steelColor, "coal", 500));
+        availableResources.Add(new ResourceType("steel", steelColor, "steel", 500));
         availableResources.Add(new ResourceType("silver", silverColor, "coal", 500));
-        availableResources.Add(new ResourceType("carbon", carbonColor, "coal", 500));
+        availableResources.Add(new ResourceType("carbon", carbonColor, "carbon", 400));
+        availableResources.Add(new ResourceType("composite", compositeColor, "composite", 300));
+        availableResources.Add(new ResourceType("electronics", electronicsColor, "electronics", 200));
     }
 
     // Set starting resource amounts
