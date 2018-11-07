@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.IO;
+using System;
 
 public class SaveManager : MonoBehaviour {
 
@@ -14,8 +15,8 @@ public class SaveManager : MonoBehaviour {
         DontDestroyOnLoad(gameObject);
     }
 
-    public string buildingsSaveFile = "buildings.sav";
-    public string generalSaveFile = "general.sav";
+    public string gameSaveFileName = ("save");  // Add save index after (1-5)
+    public string gameSaveFileExtension = ".sav";
 
     void Start () {
 
@@ -25,41 +26,42 @@ public class SaveManager : MonoBehaviour {
 		
 	}
 
-    public void SaveButtonClicked()
-    {
-        SaveGameState();
-    }
-
     public void LoadButtonClicked()
     {
-        LoadGameState();
+        //LoadGameState();
     }
 
-    public void SaveGameState()
+    public void SaveGameState(int saveGameSlotIndex)
     {
-        Debug.Log("Saving game...");
-        SaveGameVariables();
-        SaveBuildings();
+        Debug.Log("Saving game state...");
+        GameManager.GameSavedVariables gameSavedVariables = GatherGameVariables();
+        Building.BuildingData[] buildingDatas = GatherBuildingsData();
+
+        GameSaveData gameSaveData = new GameSaveData(gameSavedVariables, buildingDatas);
+
+        // Binary Formatter + Stream
+        BinaryFormatter bf = new BinaryFormatter();
+        string fileName = (gameSaveFileName + saveGameSlotIndex + gameSaveFileExtension);
+        Debug.Log("File Name: " + fileName);
+        FileStream stream = new FileStream(Application.persistentDataPath + "/" + fileName, FileMode.Create);
+        bf.Serialize(stream, gameSaveData);
+        stream.Close();
     }
 
     public void LoadGameState()
     {
-        InfrastructureManager.instance.ClearBuildings();
-        LoadGameVariables();
-        LoadBuildings();
+        //InfrastructureManager.instance.ClearBuildings();
+        //LoadGameVariables();
+        //LoadBuildings();
     }
 
-    public void SaveBuildings()
+    public Building.BuildingData[] GatherBuildingsData()
     {
         int buildingNb = BuildingManager.instance.buildingList.Count;
         Debug.Log("Saving [" + buildingNb + "] buildings...");
 
-        // Binary Formatter + Stream
-        BinaryFormatter bf = new BinaryFormatter();
-        FileStream stream = new FileStream(Application.persistentDataPath + "/" + buildingsSaveFile, FileMode.Create);
-
         // BuildingData List
-        Building.BuildingData[] buildingDatas = new Building.BuildingData[buildingNb];
+        Building.BuildingData[] buildingsData = new Building.BuildingData[buildingNb];
 
         for (int i = 0; i<buildingNb; i++)
         {
@@ -67,18 +69,17 @@ public class SaveManager : MonoBehaviour {
 
             Building.BuildingData bData = new Building.BuildingData(BuildingManager.instance.buildingList[i].GetComponent<Building>());
 
-            buildingDatas[i] = bData;
+            buildingsData[i] = bData;
 
         }
 
-        bf.Serialize(stream, buildingDatas);
-        stream.Close();
+        return buildingsData;
     }
 
     public void LoadBuildings()
     {
         Debug.Log("LoadBuildings...");
-        if (File.Exists(Application.persistentDataPath + "/" + buildingsSaveFile))
+        /*if (File.Exists(Application.persistentDataPath + "/" + buildingsSaveFile))
         {
             BinaryFormatter bf = new BinaryFormatter();
             FileStream stream = new FileStream(Application.persistentDataPath + "/" + buildingsSaveFile, FileMode.Open);
@@ -103,29 +104,23 @@ public class SaveManager : MonoBehaviour {
         else
         {
             Debug.LogError("LoadBuilding | File doesn't exist !");
-        }
+        }*/
     }
 
-    public void SaveGameVariables()
+    public GameManager.GameSavedVariables GatherGameVariables()
     {
         int levelReached = LevelManager.instance.currentLevelNumber;
         int unlockedDisksNb = SurroundingAreasManager.instance.unlockedDisksNb;
 
         Debug.Log("Saving game variables | LevelReached [" + levelReached + "] | UnlockedDisksNb [" + unlockedDisksNb + "]");
 
-        // Binary Formatter + Stream
-        BinaryFormatter bf = new BinaryFormatter();
-        FileStream stream = new FileStream(Application.persistentDataPath + "/" + generalSaveFile, FileMode.Create);
-
-        GameManager.GameSavedVariables gameSavecVariables = new GameManager.GameSavedVariables(levelReached, unlockedDisksNb);
-
-        bf.Serialize(stream, gameSavecVariables);
-        stream.Close();
+        GameManager.GameSavedVariables gameSavedVariables = new GameManager.GameSavedVariables(levelReached, unlockedDisksNb);
+        return gameSavedVariables;
     }
 
     public void LoadGameVariables()
     {
-        Debug.Log("LoadBuildings...");
+        /*Debug.Log("LoadBuildings...");
         if (File.Exists(Application.persistentDataPath + "/" + generalSaveFile))
         {
             BinaryFormatter bf = new BinaryFormatter();
@@ -144,7 +139,29 @@ public class SaveManager : MonoBehaviour {
         else
         {
             Debug.LogError("GameVariables file doesn't exist !");
-        }
+        }*/
     }
+
+    public void SaveGameRequest(int saveSlotIndex)
+    {
+        Debug.Log("SaveManager | SaveGameRequest | Slot[" + saveSlotIndex + "]");
+        SaveGameState(saveSlotIndex);
+    }
+
+    // Data describing a game save
+    [Serializable]
+    public class GameSaveData
+    {
+        GameManager.GameSavedVariables gameSavedVariables;
+        Building.BuildingData[] buildingsData;
+
+        public GameSaveData(GameManager.GameSavedVariables gameSavedVariables, Building.BuildingData[] buildingsData)
+        {
+            this.gameSavedVariables = gameSavedVariables;
+            this.buildingsData = buildingsData;
+        }
+
+    }
+
 
 }

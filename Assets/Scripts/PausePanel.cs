@@ -1,8 +1,11 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PausePanel : MonoBehaviour {
+
+    public GameObject saveGamePanel;
 
 	// Use this for initialization
 	void Start () {
@@ -16,7 +19,9 @@ public class PausePanel : MonoBehaviour {
 
     public void SaveButtonClicked()
     {
-        SaveManager.instance.SaveButtonClicked();
+        saveGamePanel.SetActive(true);
+        gameObject.SetActive(false);
+        //SaveManager.instance.SaveButtonClicked();
     }
 
     public void LoadButtonClicked()
