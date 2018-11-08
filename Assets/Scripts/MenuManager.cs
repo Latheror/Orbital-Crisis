@@ -99,7 +99,7 @@ public class MenuManager : MonoBehaviour
 
     IEnumerator CameraMainToPlayMovement()
     {
-        while ((cameraPivotPoint.transform.rotation.y) > -0.71f)
+        while ((cameraPivotPoint.transform.rotation.y) > -0.69f)
         {
             cameraPivotPoint.transform.Rotate(Vector3.up, - Time.deltaTime * cameraSpeed);
             //Debug.Log("CameraPivotAngle: " + cameraPivotPoint.transform.rotation.y);

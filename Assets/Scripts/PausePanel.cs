@@ -20,7 +20,7 @@ public class PausePanel : MonoBehaviour {
     public void SaveButtonClicked()
     {
         saveGamePanel.SetActive(true);
-        gameObject.SetActive(false);
+        gameObject.transform.parent.gameObject.SetActive(false);
         //SaveManager.instance.SaveButtonClicked();
     }
 

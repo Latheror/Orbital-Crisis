@@ -64,7 +64,7 @@ public class GameManager : MonoBehaviour {
 
     public void PauseMenuButtonAction()
     {
-        SceneManager.LoadSceneAsync(0);
+        ScenesManager.instance.ChangeFromGameToMenuScene();
     }
 
     public void ChangeSelectionState(SelectionState state)
@@ -109,12 +109,12 @@ public class GameManager : MonoBehaviour {
 
 
     [Serializable]
-    public class GameSavedVariables
+    public class GeneralGameData
     {
         public int levelReached;
         public int unlockedDisks;
 
-        public GameSavedVariables(int currentLevelNb, int unlockedOrbits)
+        public GeneralGameData(int currentLevelNb, int unlockedOrbits)
         {
             this.levelReached = currentLevelNb;
             this.unlockedDisks = unlockedOrbits;

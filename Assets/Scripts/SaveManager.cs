@@ -10,16 +10,28 @@ public class SaveManager : MonoBehaviour {
     public static SaveManager instance;
     void Awake()
     {
-        if (instance != null) { Debug.LogError("More than one SaveManager in scene !"); return; }
-        instance = this;
+        if (instance == null) {
+            instance = this;
+        }
         DontDestroyOnLoad(gameObject);
     }
+
+    public int savedGameFilesNb = 5;
+    public SavedGameFilesInfoData globalSavedGameInfoData;
 
     public string gameSaveFileName = ("save");  // Add save index after (1-5)
     public string gameSaveFileExtension = ".sav";
 
-    void Start () {
+    public string savedGameFilesInfoName = ("saves");
 
+    public GameSaveData[] globalGameSaveData = new GameSaveData[5];
+
+    public GameSaveData gameSaveToLoad;
+
+    void Start () {
+        ImportGameSavesInfoFile();
+        ImportGameSavesData();
+        UpdateLoadGameSavePanel();
     }
 	
 	void Update () {
@@ -31,21 +43,40 @@ public class SaveManager : MonoBehaviour {
         //LoadGameState();
     }
 
-    public void SaveGameState(int saveGameSlotIndex)
+    public void SaveGameStateIntoSlot(int saveGameSlotIndex)
     {
         Debug.Log("Saving game state...");
-        GameManager.GameSavedVariables gameSavedVariables = GatherGameVariables();
+
+        string saveTime = DateTime.Now.ToString("yyyy-MM-dd h:mm:ss tt");
+
+        GameManager.GeneralGameData generalData = GatherGeneralData();
         Building.BuildingData[] buildingDatas = GatherBuildingsData();
 
-        GameSaveData gameSaveData = new GameSaveData(gameSavedVariables, buildingDatas);
+        // Build Game Save Data
+        GameSaveData gameSaveData = new GameSaveData(generalData, buildingDatas);
+        int currentLevelReached = LevelManager.instance.currentLevelNumber;
 
         // Binary Formatter + Stream
         BinaryFormatter bf = new BinaryFormatter();
         string fileName = (gameSaveFileName + saveGameSlotIndex + gameSaveFileExtension);
         Debug.Log("File Name: " + fileName);
         FileStream stream = new FileStream(Application.persistentDataPath + "/" + fileName, FileMode.Create);
+
+        // Write chosen save file
         bf.Serialize(stream, gameSaveData);
         stream.Close();
+
+        // Update SaveFilesInfo general object
+        SavedGameFilesInfoData.SaveFileInfo saveFileInfo = new SavedGameFilesInfoData.SaveFileInfo(saveGameSlotIndex, true, saveTime);
+        Debug.Log("Created new SaveFileInfo | SlotIndex [" + saveGameSlotIndex + "] | IsUsed [" + true + "] | SaveTime [" + saveTime +"]");
+
+        globalSavedGameInfoData.UpdateSavedGameFilesInfoForIndex(saveFileInfo);
+
+        // Update indicator in save panel
+        SaveGamePanel.instance.UpdateSaveSlotInfo(saveFileInfo);
+
+        // Write game saves info file
+        WriteSaveFilesInfo();
     }
 
     public void LoadGameState()
@@ -53,6 +84,25 @@ public class SaveManager : MonoBehaviour {
         //InfrastructureManager.instance.ClearBuildings();
         //LoadGameVariables();
         //LoadBuildings();
+    }
+
+    public void SetGameSaveToLoad(GameSaveData gameSaveData)
+    {
+        Debug.Log("SetGameSaveToLoad | Level Reached:" + gameSaveData.generalGameData.levelReached + " | Buildings Nb [" + gameSaveData.buildingsData.Length + "]");
+        gameSaveToLoad = gameSaveData;
+    }
+
+    public void SetGameSaveToLoadIndex(int gameSaveIndex)
+    {
+        if (globalSavedGameInfoData.saveFilesInfo[gameSaveIndex - 1].isUsed)
+        {
+            Debug.Log("SetGameSaveToLoadIndex [" + gameSaveIndex + "]");
+            SetGameSaveToLoad(globalGameSaveData[gameSaveIndex - 1]);
+        }
+        else
+        {
+            Debug.LogError("SetGameSaveToLoadIndex | File marked as not used...");
+        }
     }
 
     public Building.BuildingData[] GatherBuildingsData()
@@ -76,92 +126,208 @@ public class SaveManager : MonoBehaviour {
         return buildingsData;
     }
 
-    public void LoadBuildings()
-    {
-        Debug.Log("LoadBuildings...");
-        /*if (File.Exists(Application.persistentDataPath + "/" + buildingsSaveFile))
-        {
-            BinaryFormatter bf = new BinaryFormatter();
-            FileStream stream = new FileStream(Application.persistentDataPath + "/" + buildingsSaveFile, FileMode.Open);
 
-            Building.BuildingData[] bData = bf.Deserialize(stream) as Building.BuildingData[];
 
-            stream.Close();
-
-            for(int i=0; i<bData.Length; i++)
-            {
-                // Retrieve info
-                int buildingTypeID = bData[i].buildingTypeID;
-                int buildingSlotID = bData[i].buildingSlotID;
-
-                // Build building
-                Debug.Log("LoadBuildings | Building [" + BuildingManager.instance.GetBuildingTypeByID(buildingTypeID).name + "]");
-                BuildingManager.instance.BuildBuildingOnSlot(BuildingManager.instance.GetBuildingTypeByID(buildingTypeID), BuildingSlotManager.instance.GetBuildingSlotByID(buildingSlotID));
-            }
-
-            
-        }
-        else
-        {
-            Debug.LogError("LoadBuilding | File doesn't exist !");
-        }*/
-    }
-
-    public GameManager.GameSavedVariables GatherGameVariables()
+    public GameManager.GeneralGameData GatherGeneralData()
     {
         int levelReached = LevelManager.instance.currentLevelNumber;
         int unlockedDisksNb = SurroundingAreasManager.instance.unlockedDisksNb;
 
         Debug.Log("Saving game variables | LevelReached [" + levelReached + "] | UnlockedDisksNb [" + unlockedDisksNb + "]");
 
-        GameManager.GameSavedVariables gameSavedVariables = new GameManager.GameSavedVariables(levelReached, unlockedDisksNb);
+        GameManager.GeneralGameData gameSavedVariables = new GameManager.GeneralGameData(levelReached, unlockedDisksNb);
         return gameSavedVariables;
-    }
-
-    public void LoadGameVariables()
-    {
-        /*Debug.Log("LoadBuildings...");
-        if (File.Exists(Application.persistentDataPath + "/" + generalSaveFile))
-        {
-            BinaryFormatter bf = new BinaryFormatter();
-            FileStream stream = new FileStream(Application.persistentDataPath + "/" + generalSaveFile, FileMode.Open);
-
-            GameManager.GameSavedVariables gameSavedVariables = bf.Deserialize(stream) as GameManager.GameSavedVariables;
-
-            stream.Close();
-
-            int levelReached = gameSavedVariables.levelReached;
-            int unlockedDisksNb = gameSavedVariables.unlockedDisks;
-
-            // Temporary | TODO
-            Debug.Log("LevelReached[" + levelReached + "] | UnlockedDisksNb[" + unlockedDisksNb + "]");
-        }
-        else
-        {
-            Debug.LogError("GameVariables file doesn't exist !");
-        }*/
     }
 
     public void SaveGameRequest(int saveSlotIndex)
     {
         Debug.Log("SaveManager | SaveGameRequest | Slot[" + saveSlotIndex + "]");
-        SaveGameState(saveSlotIndex);
+        SaveGameStateIntoSlot(saveSlotIndex);
+    }
+
+    /*public void GenerateSavedGameInfoFile()
+    {
+
+    }*/
+
+    public void ImportGameSavesInfoFile()
+    {
+        Debug.Log("Importing Game Save Files");
+        if (File.Exists(Application.persistentDataPath + "/" + savedGameFilesInfoName + gameSaveFileExtension))
+        {
+            // saves.sav exist
+            Debug.Log("saves.sav exist. Loading save files...");
+
+            // Reading existing files
+            BinaryFormatter bf = new BinaryFormatter();
+            FileStream stream = new FileStream(Application.persistentDataPath + "/" + savedGameFilesInfoName + gameSaveFileExtension, FileMode.Open);
+
+            globalSavedGameInfoData = bf.Deserialize(stream) as SavedGameFilesInfoData;            
+
+            stream.Close();
+        }
+        else
+        {
+            // saves.sav doesn't exist
+            Debug.Log("saves.sav file doesn't exist. Creating...");
+
+            // Binary Formatter + Stream
+            BinaryFormatter bf = new BinaryFormatter();
+            string fileName = (savedGameFilesInfoName + gameSaveFileExtension);  // saves.sav
+            Debug.Log("File Name: " + fileName);
+            FileStream stream = new FileStream(Application.persistentDataPath + "/" + fileName, FileMode.Create);
+
+            // Initializing globalGameSaveData
+            globalSavedGameInfoData = new SavedGameFilesInfoData();
+
+            bf.Serialize(stream, globalSavedGameInfoData);
+            stream.Close();
+        }
+    }
+
+    public void ImportGameSavesData()
+    {
+        Debug.Log("ImportGameSavesData...");
+        foreach (SavedGameFilesInfoData.SaveFileInfo saveFileInfo in globalSavedGameInfoData.saveFilesInfo)
+        {
+            if(saveFileInfo.isUsed)
+            {
+                Debug.Log("Save File Nb [" + saveFileInfo.fileIndex + "] is marked as used...");
+                LoadGameSaveData(saveFileInfo.fileIndex);
+            }
+        }
+    }
+
+    public void LoadGameSaveData(int gameSaveIndex)
+    {
+        Debug.Log("LoadGameSaveData [" + gameSaveIndex + "]");
+
+        // Binary Formatter + Stream
+        BinaryFormatter bf = new BinaryFormatter();
+        string fileName = ((gameSaveFileName + gameSaveIndex.ToString() + gameSaveFileExtension));  // saveX.sav
+        Debug.Log("Loading File: " + fileName);
+
+        if (File.Exists(Application.persistentDataPath + "/" + fileName)) {
+            Debug.Log("File exists");
+            FileStream stream = new FileStream(Application.persistentDataPath + "/" + fileName, FileMode.Open);
+
+            // Deserialize
+            globalGameSaveData[gameSaveIndex - 1] = (bf.Deserialize(stream) as GameSaveData);
+
+            stream.Close();
+        }
+        else
+        {
+            Debug.LogError("File doesn't exist: " + fileName);
+        }
+    }
+
+    public void UpdateLoadGameSavePanel()
+    {
+        Debug.Log("UpdateLoadGameSavePanel");
+        foreach (SavedGameFilesInfoData.SaveFileInfo saveFileInfo in globalSavedGameInfoData.saveFilesInfo)
+        {
+            MenuLoadGamePanel.instance.UpdateLoadGameSaveElement(saveFileInfo);
+        }  
+    }
+
+    public void WriteSaveFilesInfo()
+    {
+        Debug.Log("WriteSaveFilesInfo...");
+
+        // Binary Formatter + Stream
+        BinaryFormatter bf = new BinaryFormatter();
+        string fileName = (savedGameFilesInfoName + gameSaveFileExtension);  // saves.sav
+        Debug.Log("File Name: " + fileName);
+        FileStream stream = new FileStream(Application.persistentDataPath + "/" + fileName, FileMode.Create);
+
+        bf.Serialize(stream, globalSavedGameInfoData);
+        stream.Close();
+    }
+
+    public void ReloadGameSavesInMenu()
+    {
+        Debug.Log("ReloadGameSavesInMenu");
     }
 
     // Data describing a game save
     [Serializable]
     public class GameSaveData
     {
-        GameManager.GameSavedVariables gameSavedVariables;
-        Building.BuildingData[] buildingsData;
+        public GameManager.GeneralGameData generalGameData;
+        public Building.BuildingData[] buildingsData;
 
-        public GameSaveData(GameManager.GameSavedVariables gameSavedVariables, Building.BuildingData[] buildingsData)
+        public GameSaveData(GameManager.GeneralGameData generalGameData, Building.BuildingData[] buildingsData)
         {
-            this.gameSavedVariables = gameSavedVariables;
+            this.generalGameData = generalGameData;
             this.buildingsData = buildingsData;
         }
-
     }
 
+    [Serializable]
+    public class SavedGameFilesInfoData
+    {
+        public int savedGameFilesNb = 5;
+        public SaveFileInfo[] saveFilesInfo;
+        public int totalFilesUsed = 0;
+
+        public SavedGameFilesInfoData(SaveFileInfo[] saveFilesInfo)
+        {
+            int totalUsedFiles = 0;
+
+            this.saveFilesInfo = saveFilesInfo;
+            foreach (SaveFileInfo fileNumberUsed in saveFilesInfo)
+            {
+                if(fileNumberUsed.isUsed)
+                {
+                    totalUsedFiles++;
+                }
+            }
+            totalFilesUsed = totalUsedFiles;
+
+        }
+
+        public SavedGameFilesInfoData()  // Initialization
+        {
+            saveFilesInfo = new SaveFileInfo[] { new SaveFileInfo(1,false,"Empty"),
+                                                 new SaveFileInfo(2,false,"Empty"),
+                                                 new SaveFileInfo(3,false,"Empty"),
+                                                 new SaveFileInfo(4,false,"Empty"),
+                                                 new SaveFileInfo(5,false,"Empty")
+            };
+            savedGameFilesNb = 5;
+            totalFilesUsed = 0;
+        }
+
+        public void UpdateSavedGameFilesInfoForIndex(SaveFileInfo saveFileInfo)
+        {
+            saveFilesInfo[saveFileInfo.fileIndex - 1] = saveFileInfo;
+        }
+
+        public bool IsSaveGameFileIndexUsed(int fileIndex)
+        {
+            bool isUsed = false;
+            if (saveFilesInfo[fileIndex] != null)
+            {
+                isUsed = (saveFilesInfo[fileIndex].isUsed);
+            }
+            return isUsed;
+        }
+
+        [Serializable]
+        public class SaveFileInfo
+        {
+            public int fileIndex;
+            public bool isUsed;
+            public string saveTime;
+
+            public SaveFileInfo(int fileIndex, bool isUsed, string saveTime)
+            {
+                this.fileIndex = fileIndex;
+                this.isUsed = isUsed;
+                this.saveTime = saveTime;
+            }
+        }
+    }
 
 }

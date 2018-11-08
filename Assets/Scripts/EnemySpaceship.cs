@@ -40,7 +40,7 @@ public class EnemySpaceship : Spaceship {
 
             if(target != null)
             {
-                Debug.Log("Ennemy target | Target set");
+                //Debug.Log("Ennemy target | Target set");
             }
             else
             {
