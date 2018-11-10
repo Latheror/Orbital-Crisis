@@ -113,11 +113,15 @@ public class GameManager : MonoBehaviour {
     {
         public int levelReached;
         public int unlockedDisks;
+        public int score;
+        public int hits;
 
-        public GeneralGameData(int currentLevelNb, int unlockedOrbits)
+        public GeneralGameData(int currentLevelNb, int unlockedOrbits, int score, int hits)
         {
             this.levelReached = currentLevelNb;
             this.unlockedDisks = unlockedOrbits;
+            this.score = score;
+            this.hits = hits;
         }
     }
 }

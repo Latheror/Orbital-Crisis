@@ -148,7 +148,9 @@ public class Meteor : MonoBehaviour {
 
     public void TouchedByPlayer()
     {
-        GetComponent<Renderer>().material = touchedByPlayerMaterial;
+        //GetComponent<Renderer>().material = touchedByPlayerMaterial;
+
+        // TODO
     }
 
     public void SpawnDebris()

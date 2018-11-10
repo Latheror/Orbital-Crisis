@@ -63,11 +63,6 @@ public class MenuManager : MonoBehaviour
         Application.Quit();
     }
 
-    public void PlayCanvas_NewGameButton()
-    {
-        SceneManager.LoadScene(1);
-    }
-
     public void PlayCanvas_BackButton()
     {
         SwitchViewFromPlayToMainCanvas();

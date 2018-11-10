@@ -37,8 +37,6 @@ public class LevelManager : MonoBehaviour {
     // Use this for initialization
     void Start () {
         InitLevels();
-        StartWaitingForStartPhase();
-
         diskUnlockingLevelNbs = new int[]{3,6};
     }
 	
@@ -67,6 +65,26 @@ public class LevelManager : MonoBehaviour {
         currentLevel = null;
         DisplayPressStartIndication();
         //DisplayWaveNumber();
+        UpdateRemainingEnnemiesIndicator(); // Useless because hidden
+        ChangeNextLevelButtonColor(nextLevelButtonBaseColor);
+        nextLevelButton.SetActive(true);
+        remainingEnnemiesPanel.SetActive(false);
+    }
+
+    public void NewGameSetup()
+    {
+        StartWaitingForStartPhase();
+    }
+
+    public void SetupGameAtLevelIndex(int levelIndex)
+    {
+        Debug.Log("SetupGameAtLevelIndex [" + levelIndex +"]");
+        currentLevelNumber = levelIndex;
+        currentLevel = levelsList[levelIndex];
+        currentLevelAllMeteorsSpawned = true;
+        DisplayPressStartIndication();
+        waveInfoPanel.SetActive(true);
+        DisplayWaveNumber();
         UpdateRemainingEnnemiesIndicator(); // Useless because hidden
         ChangeNextLevelButtonColor(nextLevelButtonBaseColor);
         nextLevelButton.SetActive(true);
@@ -284,6 +302,13 @@ public class LevelManager : MonoBehaviour {
             }
         }
         return bTypes;
+    }
+
+    public Level.LevelData BuildReachedLevelData()
+    {
+        Level.LevelData reachedLevelData = new Level.LevelData(currentLevelNumber);
+
+        return reachedLevelData;
     }
 
 

@@ -12,8 +12,8 @@ public class SaveManager : MonoBehaviour {
     {
         if (instance == null) {
             instance = this;
+            DontDestroyOnLoad(gameObject);
         }
-        DontDestroyOnLoad(gameObject);
     }
 
     public int savedGameFilesNb = 5;
@@ -29,14 +29,19 @@ public class SaveManager : MonoBehaviour {
     public GameSaveData gameSaveToLoad;
 
     void Start () {
-        ImportGameSavesInfoFile();
-        ImportGameSavesData();
-        UpdateLoadGameSavePanel();
+        ImportGameSaves();
     }
 	
 	void Update () {
 		
 	}
+
+    public void ImportGameSaves()
+    {
+        ImportGameSavesInfoFile();
+        ImportGameSavesData();
+        UpdateLoadGameSavePanel();
+    }
 
     public void LoadButtonClicked()
     {
@@ -51,9 +56,11 @@ public class SaveManager : MonoBehaviour {
 
         GameManager.GeneralGameData generalData = GatherGeneralData();
         Building.BuildingData[] buildingDatas = GatherBuildingsData();
+        SpaceshipManager.SpaceshipData[] spaceshipsData = GatherSpaceshipsData();
+        Level.LevelData reachedLevelData = GatherReachedLevelData();
 
         // Build Game Save Data
-        GameSaveData gameSaveData = new GameSaveData(generalData, buildingDatas);
+        GameSaveData gameSaveData = new GameSaveData(generalData, buildingDatas, spaceshipsData, reachedLevelData);
         int currentLevelReached = LevelManager.instance.currentLevelNumber;
 
         // Binary Formatter + Stream
@@ -79,29 +86,24 @@ public class SaveManager : MonoBehaviour {
         WriteSaveFilesInfo();
     }
 
-    public void LoadGameState()
-    {
-        //InfrastructureManager.instance.ClearBuildings();
-        //LoadGameVariables();
-        //LoadBuildings();
-    }
-
     public void SetGameSaveToLoad(GameSaveData gameSaveData)
     {
         Debug.Log("SetGameSaveToLoad | Level Reached:" + gameSaveData.generalGameData.levelReached + " | Buildings Nb [" + gameSaveData.buildingsData.Length + "]");
         gameSaveToLoad = gameSaveData;
     }
 
-    public void SetGameSaveToLoadIndex(int gameSaveIndex)
+    public bool SetGameSaveToLoadIndex(int gameSaveIndex)
     {
         if (globalSavedGameInfoData.saveFilesInfo[gameSaveIndex - 1].isUsed)
         {
             Debug.Log("SetGameSaveToLoadIndex [" + gameSaveIndex + "]");
             SetGameSaveToLoad(globalGameSaveData[gameSaveIndex - 1]);
+            return true;
         }
         else
         {
             Debug.LogError("SetGameSaveToLoadIndex | File marked as not used...");
+            return false;
         }
     }
 
@@ -126,16 +128,28 @@ public class SaveManager : MonoBehaviour {
         return buildingsData;
     }
 
+    public SpaceshipManager.SpaceshipData[] GatherSpaceshipsData()
+    {
+        return SpaceshipManager.instance.BuildSpaceshipsData();
+    }
+
+    public Level.LevelData GatherReachedLevelData()
+    {
+        return LevelManager.instance.BuildReachedLevelData();
+    }
+
 
 
     public GameManager.GeneralGameData GatherGeneralData()
     {
         int levelReached = LevelManager.instance.currentLevelNumber;
         int unlockedDisksNb = SurroundingAreasManager.instance.unlockedDisksNb;
+        int score = ScoreManager.instance.score;
+        int hits = InfoManager.instance.nbMeteorCollisions;
 
         Debug.Log("Saving game variables | LevelReached [" + levelReached + "] | UnlockedDisksNb [" + unlockedDisksNb + "]");
 
-        GameManager.GeneralGameData gameSavedVariables = new GameManager.GeneralGameData(levelReached, unlockedDisksNb);
+        GameManager.GeneralGameData gameSavedVariables = new GameManager.GeneralGameData(levelReached, unlockedDisksNb, score, hits);
         return gameSavedVariables;
     }
 
@@ -248,6 +262,7 @@ public class SaveManager : MonoBehaviour {
     public void ReloadGameSavesInMenu()
     {
         Debug.Log("ReloadGameSavesInMenu");
+        ImportGameSaves();
     }
 
     // Data describing a game save
@@ -256,11 +271,15 @@ public class SaveManager : MonoBehaviour {
     {
         public GameManager.GeneralGameData generalGameData;
         public Building.BuildingData[] buildingsData;
+        public SpaceshipManager.SpaceshipData[] spaceshipsData;
+        public Level.LevelData reachedLevelData;
 
-        public GameSaveData(GameManager.GeneralGameData generalGameData, Building.BuildingData[] buildingsData)
+        public GameSaveData(GameManager.GeneralGameData generalGameData, Building.BuildingData[] buildingsData, SpaceshipManager.SpaceshipData[] spaceshipsData, Level.LevelData reachedLevelData)
         {
             this.generalGameData = generalGameData;
             this.buildingsData = buildingsData;
+            this.spaceshipsData = spaceshipsData;
+            this.reachedLevelData = reachedLevelData;
         }
     }
 

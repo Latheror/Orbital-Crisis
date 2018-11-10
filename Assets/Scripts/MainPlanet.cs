@@ -9,12 +9,8 @@ public class MainPlanet : MonoBehaviour {
     [Header("General")]
     public string planetName = "MainPlanet";
     public float size;
-    public int nbStartBuildingSlots = 10;
 
     [Header("Buildings")]
-    public List<GameObject> buildingSlotList;
-    public GameObject buildingSlotsParent;
-    public GameObject buildingSlotPrefab;
     public List<GameObject> surroundingLevels;
     public int currentSurroundingLevelsShown;
 
@@ -22,7 +18,7 @@ public class MainPlanet : MonoBehaviour {
     {
         size = transform.localScale.x;
 
-        BuildGroundBuildingSlots();
+        
 
         currentSurroundingLevelsShown = 0;
         //InvokeRepeating("AnimateSurroundingLevels", 0f, 0.5f);
@@ -63,35 +59,6 @@ public class MainPlanet : MonoBehaviour {
         Camera.main.fieldOfView *= 0.9f;
     }
 
-    public void BuildGroundBuildingSlots()
-    {
-        Debug.Log("Building building slots.");
-        float stepAngle = 2*Mathf.PI / nbStartBuildingSlots;
-        float radius = gameObject.transform.localScale.x / 2;
-
-        //Debug.Log("StepAngle: " + stepAngle + " | Rayon: " + radius);
-
-        for (int i = 0; i < nbStartBuildingSlots; i++)
-        {
-            float angle = stepAngle * i;
-            Vector3 pos = new Vector3(Mathf.Cos(angle) * radius, Mathf.Sin(angle) * radius, transform.position.z);
-
-            GameObject instantiatedSlot = Instantiate(buildingSlotPrefab, pos, Quaternion.identity);
-            instantiatedSlot.transform.SetParent(buildingSlotsParent.transform);
-
-            buildingSlotList.Add(instantiatedSlot);
-            BuildingSlotManager.instance.buildingSlots.Add(instantiatedSlot);
-
-            instantiatedSlot.GetComponent<BuildingSlot>().id = (100 + i);
-            instantiatedSlot.GetComponent<BuildingSlot>().locationType = BuildingManager.BuildingType.BuildingLocationType.Planet;
-            instantiatedSlot.GetComponent<BuildingSlot>().SetDefaultColor();
-            instantiatedSlot.GetComponent<BuildingSlot>().angleRad = stepAngle * i;
-        }
-
-        ResetAllBuildingSlotsColor();
-    }
-
-
     public void ShowUpToSurroundingLevel(int nb)
     {
         if(nb >= 0)
@@ -126,32 +93,4 @@ public class MainPlanet : MonoBehaviour {
         currentSurroundingLevelsShown = (currentSurroundingLevelsShown + 1) % (nbLevels + 1);
     }
 
-    public GameObject FindClosestBuildingSlot(Vector3 pos)
-    {
-        //Debug.Log("FindClosestBuildingSlot.");
-        float minDist = Mathf.Infinity;
-        GameObject closestSlot = null;
-
-        foreach (GameObject buildingSlot in buildingSlotList)
-        {
-            float dist = Vector3.Distance(pos, buildingSlot.transform.position);
-
-            if(dist < minDist && !buildingSlot.GetComponent<BuildingSlot>().hasBuilding)
-            {
-                minDist = dist;
-                closestSlot = buildingSlot;
-            }
-        }
-
-        //Debug.Log("Closest slot found: " + closestSlot + " | Pos: (x=" + closestSlot.transform.position.x + ",y=" + closestSlot.transform.position.y + ")");
-        return closestSlot;
-    }
-
-    public void ResetAllBuildingSlotsColor()
-    {
-        foreach (GameObject slot in buildingSlotList)
-        {
-            slot.GetComponent<BuildingSlot>().SetDefaultColor();
-        }
-    }
 }

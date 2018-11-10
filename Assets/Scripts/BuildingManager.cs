@@ -203,7 +203,7 @@ public class BuildingManager : MonoBehaviour {
             ShopPanel.instance.ResetLastShopItemSelected();
             DeselectBuilding();
             ShopPanel.instance.HideBuildButton();
-            mainPlanet.GetComponent<MainPlanet>().ResetAllBuildingSlotsColor();
+            BuildingSlotManager.instance.ResetAllBuildingSlotsColor();
             HideCancelButton();
 
             //Debug.Log("Leaving Building State.");
@@ -225,7 +225,7 @@ public class BuildingManager : MonoBehaviour {
                     buildingState = BuildingState.Default;
                     HideCancelButton();
                     HideBuildButton();
-                    mainPlanet.GetComponent<MainPlanet>().ResetAllBuildingSlotsColor();
+                    BuildingSlotManager.instance.ResetAllBuildingSlotsColor();
                     SurroundingAreasManager.instance.ResetAllSatelliteBuildingSlotsColor();
                     ShopPanel.instance.ResetLastShopItemSelected();
                     //Debug.Log("Building Placed | Leaving Building State.");
@@ -294,10 +294,11 @@ public class BuildingManager : MonoBehaviour {
         }
 
         //DebugManager.instance.DisplayBuildingState();
-        if((ResourcesManager.instance.CanPayConstruction(selectedBuilding)))
+        if((chosenBuildingSlot != null && ResourcesManager.instance.CanPayConstruction(selectedBuilding)))
         {
             ShopPanel.instance.ShowBuildButton();
         }
+        else { Debug.LogError("SelectBuildingLocation | Couldn't get chosenBuildingSlot..."); }
         
     }
 
@@ -307,12 +308,12 @@ public class BuildingManager : MonoBehaviour {
         Vector3 touchPos = TouchManager.instance.lastTouch;
         Vector3 planeLoc =  GetLocationFromTouchPointOnPlanetPlane(touchPos);
 
-        GameManager.instance.mainPlanet.GetComponent<MainPlanet>().ResetAllBuildingSlotsColor();
+        BuildingSlotManager.instance.ResetAllBuildingSlotsColor();
         SurroundingAreasManager.instance.ResetAllSatelliteBuildingSlotsColor();
 
         if(selectedBuilding.buildingLocationType == BuildingType.BuildingLocationType.Planet)
         {
-            buildingSpot = GameManager.instance.mainPlanet.GetComponent<MainPlanet>().FindClosestBuildingSlot(planeLoc);
+            buildingSpot = BuildingSlotManager.instance.FindGroundClosestBuildingSlot(planeLoc);
         }
         else if(selectedBuilding.buildingLocationType == BuildingType.BuildingLocationType.Disks)
         {
@@ -364,7 +365,7 @@ public class BuildingManager : MonoBehaviour {
     {
         if(chosenBuildingSlot.GetComponent<BuildingSlot>().locationType == BuildingType.BuildingLocationType.Planet)    // Planet slot
         {
-            GameManager.instance.mainPlanet.GetComponent<MainPlanet>().ResetAllBuildingSlotsColor();
+            BuildingSlotManager.instance.ResetAllBuildingSlotsColor();
         }
         else    // Satellite slot
         {
@@ -432,7 +433,7 @@ public class BuildingManager : MonoBehaviour {
         instantiatedBuilding.GetComponent<Building>().currentTier = 1;
         instantiatedBuilding.GetComponent<Building>().energyConsumption = buildingType.energyConsumption;
         instantiatedBuilding.GetComponent<Building>().buildingSpot = buildingSlot;
-        chosenBuildingSlot.GetComponent<BuildingSlot>().SetBuilding(laserTurretPrefab.GetComponent<LaserTurret>());
+        buildingSlot.GetComponent<BuildingSlot>().SetBuilding(laserTurretPrefab.GetComponent<LaserTurret>());
         instantiatedBuilding.transform.SetParent(buildingSlot.transform);
         //Debug.Log("New building instantiated !");
 

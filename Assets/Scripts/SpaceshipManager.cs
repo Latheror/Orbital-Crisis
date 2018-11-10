@@ -1,13 +1,19 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 public class SpaceshipManager : MonoBehaviour {
+
+    [Header("Settings")]
+    public GameObject newGameSpaceshipPosition;
+    public GameObject alliedSpaceship1_Prefab;
 
     [Header("Operation")]
     public GameObject selectedSpaceship;
     public GameObject currentSelectedSpaceshipInfoPanel;
     public List<GameObject> alliedSpaceships;
+    public SpaceshipData[] spaceshipsData;
 
     public static SpaceshipManager instance;
     void Awake()
@@ -16,11 +22,8 @@ public class SpaceshipManager : MonoBehaviour {
         instance = this;
     }
 
-    public GameObject mainSpaceship;
-
     // Use this for initialization
     void Start () {
-        mainSpaceship.GetComponent<Spaceship>().isActivated = true;
 	}
 	
 	// Update is called once per frame
@@ -45,4 +48,49 @@ public class SpaceshipManager : MonoBehaviour {
         }
         SpaceshipInfoPanel.instance.DeselectSpaceshipActions();
     }
+
+    public SpaceshipData[] BuildSpaceshipsData()
+    {
+        int spaceshipsNb = alliedSpaceships.Count;
+        Debug.Log("BuildSpaceshipsData | Nb: " + spaceshipsNb);
+        spaceshipsData = new SpaceshipData[spaceshipsNb];
+
+        for(int i=0; i<alliedSpaceships.Count; i++)
+        {
+            spaceshipsData[i] = (new SpaceshipData(1, new GeometryManager.Position(alliedSpaceships[i].transform.position)));
+            Debug.Log("Adding spaceship [" + i + "]");
+        }
+
+        return spaceshipsData;
+    }
+
+    public void NewGameSetupActions()
+    {
+        InstantiatedSpaceshipAtPosition(alliedSpaceship1_Prefab, newGameSpaceshipPosition.transform.position);
+    }
+
+    public void InstantiatedSpaceshipAtPosition(GameObject spaceshipPrefab, Vector3 pos)
+    {
+        GameObject instantiatedSpaceship = Instantiate(spaceshipPrefab, pos, Quaternion.identity);
+        AddAlliedSpaceshipToList(instantiatedSpaceship);
+    }
+
+    public void AddAlliedSpaceshipToList(GameObject alliedSpaceship)
+    {
+        alliedSpaceships.Add(alliedSpaceship);
+    }
+
+    [Serializable]
+    public class SpaceshipData
+    {
+        public int spaceshipTypeIndex;
+        public GeometryManager.Position position;
+
+        public SpaceshipData(int spaceshipTypeIndex, GeometryManager.Position position)
+        {
+            this.spaceshipTypeIndex = spaceshipTypeIndex;
+            this.position = position;
+        }
+    }
+
 }

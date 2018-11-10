@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 public class GeometryManager : MonoBehaviour {
 
@@ -149,7 +150,7 @@ public class GeometryManager : MonoBehaviour {
 
     public Vector3 RandomSpawnPosition()
     {
-        Vector2 randomCirclePos = Random.insideUnitCircle.normalized;
+        Vector2 randomCirclePos = UnityEngine.Random.insideUnitCircle.normalized;
         Vector3 pos = new Vector3(randomCirclePos.x * circleFactor, randomCirclePos.y * circleFactor, GameManager.instance.objectsDepthOffset);
 
         return pos;
@@ -240,5 +241,21 @@ public class GeometryManager : MonoBehaviour {
         bool sameAngle = (Mathf.Abs(GetRadAngleFromXY(pos1.x, pos1.y) - GetRadAngleFromXY(pos2.x, pos2.y)) <= delta);
 
         return sameAngle;
+    }
+
+    [Serializable]
+    public class Position
+    {
+        public float x, y, z;
+
+        public Position(float x, float y, float z)
+        {
+            this.x = x; this.y = y; this.z = z;
+        }
+
+        public Position(Vector3 pos)
+        {
+            this.x = pos.x; this.y = pos.y; this.z = pos.z;
+        }
     }
 }

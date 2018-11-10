@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 [System.Serializable]
 public class Level {
@@ -63,5 +64,16 @@ public class Level {
     public class EnemyWave
     {
 
+    }
+
+    [Serializable]
+    public class LevelData
+    {
+        public int levelIndex;
+
+        public LevelData(int levelIndex)
+        {
+            this.levelIndex = levelIndex;
+        }
     }
 }

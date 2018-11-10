@@ -21,14 +21,14 @@ public class InfoManager : MonoBehaviour {
         nbMeteorCollisions = 0;
     }
 
-    public void ChangeMeteorCollisionsValue(int nb)
+    public void SetMeteorCollisionsValue(int nb)
     {
         Debug.Log("Changing Meteor Collisions Value to: " + nb);
         nbMeteorCollisions = nb;
-        UpdateMeteorCollisionsValue();
+        UpdateMeteorCollisionsValueDisplay();
     }
 
-    public void UpdateMeteorCollisionsValue()
+    public void UpdateMeteorCollisionsValueDisplay()
     {
         meteorCollisionsValue.text = nbMeteorCollisions.ToString();
     }
@@ -37,7 +37,7 @@ public class InfoManager : MonoBehaviour {
     {
         //Debug.Log("Incrementing Meteor Collisions Value.");
         nbMeteorCollisions++;
-        UpdateMeteorCollisionsValue();
+        UpdateMeteorCollisionsValueDisplay();
     }
 
 }

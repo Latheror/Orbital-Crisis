@@ -12,7 +12,7 @@ public class ScoreManager : MonoBehaviour {
     }
 
     [Header("Operation")]
-    public float score;
+    public int score;
 
     [Header("UI")]
     public GameObject scoreValueIndicator;
@@ -26,21 +26,22 @@ public class ScoreManager : MonoBehaviour {
     public void SetScore(int score)
     {
         this.score = score;
+        UpdateScoreDisplay();
     }
 
     public void IncreaseScore(int delta)
     {
         this.score += delta;
-        UpdateScore();
+        UpdateScoreDisplay();
     }
 
     public void DecreaseScore(int delta)
     {
         this.score -= delta;
-        UpdateScore();
+        UpdateScoreDisplay();
     }
 
-    public void UpdateScore(){
+    public void UpdateScoreDisplay(){
         scoreValueIndicator.GetComponent<TextMeshProUGUI>().text = score.ToString();
     }
 

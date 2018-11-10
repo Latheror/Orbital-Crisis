@@ -29,6 +29,7 @@ public class BuildingSlot : MonoBehaviour {
 
     public void SetSelectionColor()
     {
+        Debug.Log("SetSelectionColor");
         ChangeColor(selectionColor);
     }
 

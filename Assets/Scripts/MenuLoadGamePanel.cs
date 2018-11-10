@@ -43,6 +43,10 @@ public class MenuLoadGamePanel : MonoBehaviour {
 		
 	}
 
+    public void PlayCanvas_NewGameButton(){
+        ScenesManager.instance.LaunchNewGame();
+    }
+
     public void LoadGameSave1ButtonClicked() { LoadGameSaveNumberRequest(1); }
     public void LoadGameSave2ButtonClicked() { LoadGameSaveNumberRequest(2); }
     public void LoadGameSave3ButtonClicked() { LoadGameSaveNumberRequest(3); }
@@ -56,8 +60,14 @@ public class MenuLoadGamePanel : MonoBehaviour {
         if(SaveManager.instance.globalSavedGameInfoData.saveFilesInfo[saveSlotIndex - 1].isUsed)
         {
             Debug.Log("Loading Game Save [" + saveSlotIndex + "], save exist.");
-            SaveManager.instance.SetGameSaveToLoadIndex(saveSlotIndex);
-            ScenesManager.instance.ChangeFromMenuToGameScene();
+            if (SaveManager.instance.SetGameSaveToLoadIndex(saveSlotIndex))
+            {
+                ScenesManager.instance.LaunchSavedGame(SaveManager.instance.gameSaveToLoad);
+            }
+            else
+            {
+                Debug.LogError("Can't load game save.");
+            }
         }
         else
         {

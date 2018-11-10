@@ -20,7 +20,7 @@ public class PlanetExpansionManager : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
         mainPlanet = mainPlanetGO.GetComponent<MainPlanet>();
-        buildingSlots = mainPlanet.buildingSlotList;
+        buildingSlots = BuildingSlotManager.instance.allBuildingSlots;
 	}
 
 
@@ -49,7 +49,8 @@ public class PlanetExpansionManager : MonoBehaviour {
         GameObject newInstantiatedSlot = Instantiate(buildingSlotPrefab, newSlotPos, Quaternion.identity);
         newInstantiatedSlot.transform.SetParent(buildingSlotsParent.transform);
 
-        mainPlanet.buildingSlotList.Add(newInstantiatedSlot);
+        BuildingSlotManager.instance.groundBuildingSlots.Add(newInstantiatedSlot);
+        BuildingSlotManager.instance.allBuildingSlots.Add(newInstantiatedSlot);
 
         newInstantiatedSlot.GetComponent<BuildingSlot>().SetDefaultColor();
         newInstantiatedSlot.GetComponent<BuildingSlot>().angleRad = lastAngle;

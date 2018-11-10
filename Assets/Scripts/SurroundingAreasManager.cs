@@ -29,7 +29,10 @@ public class SurroundingAreasManager : MonoBehaviour {
         disks[0] = new SurroundingDisk(firstDisk, 3);
         disks[1] = new SurroundingDisk(secondDisk, 5);
         disks[2] = new SurroundingDisk(thirdDisk, 7);
+    }
 
+    public void SetStartSetup()
+    {
         BuildDisksBuildingSlots();
         LockAllDisks();
         UnlockDisk(1);
@@ -61,7 +64,8 @@ public class SurroundingAreasManager : MonoBehaviour {
             Vector3 pos = new Vector3(Mathf.Cos(angle) * radius, Mathf.Sin(angle) * radius, mainPlanet.transform.position.z);
 
             GameObject instantiatedSlot = Instantiate(satelliteBuildingSlotPrefab, pos, Quaternion.identity);
-            BuildingSlotManager.instance.buildingSlots.Add(instantiatedSlot);
+            BuildingSlotManager.instance.orbitalBuildingSlots.Add(instantiatedSlot);
+            BuildingSlotManager.instance.allBuildingSlots.Add(instantiatedSlot);
 
             instantiatedSlot.GetComponent<BuildingSlot>().id = (200 + 100*diskNb + j);
             instantiatedSlot.GetComponent<BuildingSlot>().locationType = BuildingManager.BuildingType.BuildingLocationType.Disks;

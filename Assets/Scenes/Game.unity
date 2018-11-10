@@ -197,7 +197,7 @@ MonoBehaviour:
   m_outlineColor:
     serializedVersion: 2
     rgba: 4278190080
-  m_fontSize: 28.2
+  m_fontSize: 28.15
   m_fontSizeBase: 18
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -821,7 +821,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -5.700012, y: -3.399994}
+  m_AnchoredPosition: {x: -5.6999817, y: -3.399994}
   m_SizeDelta: {x: -174, y: -104.6}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &49523671
@@ -3517,6 +3517,10 @@ Prefab:
       propertyPath: m_Camera
       value: 
       objectReference: {fileID: 282840813}
+    - target: {fileID: 1784674483790602, guid: d9310b2f087e0094a80604452de0867b, type: 2}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d9310b2f087e0094a80604452de0867b, type: 2}
   m_IsPrefabAsset: 0
@@ -11630,7 +11634,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 42f532f7d50cafa4b9b5cdca5afbfe86, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  buildingSlots: []
+  mainPlanet: {fileID: 1779392272}
+  groundBuildingSlots: []
+  orbitalBuildingSlots: []
+  allBuildingSlots: []
+  buildingSlotsParent: {fileID: 65611340}
+  buildingSlotPrefab: {fileID: 1481397282364764, guid: ad280d52a821fe94b9a0f24ba9a1f89a,
+    type: 2}
+  nbStartBuildingSlots: 10
 --- !u!4 &1011285147
 Transform:
   m_ObjectHideFlags: 0
@@ -12204,7 +12215,7 @@ MonoBehaviour:
   m_outlineColor:
     serializedVersion: 2
     rgba: 4278190080
-  m_fontSize: 30.8
+  m_fontSize: 30.75
   m_fontSizeBase: 20
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -16129,6 +16140,34 @@ CanvasRenderer:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1365491442}
   m_CullTransparentMesh: 0
+--- !u!1 &1367097139
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1367097140}
+  m_Layer: 0
+  m_Name: NewGameSpaceshipPosition
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1367097140
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1367097139}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -106.4, y: 29.1, z: 156.1}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1802927979}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1384855323
 GameObject:
   m_ObjectHideFlags: 0
@@ -20573,7 +20612,7 @@ MonoBehaviour:
   m_outlineColor:
     serializedVersion: 2
     rgba: 4278190080
-  m_fontSize: 26.7
+  m_fontSize: 26.65
   m_fontSizeBase: 21.5
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -21118,11 +21157,6 @@ MonoBehaviour:
   mainPlanetEmpty: {fileID: 1805612813}
   planetName: MainPlanet
   size: 0
-  nbStartBuildingSlots: 10
-  buildingSlotList: []
-  buildingSlotsParent: {fileID: 65611340}
-  buildingSlotPrefab: {fileID: 1481397282364764, guid: ad280d52a821fe94b9a0f24ba9a1f89a,
-    type: 2}
   surroundingLevels:
   - {fileID: 0}
   - {fileID: 0}
@@ -21263,6 +21297,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1570787639}
+  - {fileID: 1367097140}
   m_Father: {fileID: 0}
   m_RootOrder: 27
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -21277,10 +21312,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8987d40bb930e454eb78d8f3dc9eca17, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  newGameSpaceshipPosition: {fileID: 1367097139}
+  alliedSpaceship1_Prefab: {fileID: 1784674483790602, guid: d9310b2f087e0094a80604452de0867b,
+    type: 2}
   selectedSpaceship: {fileID: 0}
   currentSelectedSpaceshipInfoPanel: {fileID: 0}
-  alliedSpaceships:
-  - {fileID: 537450224}
+  alliedSpaceships: []
+  spaceshipsData: []
   mainSpaceship: {fileID: 537450224}
 --- !u!1 &1805612813
 GameObject:

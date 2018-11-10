@@ -17,12 +17,44 @@ public class ScenesManager : MonoBehaviour {
 
     public void ChangeFromGameToMenuScene()
     {
-        SceneManager.LoadSceneAsync(0);
+        StartCoroutine("ChangeFromGameToMenuSceneCoroutine");
+    }
+
+    IEnumerator ChangeFromGameToMenuSceneCoroutine()
+    {
+        AsyncOperation asyncLoad = SceneManager.LoadSceneAsync(0);
+
+        // Wait until the asynchronous scene fully loads
+        while (!asyncLoad.isDone)
+        {
+            yield return null;
+        }
+
         SaveManager.instance.ReloadGameSavesInMenu();
     }
 
-    public void ChangeFromMenuToGameScene()
+    IEnumerator ChangeFromMenuToGameScene()
     {
-        SceneManager.LoadSceneAsync(1);
+        AsyncOperation asyncLoad = SceneManager.LoadSceneAsync(1);
+
+        // Wait until the asynchronous scene fully loads
+        while (!asyncLoad.isDone)
+        {
+            yield return null;
+        }
+
+        GameSetupManager.instance.SetupGame();
+    }
+
+    public void LaunchNewGame()
+    {
+        GameSetupManager.instance.SetGameSetupParameters(new GameSetupManager.GameSetupParameters(true, null));
+        StartCoroutine("ChangeFromMenuToGameScene");
+    }
+
+    public void LaunchSavedGame(SaveManager.GameSaveData gameSaveData)
+    {
+        GameSetupManager.instance.SetGameSetupParameters(new GameSetupManager.GameSetupParameters(false, gameSaveData));
+        StartCoroutine("ChangeFromMenuToGameScene");
     }
 }
