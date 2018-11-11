@@ -63,6 +63,8 @@ public class GameSetupManager : MonoBehaviour {
         GameManager.GeneralGameData generalGameData = gameSetupParameters.gameSaveData.generalGameData;
         SpaceshipManager.SpaceshipData[] spaceshipsData = gameSetupParameters.gameSaveData.spaceshipsData;
         Level.LevelData reachedLevelData = gameSetupParameters.gameSaveData.reachedLevelData;
+        ResourcesManager.ResourceData[] resourcesData = gameSetupParameters.gameSaveData.resourcesData;
+        BuildingManager.UnlockedBuildingData[] unlockedBuildingsData = gameSetupParameters.gameSaveData.unlockedBuildingsData;
 
         if(buildingsData != null){
             SetupSavedBuildings(buildingsData);
@@ -77,6 +79,16 @@ public class GameSetupManager : MonoBehaviour {
         {
             SetupReachedLevelParameters(reachedLevelData);
         }
+
+        if (resourcesData != null)
+        {
+            SetupResourcesData(resourcesData);
+        }
+
+        if (unlockedBuildingsData != null)
+        {
+            SetupUnlockedBuildings(unlockedBuildingsData);
+        }
     }
 
     public void SetupSavedBuildings(Building.BuildingData[] buildingsData)
@@ -86,7 +98,7 @@ public class GameSetupManager : MonoBehaviour {
         for(int i=0; i<buildingsData.Length; i++)
         {
             Building.BuildingData bData = buildingsData[i];
-            BuildingManager.instance.BuildBuildingOnSlot(BuildingManager.instance.GetBuildingTypeByID(bData.buildingTypeID), BuildingSlotManager.instance.GetBuildingSlotByID(bData.buildingSlotID));
+            BuildingManager.instance.BuildBuildingOnSlotAtTier(BuildingManager.instance.GetBuildingTypeByID(bData.buildingTypeID), BuildingSlotManager.instance.GetBuildingSlotByID(bData.buildingSlotID), bData.tier);
         }
     }
 
@@ -94,11 +106,13 @@ public class GameSetupManager : MonoBehaviour {
     {
         int score = generalGameData.score;
         int hits = generalGameData.hits;
+        int unlockedDisksNb = generalGameData.unlockedDisks;
 
-        Debug.Log("SetupGeneralParameters | Score [" + score + "] | Hits [" + hits + "]");
+        Debug.Log("SetupGeneralParameters | Score [" + score + "] | Hits [" + hits + "] | UnlockedDisks [" + unlockedDisksNb + "]");
 
         ScoreManager.instance.SetScore(score);
         InfoManager.instance.SetMeteorCollisionsValue(hits);
+        SurroundingAreasManager.instance.SetUnlockedDisksNb(unlockedDisksNb);
     }
 
     public void SetupReachedLevelParameters(Level.LevelData reachedLevelData)
@@ -106,6 +120,19 @@ public class GameSetupManager : MonoBehaviour {
         int reachedLevelIndex = reachedLevelData.levelIndex;
         Debug.Log("SetupReachedLevelParameters [" + reachedLevelIndex + "]");
         LevelManager.instance.SetupGameAtLevelIndex(reachedLevelIndex);
+    }
+
+    public void SetupResourcesData(ResourcesManager.ResourceData[] resourcesData)
+    {
+        Debug.Log("SetupResourcesData");
+        Debug.Log("ResourceType Nb: " + resourcesData.Length);
+        ResourcesManager.instance.SetResourcesAmounts(resourcesData);
+    }
+
+    public void SetupUnlockedBuildings(BuildingManager.UnlockedBuildingData[] unlockedBuildingsData)
+    {
+        Debug.Log("SetupUnlockedBuildings | BuildingTypeNb [" + unlockedBuildingsData.Length +"]");
+        BuildingManager.instance.ApplyUnlockedBuildingsData(unlockedBuildingsData);
     }
 
     public class GameSetupParameters

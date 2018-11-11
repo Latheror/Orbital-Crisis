@@ -443,6 +443,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   buildingType:
+    id: 0
     name: 
     prefab: {fileID: 0}
     resourceCosts: []
@@ -474,6 +475,7 @@ MonoBehaviour:
   rangeIndicatorNbPoints: 20
   energyConsumption: 15
   buildingSpot: {fileID: 0}
+  tags: []
   buildingLocationType: 0
   offensiveTurret: 1
   previousTarget: {fileID: 0}
@@ -490,11 +492,11 @@ MonoBehaviour:
   range_tier_2: 150
   bulletSpeed_tier_2: 120
   bulletPower_tier_2: 15
-  energyConsumption_tier_2: 0
+  energyConsumption_tier_2: 20
   range_tier_3: 200
   bulletSpeed_tier_3: 140
   bulletPower_tier_3: 20
-  energyConsumption_tier_3: 0
+  energyConsumption_tier_3: 30
   bulletPrefab: {fileID: 1102555780590952, guid: a099074c57348c24a93e804b74680834,
     type: 2}
 --- !u!120 &120666679227476894

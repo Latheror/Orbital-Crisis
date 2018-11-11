@@ -149,6 +149,22 @@ public class Building : MonoBehaviour {
         }
     }
 
+    public void UpgradeToTier(int tier)
+    {
+        if (tier <= buildingType.maxTier)
+        {
+            Debug.Log("Upgrading to tier [" + tier + "]");
+            currentTier = tier;
+            ApplyCurrentTierSettings();
+
+            EnergyPanel.instance.UpdateEnergyProductionAndConsumption();
+        }
+        else
+        {
+            Debug.Log("Can't upgrade to tier [" + tier + "], max is [" + buildingType.maxTier + "]");
+        }
+    }
+
     public bool HasTag(string searchedTag)
     {
         bool hasTag = false;
@@ -172,11 +188,13 @@ public class Building : MonoBehaviour {
     {
         public int buildingTypeID;
         public int buildingSlotID;
+        public int tier;
 
         public BuildingData(Building b)
         {
             buildingTypeID = b.buildingType.id;
             buildingSlotID = b.buildingSpot.GetComponent<BuildingSlot>().id;
+            tier = b.currentTier;
         }
     }
 }

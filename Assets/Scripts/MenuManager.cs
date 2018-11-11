@@ -40,7 +40,7 @@ public class MenuManager : MonoBehaviour
     public void Init()
     {
         mainCanvas.SetActive(true);
-        saveCanvas.SetActive(false);
+        saveCanvas.SetActive(true);
     }
 
     public void RotateSkyBox()
@@ -70,7 +70,7 @@ public class MenuManager : MonoBehaviour
 
     public void SwitchViewFromMainToSaveCanvas()
     {
-        mainCanvas.SetActive(false);
+        mainCanvas.SetActive(true);
         saveCanvas.SetActive(true);
         MoveCameraFromMainToSaveCanvas();
     }

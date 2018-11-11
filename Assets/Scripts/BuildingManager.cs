@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using System;
 
 public class BuildingManager : MonoBehaviour {
 
@@ -412,7 +413,7 @@ public class BuildingManager : MonoBehaviour {
         return bType;
     }
 
-    public void BuildBuildingOnSlot(BuildingType buildingType, GameObject buildingSlot)
+    public void BuildBuildingOnSlotAtTier(BuildingType buildingType, GameObject buildingSlot, int tier)
     {
         float buildingSpotAngle_rad = buildingSlot.GetComponent<BuildingSlot>().angleRad;
         float buildingSpotAngle_deg = GeometryManager.RadiansToDegrees(buildingSpotAngle_rad);
@@ -445,6 +446,33 @@ public class BuildingManager : MonoBehaviour {
         {
             InfrastructureManager.instance.recyclingStationsList.Add(instantiatedBuilding);
         }
+
+        if(tier > 1)
+        {
+            instantiatedBuilding.GetComponent<Building>().UpgradeToTier(tier);
+        }
+    }
+
+    public UnlockedBuildingData[] BuildUnlockedBuildingsData()
+    {
+        UnlockedBuildingData[] unlockedBuildingsData = new UnlockedBuildingData[availableBuildings.Count];
+        for(int i=0; i<availableBuildings.Count; i++)
+        {
+            unlockedBuildingsData[i] = new UnlockedBuildingData(availableBuildings[i].id, availableBuildings[i].isUnlocked);
+        }
+        return unlockedBuildingsData;
+    }
+
+    public void ApplyUnlockedBuildingsData(UnlockedBuildingData[] unlockedBuildingsData)
+    {
+        foreach (UnlockedBuildingData unlockedBuildingData in unlockedBuildingsData)
+        {
+            if(unlockedBuildingData.isUnlocked)
+            {
+                Debug.Log("ApplyUnlockedBuildingsData | Building [" + unlockedBuildingData.buildingIndex + "] was previously unlocked.");
+                UnlockBuildingType(GetBuildingTypeByID(unlockedBuildingData.buildingIndex));
+            }
+        }        
     }
 
 
@@ -509,6 +537,19 @@ public class BuildingManager : MonoBehaviour {
                 }
             }
             return costs;
+        }
+    }
+
+    [Serializable]
+    public class UnlockedBuildingData
+    {
+        public int buildingIndex;
+        public bool isUnlocked;
+
+        public UnlockedBuildingData(int buildingIndex, bool isUnlocked)
+        {
+            this.buildingIndex = buildingIndex;
+            this.isUnlocked = isUnlocked;
         }
     }
 

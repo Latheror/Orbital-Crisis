@@ -15,32 +15,16 @@ public class SaveGamePanel : MonoBehaviour {
 
     public GameObject pausePanel;
 
-    public GameObject saveSlot1_title_panel;
-    public TextMeshProUGUI saveSlot1_time_panel;
-    public GameObject saveSlot1_button_panel;
-
-    public GameObject saveSlot2_title_panel;
-    public TextMeshProUGUI saveSlot2_time_panel;
-    public GameObject saveSlot2_button_panel;
-
-    public GameObject saveSlot3_title_panel;
-    public TextMeshProUGUI saveSlot3_time_panel;
-    public GameObject saveSlot3_button_panel;
-
-    public GameObject saveSlot4_title_panel;
-    public TextMeshProUGUI saveSlot4_time_panel;
-    public GameObject saveSlot4_button_panel;
-
-    public GameObject saveSlot5_title_panel;
-    public TextMeshProUGUI saveSlot5_time_panel;
-    public GameObject saveSlot5_button_panel;
+    public List<GameObject> saveSlotIndicators;
+    public GameObject saveSlotPanelPrefab;
+    public GameObject saveSlotPanelsLayout;
 
     public Color saveButtonEnabledColor;
     public Color saveButtonDisabledColor;
 
 	// Use this for initialization
 	void Start () {
-        UpdateSaveSlotsInfo();
+        BuildSaveSlotsIndicators();
     }
 	
 	// Update is called once per frame
@@ -54,16 +38,11 @@ public class SaveGamePanel : MonoBehaviour {
         gameObject.SetActive(false);
     }
 
-    public void SaveGamePanel_Slot1Button() { SaveGameRequest(1); }
-    public void SaveGamePanel_Slot2Button() { SaveGameRequest(2); }
-    public void SaveGamePanel_Slot3Button() { SaveGameRequest(3); }
-    public void SaveGamePanel_Slot4Button() { SaveGameRequest(4); }
-    public void SaveGamePanel_Slot5Button() { SaveGameRequest(5); }
-
     public void SaveGameRequest(int slotIndex)
     {
         Debug.Log("Request saving game in slot [" + slotIndex + "]...");
         SaveManager.instance.SaveGameRequest(slotIndex);
+        UpdateSaveSlotsInfo();
     }
 
     public void UpdateSaveSlotsInfo()
@@ -74,36 +53,21 @@ public class SaveGamePanel : MonoBehaviour {
         }
     }
 
+    public void BuildSaveSlotsIndicators()
+    {
+        for(int i=0; i<SaveManager.instance.savedGameFilesNb; i++)
+        {
+            GameObject instantiatedSaveSlotIndicator = Instantiate(saveSlotPanelPrefab, saveSlotPanelPrefab.transform.position, Quaternion.identity);
+            instantiatedSaveSlotIndicator.transform.SetParent(saveSlotPanelsLayout.transform, false);
+
+            saveSlotIndicators.Add(instantiatedSaveSlotIndicator);
+
+            instantiatedSaveSlotIndicator.GetComponent<SaveSlotPanel>().SetInfo(SaveManager.instance.globalSavedGameInfoData.saveFilesInfo[i]);
+        }
+    }
+
     public void UpdateSaveSlotInfo(SaveManager.SavedGameFilesInfoData.SaveFileInfo saveFileInfo)
     {
-        Debug.Log("UpdateSaveSlotInfo [" + saveFileInfo.fileIndex + "]");
-        switch(saveFileInfo.fileIndex)
-        {
-            case 1:
-            {
-                saveSlot1_time_panel.text = saveFileInfo.saveTime;
-                break;
-            }
-            case 2:
-            {
-                saveSlot2_time_panel.text = saveFileInfo.saveTime;
-                break;
-            }
-            case 3:
-            {
-                saveSlot3_time_panel.text = saveFileInfo.saveTime;
-                break;
-            }
-            case 4:
-            {
-                saveSlot4_time_panel.text = saveFileInfo.saveTime;
-                break;
-            }
-            case 5:
-            {
-                saveSlot5_time_panel.text = saveFileInfo.saveTime;
-                break;
-            }
-        }
+        saveSlotIndicators[saveFileInfo.fileIndex - 1].GetComponent<SaveSlotPanel>().SetInfo(saveFileInfo);
     }
 }

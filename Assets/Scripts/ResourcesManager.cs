@@ -38,11 +38,11 @@ public class ResourcesManager : MonoBehaviour {
     // Types of resources and their info
     public void InitializeResources()
     {
-        availableResources.Add(new ResourceType("steel", steelColor, "steel", 500));
-        availableResources.Add(new ResourceType("silver", silverColor, "coal", 500));
-        availableResources.Add(new ResourceType("carbon", carbonColor, "carbon", 400));
-        availableResources.Add(new ResourceType("composite", compositeColor, "composite", 300));
-        availableResources.Add(new ResourceType("electronics", electronicsColor, "electronics", 200));
+        availableResources.Add(new ResourceType(1, "steel", steelColor, "steel", 500));
+        availableResources.Add(new ResourceType(2, "silver", silverColor, "coal", 500));
+        availableResources.Add(new ResourceType(3, "carbon", carbonColor, "carbon", 400));
+        availableResources.Add(new ResourceType(4, "composite", compositeColor, "composite", 300));
+        availableResources.Add(new ResourceType(5, "electronics", electronicsColor, "electronics", 200));
     }
 
     // Set starting resource amounts
@@ -102,6 +102,20 @@ public class ResourcesManager : MonoBehaviour {
 
         ShopPanel.instance.UpdateShopItems();
         BuildingInfoPanel.instance.UpdateInfo();
+    }
+
+    public void SetResourceAmount(int resourceId, int amount)
+    {
+        foreach (var resourceAmount in currentResourceAmounts)
+        {
+            if (resourceAmount.resourceType.id.Equals(resourceId))
+            {
+                // We found the right resource
+                resourceAmount.amount = amount;
+                resourceAmount.resourceType.resourceIndicator.GetComponent<ResourceIndicator>().UpdateIndicator();
+                break;
+            }
+        }
     }
 
     public void PayResource(ResourceType resourceType, int amount)
@@ -214,6 +228,46 @@ public class ResourcesManager : MonoBehaviour {
         return ((GetResourceFromCurrentList(rAmount.resourceType).amount) >= rAmount.amount);
     }
 
+    public ResourceData[] BuildResourcesData()
+    {
+        ResourceData[] resourcesData = new ResourceData[availableResources.Count];
+        for(int i=0; i<availableResources.Count; i++)
+        {
+            resourcesData[i] = new ResourceData(availableResources[i].id, availableResources[i].currentResourceAmount.amount);
+            Debug.Log("BuildResourcesData | ID [" + availableResources[i].id + "] | Amount [" + availableResources[i].currentResourceAmount.amount + "]");
+        }
+        return resourcesData;
+    }
+
+    public ResourceType GetResourceTypeById(int id)
+    {
+        ResourceType resType = availableResources[0];
+        foreach (ResourceType rType in availableResources)
+        {
+            if(rType.id == id)
+            {
+                resType = rType;
+                break;
+            }
+        }
+        return resType;
+    }
+
+    public void SetResourcesAmounts(ResourceData[] resourcesData)
+    {
+        Debug.Log("SetResourcesAmounts...");
+        for(int i=0; i<resourcesData.Length; i++)
+        {
+            ResourceData resourceDataI = resourcesData[i];
+            int resourceId = resourceDataI.resourceId;
+            ResourceType resourceType = GetResourceTypeById(resourceId);
+            int resourceAmount = resourceDataI.resourceAmount;
+            Debug.Log(resourceId + " | " + resourceType.resourceName + " [" + resourceAmount + "]");
+
+            SetResourceAmount(resourceId, resourceAmount);
+        }
+    }
+
 
     [System.Serializable]
     public class Resource
@@ -225,6 +279,7 @@ public class ResourcesManager : MonoBehaviour {
     [System.Serializable]
     public class ResourceType 
     {
+        public int id;
         public string resourceName;
         public Color color;
         public int startAmount;
@@ -232,8 +287,9 @@ public class ResourcesManager : MonoBehaviour {
         public GameObject resourceIndicator;
         public Sprite resourceImage;
 
-        public ResourceType(string name, Color color, string imageName, int startAmount)
+        public ResourceType(int id, string name, Color color, string imageName, int startAmount)
         {
+            this.id = id;
             this.resourceName = name;
             this.color = color;
             this.resourceImage = Resources.Load<Sprite>("Images/Resources/" + imageName);
@@ -282,6 +338,21 @@ public class ResourcesManager : MonoBehaviour {
         {
             this.tierIndex = tierIndex;
             this.resourceCosts = resourceCosts;
+        }
+    }
+
+    [System.Serializable]
+    public class ResourceData
+    {
+        public int resourceId;
+        public string resourceName;
+        public int resourceAmount;
+
+        public ResourceData(int resourceId, int resourceAmount)
+        {
+            this.resourceId = resourceId;
+            this.resourceAmount = resourceAmount;
+            this.resourceName = ResourcesManager.instance.GetResourceTypeById(resourceId).resourceName;
         }
     }
 }

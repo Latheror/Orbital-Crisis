@@ -12,31 +12,16 @@ public class MenuLoadGamePanel : MonoBehaviour {
         {
             instance = this;
         }
-        DontDestroyOnLoad(gameObject);
+        //DontDestroyOnLoad(gameObject);
     }
 
-    public TextMeshProUGUI loadGameSlot1dateText;
-    public TextMeshProUGUI loadGameSlot2dateText;
-    public TextMeshProUGUI loadGameSlot3dateText;
-    public TextMeshProUGUI loadGameSlot4dateText;
-    public TextMeshProUGUI loadGameSlot5dateText;
-
-    public GameObject loadGameSlot1Button;
-    public GameObject loadGameSlot2Button;
-    public GameObject loadGameSlot3Button;
-    public GameObject loadGameSlot4Button;
-    public GameObject loadGameSlot5Button;
-
-    public TextMeshProUGUI loadGameSlot1LevelReachedText;
-    public TextMeshProUGUI loadGameSlot2LevelReachedText;
-    public TextMeshProUGUI loadGameSlot3LevelReachedText;
-    public TextMeshProUGUI loadGameSlot4LevelReachedText;
-    public TextMeshProUGUI loadGameSlot5LevelReachedText;
+    public GameObject loadPanelGameSaveElementPrefab;
+    public GameObject loadPanelGameSavesElementLayout;
+    public List<GameObject> loadPanelGameSaveElements;
 
     // Use this for initialization
     void Start () {
-		
-	}
+    }
 	
 	// Update is called once per frame
 	void Update () {
@@ -47,12 +32,29 @@ public class MenuLoadGamePanel : MonoBehaviour {
         ScenesManager.instance.LaunchNewGame();
     }
 
-    public void LoadGameSave1ButtonClicked() { LoadGameSaveNumberRequest(1); }
-    public void LoadGameSave2ButtonClicked() { LoadGameSaveNumberRequest(2); }
-    public void LoadGameSave3ButtonClicked() { LoadGameSaveNumberRequest(3); }
-    public void LoadGameSave4ButtonClicked() { LoadGameSaveNumberRequest(4); }
-    public void LoadGameSave5ButtonClicked() { LoadGameSaveNumberRequest(5); }
+    public void BuildLoadGameSaveElements()
+    {
+        Debug.Log("BuildLoadGameSaveElements");
+        for (int i=0; i<SaveManager.instance.savedGameFilesNb; i++)
+        {
+            GameObject instantiatedLoadGameSaveElement = Instantiate(loadPanelGameSaveElementPrefab, loadPanelGameSaveElementPrefab.transform.position, Quaternion.identity);
 
+            instantiatedLoadGameSaveElement.transform.SetParent(loadPanelGameSavesElementLayout.transform, false);
+
+            instantiatedLoadGameSaveElement.GetComponent<LoadGameSaveElement>().SetInfo(i + 1, SaveManager.instance.globalSavedGameInfoData.saveFilesInfo[i], SaveManager.instance.globalGameSaveData[i]);
+
+            loadPanelGameSaveElements.Add(instantiatedLoadGameSaveElement);
+        }
+    }
+
+    public void UpdateLoadGameSavePanel()
+    {
+        Debug.Log("UpdateLoadGameSavePanel");
+        foreach (GameObject loadPanelGameSaveElement in loadPanelGameSaveElements)
+        {
+            UpdateLoadGameSaveElement(loadPanelGameSaveElement);
+        }
+    }
 
     public void LoadGameSaveNumberRequest(int saveSlotIndex)
     {
@@ -76,56 +78,22 @@ public class MenuLoadGamePanel : MonoBehaviour {
     }
 
 
-    public void UpdateLoadGameSaveElement(SaveManager.SavedGameFilesInfoData.SaveFileInfo saveFileInfo)
+    public void UpdateLoadGameSaveElement(GameObject loadGameSaveElement)
     {
-        int fileIndex = saveFileInfo.fileIndex;
-        string saveTimeText = saveFileInfo.saveTime;
-        int levelReached = 0;
-        if (saveFileInfo.isUsed)
-        {
-            levelReached = SaveManager.instance.globalGameSaveData[fileIndex - 1].generalGameData.levelReached;
-        }
-         
-        Debug.Log("UpdateLoadGameSaveElement [" + fileIndex + "] | LevelReached [" + levelReached + "]");
-        switch (fileIndex)
-        {
-            case 1:
-            {
-                loadGameSlot1dateText.text = saveTimeText;
-                if (saveFileInfo.isUsed) { loadGameSlot1LevelReachedText.text = ("Level " + levelReached.ToString()); }
-                loadGameSlot1Button.SetActive(saveFileInfo.isUsed);
-                break;
-            }
-            case 2:
-            {
-                loadGameSlot2dateText.text = saveTimeText;
-                if (saveFileInfo.isUsed) { loadGameSlot2LevelReachedText.text = ("Level " + levelReached.ToString()); }
-                loadGameSlot2Button.SetActive(saveFileInfo.isUsed);
-                break;
-            }
-            case 3:
-            {
-                loadGameSlot3dateText.text = saveTimeText;
-                if (saveFileInfo.isUsed) { loadGameSlot3LevelReachedText.text = ("Level " + levelReached.ToString()); }
-                loadGameSlot3Button.SetActive(saveFileInfo.isUsed);
-                break;
-            }
-            case 4:
-            {
-                loadGameSlot4dateText.text = saveTimeText;
-                if (saveFileInfo.isUsed) { loadGameSlot4LevelReachedText.text = ("Level " + levelReached.ToString()); }
-                loadGameSlot4Button.SetActive(saveFileInfo.isUsed);
-                break;
-            }
-            case 5:
-            {
-                loadGameSlot5dateText.text = saveTimeText;
-                if (saveFileInfo.isUsed) { loadGameSlot5LevelReachedText.text = ("Level " + levelReached.ToString()); }
-                loadGameSlot5Button.SetActive(saveFileInfo.isUsed);
-                break;
-            }
-        }
+        int saveIndex = loadGameSaveElement.GetComponent<LoadGameSaveElement>().saveIndex;
+        Debug.Log("UpdateLoadGameSaveElement [" + saveIndex + "]");
+
+        SaveManager.GameSaveData gameSaveData = SaveManager.instance.globalGameSaveData[saveIndex - 1];
+        SaveManager.SavedGameFilesInfoData.SaveFileInfo saveFileInfo = SaveManager.instance.globalSavedGameInfoData.saveFilesInfo[saveIndex - 1];
+
+        loadGameSaveElement.GetComponent<LoadGameSaveElement>().SetInfo(saveIndex, saveFileInfo, gameSaveData);
     }
 
+    public void DeleteGameSaveButtonClicked(int gameSaveIndex)
+    {
+        SaveManager.instance.SetSavedGameDataFileAsNotUsed(gameSaveIndex);
+        SaveManager.instance.ImportGameSavesInfoFile();
+        UpdateLoadGameSavePanel();
+    }
 
 }

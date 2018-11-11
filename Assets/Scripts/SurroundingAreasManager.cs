@@ -158,7 +158,7 @@ public class SurroundingAreasManager : MonoBehaviour {
     {
         disks[diskNb - 1].diskGO.SetActive(true);
         disks[diskNb - 1].unlocked = true;
-        unlockedDisksNb++;
+        unlockedDisksNb = diskNb;
 
         int index = diskNb - 2;
         while(index >= 0)
@@ -167,6 +167,15 @@ public class SurroundingAreasManager : MonoBehaviour {
             //newColor.a = 0;
             //disks[index].diskGO.GetComponent<Renderer>().materials[0].color = newColor;
             index--;
+        }
+    }
+
+    public void SetUnlockedDisksNb(int unlockedDisksNb)
+    {
+        Debug.Log("SetUnlockedDisksNb [" + unlockedDisksNb + "]");
+        for(int i=1; i<=unlockedDisksNb; i++)
+        {
+            UnlockDisk(i);
         }
     }
 
