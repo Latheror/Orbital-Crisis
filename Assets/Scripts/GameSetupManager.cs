@@ -89,6 +89,11 @@ public class GameSetupManager : MonoBehaviour {
         {
             SetupUnlockedBuildings(unlockedBuildingsData);
         }
+
+        if(spaceshipsData != null)
+        {
+            SetupSpaceships(spaceshipsData);
+        }
     }
 
     public void SetupSavedBuildings(Building.BuildingData[] buildingsData)
@@ -133,6 +138,12 @@ public class GameSetupManager : MonoBehaviour {
     {
         Debug.Log("SetupUnlockedBuildings | BuildingTypeNb [" + unlockedBuildingsData.Length +"]");
         BuildingManager.instance.ApplyUnlockedBuildingsData(unlockedBuildingsData);
+    }
+
+    public void SetupSpaceships(SpaceshipManager.SpaceshipData[] spaceshipsData)
+    {
+        Debug.Log("SetupSpaceships | SpaceshipsNb [" + spaceshipsData.Length + "]");
+        SpaceshipManager.instance.SetupSavedSpaceships(spaceshipsData);
     }
 
     public class GameSetupParameters

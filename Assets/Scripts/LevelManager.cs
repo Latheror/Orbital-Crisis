@@ -80,7 +80,14 @@ public class LevelManager : MonoBehaviour {
     {
         Debug.Log("SetupGameAtLevelIndex [" + levelIndex +"]");
         currentLevelNumber = levelIndex;
-        currentLevel = levelsList[levelIndex];
+
+        if(levelsList.Count < levelIndex)
+        {
+            levelsList.Add(new Level(currentLevelNumber, "Level Nb " + (currentLevelNumber), (currentLevelNumber) * 10, (currentLevelNumber), 1f, new List<GameObject> { EnemiesManager.instance.ennemySpaceship_1 }));
+        }
+
+        currentLevel = GetLevelByIndex(levelIndex);
+
         currentLevelAllMeteorsSpawned = true;
         DisplayPressStartIndication();
         waveInfoPanel.SetActive(true);
@@ -99,6 +106,18 @@ public class LevelManager : MonoBehaviour {
     private Level GetLevelFromNumber(int levelNb)
     {
         return levelsList[levelNb - 1];
+    }
+
+    private Level GetLevelByIndex(int index)
+    {
+        foreach (Level level in levelsList)
+        {
+            if(level.levelNb == index)
+            {
+                return level;
+            }
+        }
+        return null;
     }
 
 

@@ -8,7 +8,18 @@ public class MineBuilding : Building {
     public List<ResourcesManager.ResourceAmount> production = new List<ResourcesManager.ResourceAmount>();
 
     public float productionDelay = 2f;
-                                                                                                           
+    public float productionFactor = 1f;
+
+    [Header("Tier 2")]
+    public float productionDelay_tier_2 = 1.6f;
+    public float energyConsumption_tier_2 = 25;
+
+    [Header("Tier 3")]
+    public float productionDelay_tier_3 = 1.2f;
+    public float energyConsumption_tier_3 = 50;
+
+    [Header("Operation")]
+    public bool productionCooldownElapsed = true;
 
 
     public MineBuilding(List<ResourcesManager.ResourceAmount> production) : base()
@@ -18,11 +29,18 @@ public class MineBuilding : Building {
 
     void Start()
     {
-        production.Add(new ResourcesManager.ResourceAmount(ResourcesManager.instance.GetResourceTypeByName("steel"), 1));
-        production.Add(new ResourcesManager.ResourceAmount(ResourcesManager.instance.GetResourceTypeByName("silver"), 1));
-        production.Add(new ResourcesManager.ResourceAmount(ResourcesManager.instance.GetResourceTypeByName("carbon"), 1));
+        production.Add(new ResourcesManager.ResourceAmount(ResourcesManager.instance.GetResourceTypeByName("steel"), 2));
+        production.Add(new ResourcesManager.ResourceAmount(ResourcesManager.instance.GetResourceTypeByName("copper"), 2));
+        production.Add(new ResourcesManager.ResourceAmount(ResourcesManager.instance.GetResourceTypeByName("carbon"), 2));
+        production.Add(new ResourcesManager.ResourceAmount(ResourcesManager.instance.GetResourceTypeByName("composite"), 1));
+        production.Add(new ResourcesManager.ResourceAmount(ResourcesManager.instance.GetResourceTypeByName("electronics"), 1));
 
-        InvokeRepeating("Produce", 0f, productionDelay);
+        productionCooldownElapsed = true;
+    }
+
+    void Update()
+    {
+        Produce();
     }
 
     public void Produce()
@@ -31,19 +49,62 @@ public class MineBuilding : Building {
         {
             if (hasEnoughEnergy)
             {
-                foreach (var productionUnit in production)
+                if(productionCooldownElapsed)
                 {
-                    ResourcesManager.ResourceType rType = productionUnit.resourceType;
-                    int amount = productionUnit.amount;
+                    foreach (var productionUnit in production)
+                    {
+                        ResourcesManager.ResourceType rType = productionUnit.resourceType;
+                        int amount = productionUnit.amount;
+                        // int amount = Mathf.FloorToInt(productionUnit.amount * productionFactor);
 
-                    ResourcesManager.instance.ProduceResource(rType, amount);
+
+                        ResourcesManager.instance.ProduceResource(rType, amount);
+                    }
+
+                    StartCoroutine("StartProductionCoolDown", this);
+
+                    ShopPanel.instance.UpdateShopItems();
                 }
-
-                ShopPanel.instance.UpdateShopItems();
+                else
+                {
+                    //Debug.Log("Mine | Production CoolDown not elapsed...");
+                }
             }
             else
             {
                 Debug.Log("Mine can't produce, energy requirement isn't met !");
+            }
+        }
+    }
+
+    IEnumerator StartProductionCoolDown(MineBuilding mineBuilding)
+    {
+        mineBuilding.SetCoolDownElapsed(false);
+        yield return new WaitForSeconds(mineBuilding.productionDelay);
+        mineBuilding.SetCoolDownElapsed(true);
+    }
+
+    public void SetCoolDownElapsed(bool elapsed)
+    {
+        productionCooldownElapsed = elapsed;
+    }
+
+    public override void ApplyCurrentTierSettings()
+    {
+        Debug.Log("ApplyCurrentTierSettings | MINE | CurrentTier: " + currentTier);
+        switch (currentTier)
+        {
+            case 2:
+            {
+                productionDelay = productionDelay_tier_2;
+                energyConsumption = energyConsumption_tier_2;
+                break;
+            }
+            case 3:
+            {
+                productionDelay = productionDelay_tier_3;
+                energyConsumption = energyConsumption_tier_3;
+                break;
             }
         }
     }

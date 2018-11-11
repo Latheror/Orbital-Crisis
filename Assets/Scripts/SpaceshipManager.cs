@@ -80,6 +80,21 @@ public class SpaceshipManager : MonoBehaviour {
         alliedSpaceships.Add(alliedSpaceship);
     }
 
+    public void SpawnSpaceshipAtPos(GeometryManager.Position pos)
+    {
+        Debug.Log("Spawning saved spaceship");
+        GameObject instantiatedSpaceship = Instantiate(alliedSpaceship1_Prefab, new Vector3(pos.x, pos.y, pos.z), Quaternion.identity);
+        AddAlliedSpaceshipToList(instantiatedSpaceship);
+    }
+
+    public void SetupSavedSpaceships(SpaceshipData[] spaceshipsData)
+    {
+        for(int i=0; i<spaceshipsData.Length; i++)
+        {
+            SpawnSpaceshipAtPos(spaceshipsData[i].position);
+        }
+    }
+
     [Serializable]
     public class SpaceshipData
     {

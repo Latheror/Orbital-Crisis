@@ -13,7 +13,7 @@ public class ResourcesManager : MonoBehaviour {
     public int consumptionEnergy;
 
     public Color steelColor;
-    public Color silverColor;
+    public Color copperColor;
     public Color carbonColor;
     public Color compositeColor;
     public Color electronicsColor;
@@ -39,7 +39,7 @@ public class ResourcesManager : MonoBehaviour {
     public void InitializeResources()
     {
         availableResources.Add(new ResourceType(1, "steel", steelColor, "steel", 500));
-        availableResources.Add(new ResourceType(2, "silver", silverColor, "coal", 500));
+        availableResources.Add(new ResourceType(2, "copper", copperColor, "copper", 500));
         availableResources.Add(new ResourceType(3, "carbon", carbonColor, "carbon", 400));
         availableResources.Add(new ResourceType(4, "composite", compositeColor, "composite", 300));
         availableResources.Add(new ResourceType(5, "electronics", electronicsColor, "electronics", 200));

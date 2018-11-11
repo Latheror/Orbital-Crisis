@@ -136,6 +136,7 @@ public class Building : MonoBehaviour {
             //Debug.Log("Can go to next tier");
             currentTier++;
             ApplyCurrentTierSettings();
+            SpaceportInfoPanel.instance.ImportInfo();
 
             // Refresh info panels, range indicator...
             DisplayRangeIndicator(true);

@@ -139,21 +139,25 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   resourceType:
+    id: 0
     resourceName: 
     color: {r: 0, g: 0, b: 0, a: 0}
     startAmount: 0
     currentResourceAmount:
       resourceType:
+        id: 0
         resourceName: 
         color: {r: 0, g: 0, b: 0, a: 0}
         startAmount: 0
         currentResourceAmount:
           resourceType:
+            id: 0
             resourceName: 
             color: {r: 0, g: 0, b: 0, a: 0}
             startAmount: 0
             currentResourceAmount:
               resourceType:
+                id: 0
                 resourceName: 
                 color: {r: 0, g: 0, b: 0, a: 0}
                 startAmount: 0
@@ -172,11 +176,12 @@ MonoBehaviour:
     resourceImage: {fileID: 0}
   costText: {fileID: 114753429358625734}
   imagePanelParent: {fileID: 0}
-  imagePanel: {fileID: 1348568516376580}
+  imagePanel: {fileID: 1746815569256526}
   costAmount: 0
   resourceImage: {fileID: 0}
   resourceAmountAvailableColor: {r: 0, g: 1, b: 0, a: 1}
   resourceAmountUnavailableColor: {r: 1, g: 0, b: 0, a: 1}
+  resourceAvailable: 0
 --- !u!114 &114462088713222254
 MonoBehaviour:
   m_ObjectHideFlags: 1

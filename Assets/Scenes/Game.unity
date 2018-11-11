@@ -950,7 +950,7 @@ MonoBehaviour:
   m_outlineColor:
     serializedVersion: 2
     rgba: 4278190080
-  m_fontSize: 25.7
+  m_fontSize: 24.7
   m_fontSizeBase: 24
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -1929,7 +1929,7 @@ MonoBehaviour:
   m_outlineColor:
     serializedVersion: 2
     rgba: 4278190080
-  m_fontSize: 30.8
+  m_fontSize: 29.9
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -5675,7 +5675,7 @@ MonoBehaviour:
   m_outlineColor:
     serializedVersion: 2
     rgba: 4278190080
-  m_fontSize: 27.45
+  m_fontSize: 26.45
   m_fontSizeBase: 24
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -14560,7 +14560,7 @@ MonoBehaviour:
   m_outlineColor:
     serializedVersion: 2
     rgba: 4278190080
-  m_fontSize: 25.35
+  m_fontSize: 24.2
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -19857,7 +19857,7 @@ MonoBehaviour:
   productionEnergy: 0
   consumptionEnergy: 0
   steelColor: {r: 0.6415094, g: 0.6415094, b: 0.6415094, a: 0.5882353}
-  silverColor: {r: 0.754717, g: 0.754717, b: 0.754717, a: 0.5882353}
+  copperColor: {r: 0, g: 0, b: 0, a: 0}
   carbonColor: {r: 0.9245283, g: 0.9245283, b: 0.9245283, a: 0.7411765}
   compositeColor: {r: 0.9622642, g: 0.94679165, b: 0.13163051, a: 0.59607846}
   electronicsColor: {r: 0.32894266, g: 0.6631504, b: 0.9056604, a: 0.57254905}

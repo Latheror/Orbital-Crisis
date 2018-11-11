@@ -49,6 +49,7 @@ public class Spaceport : Building
         instantiatedSpaceship.GetComponent<Spaceship>().homeSpaceport = gameObject;
 
         attachedSpaceships.Add(instantiatedSpaceship);
+        SpaceshipManager.instance.AddAlliedSpaceshipToList(instantiatedSpaceship);
 
         SpaceportInfoPanel.instance.ImportInfo();
     }
@@ -69,7 +70,6 @@ public class Spaceport : Building
                 break;
             }
         }
-        SpaceportInfoPanel.instance.ImportInfo();
     }
 
     public void BuySpaceshipRequest()

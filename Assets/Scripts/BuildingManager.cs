@@ -48,19 +48,22 @@ public class BuildingManager : MonoBehaviour {
 
     public void SetAvailableBuildings()
     {
-        availableBuildings.Add(new BuildingType(1, "Laser Turret", laserTurretPrefab, 25f, new List<ResourcesManager.ResourceAmount>(){
-                new ResourcesManager.ResourceAmount("carbon", 50),
-                new ResourcesManager.ResourceAmount("steel", 75),
-                new ResourcesManager.ResourceAmount("silver", 50)},
-                                                BuildingType.BuildingLocationType.Planet, "laser_turret", 3, 0,
-                                                "Powerful turret firing a laser beam at incoming ennemies.",
+        availableBuildings.Add(new BuildingType(1, "Laser Turret", laserTurretPrefab, 25f,
+                new List<ResourcesManager.ResourceAmount>(){
+                    new ResourcesManager.ResourceAmount("steel", 75),
+                    new ResourcesManager.ResourceAmount("copper", 50)
+                },
+                BuildingType.BuildingLocationType.Planet, "laser_turret", 3, 0,
+                "Powerful turret firing a laser beam at incoming ennemies.",
                 new List<ResourcesManager.UpgradeCost>(){
                     new ResourcesManager.UpgradeCost(2, new List<ResourcesManager.ResourceAmount>(){
-                        new ResourcesManager.ResourceAmount("carbon", 150),
                         new ResourcesManager.ResourceAmount("steel", 120),
+                        new ResourcesManager.ResourceAmount("carbon", 50),
+
                     }),
                     new ResourcesManager.UpgradeCost(3, new List<ResourcesManager.ResourceAmount>(){
-                        new ResourcesManager.ResourceAmount("steel", 50)
+                       new ResourcesManager.ResourceAmount("composite", 50),
+                       new ResourcesManager.ResourceAmount("electronics", 50),
                     })
                 },
                 true, false
@@ -68,33 +71,75 @@ public class BuildingManager : MonoBehaviour {
 
         availableBuildings.Add(new BuildingType(2, "Missile Turret", bulletTurretPrefab, 20f, new List<ResourcesManager.ResourceAmount>(){
                 new ResourcesManager.ResourceAmount("steel", 50)},
-                                                BuildingType.BuildingLocationType.Planet, "bullet_turret", 3, 2,
-                                                "Shoots missiles at incoming ennemies.",
-                new List<ResourcesManager.UpgradeCost>() { },
+                BuildingType.BuildingLocationType.Planet, "bullet_turret", 3, 2,
+                "Shoots missiles at incoming ennemies.",
+                new List<ResourcesManager.UpgradeCost>() {
+                    new ResourcesManager.UpgradeCost(2, new List<ResourcesManager.ResourceAmount>(){
+                        new ResourcesManager.ResourceAmount("steel", 120),
+                        new ResourcesManager.ResourceAmount("carbon", 50),
+
+                    }),
+                    new ResourcesManager.UpgradeCost(3, new List<ResourcesManager.ResourceAmount>(){
+                       new ResourcesManager.ResourceAmount("composite", 50),
+                       new ResourcesManager.ResourceAmount("electronics", 50),
+                    })},
                 true, false
                 ));
 
-        availableBuildings.Add(new BuildingType(3, "Freezing Turret", freezingTurretPrefab, 10f, new List<ResourcesManager.ResourceAmount>(){
-                new ResourcesManager.ResourceAmount("silver", 40)},
-                                                BuildingType.BuildingLocationType.Planet, "freezing_turret", 3, 3,
-                                                "Freezes nearby ennemies and slow them down.",
-                new List<ResourcesManager.UpgradeCost>() { },
+        availableBuildings.Add(new BuildingType(3, "Freezing Turret", freezingTurretPrefab, 10f, 
+                new List<ResourcesManager.ResourceAmount>(){
+                    new ResourcesManager.ResourceAmount("steel", 40)
+                },
+                BuildingType.BuildingLocationType.Planet, "freezing_turret", 3, 3,
+                "Freezes nearby ennemies and slow them down.",
+                new List<ResourcesManager.UpgradeCost>() {
+                    new ResourcesManager.UpgradeCost(2, new List<ResourcesManager.ResourceAmount>(){
+                        new ResourcesManager.ResourceAmount("steel", 120),
+                        new ResourcesManager.ResourceAmount("carbon", 50),
+
+                    }),
+                    new ResourcesManager.UpgradeCost(3, new List<ResourcesManager.ResourceAmount>(){
+                       new ResourcesManager.ResourceAmount("composite", 50),
+                       new ResourcesManager.ResourceAmount("electronics", 50),
+                    })                },
                 true, false
                 ));
 
-        availableBuildings.Add(new BuildingType(4, "Power Plant", powerPlantPrefab, 0f, new List<ResourcesManager.ResourceAmount>(){
-                                                                                        },
-                                                BuildingType.BuildingLocationType.Planet, "power_plant", 3, 0,
-                                                "Provides energy to your infrastructures.",
-                new List<ResourcesManager.UpgradeCost>() { },
+        availableBuildings.Add(new BuildingType(4, "Power Plant", powerPlantPrefab, 0f, 
+                new List<ResourcesManager.ResourceAmount>(){
+                    new ResourcesManager.ResourceAmount("steel", 40)
+                 },
+                BuildingType.BuildingLocationType.Planet, "power_plant", 3, 0,
+                "Provides energy to your infrastructures.",
+                new List<ResourcesManager.UpgradeCost>() {
+                    new ResourcesManager.UpgradeCost(2, new List<ResourcesManager.ResourceAmount>(){
+                        new ResourcesManager.ResourceAmount("steel", 120),
+                        new ResourcesManager.ResourceAmount("carbon", 50),
+
+                    }),
+                    new ResourcesManager.UpgradeCost(3, new List<ResourcesManager.ResourceAmount>(){
+                       new ResourcesManager.ResourceAmount("composite", 50),
+                       new ResourcesManager.ResourceAmount("electronics", 50),
+                    })                },
                 false, true
                 ));
 
-        availableBuildings.Add(new BuildingType(5, "Mine Building", mineBuildingPrefab, 10f, new List<ResourcesManager.ResourceAmount>(){
-                                                                                        },
-                                                BuildingType.BuildingLocationType.Planet, "production/mine", 3, 0,
-                                                "Gather resources needed to build infrastructures.",
-                new List<ResourcesManager.UpgradeCost>() { },
+        availableBuildings.Add(new BuildingType(5, "Mining Facility", mineBuildingPrefab, 10f, 
+                new List<ResourcesManager.ResourceAmount>(){
+                    new ResourcesManager.ResourceAmount("steel", 40)
+                },
+                BuildingType.BuildingLocationType.Planet, "production/mine", 3, 0,
+                "Gather resources needed to build infrastructures.",
+                new List<ResourcesManager.UpgradeCost>() {
+                    new ResourcesManager.UpgradeCost(2, new List<ResourcesManager.ResourceAmount>(){
+                        new ResourcesManager.ResourceAmount("steel", 120),
+                        new ResourcesManager.ResourceAmount("carbon", 50),
+
+                    }),
+                    new ResourcesManager.UpgradeCost(3, new List<ResourcesManager.ResourceAmount>(){
+                       new ResourcesManager.ResourceAmount("composite", 50),
+                       new ResourcesManager.ResourceAmount("electronics", 50),
+                    })                },
                 false, false
                 ));
 
@@ -106,54 +151,119 @@ public class BuildingManager : MonoBehaviour {
                 true, false
                 ));
         */
-        availableBuildings.Add(new BuildingType(6, "Shock Satellite", shockSatellitePrefab, 10f, new List<ResourcesManager.ResourceAmount>(){
-                                                                                        },
-                                                BuildingType.BuildingLocationType.Disks, "shock_satellite", 3, 4,
-                                                "Satellite building dealing damage salves in a circle around it.",
-                new List<ResourcesManager.UpgradeCost>() { },
+        availableBuildings.Add(new BuildingType(6, "Shock Satellite", shockSatellitePrefab, 10f, 
+                new List<ResourcesManager.ResourceAmount>(){
+                    new ResourcesManager.ResourceAmount("steel", 40)
+                },
+                BuildingType.BuildingLocationType.Disks, "shock_satellite", 3, 4,
+                "Satellite building dealing damage salves in a circle around it.",
+                new List<ResourcesManager.UpgradeCost>() {
+                    new ResourcesManager.UpgradeCost(2, new List<ResourcesManager.ResourceAmount>(){
+                        new ResourcesManager.ResourceAmount("steel", 120),
+                        new ResourcesManager.ResourceAmount("carbon", 50),
+
+                    }),
+                    new ResourcesManager.UpgradeCost(3, new List<ResourcesManager.ResourceAmount>(){
+                       new ResourcesManager.ResourceAmount("composite", 50),
+                       new ResourcesManager.ResourceAmount("electronics", 50),
+                    })                },
                 true, false
                 ));
 
-        availableBuildings.Add(new BuildingType(7, "Recycling Station", debrisCollectorStationPrefab, 10f, new List<ResourcesManager.ResourceAmount>(){
-                                                                                        },
-                                                BuildingType.BuildingLocationType.Disks, "recycling_station", 3, 5,
-                                                "Satellite base of recycling shuttles, able to recycle meteor debris and ennemy spaceship wrecks.",
-                new List<ResourcesManager.UpgradeCost>() { },
+        availableBuildings.Add(new BuildingType(7, "Recycling Station", debrisCollectorStationPrefab, 10f, 
+                new List<ResourcesManager.ResourceAmount>(){
+                    new ResourcesManager.ResourceAmount("steel", 40)
+                },
+                BuildingType.BuildingLocationType.Disks, "recycling_station", 3, 5,
+                "Satellite base of recycling shuttles, able to recycle meteor debris and ennemy spaceship wrecks.",
+                new List<ResourcesManager.UpgradeCost>() {
+                    new ResourcesManager.UpgradeCost(2, new List<ResourcesManager.ResourceAmount>(){
+                        new ResourcesManager.ResourceAmount("steel", 120),
+                        new ResourcesManager.ResourceAmount("carbon", 50),
+
+                    }),
+                    new ResourcesManager.UpgradeCost(3, new List<ResourcesManager.ResourceAmount>(){
+                       new ResourcesManager.ResourceAmount("composite", 50),
+                       new ResourcesManager.ResourceAmount("electronics", 50),
+                    })                },
                 true, false
                 ));
 
-        availableBuildings.Add(new BuildingType(8, "Solar Station", satelliteSolarStationPrefab, 0f, new List<ResourcesManager.ResourceAmount>(){
-                                                                                        },
-                                                BuildingType.BuildingLocationType.Disks, "solar_station", 3, 6,
-                                                "A satellite covered by solar panels, providing energy to your infrastructures.",
-                new List<ResourcesManager.UpgradeCost>() { },
+        availableBuildings.Add(new BuildingType(8, "Solar Station", satelliteSolarStationPrefab, 0f, 
+                new List<ResourcesManager.ResourceAmount>(){
+                    new ResourcesManager.ResourceAmount("steel", 40)
+                },
+                BuildingType.BuildingLocationType.Disks, "solar_station", 3, 6,
+                "A satellite covered by solar panels, providing energy to your infrastructures.",
+                new List<ResourcesManager.UpgradeCost>() {
+                    new ResourcesManager.UpgradeCost(2, new List<ResourcesManager.ResourceAmount>(){
+                        new ResourcesManager.ResourceAmount("steel", 120),
+                        new ResourcesManager.ResourceAmount("carbon", 50),
+
+                    }),
+                    new ResourcesManager.UpgradeCost(3, new List<ResourcesManager.ResourceAmount>(){
+                       new ResourcesManager.ResourceAmount("composite", 50),
+                       new ResourcesManager.ResourceAmount("electronics", 50),
+                    })                },
                 false, true
                 ));
 
-        availableBuildings.Add(new BuildingType(9, "Healing Turret", healingTurretPrefab, 15f, new List<ResourcesManager.ResourceAmount>(){
-                                                                                        },
-                                                BuildingType.BuildingLocationType.Planet, "healing_turret", 3, 7,
-                                                "Turret able to restore your spaceships health.",
-                new List<ResourcesManager.UpgradeCost>() { },
+        availableBuildings.Add(new BuildingType(9, "Healing Turret", healingTurretPrefab, 15f, 
+                new List<ResourcesManager.ResourceAmount>(){
+                    new ResourcesManager.ResourceAmount("steel", 40)
+                },
+                BuildingType.BuildingLocationType.Planet, "healing_turret", 3, 7,
+                "Turret able to restore your spaceships health.",
+                new List<ResourcesManager.UpgradeCost>() {
+                    new ResourcesManager.UpgradeCost(2, new List<ResourcesManager.ResourceAmount>(){
+                        new ResourcesManager.ResourceAmount("steel", 120),
+                        new ResourcesManager.ResourceAmount("carbon", 50),
+
+                    }),
+                    new ResourcesManager.UpgradeCost(3, new List<ResourcesManager.ResourceAmount>(){
+                               new ResourcesManager.ResourceAmount("composite", 50),
+                               new ResourcesManager.ResourceAmount("electronics", 50),
+                    })                },
                 true, false
                 ));
 
-        availableBuildings.Add(new BuildingType(10, "Spaceport", spaceportPrefab, 15f, new List<ResourcesManager.ResourceAmount>()
-        {
-        },
-                                        BuildingType.BuildingLocationType.Disks, "spaceport", 3, 8,
-                                        "Build new spaceships and recruit pilots in the spaceport.",
-        new List<ResourcesManager.UpgradeCost>() { },
-        false, false
+        availableBuildings.Add(new BuildingType(10, "Spaceport", spaceportPrefab, 15f,
+                new List<ResourcesManager.ResourceAmount>(){
+                    new ResourcesManager.ResourceAmount("steel", 40)
+                },
+                BuildingType.BuildingLocationType.Disks, "spaceport", 3, 8,
+                "Build new spaceships and recruit pilots in the spaceport.",
+                new List<ResourcesManager.UpgradeCost>() {
+                            new ResourcesManager.UpgradeCost(2, new List<ResourcesManager.ResourceAmount>(){
+                                new ResourcesManager.ResourceAmount("steel", 120),
+                                new ResourcesManager.ResourceAmount("carbon", 50),
+
+                            }),
+                            new ResourcesManager.UpgradeCost(3, new List<ResourcesManager.ResourceAmount>(){
+                               new ResourcesManager.ResourceAmount("composite", 50),
+                               new ResourcesManager.ResourceAmount("electronics", 50),
+                            })        },
+                false, false
         ));
 
-        availableBuildings.Add(new BuildingType(11, "Storm Satellite", stormSatellitePrefab, 30f, new List<ResourcesManager.ResourceAmount>()
-        {
-        },
-                                        BuildingType.BuildingLocationType.Disks, "Satellites/storm_satellite_t", 3, 9,
-                                        "A satellite able to transfer damages between nearby ennemies.",
-        new List<ResourcesManager.UpgradeCost>() { },
-        true, false
+        availableBuildings.Add(new BuildingType(11, "Storm Satellite", stormSatellitePrefab, 30f, 
+                new List<ResourcesManager.ResourceAmount>(){
+                    new ResourcesManager.ResourceAmount("steel", 40),
+                    new ResourcesManager.ResourceAmount("carbon", 20)
+                },
+                BuildingType.BuildingLocationType.Disks, "Satellites/storm_satellite_t", 3, 9,
+                "A satellite able to transfer damages between nearby ennemies.",
+                new List<ResourcesManager.UpgradeCost>() {
+                            new ResourcesManager.UpgradeCost(2, new List<ResourcesManager.ResourceAmount>(){
+                                new ResourcesManager.ResourceAmount("steel", 120),
+                                new ResourcesManager.ResourceAmount("carbon", 50),
+
+                            }),
+                            new ResourcesManager.UpgradeCost(3, new List<ResourcesManager.ResourceAmount>(){
+                                new ResourcesManager.ResourceAmount("composite", 50),
+                                new ResourcesManager.ResourceAmount("electronics", 50),
+                            })        },
+                true, false
         ));
     }
 
