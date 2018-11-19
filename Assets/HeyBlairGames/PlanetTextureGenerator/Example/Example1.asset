@@ -3,7 +3,7 @@
 --- !u!114 &11400000
 MonoBehaviour:
   m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 0}
   m_Enabled: 1
@@ -102,5 +102,5 @@ MonoBehaviour:
   cloudColour1: {r: 0, g: 0, b: 0, a: 0}
   cloudSpin: 1
   cloudNormalScale: 0.02
-  size: 3
+  size: 4
   combineHeightWithCity: 1

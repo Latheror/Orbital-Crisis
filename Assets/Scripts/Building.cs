@@ -26,11 +26,19 @@ public class Building : MonoBehaviour {
     public float energyConsumption = 10f;
     public GameObject buildingSpot;
     public List<string> tags;
+    public bool maxUpgradeLevelReached = false;
+    public bool powerOn = true;
 
     public enum BuildingLocationType {Planet, Disks};
     public BuildingLocationType buildingLocationType;
 
     public Building(){}
+
+    private void Start()
+    {
+        maxUpgradeLevelReached = false;
+        powerOn = true;
+    }
 
     public List<ResourcesManager.ResourceAmount> GetUpgradeCostsForNextTier()
     {
@@ -77,6 +85,8 @@ public class Building : MonoBehaviour {
             {
                 float radius = range;
                 //Debug.Log("DisplayRangeIndicator | Radius: " + radius + " | BuildingSpotAngleRad: " + buildingSpotAngleRad + " | RangeIndicatorNbPoints: " + rangeIndicatorNbPoints);
+
+                lr.SetColors(buildingColor, buildingColor);
 
                 if (hasAngleRange)  // Ground Towers
                 {
@@ -131,21 +141,29 @@ public class Building : MonoBehaviour {
 
     public void UpgradeToNextTier()
     {
-        if(currentTier < buildingType.maxTier)
+        if (currentTier < buildingType.maxTier)
         {
             //Debug.Log("Can go to next tier");
             currentTier++;
             ApplyCurrentTierSettings();
-            SpaceportInfoPanel.instance.ImportInfo();
+
+            if(buildingType.name == "Spaceport")
+            {
+                SpaceportInfoPanel.instance.ImportInfo();
+            }
 
             // Refresh info panels, range indicator...
             DisplayRangeIndicator(true);
+
+            maxUpgradeLevelReached = (currentTier < buildingType.maxTier) ? false : true;
+
             BuildingInfoPanel.instance.SetInfo();
 
             EnergyPanel.instance.UpdateEnergyProductionAndConsumption();
         }
         else
         {
+            maxUpgradeLevelReached = (currentTier < buildingType.maxTier) ? false : true;
             //Debug.Log("Max tier already reached !");
         }
     }
@@ -164,6 +182,8 @@ public class Building : MonoBehaviour {
         {
             Debug.Log("Can't upgrade to tier [" + tier + "], max is [" + buildingType.maxTier + "]");
         }
+
+        maxUpgradeLevelReached = (currentTier < buildingType.maxTier) ? false : true;
     }
 
     public bool HasTag(string searchedTag)
@@ -183,6 +203,144 @@ public class Building : MonoBehaviour {
     public virtual void ApplyCurrentTierSettings(){}
 
     public virtual void DestroyBuildingSpecificActions(){}
+
+    public float GetBuildingStatValue(BuildingStat buildingStat)
+    {
+        float statValue = 0;
+
+        switch (buildingStat.statType)
+        {
+            case BuildingStat.StatType.energyConsumption:
+            {
+                statValue = energyConsumption;
+                break;
+            }
+            case BuildingStat.StatType.damagePower:
+            {
+                if(gameObject.GetComponent<Turret>() != null)
+                {
+                    statValue = gameObject.GetComponent<Turret>().power;
+                }
+                else if (gameObject.GetComponent<ShockSatellite>() != null)
+                {
+                    statValue = gameObject.GetComponent<ShockSatellite>().damagePower;
+                }
+                else if (gameObject.GetComponent<StormSatellite>() != null)
+                {
+                    statValue = gameObject.GetComponent<StormSatellite>().damagePower;
+                }
+                break;
+            }
+            case BuildingStat.StatType.range:
+            {
+                statValue = range;
+                break;
+            }
+            case BuildingStat.StatType.energyProduction:
+            {
+                if (gameObject.GetComponent<PowerPlant>() != null)
+                {
+                    statValue = gameObject.GetComponent<PowerPlant>().energyProduction;
+                }
+                break;
+            }
+            case BuildingStat.StatType.freezingPower:
+            {
+                if (gameObject.GetComponent<FreezingTurret>() != null)
+                {
+                    statValue = gameObject.GetComponent<FreezingTurret>().freezingFactor;
+                }
+                break;
+            }
+            case BuildingStat.StatType.healingPower:
+            {
+                if (gameObject.GetComponent<HealingTurret>() != null)
+                {
+                    statValue = gameObject.GetComponent<HealingTurret>().healingPower;
+                }
+                break;
+            }
+            case BuildingStat.StatType.miningSpeed:
+            {
+                if (gameObject.GetComponent<MineBuilding>() != null)
+                {
+                    statValue = gameObject.GetComponent<MineBuilding>().productionDelay;
+                }
+                break;
+            }
+        }
+
+        return statValue;
+    }
+
+    public void PowerSwitch()
+    {
+        powerOn = !powerOn;
+        Debug.Log("Switch power to: " + ((powerOn)?"On":"Off"));
+        EnergyPanel.instance.UpdateEnergyProductionAndConsumption();
+        BuildingInfoPanel.instance.SetInfo();
+    }
+
+    public class BuildingStat
+    {
+        public enum StatType { energyConsumption, range, energyProduction, damagePower, freezingPower, healingPower, miningSpeed };
+
+        public StatType statType;
+        public Sprite statImage;
+
+        public BuildingStat(StatType statType)
+        {
+            this.statType = statType;
+            string statsImagesPath = "Images/Stats/";
+            switch(statType)
+            {
+                case StatType.damagePower:
+                {
+                    statImage = Resources.Load<Sprite>(statsImagesPath + "laser_beam");
+                    break;
+                }
+                case StatType.energyConsumption:
+                {
+                    statImage = Resources.Load<Sprite>(statsImagesPath + "power_minus");
+                    break;
+                }
+                case StatType.energyProduction:
+                {
+                    statImage = Resources.Load<Sprite>(statsImagesPath + "power_plus");
+                    break;
+                }
+                case StatType.freezingPower:
+                {
+                    statImage = Resources.Load<Sprite>(statsImagesPath + "snowflake");
+                    break;
+                }
+                case StatType.healingPower:
+                {
+                    statImage = Resources.Load<Sprite>(statsImagesPath + "green_cross");
+                    break;
+                }
+                case StatType.range:
+                {
+                    statImage = Resources.Load<Sprite>(statsImagesPath + "range_indicator");
+                    break;
+                }
+                case StatType.miningSpeed:
+                {
+                    statImage = Resources.Load<Sprite>(statsImagesPath + "gear");
+                    break;
+                }
+            }
+        }
+    }
+
+    public class StatInfo
+    {
+
+        public StatInfo()
+        {
+
+        }
+    }
 
     [Serializable]
     public class BuildingData

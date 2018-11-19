@@ -13,8 +13,9 @@ public class BuildingInfoPanel : MonoBehaviour {
         instance = this;
     }
 
-    public GameObject displayPanel;
 
+    [Header("UI Elements")]
+    public GameObject displayPanel;
     public GameObject buildingImagePanel;
     public GameObject buildingNamePanel;
     public GameObject upgradeButton;
@@ -23,11 +24,21 @@ public class BuildingInfoPanel : MonoBehaviour {
     public List<GameObject> upgradeCostPanelsList;
     public GameObject destroyButton;
     public TextMeshProUGUI tierNbText;
+    public TextMeshProUGUI upgradeText;
+    public GameObject enoughEnergyPanel;
+    public GameObject powerOnPanel;
 
-    public GameObject selectedBuilding;
-
+    [Header("Colors")]
     public Color upgradePossibleColor = Color.green;
     public Color upgradeImpossibleColor = Color.red;
+    public Color powerOnColor = Color.yellow;
+    public Color powerOffColor = Color.grey;
+    public Color enoughEnergyColor = Color.green;
+    public Color notEnoughEnergyColor = Color.red;
+
+    [Header("Operation")]
+    public GameObject selectedBuilding;
+    public bool upgradeAvailable;
 
     // Use this for initialization
     void Start () {
@@ -89,11 +100,39 @@ public class BuildingInfoPanel : MonoBehaviour {
         SetName();
         SetTierText();
         BuildUpgradeCostsLayout();
+        SetBuildingStats();
+        SetEnergyIndicators();
     }
 
     public void SetSelectedBuilding(GameObject building)
     {
         selectedBuilding = building;
+    }
+
+    public void SetBuildingStats()
+    {
+        BuildingStatsPanel.instance.BuildStatsInfo(selectedBuilding);
+    }
+
+    public void SetEnergyIndicators()
+    {
+        if (selectedBuilding.GetComponent<Building>().powerOn)  // Power On
+        {
+            powerOnPanel.GetComponent<Image>().color = powerOnColor;
+        }
+        else  // Power Off
+        {
+            powerOnPanel.GetComponent<Image>().color = powerOffColor;
+        }
+
+        if (selectedBuilding.GetComponent<Building>().hasEnoughEnergy)  // Enough energy
+        {
+            enoughEnergyPanel.GetComponent<Image>().color = enoughEnergyColor;
+        }
+        else // Not enough energy
+        {
+            enoughEnergyPanel.GetComponent<Image>().color = notEnoughEnergyColor;
+        }
     }
 
     public void DisplayInfo(bool display)
@@ -125,16 +164,35 @@ public class BuildingInfoPanel : MonoBehaviour {
 
     public void UpdateResourceAvailabilityIndicators()
     {
-        bool isUpgradeAvailable = true;
+        bool upgradeResourcesAvailable = true;
         foreach (GameObject upgradeCostPanel in upgradeCostPanelsList)
         {
             upgradeCostPanel.GetComponent<ResourceCostPanel>().UpdateResourceAvailabilityIndicator();
             if (! upgradeCostPanel.GetComponent<ResourceCostPanel>().resourceAvailable)
             {
-                isUpgradeAvailable = false;
+                upgradeResourcesAvailable = false;
             }
         }
-        UpgradeUpdateButtonColor(isUpgradeAvailable);
+
+        CalculateUpgradeAvailablility(upgradeResourcesAvailable);
+    }
+
+    public void CalculateUpgradeAvailablility(bool upgradeResourcesAvailable)
+    {
+        bool upgradeAvailable = (upgradeResourcesAvailable && !GetMaxUpgradeLevelReached());
+        UpgradeUpdateButtonColorAndText(upgradeAvailable);
+    }
+
+    public bool GetMaxUpgradeLevelReached()
+    {
+        if (selectedBuilding != null)
+        {
+            return selectedBuilding.GetComponent<Building>().maxUpgradeLevelReached;
+        }
+        else
+        {
+            return false;
+        }
     }
 
     public void UpdateInfo()
@@ -142,9 +200,10 @@ public class BuildingInfoPanel : MonoBehaviour {
         UpdateResourceAvailabilityIndicators();
     }
 
-    public void UpgradeUpdateButtonColor(bool upgradeAvailable)
+    public void UpgradeUpdateButtonColorAndText(bool upgradeAvailable)
     {
         upgradeButton.GetComponent<Image>().color = (upgradeAvailable) ? upgradePossibleColor : upgradeImpossibleColor;
+        upgradeText.text = (GetMaxUpgradeLevelReached()) ? "Max level" : "Upgrade";
     }
 
     public void DestroyButtonClicked()
@@ -156,5 +215,11 @@ public class BuildingInfoPanel : MonoBehaviour {
     public void CloseButtonClicked()
     {
         GameManager.instance.ChangeSelectionState(GameManager.SelectionState.Default);
+    }
+
+    public void PowerSwitchButtonClicked()
+    {
+        Debug.Log("PowerSwitchButtonClicked");
+        selectedBuilding.GetComponent<Building>().PowerSwitch();
     }
 }

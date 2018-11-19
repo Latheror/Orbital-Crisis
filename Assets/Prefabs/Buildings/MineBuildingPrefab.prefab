@@ -733,12 +733,14 @@ MonoBehaviour:
   energyConsumption: 15
   buildingSpot: {fileID: 0}
   tags: []
+  maxUpgradeLevelReached: 0
+  powerOn: 1
   buildingLocationType: 0
   production: []
   productionDelay: 2
   productionFactor: 0
   productionDelay_tier_2: 1.6
-  energyConsumption_tier_2: 25
+  energyConsumption_tier_2: 30
   productionDelay_tier_3: 1.2
   energyConsumption_tier_3: 50
   productionCooldownElapsed: 0

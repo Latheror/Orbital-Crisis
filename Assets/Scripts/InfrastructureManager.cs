@@ -38,11 +38,11 @@ public class InfrastructureManager : MonoBehaviour {
             previouslySelectedBuilding.GetComponent<Building>().BuildingDeselected();
         }
 
-        // Transmit info to BuildingInfoPanel
-        BuildingInfoPanel.instance.BuildingTouched(selectedBuilding);
-
         // Transmit info to concerned building script
         selectedBuilding.GetComponent<Building>().BuildingTouched();
+
+        // Transmit info to BuildingInfoPanel
+        BuildingInfoPanel.instance.BuildingTouched(selectedBuilding);
 
         // Take actions based on building "Tags" list
         BuildingTagsActions(selectedBuilding);
@@ -99,6 +99,10 @@ public class InfrastructureManager : MonoBehaviour {
             Debug.Log("Spaceport Touched !");
 
             SpaceportInfoPanel.instance.SpaceportTouched(building);
+        }
+        else
+        {
+            SpaceportInfoPanel.instance.DisplayPanel(false);
         }
     }
 

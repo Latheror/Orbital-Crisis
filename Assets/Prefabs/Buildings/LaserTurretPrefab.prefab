@@ -150,7 +150,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1611410533432066}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 83.51738, y: -5.324696, z: -80.64757}
+  m_LocalPosition: {x: 138.9, y: 46.7, z: -167.8}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4842592810230808}
@@ -433,6 +433,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   buildingType:
+    id: 0
     name: 
     prefab: {fileID: 0}
     resourceCosts: []
@@ -447,7 +448,7 @@ MonoBehaviour:
     hasRange: 0
     producesEnergy: 0
   buildingName: Laser Turret
-  buildingColor: {r: 1, g: 0.49694997, b: 0, a: 0}
+  buildingColor: {r: 1, g: 0.49694997, b: 0, a: 1}
   buildingPrefab: {fileID: 0}
   buildingPrice: []
   alocatedEnergy: 0
@@ -464,6 +465,9 @@ MonoBehaviour:
   rangeIndicatorNbPoints: 20
   energyConsumption: 15
   buildingSpot: {fileID: 0}
+  tags: []
+  maxUpgradeLevelReached: 0
+  powerOn: 1
   buildingLocationType: 0
   offensiveTurret: 1
   previousTarget: {fileID: 0}
@@ -507,7 +511,7 @@ LineRenderer:
   m_ReflectionProbeUsage: 0
   m_RenderingLayerMask: 4294967295
   m_Materials:
-  - {fileID: 2100000, guid: ef5b1bee5a942dd4183973cd6950276f, type: 2}
+  - {fileID: 10306, guid: 0000000000000000f000000000000000, type: 0}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -560,8 +564,8 @@ LineRenderer:
       m_RotationOrder: 4
     colorGradient:
       serializedVersion: 2
-      key0: {r: 1, g: 1, b: 1, a: 1}
-      key1: {r: 1, g: 1, b: 1, a: 1}
+      key0: {r: 1, g: 0.50181067, b: 0, a: 1}
+      key1: {r: 1, g: 0.5019608, b: 0, a: 1}
       key2: {r: 0, g: 0, b: 0, a: 0}
       key3: {r: 0, g: 0, b: 0, a: 0}
       key4: {r: 0, g: 0, b: 0, a: 0}

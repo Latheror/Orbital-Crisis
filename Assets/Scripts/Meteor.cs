@@ -141,6 +141,7 @@ public class Meteor : MonoBehaviour {
 
     public void ResetMeteorSettings()
     {
+        Debug.Log("ResetMeteorSettings");
         currentApproachSpeed = baseApproachSpeed;
         currentRotationSpeed = baseRotationSpeed;
         gameObject.GetComponent<Renderer>().material = defaultMeteorMaterial;
@@ -168,5 +169,14 @@ public class Meteor : MonoBehaviour {
 
         //isRotating = LogicFunctions.RandomTrueFalse();
         isRotating = true;
+    }
+
+    public void SetPartialSpeeds(float approachSpeedFactor, float rotationSpeedFactor)
+    {
+        float appSpeedFactor = Mathf.Clamp(approachSpeedFactor, 0, 1);
+        float rotSpeedFactor = Mathf.Clamp(rotationSpeedFactor, 0, 1);
+
+        currentApproachSpeed = baseApproachSpeed * appSpeedFactor;
+        currentRotationSpeed = baseRotationSpeed * rotSpeedFactor;
     }
 }

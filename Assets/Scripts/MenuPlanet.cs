@@ -98,7 +98,8 @@ public class MenuPlanet : MonoBehaviour {
             Vector3 posShootingPoint = shootingPoint.transform.position;
 
             Vector3 planetCenter = gameObject.transform.position;
-            float planetRadius = gameObject.transform.localScale.x / 2;
+            float planetRadius = gameObject.transform.localScale.x /*/ 2*/;
+            //Debug.Log("Planet radius: " + planetRadius);
 
 
             /* a u2 +b u + c = 0
@@ -165,6 +166,11 @@ public class MenuPlanet : MonoBehaviour {
                     RotateTowardsPathPart(group.translatingObject, group.pathEnd);
                 }
             }
+
+            if(group.rotatesOnItself)
+            {
+                group.translatingObjectChild.transform.Rotate(Vector3.right * group.rotationSpeed * Time.deltaTime);
+            }
         }
     }
 
@@ -189,9 +195,12 @@ public class MenuPlanet : MonoBehaviour {
         public GameObject pathStart;
         public GameObject pathEnd;
         public GameObject translatingObject;
+        public GameObject translatingObjectChild;
         public bool reachedStart = false;
         public bool reachedEnd = false;
         public bool goesToward = false; // 0: Towards end, 1: Towards start
         public float translationSpeed = 20f;
+        public bool rotatesOnItself = false;
+        public float rotationSpeed = 20f;
     }
 }

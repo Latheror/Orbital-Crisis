@@ -458,7 +458,7 @@ MonoBehaviour:
     hasRange: 0
     producesEnergy: 0
   buildingName: 
-  buildingColor: {r: 0, g: 0, b: 0, a: 0}
+  buildingColor: {r: 1, g: 0, b: 0.29011536, a: 1}
   buildingPrefab: {fileID: 0}
   buildingPrice: []
   alocatedEnergy: 0
@@ -476,6 +476,8 @@ MonoBehaviour:
   energyConsumption: 15
   buildingSpot: {fileID: 0}
   tags: []
+  maxUpgradeLevelReached: 0
+  powerOn: 1
   buildingLocationType: 0
   offensiveTurret: 1
   previousTarget: {fileID: 0}
@@ -492,11 +494,11 @@ MonoBehaviour:
   range_tier_2: 150
   bulletSpeed_tier_2: 120
   bulletPower_tier_2: 15
-  energyConsumption_tier_2: 20
+  energyConsumption_tier_2: 25
   range_tier_3: 200
   bulletSpeed_tier_3: 140
   bulletPower_tier_3: 20
-  energyConsumption_tier_3: 30
+  energyConsumption_tier_3: 40
   bulletPrefab: {fileID: 1102555780590952, guid: a099074c57348c24a93e804b74680834,
     type: 2}
 --- !u!120 &120666679227476894
@@ -514,7 +516,7 @@ LineRenderer:
   m_ReflectionProbeUsage: 0
   m_RenderingLayerMask: 4294967295
   m_Materials:
-  - {fileID: 2100000, guid: ef5b1bee5a942dd4183973cd6950276f, type: 2}
+  - {fileID: 10306, guid: 0000000000000000f000000000000000, type: 0}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

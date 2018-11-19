@@ -612,10 +612,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   buildingType:
+    id: 0
     name: 
     prefab: {fileID: 0}
     resourceCosts: []
-    requiredEnergy: 0
+    energyConsumption: 0
     buildingLocationType: 0
     buildingImage: {fileID: 0}
     maxTier: 0
@@ -626,7 +627,7 @@ MonoBehaviour:
     hasRange: 0
     producesEnergy: 0
   buildingName: 
-  buildingColor: {r: 0, g: 0, b: 0, a: 0}
+  buildingColor: {r: 0.5613208, g: 0.9481741, b: 1, a: 1}
   buildingPrefab: {fileID: 0}
   buildingPrice: []
   alocatedEnergy: 0
@@ -642,15 +643,21 @@ MonoBehaviour:
   angleRange: 0
   rangeIndicatorNbPoints: 30
   energyConsumption: 20
+  buildingSpot: {fileID: 0}
+  tags: []
+  maxUpgradeLevelReached: 0
+  powerOn: 1
   buildingLocationType: 1
   damagePower: 20
   actionDelay: 5
   damagePower_tier_2: 25
   range_tier_2: 75
   actionDelay_tier_2: 4
+  energyConsumption_tier_2: 60
   damagePower_tier_3: 30
   range_tier_3: 100
   actionDelay_tier_3: 3
+  energyConsumption_tier_3: 100
   inRangeMeteors: []
   shockWave: {fileID: 1153648174547462}
 --- !u!120 &120560862628196902
@@ -668,7 +675,7 @@ LineRenderer:
   m_ReflectionProbeUsage: 0
   m_RenderingLayerMask: 4294967295
   m_Materials:
-  - {fileID: 2100000, guid: ef5b1bee5a942dd4183973cd6950276f, type: 2}
+  - {fileID: 10306, guid: 0000000000000000f000000000000000, type: 0}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

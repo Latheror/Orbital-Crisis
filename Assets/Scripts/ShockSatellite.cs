@@ -12,11 +12,14 @@ public class ShockSatellite : Building {
     public float damagePower_tier_2 = 25f;
     public float range_tier_2 = 100f;
     public float actionDelay_tier_2 = 4f;
+    public float energyConsumption_tier_2 = 60;
 
     [Header("Tier 3")]
     public float damagePower_tier_3 = 30f;
     public float range_tier_3 = 150f;
     public float actionDelay_tier_3 = 3f;
+    public float energyConsumption_tier_3 = 100;
+
 
     [Header("Operation")]
     public List<GameObject> inRangeMeteors;
@@ -94,6 +97,7 @@ public class ShockSatellite : Building {
                 damagePower = damagePower_tier_2;
                 range = range_tier_2;
                 actionDelay = actionDelay_tier_2;
+                energyConsumption = energyConsumption_tier_2;
                 break;
 
             }
@@ -102,6 +106,7 @@ public class ShockSatellite : Building {
                 damagePower = damagePower_tier_3;
                 range = range_tier_3;
                 actionDelay = actionDelay_tier_3;
+                energyConsumption = energyConsumption_tier_3;
                 break;
             }
         }

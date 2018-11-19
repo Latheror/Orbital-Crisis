@@ -4,115 +4,64 @@
 Material:
   serializedVersion: 6
   m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_Name: Example
   m_Shader: {fileID: 4800000, guid: e2204c6c62f801848ba806cf82fe630e, type: 3}
   m_ShaderKeywords: 
   m_LightmapFlags: 5
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
   m_CustomRenderQueue: 2000
   stringTagMap: {}
+  disabledShaderPasses: []
   m_SavedProperties:
-    serializedVersion: 2
+    serializedVersion: 3
     m_TexEnvs:
-      data:
-        first:
-          name: _MainTex
-        second:
-          m_Texture: {fileID: 2800000, guid: 1bc46539e21fd964887c224c958f21be, type: 3}
-          m_Scale: {x: 1, y: 1}
-          m_Offset: {x: 0, y: 0}
-      data:
-        first:
-          name: _BumpMap
-        second:
-          m_Texture: {fileID: 2800000, guid: 93fa7224b9d769d46a38b2d84cbf56d3, type: 3}
-          m_Scale: {x: 1, y: 1}
-          m_Offset: {x: 0, y: 0}
-      data:
-        first:
-          name: _NormalMap
-        second:
-          m_Texture: {fileID: 2800000, guid: 93fa7224b9d769d46a38b2d84cbf56d3, type: 3}
-          m_Scale: {x: 1, y: 1}
-          m_Offset: {x: 0, y: 0}
-      data:
-        first:
-          name: _GroundMap
-        second:
-          m_Texture: {fileID: 2800000, guid: 1bc46539e21fd964887c224c958f21be, type: 3}
-          m_Scale: {x: 1, y: 1}
-          m_Offset: {x: 0, y: 0}
-      data:
-        first:
-          name: _IllumMap
-        second:
-          m_Texture: {fileID: 2800000, guid: 3e75551bd233e1e42bd4a3bfe68336a6, type: 3}
-          m_Scale: {x: 1, y: 1}
-          m_Offset: {x: 0, y: 0}
-      data:
-        first:
-          name: _CloudMap
-        second:
-          m_Texture: {fileID: 2800000, guid: 72e473c0a8af4744eabef75ad48ab94c, type: 3}
-          m_Scale: {x: 1, y: 1}
-          m_Offset: {x: 0, y: 0}
-      data:
-        first:
-          name: _CloudNormalMap
-        second:
-          m_Texture: {fileID: 2800000, guid: 0b9bf0fe915848d47b7bc4f814a21bd4, type: 3}
-          m_Scale: {x: 1, y: 1}
-          m_Offset: {x: 0, y: 0}
-      data:
-        first:
-          name: _IllumTex
-        second:
-          m_Texture: {fileID: 2800000, guid: 3e75551bd233e1e42bd4a3bfe68336a6, type: 3}
-          m_Scale: {x: 1, y: 1}
-          m_Offset: {x: 0, y: 0}
-      data:
-        first:
-          name: _AtmosTex
-        second:
-          m_Texture: {fileID: 2800000, guid: 72e473c0a8af4744eabef75ad48ab94c, type: 3}
-          m_Scale: {x: 1, y: 1}
-          m_Offset: {x: 0, y: 0}
+    - _AtmosTex:
+        m_Texture: {fileID: 2800000, guid: 72e473c0a8af4744eabef75ad48ab94c, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _BumpMap:
+        m_Texture: {fileID: 2800000, guid: 93fa7224b9d769d46a38b2d84cbf56d3, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _CloudMap:
+        m_Texture: {fileID: 2800000, guid: 5dd9f26c83341374ba7c5e86a0203c14, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _CloudNormalMap:
+        m_Texture: {fileID: 2800000, guid: 60a760f897b04f3408e575207178938e, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _GroundMap:
+        m_Texture: {fileID: 2800000, guid: c874d1c37ad8a9a42a9a536d6f88b0fe, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _IllumMap:
+        m_Texture: {fileID: 2800000, guid: 104991bd4eca41443915cbb6068d08c7, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _IllumTex:
+        m_Texture: {fileID: 2800000, guid: 3e75551bd233e1e42bd4a3bfe68336a6, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _MainTex:
+        m_Texture: {fileID: 2800000, guid: 1bc46539e21fd964887c224c958f21be, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _NormalMap:
+        m_Texture: {fileID: 2800000, guid: 9311506ec2e15e04f824f96126bb9495, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     m_Floats:
-      data:
-        first:
-          name: _Shininess
-        second: 61.199265
-      data:
-        first:
-          name: _Parallax
-        second: 0.017321428
-      data:
-        first:
-          name: _CityEmissionStrength
-        second: 0.5
-      data:
-        first:
-          name: _CloudAlpha
-        second: 1
-      data:
-        first:
-          name: _Alpha
-        second: 1
-      data:
-        first:
-          name: _EmissionStr
-        second: 0.8214286
+    - _Alpha: 1
+    - _CityEmissionStrength: 0.5
+    - _CloudAlpha: 1
+    - _EmissionStr: 0.8214286
+    - _Parallax: 0.017321428
+    - _Shininess: 61.199265
     m_Colors:
-      data:
-        first:
-          name: _Color
-        second: {r: 1, g: 1, b: 1, a: 1}
-      data:
-        first:
-          name: _SpecularColour
-        second: {r: 1, g: 1, b: 0.8039216, a: 0.44313726}
-      data:
-        first:
-          name: _EmissionColour
-        second: {r: 1, g: 0.8039216, b: 0.3764706, a: 1}
+    - _Color: {r: 1, g: 1, b: 1, a: 1}
+    - _EmissionColour: {r: 1, g: 0.8039216, b: 0.3764706, a: 1}
+    - _SpecularColour: {r: 1, g: 1, b: 0.8039216, a: 0.44313726}

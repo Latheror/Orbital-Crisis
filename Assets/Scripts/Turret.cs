@@ -34,7 +34,7 @@ public class Turret : Building {
     }
 
 
-    public void UpdateTarget()
+    public virtual void UpdateTarget()
     {
         if (GameManager.instance.gameState == GameManager.GameState.Default)
         {
@@ -62,16 +62,13 @@ public class Turret : Building {
 
                     if (nearestEnemy != null)
                     {
-                        if (target != previousTarget)
+                        target = nearestEnemy;
+
+                        if (previousTarget != null && target != previousTarget)
                         {
-                            if (previousTarget != null)
-                            {
-                                previousTarget.GetComponent<Meteor>().ResetMeteorSettings();
-                            }
+                            previousTarget.GetComponent<Meteor>().ResetMeteorSettings();
                             previousTarget = target;
                         }
-
-                        target = nearestEnemy;
                         //Debug.Log("New meteor target set: " + target + " - Distance is: " + shortestDistance);
                     }
                 }
@@ -195,4 +192,7 @@ public class Turret : Building {
 
         }
     }
+
+    public virtual void ResetPreviousTargetSettings() { }
+
 }

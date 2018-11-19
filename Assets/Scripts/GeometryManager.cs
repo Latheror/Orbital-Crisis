@@ -39,6 +39,29 @@ public class GeometryManager : MonoBehaviour {
         return angle;
     }
 
+    public static float GetRadAngleFromGameObject(GameObject obj)
+    {
+        float angle = 0f;
+        float x = obj.transform.position.x;
+        float y = obj.transform.position.y;
+        if (x >= 0)
+        {
+            angle = Mathf.Atan(y / x);
+        }
+        else
+        {
+            if (y >= 0)
+            {
+                angle = Mathf.PI + Mathf.Atan(y / x);
+            }
+            else
+            {
+                angle = Mathf.Atan(y / x) - Mathf.PI;
+            }
+        }
+        return angle;
+    }
+
     public float GetDistanceFromPlanetCenter(Vector3 pos)
     {
         return Vector3.Distance(pos, mainPlanet.transform.position);
@@ -241,6 +264,23 @@ public class GeometryManager : MonoBehaviour {
         bool sameAngle = (Mathf.Abs(GetRadAngleFromXY(pos1.x, pos1.y) - GetRadAngleFromXY(pos2.x, pos2.y)) <= delta);
 
         return sameAngle;
+    }
+
+    public static bool IsObjectLeftToOther(GameObject target_1, GameObject target_2)
+    {
+        float angle1 = GetRadAngleFromGameObject(target_1);
+        float angle2 = GetRadAngleFromGameObject(target_2);
+
+        Debug.Log("Angle1 [" + angle1 + "] | Angle2 [" + angle2 + "]");
+
+        float difference = angle2 - angle1;
+
+        if (difference < -Mathf.PI)
+            difference += Mathf.PI * 2;
+        if (difference > Mathf.PI)
+            difference -= Mathf.PI * 2;
+
+        return (difference < 0.0f);
     }
 
     [Serializable]

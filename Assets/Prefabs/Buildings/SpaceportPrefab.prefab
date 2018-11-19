@@ -558,6 +558,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   buildingType:
+    id: 0
     name: 
     prefab: {fileID: 0}
     resourceCosts: []
@@ -587,10 +588,11 @@ MonoBehaviour:
   hasAngleRange: 1
   angleRange: 3
   rangeIndicatorNbPoints: 10
-  energyConsumption: 10
+  energyConsumption: 100
   buildingSpot: {fileID: 0}
   tags:
   - spaceport
+  maxUpgradeLevelReached: 0
   buildingLocationType: 1
   spawnRadius: 20
   maxSpaceships: 1

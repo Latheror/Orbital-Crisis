@@ -18,7 +18,6 @@ public class LaserTurret : Turret {
 
         buildingLocationType = BuildingLocationType.Planet;
 
-        // Some InvokeRepeating are in the turret class !
         InvokeRepeating("UpdateTarget", 0f, 0.5f);
         InvokeRepeating("LockOnTarget", 0f, 0.1f); 
 	}

@@ -438,6 +438,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   buildingType:
+    id: 0
     name: 
     prefab: {fileID: 0}
     resourceCosts: []
@@ -452,7 +453,7 @@ MonoBehaviour:
     hasRange: 0
     producesEnergy: 0
   buildingName: Freezing Turret
-  buildingColor: {r: 0, g: 0.7271335, b: 1, a: 0}
+  buildingColor: {r: 0, g: 0.7271335, b: 1, a: 1}
   buildingPrefab: {fileID: 0}
   buildingPrice: []
   alocatedEnergy: 10
@@ -470,6 +471,8 @@ MonoBehaviour:
   energyConsumption: 15
   buildingSpot: {fileID: 0}
   tags: []
+  maxUpgradeLevelReached: 0
+  powerOn: 1
   buildingLocationType: 0
   offensiveTurret: 1
   previousTarget: {fileID: 0}
@@ -618,7 +621,7 @@ LineRenderer:
   m_ReflectionProbeUsage: 0
   m_RenderingLayerMask: 4294967295
   m_Materials:
-  - {fileID: 2100000, guid: ef5b1bee5a942dd4183973cd6950276f, type: 2}
+  - {fileID: 10306, guid: 0000000000000000f000000000000000, type: 0}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

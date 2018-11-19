@@ -95,18 +95,27 @@ public class EnergyPanel : MonoBehaviour {
         foreach (GameObject building in BuildingManager.instance.buildingList)
         {
             Building b = building.GetComponent<Building>();
-            if(totalEnergyToDistribute < b.energyConsumption)
+
+            if(b.powerOn)
             {
-                // We don't have enough energy to satisfy this building's needs
-                b.alocatedEnergy = totalEnergyToDistribute;
-                b.hasEnoughEnergy = false;
-                totalEnergyToDistribute = 0;
+                if (totalEnergyToDistribute < b.energyConsumption)
+                {
+                    // We don't have enough energy to satisfy this building's needs
+                    b.alocatedEnergy = totalEnergyToDistribute;
+                    b.hasEnoughEnergy = false;
+                    totalEnergyToDistribute = 0;
+                }
+                else
+                {
+                    b.alocatedEnergy = b.energyConsumption;
+                    b.hasEnoughEnergy = true;
+                    totalEnergyToDistribute -= b.energyConsumption;
+                }
             }
             else
             {
-                b.alocatedEnergy = b.energyConsumption;
-                b.hasEnoughEnergy = true;
-                totalEnergyToDistribute -= b.energyConsumption;
+                b.alocatedEnergy = 0;
+                b.hasEnoughEnergy = false;
             }
         }
     }
@@ -118,14 +127,17 @@ public class EnergyPanel : MonoBehaviour {
 
         foreach (GameObject building in BuildingManager.instance.buildingList)
         {
-            if(building.GetComponent<Building>().buildingType.producesEnergy)   // Produces energy
+            if (building.GetComponent<Building>().powerOn)
             {
-                totalEnergyProduction += building.GetComponent<PowerPlant>().energyProduction;
-            }
-            else    // Consumes energy
-            {
-                TotalEnergyConsumption += building.GetComponent<Building>().energyConsumption;
-            }
+                if (building.GetComponent<Building>().buildingType.producesEnergy)   // Produces energy
+                {
+                    totalEnergyProduction += building.GetComponent<PowerPlant>().energyProduction;
+                }
+                else    // Consumes energy
+                {
+                    TotalEnergyConsumption += building.GetComponent<Building>().energyConsumption;
+                }
+            } 
         }
 
         SetEnergyProduction(totalEnergyProduction);

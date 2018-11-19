@@ -7,8 +7,8 @@ using System;
 public class BuildingManager : MonoBehaviour {
 
     public static BuildingManager instance;
-    void Awake(){ 
-        if (instance != null){ Debug.LogError("More than one BuildingManager in scene !"); return; } instance = this;
+    void Awake() {
+        if (instance != null) { Debug.LogError("More than one BuildingManager in scene !"); return; } instance = this;
     }
 
     public enum BuildingState { Default, BuildingSelected, LocationSelected, BuildingAndLocationSelected, Building }
@@ -39,9 +39,10 @@ public class BuildingManager : MonoBehaviour {
     public GameObject healingTurretPrefab;
     public GameObject spaceportPrefab;
     public GameObject stormSatellitePrefab;
+    public GameObject meteorCrusherPrefab;
 
     void Start()
-    {   
+    {
 
     }
 
@@ -66,7 +67,13 @@ public class BuildingManager : MonoBehaviour {
                        new ResourcesManager.ResourceAmount("electronics", 50),
                     })
                 },
-                true, false
+                true, false,
+                new List<Building.BuildingStat>()
+                {
+                    new Building.BuildingStat(Building.BuildingStat.StatType.damagePower),
+                    new Building.BuildingStat(Building.BuildingStat.StatType.range),
+                    new Building.BuildingStat(Building.BuildingStat.StatType.energyConsumption)
+                }
                 ));
 
         availableBuildings.Add(new BuildingType(2, "Missile Turret", bulletTurretPrefab, 20f, new List<ResourcesManager.ResourceAmount>(){
@@ -83,10 +90,16 @@ public class BuildingManager : MonoBehaviour {
                        new ResourcesManager.ResourceAmount("composite", 50),
                        new ResourcesManager.ResourceAmount("electronics", 50),
                     })},
-                true, false
+                true, false,
+                new List<Building.BuildingStat>()
+                {
+                    new Building.BuildingStat(Building.BuildingStat.StatType.damagePower),
+                    new Building.BuildingStat(Building.BuildingStat.StatType.range),
+                    new Building.BuildingStat(Building.BuildingStat.StatType.energyConsumption)
+                }
                 ));
 
-        availableBuildings.Add(new BuildingType(3, "Freezing Turret", freezingTurretPrefab, 10f, 
+        availableBuildings.Add(new BuildingType(3, "Freezing Turret", freezingTurretPrefab, 10f,
                 new List<ResourcesManager.ResourceAmount>(){
                     new ResourcesManager.ResourceAmount("steel", 40)
                 },
@@ -102,10 +115,16 @@ public class BuildingManager : MonoBehaviour {
                        new ResourcesManager.ResourceAmount("composite", 50),
                        new ResourcesManager.ResourceAmount("electronics", 50),
                     })                },
-                true, false
+                true, false,
+                new List<Building.BuildingStat>()
+                {
+                    new Building.BuildingStat(Building.BuildingStat.StatType.freezingPower),
+                    new Building.BuildingStat(Building.BuildingStat.StatType.range),
+                    new Building.BuildingStat(Building.BuildingStat.StatType.energyConsumption)
+                }
                 ));
 
-        availableBuildings.Add(new BuildingType(4, "Power Plant", powerPlantPrefab, 0f, 
+        availableBuildings.Add(new BuildingType(4, "Power Plant", powerPlantPrefab, 0f,
                 new List<ResourcesManager.ResourceAmount>(){
                     new ResourcesManager.ResourceAmount("steel", 40)
                  },
@@ -121,10 +140,14 @@ public class BuildingManager : MonoBehaviour {
                        new ResourcesManager.ResourceAmount("composite", 50),
                        new ResourcesManager.ResourceAmount("electronics", 50),
                     })                },
-                false, true
+                false, true,
+                new List<Building.BuildingStat>()
+                {
+                    new Building.BuildingStat(Building.BuildingStat.StatType.energyProduction)
+                }
                 ));
 
-        availableBuildings.Add(new BuildingType(5, "Mining Facility", mineBuildingPrefab, 10f, 
+        availableBuildings.Add(new BuildingType(5, "Mining Facility", mineBuildingPrefab, 10f,
                 new List<ResourcesManager.ResourceAmount>(){
                     new ResourcesManager.ResourceAmount("steel", 40)
                 },
@@ -140,18 +163,15 @@ public class BuildingManager : MonoBehaviour {
                        new ResourcesManager.ResourceAmount("composite", 50),
                        new ResourcesManager.ResourceAmount("electronics", 50),
                     })                },
-                false, false
+                false, false,
+                new List<Building.BuildingStat>()
+                {
+                    new Building.BuildingStat(Building.BuildingStat.StatType.miningSpeed),
+                    new Building.BuildingStat(Building.BuildingStat.StatType.energyConsumption)
+                }
                 ));
 
-        /*availableBuildings.Add(new BuildingType("Laser Satellite", laserSatellitePrefab, 10f, new List<ResourcesManager.ResourceAmount>(){
-                                                                                        },
-                                                BuildingType.BuildingLocationType.Disks, "", 3, 3,
-                                                "Satellite firing at nearby ennemies.",
-                new List<ResourcesManager.UpgradeCost>() { },
-                true, false
-                ));
-        */
-        availableBuildings.Add(new BuildingType(6, "Shock Satellite", shockSatellitePrefab, 10f, 
+        availableBuildings.Add(new BuildingType(6, "Shock Satellite", shockSatellitePrefab, 10f,
                 new List<ResourcesManager.ResourceAmount>(){
                     new ResourcesManager.ResourceAmount("steel", 40)
                 },
@@ -167,10 +187,16 @@ public class BuildingManager : MonoBehaviour {
                        new ResourcesManager.ResourceAmount("composite", 50),
                        new ResourcesManager.ResourceAmount("electronics", 50),
                     })                },
-                true, false
+                true, false,
+                new List<Building.BuildingStat>()
+                {
+                    new Building.BuildingStat(Building.BuildingStat.StatType.damagePower),
+                    new Building.BuildingStat(Building.BuildingStat.StatType.range),
+                    new Building.BuildingStat(Building.BuildingStat.StatType.energyConsumption)
+                }
                 ));
 
-        availableBuildings.Add(new BuildingType(7, "Recycling Station", debrisCollectorStationPrefab, 10f, 
+        availableBuildings.Add(new BuildingType(7, "Recycling Station", debrisCollectorStationPrefab, 10f,
                 new List<ResourcesManager.ResourceAmount>(){
                     new ResourcesManager.ResourceAmount("steel", 40)
                 },
@@ -186,10 +212,15 @@ public class BuildingManager : MonoBehaviour {
                        new ResourcesManager.ResourceAmount("composite", 50),
                        new ResourcesManager.ResourceAmount("electronics", 50),
                     })                },
-                true, false
+                true, false,
+                new List<Building.BuildingStat>()
+                {
+                    new Building.BuildingStat(Building.BuildingStat.StatType.range),
+                    new Building.BuildingStat(Building.BuildingStat.StatType.energyConsumption)
+                }
                 ));
 
-        availableBuildings.Add(new BuildingType(8, "Solar Station", satelliteSolarStationPrefab, 0f, 
+        availableBuildings.Add(new BuildingType(8, "Solar Station", satelliteSolarStationPrefab, 0f,
                 new List<ResourcesManager.ResourceAmount>(){
                     new ResourcesManager.ResourceAmount("steel", 40)
                 },
@@ -205,10 +236,14 @@ public class BuildingManager : MonoBehaviour {
                        new ResourcesManager.ResourceAmount("composite", 50),
                        new ResourcesManager.ResourceAmount("electronics", 50),
                     })                },
-                false, true
+                false, true,
+                new List<Building.BuildingStat>()
+                {
+                    new Building.BuildingStat(Building.BuildingStat.StatType.energyProduction)
+                }
                 ));
 
-        availableBuildings.Add(new BuildingType(9, "Healing Turret", healingTurretPrefab, 15f, 
+        availableBuildings.Add(new BuildingType(9, "Healing Turret", healingTurretPrefab, 15f,
                 new List<ResourcesManager.ResourceAmount>(){
                     new ResourcesManager.ResourceAmount("steel", 40)
                 },
@@ -224,7 +259,14 @@ public class BuildingManager : MonoBehaviour {
                                new ResourcesManager.ResourceAmount("composite", 50),
                                new ResourcesManager.ResourceAmount("electronics", 50),
                     })                },
-                true, false
+                true, false,
+                new List<Building.BuildingStat>()
+                {
+                    new Building.BuildingStat(Building.BuildingStat.StatType.healingPower),
+                    new Building.BuildingStat(Building.BuildingStat.StatType.range),
+                    new Building.BuildingStat(Building.BuildingStat.StatType.energyConsumption)
+
+                }
                 ));
 
         availableBuildings.Add(new BuildingType(10, "Spaceport", spaceportPrefab, 15f,
@@ -243,10 +285,14 @@ public class BuildingManager : MonoBehaviour {
                                new ResourcesManager.ResourceAmount("composite", 50),
                                new ResourcesManager.ResourceAmount("electronics", 50),
                             })        },
-                false, false
+                false, false,
+                new List<Building.BuildingStat>()
+                {
+                    new Building.BuildingStat(Building.BuildingStat.StatType.energyConsumption)
+                }
         ));
 
-        availableBuildings.Add(new BuildingType(11, "Storm Satellite", stormSatellitePrefab, 30f, 
+        availableBuildings.Add(new BuildingType(11, "Storm Satellite", stormSatellitePrefab, 30f,
                 new List<ResourcesManager.ResourceAmount>(){
                     new ResourcesManager.ResourceAmount("steel", 40),
                     new ResourcesManager.ResourceAmount("carbon", 20)
@@ -263,7 +309,39 @@ public class BuildingManager : MonoBehaviour {
                                 new ResourcesManager.ResourceAmount("composite", 50),
                                 new ResourcesManager.ResourceAmount("electronics", 50),
                             })        },
-                true, false
+                true, false,
+                new List<Building.BuildingStat>()
+                {
+                    new Building.BuildingStat(Building.BuildingStat.StatType.damagePower),
+                    new Building.BuildingStat(Building.BuildingStat.StatType.range),
+                    new Building.BuildingStat(Building.BuildingStat.StatType.energyConsumption)
+                }
+        ));
+
+        availableBuildings.Add(new BuildingType(11, "Meteor Crusher", meteorCrusherPrefab, 30f,
+                new List<ResourcesManager.ResourceAmount>(){
+                    new ResourcesManager.ResourceAmount("steel", 40),
+                    new ResourcesManager.ResourceAmount("carbon", 20)
+                },
+                BuildingType.BuildingLocationType.Planet, "Turrets/meteor_crusher", 3, 0 /*10*/,
+                "A turret targeting the biggest meteors and crushing them into each other.",
+                new List<ResourcesManager.UpgradeCost>() {
+                            new ResourcesManager.UpgradeCost(2, new List<ResourcesManager.ResourceAmount>(){
+                                new ResourcesManager.ResourceAmount("steel", 120),
+                                new ResourcesManager.ResourceAmount("carbon", 50),
+
+                            }),
+                            new ResourcesManager.UpgradeCost(3, new List<ResourcesManager.ResourceAmount>(){
+                                new ResourcesManager.ResourceAmount("composite", 50),
+                                new ResourcesManager.ResourceAmount("electronics", 50),
+                            })        },
+                true, false,
+                new List<Building.BuildingStat>()
+                {
+                    new Building.BuildingStat(Building.BuildingStat.StatType.damagePower),
+                    new Building.BuildingStat(Building.BuildingStat.StatType.range),
+                    new Building.BuildingStat(Building.BuildingStat.StatType.energyConsumption)
+                }
         ));
     }
 
@@ -305,7 +383,7 @@ public class BuildingManager : MonoBehaviour {
 
     public void CancelButton()
     {
-        if(buildingState == BuildingState.BuildingSelected || buildingState == BuildingState.LocationSelected
+        if (buildingState == BuildingState.BuildingSelected || buildingState == BuildingState.LocationSelected
             || buildingState == BuildingState.BuildingAndLocationSelected)
         {
             buildingState = BuildingState.Default;
@@ -347,12 +425,12 @@ public class BuildingManager : MonoBehaviour {
         GameManager.instance.ChangeSelectionState(GameManager.SelectionState.Default);
     }
 
-    public void ShowCancelButton(){ ShopPanel.instance.ShowCancelButton(); }
-    public void HideCancelButton(){ ShopPanel.instance.HideCancelButton(); }
-    public void ShowBuildButton(){ ShopPanel.instance.ShowBuildButton(); }
-    public void HideBuildButton(){ ShopPanel.instance.HideBuildButton(); }
+    public void ShowCancelButton() { ShopPanel.instance.ShowCancelButton(); }
+    public void HideCancelButton() { ShopPanel.instance.HideCancelButton(); }
+    public void ShowBuildButton() { ShopPanel.instance.ShowBuildButton(); }
+    public void HideBuildButton() { ShopPanel.instance.HideBuildButton(); }
 
-    public void DisplayBuildingPreview(){
+    public void DisplayBuildingPreview() {
         chosenBuildingSlot.GetComponent<BuildingSlot>().SetSelectionColor();
     }
 
@@ -380,22 +458,22 @@ public class BuildingManager : MonoBehaviour {
         float distance = 0;
         Vector3 intersectPointPos = new Vector3(0f, 0f, 0f);
 
-        if (planetPlane.Raycast(ray, out distance)){
-            intersectPointPos = ray.GetPoint(distance); 
+        if (planetPlane.Raycast(ray, out distance)) {
+            intersectPointPos = ray.GetPoint(distance);
         }
 
         return intersectPointPos;
     }
 
     public void SelectBuildingLocation()
-    {   
+    {
         // Chose Building Spot
         chosenBuildingSlot = SelectBuildingSpot();
 
         // Preview
         DisplayBuildingPreview();
 
-        if(buildingState == BuildingState.BuildingSelected)
+        if (buildingState == BuildingState.BuildingSelected)
         {
             buildingState = BuildingState.BuildingAndLocationSelected;
         }
@@ -405,28 +483,28 @@ public class BuildingManager : MonoBehaviour {
         }
 
         //DebugManager.instance.DisplayBuildingState();
-        if((chosenBuildingSlot != null && ResourcesManager.instance.CanPayConstruction(selectedBuilding)))
+        if ((chosenBuildingSlot != null && ResourcesManager.instance.CanPayConstruction(selectedBuilding)))
         {
             ShopPanel.instance.ShowBuildButton();
         }
         else { Debug.LogError("SelectBuildingLocation | Couldn't get chosenBuildingSlot..."); }
-        
+
     }
 
     public GameObject SelectBuildingSpot()
     {
         GameObject buildingSpot = null;
         Vector3 touchPos = TouchManager.instance.lastTouch;
-        Vector3 planeLoc =  GetLocationFromTouchPointOnPlanetPlane(touchPos);
+        Vector3 planeLoc = GetLocationFromTouchPointOnPlanetPlane(touchPos);
 
         BuildingSlotManager.instance.ResetAllBuildingSlotsColor();
         SurroundingAreasManager.instance.ResetAllSatelliteBuildingSlotsColor();
 
-        if(selectedBuilding.buildingLocationType == BuildingType.BuildingLocationType.Planet)
+        if (selectedBuilding.buildingLocationType == BuildingType.BuildingLocationType.Planet)
         {
             buildingSpot = BuildingSlotManager.instance.FindGroundClosestBuildingSlot(planeLoc);
         }
-        else if(selectedBuilding.buildingLocationType == BuildingType.BuildingLocationType.Disks)
+        else if (selectedBuilding.buildingLocationType == BuildingType.BuildingLocationType.Disks)
         {
             buildingSpot = SurroundingAreasManager.instance.FindClosestBuildingSlotInUnlockedDisks(planeLoc);
         }
@@ -438,7 +516,7 @@ public class BuildingManager : MonoBehaviour {
 
     public void BuildBuilding()
     {
-        if(selectedBuilding != null)
+        if (selectedBuilding != null)
         {
             float buildingSpotAngle_rad = chosenBuildingSlot.GetComponent<BuildingSlot>().angleRad;
             float buildingSpotAngle_deg = GeometryManager.RadiansToDegrees(buildingSpotAngle_rad);
@@ -455,7 +533,7 @@ public class BuildingManager : MonoBehaviour {
             instantiatedBuilding.GetComponent<Building>().buildingSpotAngleRad = buildingSpotAngle_rad;
             instantiatedBuilding.GetComponent<Building>().buildingSpotAngleDeg = buildingSpotAngle_deg;
             instantiatedBuilding.GetComponent<Building>().currentTier = 1;
-            instantiatedBuilding.GetComponent<Building>().energyConsumption = selectedBuilding.energyConsumption;
+            //instantiatedBuilding.GetComponent<Building>().energyConsumption = selectedBuilding.energyConsumption;
             instantiatedBuilding.GetComponent<Building>().buildingSpot = chosenBuildingSlot;
             chosenBuildingSlot.GetComponent<BuildingSlot>().SetBuilding(laserTurretPrefab.GetComponent<LaserTurret>());
             instantiatedBuilding.transform.SetParent(chosenBuildingSlot.transform);
@@ -465,16 +543,16 @@ public class BuildingManager : MonoBehaviour {
             EnergyPanel.instance.UpdateEnergyProductionAndConsumption();
 
             // Building type lists
-            if(selectedBuilding.name == "Recycling Station")
+            if (selectedBuilding.name == "Recycling Station")
             {
                 InfrastructureManager.instance.recyclingStationsList.Add(instantiatedBuilding);
             }
-        }     
+        }
     }
 
     public void DeselectSelectedBuildingSlot()
     {
-        if(chosenBuildingSlot.GetComponent<BuildingSlot>().locationType == BuildingType.BuildingLocationType.Planet)    // Planet slot
+        if (chosenBuildingSlot.GetComponent<BuildingSlot>().locationType == BuildingType.BuildingLocationType.Planet)    // Planet slot
         {
             BuildingSlotManager.instance.ResetAllBuildingSlotsColor();
         }
@@ -485,10 +563,10 @@ public class BuildingManager : MonoBehaviour {
 
         chosenBuildingSlot = null;
 
-        if(buildingState == BuildingState.BuildingAndLocationSelected)
+        if (buildingState == BuildingState.BuildingAndLocationSelected)
         {
             buildingState = BuildingState.BuildingSelected;
-        }else if(buildingState == BuildingState.BuildingSelected)
+        } else if (buildingState == BuildingState.BuildingSelected)
         {
             buildingState = BuildingState.Default;
         }
@@ -514,7 +592,7 @@ public class BuildingManager : MonoBehaviour {
         BuildingType bType = null;
         foreach (BuildingType b in availableBuildings)
         {
-            if(b.id == id)
+            if (b.id == id)
             {
                 bType = b;
                 break;
@@ -557,7 +635,7 @@ public class BuildingManager : MonoBehaviour {
             InfrastructureManager.instance.recyclingStationsList.Add(instantiatedBuilding);
         }
 
-        if(tier > 1)
+        if (tier > 1)
         {
             instantiatedBuilding.GetComponent<Building>().UpgradeToTier(tier);
         }
@@ -566,7 +644,7 @@ public class BuildingManager : MonoBehaviour {
     public UnlockedBuildingData[] BuildUnlockedBuildingsData()
     {
         UnlockedBuildingData[] unlockedBuildingsData = new UnlockedBuildingData[availableBuildings.Count];
-        for(int i=0; i<availableBuildings.Count; i++)
+        for (int i = 0; i < availableBuildings.Count; i++)
         {
             unlockedBuildingsData[i] = new UnlockedBuildingData(availableBuildings[i].id, availableBuildings[i].isUnlocked);
         }
@@ -577,12 +655,12 @@ public class BuildingManager : MonoBehaviour {
     {
         foreach (UnlockedBuildingData unlockedBuildingData in unlockedBuildingsData)
         {
-            if(unlockedBuildingData.isUnlocked)
+            if (unlockedBuildingData.isUnlocked)
             {
                 Debug.Log("ApplyUnlockedBuildingsData | Building [" + unlockedBuildingData.buildingIndex + "] was previously unlocked.");
                 UnlockBuildingType(GetBuildingTypeByID(unlockedBuildingData.buildingIndex));
             }
-        }        
+        }
     }
 
 
@@ -590,7 +668,7 @@ public class BuildingManager : MonoBehaviour {
     public void TestBuildButton()
     {
         //Debug.Log("Test Build Button.");
-        if(buildingState == BuildingState.Default)
+        if (buildingState == BuildingState.Default)
         {
             buildingState = BuildingState.Building;
             //Debug.Log("Entering Building State.");
@@ -605,7 +683,7 @@ public class BuildingManager : MonoBehaviour {
         public GameObject prefab;
         public List<ResourcesManager.ResourceAmount> resourceCosts;
         public float energyConsumption = 0;
-        public enum BuildingLocationType {Planet, Disks};
+        public enum BuildingLocationType { Planet, Disks };
         public BuildingLocationType buildingLocationType;
         public Sprite buildingImage;
         public int maxTier = 3;
@@ -615,8 +693,9 @@ public class BuildingManager : MonoBehaviour {
         public List<ResourcesManager.UpgradeCost> upgradeCosts;
         public bool hasRange;
         public bool producesEnergy;
+        public List<Building.BuildingStat> stats;
 
-        public BuildingType(int id, string name, GameObject prefab, float energyConsumption, List<ResourcesManager.ResourceAmount> cost, BuildingLocationType buildingLocationType, string imageName, int maxTier, int unlockedAtLevelNb, string description, List<ResourcesManager.UpgradeCost> upgradeCosts, bool hasRange, bool producesEnergy)
+        public BuildingType(int id, string name, GameObject prefab, float energyConsumption, List<ResourcesManager.ResourceAmount> cost, BuildingLocationType buildingLocationType, string imageName, int maxTier, int unlockedAtLevelNb, string description, List<ResourcesManager.UpgradeCost> upgradeCosts, bool hasRange, bool producesEnergy, List<Building.BuildingStat> stats)
         {
             this.id = id;
             this.name = name;
@@ -632,6 +711,7 @@ public class BuildingManager : MonoBehaviour {
             this.upgradeCosts = upgradeCosts;
             this.hasRange = hasRange;
             this.producesEnergy = producesEnergy;
+            this.stats = stats;
         }
 
         public List<ResourcesManager.ResourceAmount> GetUpgradeCostsForTierNb(int tierNb)
@@ -639,7 +719,7 @@ public class BuildingManager : MonoBehaviour {
             List<ResourcesManager.ResourceAmount> costs = new List<ResourcesManager.ResourceAmount>();
             foreach (ResourcesManager.UpgradeCost upgradeCost in upgradeCosts)
             {
-                if(upgradeCost.tierIndex == tierNb) // Matching tier nb
+                if (upgradeCost.tierIndex == tierNb) // Matching tier nb
                 {
                     Debug.Log("Found matching UpgradeCostList");
                     costs = upgradeCost.resourceCosts;
