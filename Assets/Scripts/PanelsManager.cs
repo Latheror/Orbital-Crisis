@@ -21,6 +21,11 @@ public class PanelsManager : MonoBehaviour {
 
     public void SwitchFromControlsToShopPanel()
     {
+        // Tutorial indicator //
+        TutorialManager.instance.DisplayIndicator(1, false);
+        TutorialManager.instance.DisplayIndicatorIfNotDisplayedYet(2);
+        // ------------------ //
+
         defaultBottomPanel.SetActive(false);
         shopPanel.SetActive(true);
     }

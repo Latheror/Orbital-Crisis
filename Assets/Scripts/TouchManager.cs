@@ -13,6 +13,7 @@ public class TouchManager : MonoBehaviour {
     public float minFieldOfView = 20;
     public float maxFieldOfView = 100;
     public float avoidPanelsMargin = 10f;
+    public float moveCameraSpeed = .5f;
 
     [Header("UI")]
     public GameObject topPanel;
@@ -131,8 +132,10 @@ public class TouchManager : MonoBehaviour {
                         }
                         else
                         {
+                            // Move screen verticaly / horizontaly
+                            Vector2 touchDeltaPosition = Input.GetTouch(0).deltaPosition;
 
-                            
+                            Camera.main.transform.Translate(-touchDeltaPosition.x * moveCameraSpeed, -touchDeltaPosition.y * moveCameraSpeed, 0f);
                         }
                     }
                 }

@@ -179,4 +179,13 @@ public class Meteor : MonoBehaviour {
         currentApproachSpeed = baseApproachSpeed * appSpeedFactor;
         currentRotationSpeed = baseRotationSpeed * rotSpeedFactor;
     }
+
+    public void SetPartialSpeedsWithMax(float approachSpeedFactor, float approachSpeedMax, float rotationSpeedFactor, float rotationSpeedMax)
+    {
+        float appSpeedFactor = Mathf.Clamp(approachSpeedFactor, 0, 1);
+        float rotSpeedFactor = Mathf.Clamp(rotationSpeedFactor, 0, 1);
+
+        currentApproachSpeed = Mathf.Min(baseApproachSpeed * appSpeedFactor, approachSpeedMax);
+        currentRotationSpeed = Mathf.Min(baseRotationSpeed * rotSpeedFactor, rotationSpeedMax);
+    }
 }

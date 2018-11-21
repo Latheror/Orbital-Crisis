@@ -52,7 +52,6 @@ public class ResourcesManager : MonoBehaviour {
         {
             ResourceAmount newResourceAmount = new ResourceAmount(rType, rType.startAmount);
             currentResourceAmounts.Add(newResourceAmount);
-            rType.currentResourceAmount = newResourceAmount;
         }
     }
 
@@ -81,7 +80,7 @@ public class ResourcesManager : MonoBehaviour {
             instantiatedResourceIndicator.GetComponent<ResourceIndicator>().SetParameters(resource);
 
             resource.resourceIndicator = instantiatedResourceIndicator;
-            instantiatedResourceIndicator.GetComponent<ResourceIndicator>().resourceAmount = resource.currentResourceAmount;
+            instantiatedResourceIndicator.GetComponent<ResourceIndicator>().resourceAmount = GetResourceFromCurrentList(resource);
         }
     }
 
@@ -233,8 +232,8 @@ public class ResourcesManager : MonoBehaviour {
         ResourceData[] resourcesData = new ResourceData[availableResources.Count];
         for(int i=0; i<availableResources.Count; i++)
         {
-            resourcesData[i] = new ResourceData(availableResources[i].id, availableResources[i].currentResourceAmount.amount);
-            Debug.Log("BuildResourcesData | ID [" + availableResources[i].id + "] | Amount [" + availableResources[i].currentResourceAmount.amount + "]");
+            resourcesData[i] = new ResourceData(availableResources[i].id, currentResourceAmounts[i].amount);
+            Debug.Log("BuildResourcesData | ID [" + availableResources[i].id + "] | Amount [" + currentResourceAmounts[i].amount + "]");
         }
         return resourcesData;
     }
@@ -269,7 +268,7 @@ public class ResourcesManager : MonoBehaviour {
     }
 
 
-    [System.Serializable]
+    //[System.Serializable]
     public class Resource
     {
         public ResourceType resourceType;
@@ -283,7 +282,6 @@ public class ResourcesManager : MonoBehaviour {
         public string resourceName;
         public Color color;
         public int startAmount;
-        public ResourceAmount currentResourceAmount;
         public GameObject resourceIndicator;
         public Sprite resourceImage;
 

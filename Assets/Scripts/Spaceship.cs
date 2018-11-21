@@ -41,6 +41,9 @@ public class Spaceship : MonoBehaviour {
     public float firePeriod = 1f;
     public float laserSpatialLength = 10f;
     public float damagePower = 20;
+    public bool isUnderAttack = false;
+    public float isUnderAttackTimer = 0f;
+    public float isUnderAttackCoolDown = 3f;
 
     [Header("UI")]
     //public GameObject infoPanel;
@@ -48,8 +51,10 @@ public class Spaceship : MonoBehaviour {
     //public GameObject infoPanelModeButton;
     public GameObject healthBarPanel;
     public GameObject healthPointsBar;
+    public GameObject healthPointsBarBack;
     public GameObject shieldBarPanel;
     public GameObject shieldPointsBar;
+    public GameObject shieldPointsBarBack;
     //public Color infoPanelAutoModeColor = Color.green;
     //public Color infoPanelManualModeColor = Color.red;
 
@@ -212,6 +217,11 @@ public class Spaceship : MonoBehaviour {
         {
             DestroySpaceship();
         }
+        else
+        {
+            StopCoroutine(UnderAttackTimerCoroutine(0f));
+            StartCoroutine(UnderAttackTimerCoroutine(isUnderAttackCoolDown));
+        }
     }
 
     public void Heal(float healingPower)
@@ -225,12 +235,12 @@ public class Spaceship : MonoBehaviour {
     {
         if(healthBarPanel != null && healthPointsBar != null)
         {
-            float healthBarPanelWidth = healthBarPanel.GetComponent<RectTransform>().rect.width;
+            float healthBarBackPanelWidth = healthPointsBarBack.GetComponent<RectTransform>().rect.width;
 
             float healthRatio = healthPoints / maxHealth;
 
             RectTransform healthPointsBarRectTransform = healthPointsBar.GetComponent<RectTransform>();
-            healthPointsBarRectTransform.sizeDelta = new Vector2(healthBarPanelWidth * healthRatio, healthPointsBarRectTransform.sizeDelta.y);
+            healthPointsBarRectTransform.sizeDelta = new Vector2(healthBarBackPanelWidth * healthRatio, healthPointsBarRectTransform.sizeDelta.y);
         }
     }
 
@@ -238,12 +248,14 @@ public class Spaceship : MonoBehaviour {
     {
         if (shieldBarPanel != null && shieldPointsBar != null)
         {
-            float shieldBarPanelWidth = shieldBarPanel.GetComponent<RectTransform>().rect.width;
+            float shieldBarBackPanelWidth = shieldPointsBarBack.GetComponent<RectTransform>().rect.width;
 
             float shieldRatio = shieldPoints / maxShield;
 
+            Debug.Log("Shield Ratio: " + shieldRatio);
+
             RectTransform shieldPointsBarRectTransform = shieldPointsBar.GetComponent<RectTransform>();
-            shieldPointsBarRectTransform.sizeDelta = new Vector2(shieldBarPanelWidth * shieldRatio, shieldPointsBarRectTransform.sizeDelta.y);
+            shieldPointsBarRectTransform.sizeDelta = new Vector2(shieldBarBackPanelWidth * shieldRatio, shieldPointsBarRectTransform.sizeDelta.y);
         }
     }
 
@@ -360,7 +372,7 @@ public class Spaceship : MonoBehaviour {
     public void RegenerateShield()
     {
         //Debug.Log("RegenerateShield");
-        if(shieldPoints < maxShield)
+        if(!isUnderAttack && shieldPoints < maxShield)
         {
             IncreaseShieldPoints(shieldRegenerationAmount);
         }
@@ -372,5 +384,18 @@ public class Spaceship : MonoBehaviour {
         DecreaseShieldPoints(amount);
         float shieldPointsAfter = shieldPoints;
         return (shieldPointsBefore - shieldPointsAfter);
+    }
+
+    public IEnumerator UnderAttackTimerCoroutine(float coolDownTime)
+    {
+        isUnderAttack = true;
+        isUnderAttackTimer = coolDownTime;
+        while(isUnderAttackTimer > 0f)
+        {
+            isUnderAttackTimer -= Time.deltaTime;
+            yield return null;
+        }
+        isUnderAttack = false;
+        yield return null;
     }
 }

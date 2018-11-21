@@ -49,7 +49,7 @@ public class MineBuilding : Building {
         {
             if (hasEnoughEnergy)
             {
-                if(productionCooldownElapsed)
+                if(!LevelManager.instance.currentLevelFinished && productionCooldownElapsed)
                 {
                     foreach (var productionUnit in production)
                     {

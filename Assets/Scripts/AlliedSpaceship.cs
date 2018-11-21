@@ -194,7 +194,8 @@ public class AlliedSpaceship : Spaceship {
             }
             else  // Manual Mode
             {
-                if(IsCloseEnoughToDestination() && IsTargetInRange() && pulseFinished)
+                Debug.Log("AttackTarget, manual mode | IsCloseEnoughToDestination [" + IsCloseEnoughToDestination() + "] | IsTargetInRange [" + IsTargetInRange() + "]");
+                if (IsCloseEnoughToDestination() && IsTargetInRange() && pulseFinished)
                 {
                     StartCoroutine(FireLasersRoutine());
                 }

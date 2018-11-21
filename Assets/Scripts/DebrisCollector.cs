@@ -33,7 +33,7 @@ public class DebrisCollector : MonoBehaviour {
 
     public void UpdateTarget()
     {
-        if (GameManager.instance.gameState == GameManager.GameState.Default && !debrisIsBeingCollected)
+        if (GameManager.instance.gameState == GameManager.GameState.Default && !debrisIsBeingCollected && homeStation.GetComponent<DebrisCollectorStation>().hasEnoughEnergy)
         {
             //Debug.Log("Debris collector | Update Target. No target. | A total of " + DebrisManager.instance.debrisList.Count + " meteors are available.");
             if (DebrisManager.instance.debrisList.Count > 0 || EnemiesManager.instance.enemyWrecks.Count > 0)
@@ -101,7 +101,7 @@ public class DebrisCollector : MonoBehaviour {
         if (!debrisIsBeingCollected)
         {
             LineRenderer lineRenderer = gameObject.GetComponent<LineRenderer>();
-            if ((debrisTarget != null) && (GetDistanceBetweenTargetAndHomeStation() < homeStation.GetComponent<DebrisCollectorStation>().range))
+            if ((debrisTarget != null) && (GetDistanceBetweenTargetAndHomeStation() < homeStation.GetComponent<DebrisCollectorStation>().range) && homeStation.GetComponent<DebrisCollectorStation>().hasEnoughEnergy)
             {
                 if (DistanceToTarget() > operationDistance)
                 {

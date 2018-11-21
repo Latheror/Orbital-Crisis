@@ -33,6 +33,11 @@ public class BuildingShopItem : MonoBehaviour {
 
     public void BuildingShopItemClicked()
     {
+        // Tutorial indicator //
+        TutorialManager.instance.DisplayIndicator(2, false);
+        TutorialManager.instance.DisplayIndicatorIfNotDisplayedYet(3);
+        // ------------------ //
+
         //Debug.Log("Building Shop Item Clicked !");
         ShopPanel.instance.ResetLastShopItemSelected();
         BuildingManager.instance.SelectBuilding(buildingType);

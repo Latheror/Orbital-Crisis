@@ -78,6 +78,6 @@ public class BuildingsUnlockedPanel : MonoBehaviour {
     {
         DisplayPanel(false);
         GameManager.instance.gameState = GameManager.GameState.Default;
-        LevelManager.instance.ResumeNewLevelActionsAfterNewBuildingInfoDisplay();
+        //LevelManager.instance.ResumeNewLevelActionsAfterNewBuildingInfoDisplay();
     }
 }

@@ -52,7 +52,7 @@ public class MeteorCrusher : Turret
 
     override public void UpdateTarget()
     {
-        Debug.Log("UpdateTarget");
+        //Debug.Log("UpdateTarget");
         if (GameManager.instance.gameState == GameManager.GameState.Default)
         {
             if (!targets_set)
@@ -87,7 +87,7 @@ public class MeteorCrusher : Turret
 
                     if (biggestEnemy_1 != null)
                     {
-                        Debug.Log("MeteorCrusher found 1 target !");
+                        //Debug.Log("MeteorCrusher found 1 target !");
                         target_1 = biggestEnemy_1;
 
                         // Select second biggest meteor
@@ -111,8 +111,8 @@ public class MeteorCrusher : Turret
 
                             targets_set = true;
 
-                            Debug.Log("MeteorCrusher found 2 targets !");
-                            Debug.Log("Target_1 size [" + target_1.GetComponent<Meteor>().size + "] | Target_2 size [" + target_2.GetComponent<Meteor>().size + "]");
+                            //Debug.Log("MeteorCrusher found 2 targets !");
+                            //Debug.Log("Target_1 size [" + target_1.GetComponent<Meteor>().size + "] | Target_2 size [" + target_2.GetComponent<Meteor>().size + "]");
                         }
 
                     }
@@ -180,7 +180,7 @@ public class MeteorCrusher : Turret
 
         if (GeometryManager.IsObjectLeftToOther(target_1, target_2))
         {
-            Debug.Log("First meteor is left, Second is right");
+            //Debug.Log("First meteor is left, Second is right");
             lr_1.SetPosition(1, target_1.transform.position);
             lr_2.SetPosition(1, target_2.transform.position);
 
@@ -192,7 +192,7 @@ public class MeteorCrusher : Turret
         }
         else
         {
-            Debug.Log("First meteor is right, Second is left");
+            //Debug.Log("First meteor is right, Second is left");
             lr_1.SetPosition(1, target_2.transform.position);
             lr_2.SetPosition(1, target_1.transform.position);
 
@@ -225,8 +225,11 @@ public class MeteorCrusher : Turret
 
     public void ReduceTargetsSpeed()
     {
-        target_1.GetComponent<Meteor>().SetPartialSpeeds(.2f,.2f);
-        target_2.GetComponent<Meteor>().SetPartialSpeeds(.2f, .2f);
+        //target_1.GetComponent<Meteor>().SetPartialSpeeds(.2f,.2f);
+        //target_2.GetComponent<Meteor>().SetPartialSpeeds(.2f, .2f);
+
+        target_1.GetComponent<Meteor>().SetPartialSpeedsWithMax(.2f, meteorApproachSpeed/4, .2f, meteorApproachSpeed/4);
+        target_2.GetComponent<Meteor>().SetPartialSpeedsWithMax(.2f, meteorApproachSpeed/4, .2f, meteorApproachSpeed/4);
     }
 
     public void Crush()
@@ -236,7 +239,7 @@ public class MeteorCrusher : Turret
         target_2.transform.position = Vector3.MoveTowards(target_2.transform.position, target_1.transform.position, step);
 
         float distance = Vector3.Distance(target_1.transform.position, target_2.transform.position);
-        Debug.Log("Distance: " + distance);
+        //Debug.Log("Distance: " + distance);
         if (distance < 10f)
         {
             target_1.GetComponent<Meteor>().DealDamage(200);
