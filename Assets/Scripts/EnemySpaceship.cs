@@ -13,7 +13,7 @@ public class EnemySpaceship : Spaceship {
     }
 
     // Update is called once per frame
-    void Update () {
+    void FixedUpdate () {
         if (GameManager.instance.gameState == GameManager.GameState.Default)
         {
             HandleMovements();
@@ -28,23 +28,27 @@ public class EnemySpaceship : Spaceship {
         if (isActivated)
         {
             float minDist = Mathf.Infinity;
+            GameObject closestTarget = null;
 
             foreach (GameObject alliedSpaceship in SpaceshipManager.instance.alliedSpaceships)
             {
                 float dist = Vector3.Distance(transform.position, alliedSpaceship.transform.position);
                 if ((dist < minDist) && (alliedSpaceship.GetComponent<Spaceship>().isActivated))
                 {
-                    target = alliedSpaceship;
+                    minDist = dist;
+                    closestTarget = alliedSpaceship;
                 }
             }
 
-            if(target != null)
+            if(closestTarget != null)
             {
+                target = closestTarget;
                 //Debug.Log("Ennemy target | Target set");
             }
             else
             {
-
+                // No target found
+                //RotateAroundPlanet();
             }
         }
     }

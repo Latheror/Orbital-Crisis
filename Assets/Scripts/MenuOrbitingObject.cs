@@ -19,7 +19,7 @@ public class MenuOrbitingObject : MonoBehaviour {
     }
 	
 	// Update is called once per frame
-	void Update()
+	void FixedUpdate()
     {
         RotateAroundPlanet();
     }

@@ -25,16 +25,6 @@ public class SpaceshipInfoPanel : MonoBehaviour {
     public Color autoModeColor = Color.green;
     public Color manualModeColor = Color.red;
 
-    // Use this for initialization
-    void Start () {
-		
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
-
     void SetHealthText(int healthPoints, int maxHealthPoints)
     {
         Debug.Log("SetHealthText: " + healthPoints + " / " + maxHealthPoints);

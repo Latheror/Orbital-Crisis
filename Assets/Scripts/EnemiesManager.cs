@@ -18,19 +18,48 @@ public class EnemiesManager : MonoBehaviour {
     [Header("Operation")]
     public List<GameObject> enemies;
     public List<GameObject> enemyWrecks;
+    public GameObject selectedEnemy;
+    public GameObject previouslySelectedEnemy;
 
     [Header("Enemies")]
-    public GameObject ennemySpaceship_1;
+    public GameObject enemySpaceship_1;
 
 
 
-    // Use this for initialization
-    void Start () {
-		
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
+    public void EnemyTouched(GameObject enemyGO)
+    {
+        if(selectedEnemy != null && selectedEnemy != enemyGO)
+        {
+            previouslySelectedEnemy = selectedEnemy;
+            // Old selected enemy was an Enemy Spaceship
+            if (previouslySelectedEnemy.GetComponent<EnemySpaceship>() != null)
+            {
+                previouslySelectedEnemy.GetComponent<EnemySpaceship>().selected = false;
+            }
+        }
+
+        selectedEnemy = enemyGO;
+
+        // Enemy Spaceship
+        if(enemyGO.GetComponent<EnemySpaceship>() != null)
+        {
+            enemyGO.GetComponent<EnemySpaceship>().selected = true;
+        }
+
+        GameManager.instance.ChangeSelectionState(GameManager.SelectionState.EnemySelected);
+
+        EnemyInfoPanel.instance.DisplayPanel(true);
+        EnemyInfoPanel.instance.UpdateInfo();
+
+        if(previouslySelectedEnemy != null)
+        {
+
+        }
+    }
+
+    public void DeselectEnemy()
+    {
+        selectedEnemy = null;
+        EnemyInfoPanel.instance.DisplayPanel(false);
+    }
 }

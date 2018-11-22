@@ -2,7 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TouchManager : MonoBehaviour {
+public class TouchManager : MonoBehaviour
+{
 
     [Header("World")]
     public new Camera camera;
@@ -23,17 +24,21 @@ public class TouchManager : MonoBehaviour {
     public Vector3 lastTouch;
 
     public static TouchManager instance;
-    void Awake(){ 
-        if (instance != null){ Debug.LogError("More than one TouchManager in scene !"); return; } instance = this;
+    void Awake()
+    {
+        if (instance != null) { Debug.LogError("More than one TouchManager in scene !"); return; }
+        instance = this;
     }
 
-	// Use this for initialization
-	void Start () {
+    // Use this for initialization
+    void Start()
+    {
         camera = Camera.main;
-	}
-	
-	// Update is called once per frame
-	void Update () {
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
 
         // Debug.Log("TouchCount :" + Input.touchCount);
 
@@ -85,31 +90,38 @@ public class TouchManager : MonoBehaviour {
                                 switch (hit.collider.gameObject.tag)
                                 {
                                     case ("meteor"):
-                                        {
-                                            //Debug.Log("Touched a meteor !");
-                                            //hit.collider.gameObject.GetComponent<Meteor>().TouchedByPlayer();
-                                            break;
-                                        }
+                                    {
+                                        //Debug.Log("Touched a meteor !");
+                                        //hit.collider.gameObject.GetComponent<Meteor>().TouchedByPlayer();
+                                        break;
+                                    }
                                     case ("meteorColliderHolder"):
-                                        {
-                                            //Debug.Log("Touched a meteor collider holder !");
-                                            hit.collider.gameObject.transform.parent.GetComponent<Meteor>().TouchedByPlayer();
-                                            break;
-                                        }
+                                    {
+                                        //Debug.Log("Touched a meteor collider holder !");
+                                        hit.collider.gameObject.transform.parent.GetComponent<Meteor>().TouchedByPlayer();
+                                        break;
+                                    }
                                     case ("spaceship"):
-                                        {
-                                            //Debug.Log("Touched a spaceship !");
-                                            hit.collider.gameObject.GetComponent<Spaceship>().Select(true);
-                                            otherPriorityElementTouched = true;
-                                            break;
-                                        }
+                                    {
+                                        //Debug.Log("Touched a spaceship !");
+                                        hit.collider.gameObject.GetComponent<Spaceship>().Select(true);
+                                        otherPriorityElementTouched = true;
+                                        break;
+                                    }
                                     case ("building"):
-                                        {
-                                            //Debug.Log("Touched a building !");
-                                            InfrastructureManager.instance.BuildingTouched(hit.collider.gameObject);
-                                            otherPriorityElementTouched = true;
-                                            break;
-                                        }
+                                    {
+                                        //Debug.Log("Touched a building !");
+                                        InfrastructureManager.instance.BuildingTouched(hit.collider.gameObject);
+                                        otherPriorityElementTouched = true;
+                                        break;
+                                    }
+                                    case ("enemy"):
+                                    {
+                                        //Debug.Log("Touched an enemy !");
+                                        EnemiesManager.instance.EnemyTouched(hit.collider.gameObject);
+                                        otherPriorityElementTouched = true;
+                                        break;
+                                    }
                                 }
                             }
                         }
@@ -123,7 +135,7 @@ public class TouchManager : MonoBehaviour {
                                     Vector3 touchedPos = GeometryManager.instance.GetLocationFromTouchPointOnPlanetPlane(lastTouch);
 
                                     //Debug.Log("Setting Manual Destination | DestPos: " + destPos);
-                                    if(!GeometryManager.PosWithinPlanetArea(touchedPos))
+                                    if (!GeometryManager.PosWithinPlanetArea(touchedPos))
                                     {
                                         SpaceshipManager.instance.selectedSpaceship.GetComponent<Spaceship>().SetManualDestination(touchedPos);
                                     }
@@ -189,9 +201,9 @@ public class TouchManager : MonoBehaviour {
         //Debug.Log("TopPanel Height: " + topPanel.GetComponent<RectTransform>().sizeDelta.y);
         //Debug.Log("BottomPanel Height: " + bottomPanel.GetComponent<RectTransform>().sizeDelta.y);
         //Debug.Log("Screen Hight: " + Screen.height);
-        betweenTopAndBottomPanels = (((touchPos.y) >= bottomPanel.GetComponent<RectTransform>().sizeDelta.y + avoidPanelsMargin)) && ((touchPos.y) <= (Screen.height - topPanel.GetComponent<RectTransform>().sizeDelta.y - avoidPanelsMargin));
+        betweenTopAndBottomPanels = (((touchPos.y) >= bottomPanel.GetComponent<RectTransform>().rect.height + avoidPanelsMargin)) && ((touchPos.y) <= (Screen.height - topPanel.GetComponent<RectTransform>().rect.height - avoidPanelsMargin));
         //Debug.Log("Within Game Area : " + withinGameArea);
-        avoidsRightPanel = ((touchPos.x) <= (Screen.width - (-2*InfoPanel.instance.GetComponent<RectTransform>().rect.x)));
+        avoidsRightPanel = ((touchPos.x) <= (Screen.width - (-2 * InfoPanel.instance.GetComponent<RectTransform>().rect.x)));
 
         //Debug.Log("xTouch: " + touchPos.x + " | Screen width: " + Screen.width + " | InfoPanel deltaX: " + InfoPanel.instance.GetComponent<RectTransform>().rect.x);
 

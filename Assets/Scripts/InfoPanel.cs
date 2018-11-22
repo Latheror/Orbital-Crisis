@@ -16,6 +16,7 @@ public class InfoPanel : MonoBehaviour {
 
     public GameObject spaceshipInfoPanel;
     public GameObject buildingInfoPanel;
+    public GameObject enemyInfoPanel;
 
     // Use this for initialization
     void Start () {

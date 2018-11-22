@@ -23,6 +23,7 @@ public class Spaceship : MonoBehaviour {
     [Header("Movement")]
     public float movementSpeed = 100f;
     public float rotationSpeed = 50f;
+    public float idleRotationSpeed = 5f;
     public Vector3 manualDestination;
     public bool manualDestinationReached = false;
     public float manualDestinationDelta = 20f;
@@ -68,7 +69,8 @@ public class Spaceship : MonoBehaviour {
         isInAutomaticMode = true;
         //infoPanel.SetActive(false);
         SetStartingMode();
-	}
+        DisableShootingPoints();
+    }
 	
 	// Update is called once per frame
 	void Update () {
@@ -119,6 +121,11 @@ public class Spaceship : MonoBehaviour {
         float rotationStep = rotationSpeed * Time.deltaTime;
         Vector3 newDir = Vector3.RotateTowards(transform.forward, destDir, rotationStep, 0.0f);
         transform.rotation = Quaternion.LookRotation(newDir);
+    }
+
+    protected void RotateAroundPlanet()
+    {
+        transform.RotateAround(GameManager.instance.mainPlanet.transform.position, Vector3.forward, Time.deltaTime * idleRotationSpeed);
     }
 
     protected IEnumerator FireLasersRoutine()
@@ -252,7 +259,7 @@ public class Spaceship : MonoBehaviour {
 
             float shieldRatio = shieldPoints / maxShield;
 
-            Debug.Log("Shield Ratio: " + shieldRatio);
+            //Debug.Log("Shield Ratio: " + shieldRatio);
 
             RectTransform shieldPointsBarRectTransform = shieldPointsBar.GetComponent<RectTransform>();
             shieldPointsBarRectTransform.sizeDelta = new Vector2(shieldBarBackPanelWidth * shieldRatio, shieldPointsBarRectTransform.sizeDelta.y);
@@ -341,32 +348,48 @@ public class Spaceship : MonoBehaviour {
         SpaceshipInfoPanel.instance.UpdateModeDisplay();
     }
 
+    public void UpdateInfoPanels()
+    {
+        // Allied spaceship
+        if(isAllied)
+        {
+            SpaceshipInfoPanel.instance.UpdateInfo();
+        }
+        else  // Enemy Spaceship
+        {
+            if(selected)
+            {
+                EnemyInfoPanel.instance.UpdateInfo();
+            }
+        }
+    }
+
     public void DecreaseHealthPoints(float amount)
     {
         healthPoints = Mathf.Max(0f, healthPoints - amount);
         UpdateHealthBar();
-        SpaceshipInfoPanel.instance.UpdateInfo();
+        UpdateInfoPanels();
     }
 
     public void IncreaseHealthPoints(float amount)
     {
         healthPoints = Mathf.Min(maxHealth, healthPoints + amount);
         UpdateHealthBar();
-        SpaceshipInfoPanel.instance.UpdateInfo();
+        UpdateInfoPanels();
     }
 
     public void DecreaseShieldPoints(float amount)
     {
         shieldPoints = Mathf.Max(0f, shieldPoints - amount);
         UpdateShieldBar();
-        SpaceshipInfoPanel.instance.UpdateInfo();
+        UpdateInfoPanels();
     }
 
     public void IncreaseShieldPoints(float amount)
     {
         shieldPoints = Mathf.Min(maxShield, shieldPoints + amount);
         UpdateShieldBar();
-        SpaceshipInfoPanel.instance.UpdateInfo();
+        UpdateInfoPanels();
     }
 
     public void RegenerateShield()
@@ -397,5 +420,13 @@ public class Spaceship : MonoBehaviour {
         }
         isUnderAttack = false;
         yield return null;
+    }
+
+    public void DisableShootingPoints()
+    {
+        foreach (GameObject shootingPoint in shootingPoints)
+        {
+            shootingPoint.GetComponent<LineRenderer>().enabled = false;
+        }
     }
 }

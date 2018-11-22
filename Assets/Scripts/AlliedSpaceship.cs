@@ -18,7 +18,7 @@ public class AlliedSpaceship : Spaceship {
     }
 
     // Update is called once per frame
-    void Update () {
+    void FixedUpdate () {
         if (GameManager.instance.gameState == GameManager.GameState.Default)
         {
             UpdateTarget();
@@ -194,7 +194,7 @@ public class AlliedSpaceship : Spaceship {
             }
             else  // Manual Mode
             {
-                Debug.Log("AttackTarget, manual mode | IsCloseEnoughToDestination [" + IsCloseEnoughToDestination() + "] | IsTargetInRange [" + IsTargetInRange() + "]");
+                //Debug.Log("AttackTarget, manual mode | IsCloseEnoughToDestination [" + IsCloseEnoughToDestination() + "] | IsTargetInRange [" + IsTargetInRange() + "]");
                 if (IsCloseEnoughToDestination() && IsTargetInRange() && pulseFinished)
                 {
                     StartCoroutine(FireLasersRoutine());

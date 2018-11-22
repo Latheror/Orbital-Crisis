@@ -35,7 +35,7 @@ public class Meteor : MonoBehaviour {
 	}
 	
 	// Update is called once per frame
-	void Update () {
+	void FixedUpdate () {
         if (GameManager.instance != null && GameManager.instance.gameState == GameManager.GameState.Default)
         {
             ExecuteMovements();
@@ -141,7 +141,7 @@ public class Meteor : MonoBehaviour {
 
     public void ResetMeteorSettings()
     {
-        Debug.Log("ResetMeteorSettings");
+        //Debug.Log("ResetMeteorSettings");
         currentApproachSpeed = baseApproachSpeed;
         currentRotationSpeed = baseRotationSpeed;
         gameObject.GetComponent<Renderer>().material = defaultMeteorMaterial;

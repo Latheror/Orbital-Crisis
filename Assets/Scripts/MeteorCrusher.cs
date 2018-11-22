@@ -41,13 +41,13 @@ public class MeteorCrusher : Turret
         lr_2 = rightShootingPoint.GetComponent<LineRenderer>();
 
         InvokeRepeating("UpdateTarget", 0f, 0.25f);
-        InvokeRepeating("LockOnTarget", 0f, 0.05f);
+        InvokeRepeating("LockOnTarget", 0f, 0.01f);
     }
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
-
+        Crush();
     }
 
     override public void UpdateTarget()
@@ -146,7 +146,7 @@ public class MeteorCrusher : Turret
         {
             RotateCanonsTowardsTargets();
             ReduceTargetsSpeed();
-            Crush();
+            //Crush();
         }
         else
         {
@@ -228,27 +228,30 @@ public class MeteorCrusher : Turret
         //target_1.GetComponent<Meteor>().SetPartialSpeeds(.2f,.2f);
         //target_2.GetComponent<Meteor>().SetPartialSpeeds(.2f, .2f);
 
-        target_1.GetComponent<Meteor>().SetPartialSpeedsWithMax(.2f, meteorApproachSpeed/4, .2f, meteorApproachSpeed/4);
-        target_2.GetComponent<Meteor>().SetPartialSpeedsWithMax(.2f, meteorApproachSpeed/4, .2f, meteorApproachSpeed/4);
+        target_1.GetComponent<Meteor>().SetPartialSpeedsWithMax(.1f, meteorApproachSpeed/8, .1f, meteorApproachSpeed/8);
+        target_2.GetComponent<Meteor>().SetPartialSpeedsWithMax(.1f, meteorApproachSpeed/8, .1f, meteorApproachSpeed/8);
     }
 
     public void Crush()
     {
-        float step = meteorApproachSpeed * Time.deltaTime;
-        target_1.transform.position = Vector3.MoveTowards(target_1.transform.position, target_2.transform.position, step);
-        target_2.transform.position = Vector3.MoveTowards(target_2.transform.position, target_1.transform.position, step);
-
-        float distance = Vector3.Distance(target_1.transform.position, target_2.transform.position);
-        //Debug.Log("Distance: " + distance);
-        if (distance < 10f)
+        if (powerOn && target_1 != null && target_2 != null)
         {
-            target_1.GetComponent<Meteor>().DealDamage(200);
-            target_2.GetComponent<Meteor>().DealDamage(200);
+            float step = meteorApproachSpeed * Time.deltaTime;
+            target_1.transform.position = Vector3.MoveTowards(target_1.transform.position, target_2.transform.position, step);
+            target_2.transform.position = Vector3.MoveTowards(target_2.transform.position, target_1.transform.position, step);
 
-            targets_set = false;
+            float distance = Vector3.Distance(target_1.transform.position, target_2.transform.position);
+            //Debug.Log("Distance: " + distance);
+            if (distance < 10f)
+            {
+                target_1.GetComponent<Meteor>().DealDamage(200);
+                target_2.GetComponent<Meteor>().DealDamage(200);
 
-            lr_1.enabled = false;
-            lr_2.enabled = false;
+                targets_set = false;
+
+                lr_1.enabled = false;
+                lr_2.enabled = false;
+            }
         }
     }
 
