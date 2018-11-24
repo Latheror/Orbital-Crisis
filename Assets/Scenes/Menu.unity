@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.14434904, g: 0.06938936, b: 0.085920386, a: 1}
+  m_IndirectSpecularColor: {r: 0.07246635, g: 0.027210254, b: 0.03911917, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -1609,7 +1609,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0.021855354}
+  m_AnchoredPosition: {x: 0, y: 0.021850586}
   m_SizeDelta: {x: 0.3544445, y: -0.11208153}
   m_Pivot: {x: 1, y: 0.5}
 --- !u!1 &439557006
@@ -1730,11 +1730,11 @@ RectTransform:
   m_Father: {fileID: 1100344397}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0.68225}
-  m_AnchorMax: {x: 1, y: 0.9055003}
-  m_AnchoredPosition: {x: 0, y: 0.2999878}
-  m_SizeDelta: {x: 0, y: -0.70000076}
-  m_Pivot: {x: 0.5, y: 0.5}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: 0, y: -4.8}
+  m_SizeDelta: {x: 0, y: 14.764545}
+  m_Pivot: {x: 0.5, y: 1}
 --- !u!114 &559313579
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3932,12 +3932,12 @@ MonoBehaviour:
   m_outlineColor:
     serializedVersion: 2
     rgba: 4278190080
-  m_fontSize: 57.8
+  m_fontSize: 8.8
   m_fontSizeBase: 80
   m_fontWeight: 400
   m_enableAutoSizing: 1
-  m_fontSizeMin: 18
-  m_fontSizeMax: 72
+  m_fontSizeMin: 1
+  m_fontSizeMax: 1000
   m_fontStyle: 0
   m_textAlignment: 514
   m_isAlignmentEnumConverted: 1
@@ -4425,9 +4425,9 @@ MonoBehaviour:
   m_UiScaleMode: 1
   m_ReferencePixelsPerUnit: 100
   m_ScaleFactor: 1
-  m_ReferenceResolution: {x: 800, y: 600}
+  m_ReferenceResolution: {x: 2160, y: 1080}
   m_ScreenMatchMode: 0
-  m_MatchWidthOrHeight: 0
+  m_MatchWidthOrHeight: 0.5
   m_PhysicalUnit: 3
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
@@ -4459,8 +4459,8 @@ RectTransform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1513590012}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 16}
-  m_LocalScale: {x: 0.26500377, y: 0.26500377, z: 0.26500377}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1.2570788, y: 1.2570788, z: 1.2570788}
   m_Children:
   - {fileID: 1100344397}
   m_Father: {fileID: 0}
@@ -4468,8 +4468,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 1}
-  m_SizeDelta: {x: 799.5643, y: 435.72983}
+  m_AnchoredPosition: {x: 2.82, y: 1.2}
+  m_SizeDelta: {x: 149.09, y: 69.27}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &1513711874
 GameObject:
@@ -4966,10 +4966,10 @@ Camera:
   serializedVersion: 2
   m_ClearFlags: 1
   m_BackGroundColor: {r: 0.19215687, g: 0.3019608, b: 0.4745098, a: 0}
-  m_projectionMatrixMode: 1
+  m_projectionMatrixMode: 2
   m_SensorSize: {x: 36, y: 24}
   m_LensShift: {x: 0, y: 0}
-  m_FocalLength: 50
+  m_FocalLength: 17.460108
   m_NormalizedViewPortRect:
     serializedVersion: 2
     x: 0
@@ -4978,7 +4978,7 @@ Camera:
     height: 1
   near clip plane: 0.3
   far clip plane: 1000
-  field of view: 52
+  field of view: 69
   orthographic: 0
   orthographic size: 5
   m_Depth: 5
@@ -5496,12 +5496,12 @@ MonoBehaviour:
   m_outlineColor:
     serializedVersion: 2
     rgba: 4278190080
-  m_fontSize: 67.4
-  m_fontSizeBase: 80
+  m_fontSize: 9.8
+  m_fontSizeBase: 200
   m_fontWeight: 400
   m_enableAutoSizing: 1
-  m_fontSizeMin: 18
-  m_fontSizeMax: 72
+  m_fontSizeMin: 1
+  m_fontSizeMax: 1000
   m_fontStyle: 0
   m_textAlignment: 514
   m_isAlignmentEnumConverted: 1
@@ -5774,10 +5774,10 @@ RectTransform:
   m_Father: {fileID: 439482335}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.6362258, y: 0.35720274}
-  m_AnchorMax: {x: 0.9326851, y: 0.52440727}
-  m_AnchoredPosition: {x: -1.5720217, y: -0.14365369}
-  m_SizeDelta: {x: 0.19632983, y: -1.1288067}
+  m_AnchorMin: {x: 1, y: 0.36100003}
+  m_AnchorMax: {x: 1, y: 0.5124872}
+  m_AnchoredPosition: {x: -33.77899, y: 0.13250549}
+  m_SizeDelta: {x: 44.39495, y: -0.03253816}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1908197372
 MonoBehaviour:
@@ -5876,7 +5876,7 @@ GameObject:
   - component: {fileID: 1911730638}
   - component: {fileID: 1911730637}
   m_Layer: 5
-  m_Name: TextMeshPro Text
+  m_Name: GameTitleText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5946,12 +5946,12 @@ MonoBehaviour:
   m_outlineColor:
     serializedVersion: 2
     rgba: 4278190080
-  m_fontSize: 80
+  m_fontSize: 13.85
   m_fontSizeBase: 80
   m_fontWeight: 400
-  m_enableAutoSizing: 0
-  m_fontSizeMin: 18
-  m_fontSizeMax: 72
+  m_enableAutoSizing: 1
+  m_fontSizeMin: 1
+  m_fontSizeMax: 1000
   m_fontStyle: 0
   m_textAlignment: 514
   m_isAlignmentEnumConverted: 1
@@ -6775,10 +6775,10 @@ RectTransform:
   m_Father: {fileID: 439482335}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.7708835, y: 0.17483763}
-  m_AnchorMax: {x: 0.98200005, y: 0.317}
-  m_AnchoredPosition: {x: 1.0059605, y: -1.3156029}
-  m_SizeDelta: {x: -1.0025369, y: -0.43503863}
+  m_AnchorMin: {x: 1, y: 0.1532658}
+  m_AnchorMax: {x: 1, y: 0.29546374}
+  m_AnchoredPosition: {x: -17.457039, y: 0.1751329}
+  m_SizeDelta: {x: 30.57771, y: -0.44876635}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2079421902
 MonoBehaviour:

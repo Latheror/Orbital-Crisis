@@ -4,6 +4,13 @@ using UnityEngine;
 
 public class PanelsManager : MonoBehaviour {
 
+    public static PanelsManager instance;
+    void Awake()
+    {
+        if (instance != null) { Debug.LogError("More than one PanelsManager in scene !"); return; }
+        instance = this;
+    }
+
     [Header("UI")]
     public GameObject controlsPanel;
     public GameObject shopPanel;
@@ -30,6 +37,12 @@ public class PanelsManager : MonoBehaviour {
         shopPanel.SetActive(true);
     }
 
+    public void SwitchFromControlsToTechTreePanel()
+    {
+        defaultBottomPanel.SetActive(false);
+        TechTreeManager.instance.DisplayPanel(true);
+    }
+
     public void SwitchFromShopToControlsPanel()
     {
         shopPanel.SetActive(false);
@@ -41,5 +54,10 @@ public class PanelsManager : MonoBehaviour {
         SwitchFromShopToControlsPanel();
         BuildingManager.instance.buildingState = BuildingManager.BuildingState.Default;
         GameManager.instance.ChangeSelectionState(GameManager.SelectionState.Default);
+    }
+
+    public void GoBackToControlsPanel()
+    {
+        defaultBottomPanel.SetActive(true);
     }
 }

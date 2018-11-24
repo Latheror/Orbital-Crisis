@@ -38,11 +38,6 @@ public class GameManager : MonoBehaviour {
         objectsDepthOffset = mainPlanet.transform.position.z;
 	}
 	
-	// Update is called once per frame
-	void Update () {
-		
-	}
-
     public void PauseUnPause()
     {
         if(gameState == GameState.Default)

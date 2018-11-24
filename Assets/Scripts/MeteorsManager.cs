@@ -146,5 +146,6 @@ public class MeteorsManager : MonoBehaviour {
     public void MeteorDestroyed(Meteor meteor)
     {
         ScoreManager.instance.GrantPointsFromDestroyingMeteor(meteor);
+        ScoreManager.instance.GrantExperiencePointsFromDestroyingMeteor(meteor);
     }
 }

@@ -11,16 +11,24 @@ public class ScoreManager : MonoBehaviour {
         if (instance != null){ Debug.LogError("More than one ScoreManager in scene !"); return; } instance = this;
     }
 
+    [Header("Settings")]
+    public int experiencePointsPerMeteorUnitOfSize = 10;
+
     [Header("Operation")]
     public int score;
+    public int experiencePoints;
 
     [Header("UI")]
     public GameObject scoreValueIndicator;
+    public GameObject experienceValueText;
 
 
     void Start()
     {
         score = 0;
+        experiencePoints = 0;
+        UpdateScoreDisplay();
+        UpdateExperiencePointsDisplay();
     }
 
     public void SetScore(int score)
@@ -45,10 +53,37 @@ public class ScoreManager : MonoBehaviour {
         scoreValueIndicator.GetComponent<TextMeshProUGUI>().text = score.ToString();
     }
 
+    public void SetExperiencePoints(int exp)
+    {
+        experiencePoints = exp;
+        UpdateExperiencePointsDisplay();
+    }
+
+    public void IncreaseExperiencePoints(int delta)
+    {
+        experiencePoints += delta;
+        UpdateExperiencePointsDisplay();
+    }
+
+    public void DecreaseExperiencePoints(int delta)
+    {
+        experiencePoints -= delta;
+        UpdateExperiencePointsDisplay();
+    }
+
+    public void UpdateExperiencePointsDisplay()
+    {
+        experienceValueText.GetComponent<TextMeshProUGUI>().text = experiencePoints.ToString();
+    }
 
     public void GrantPointsFromDestroyingMeteor(Meteor meteor)
     {
         IncreaseScore((int)meteor.originalSize * MeteorsManager.instance.valuePerSizeUnit);
+    }
+
+    public void GrantExperiencePointsFromDestroyingMeteor(Meteor meteor)
+    {
+        IncreaseExperiencePoints((int)meteor.originalSize * experiencePointsPerMeteorUnitOfSize);
     }
 
 }
