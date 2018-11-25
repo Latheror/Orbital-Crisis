@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.07246635, g: 0.027210254, b: 0.03911917, a: 1}
+  m_IndirectSpecularColor: {r: 0.07148623, g: 0.026800938, b: 0.03851832, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -891,15 +891,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.41509432, g: 0.14684941, b: 0.3681862, a: 0}
+  m_Color: {r: 0.4481132, g: 0.9779391, b: 1, a: 0.3372549}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_Sprite: {fileID: 0}
-  m_Type: 1
+  m_Sprite: {fileID: 21300000, guid: 6cb3b5c3f05225b499176874a3908e5e, type: 3}
+  m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4
@@ -1253,14 +1253,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.06132078, g: 0.85124916, b: 1, a: 0.5529412}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_Sprite: {fileID: 21300000, guid: 39399add1e34d8c4692a6cc9f2122649, type: 3}
+  m_Sprite: {fileID: 21300000, guid: ccfedb95eccbcdc42bb1ff31379191b3, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -3932,7 +3932,7 @@ MonoBehaviour:
   m_outlineColor:
     serializedVersion: 2
     rgba: 4278190080
-  m_fontSize: 8.8
+  m_fontSize: 12.25
   m_fontSizeBase: 80
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -5496,7 +5496,7 @@ MonoBehaviour:
   m_outlineColor:
     serializedVersion: 2
     rgba: 4278190080
-  m_fontSize: 9.8
+  m_fontSize: 12.4
   m_fontSizeBase: 200
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -5776,8 +5776,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0.36100003}
   m_AnchorMax: {x: 1, y: 0.5124872}
-  m_AnchoredPosition: {x: -33.77899, y: 0.13250549}
-  m_SizeDelta: {x: 44.39495, y: -0.03253816}
+  m_AnchoredPosition: {x: -33.02, y: 1.52}
+  m_SizeDelta: {x: 45.92, y: 2.73}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1908197372
 MonoBehaviour:
@@ -6777,8 +6777,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0.1532658}
   m_AnchorMax: {x: 1, y: 0.29546374}
-  m_AnchoredPosition: {x: -17.457039, y: 0.1751329}
-  m_SizeDelta: {x: 30.57771, y: -0.44876635}
+  m_AnchoredPosition: {x: -20.24, y: -1.65}
+  m_SizeDelta: {x: 36.15, y: 3.2}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2079421902
 MonoBehaviour:

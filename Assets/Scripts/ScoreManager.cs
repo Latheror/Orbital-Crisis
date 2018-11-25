@@ -74,16 +74,18 @@ public class ScoreManager : MonoBehaviour {
     public void UpdateExperiencePointsDisplay()
     {
         experienceValueText.GetComponent<TextMeshProUGUI>().text = experiencePoints.ToString();
+        TechTreeManager.instance.UpdateTechnologyCostIndicatorsDisplay();
+        TechTreeManager.instance.SetExperiencePointsDisplay(experiencePoints);
     }
 
     public void GrantPointsFromDestroyingMeteor(Meteor meteor)
     {
-        IncreaseScore((int)meteor.originalSize * MeteorsManager.instance.valuePerSizeUnit);
+        IncreaseScore((int)(meteor.originalSize * MeteorsManager.instance.valuePerSizeUnit));
     }
 
     public void GrantExperiencePointsFromDestroyingMeteor(Meteor meteor)
     {
-        IncreaseExperiencePoints((int)meteor.originalSize * experiencePointsPerMeteorUnitOfSize);
+        IncreaseExperiencePoints((int)(meteor.originalSize * experiencePointsPerMeteorUnitOfSize));
     }
 
 }

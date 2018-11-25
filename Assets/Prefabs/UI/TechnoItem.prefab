@@ -287,7 +287,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 0.392}
+  m_Color: {r: 0, g: 0.9245283, b: 0.07692117, a: 0.392}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -314,6 +314,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   experienceCostText: {fileID: 114952224523519414}
+  experienceCostPanelImage: {fileID: 114720574408852100}
+  button: {fileID: 1084553131792390}
+  background: {fileID: 1842550191482172}
+  image: {fileID: 1058856930695782}
+  outputConnections:
+  - {fileID: 0}
 --- !u!114 &114952224523519414
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -362,7 +368,7 @@ MonoBehaviour:
   m_outlineColor:
     serializedVersion: 2
     rgba: 4278190080
-  m_fontSize: 24.75
+  m_fontSize: 25.75
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -505,10 +511,10 @@ RectTransform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.12550826, y: 0.41364327}
-  m_AnchorMax: {x: 0.20400001, y: 0.7138386}
-  m_AnchoredPosition: {x: 0, y: -4.44}
-  m_SizeDelta: {x: 0, y: 8.88}
+  m_AnchorMin: {x: 0.17044728, y: 0.68216133}
+  m_AnchorMax: {x: 0.25, y: 0.93900007}
+  m_AnchoredPosition: {x: 2.5, y: 0}
+  m_SizeDelta: {x: -1, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!224 &224463893903745426
 RectTransform:
@@ -545,7 +551,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.24063778}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0.16100025}
+  m_AnchoredPosition: {x: 0, y: 0.16100311}
   m_SizeDelta: {x: 0, y: -0.42200089}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!224 &224870356198981316

@@ -103,19 +103,13 @@ public class Meteor : MonoBehaviour {
     {
         // LevelManager.instance.IncrementCurrentLevelDestroyedMeteorsNb(1); Done in meteors manager to handle meteors crashing into the planet
 
-        if(willLetDebris)
+        if (willLetDebris)
         {
             SpawnDebris();
-            //Debug.Log("A meteor has exploded into debris !");
-            MeteorsManager.instance.DeleteMeteor(gameObject);
         }
-        else
-        {
-            // The meteor have been destroyed
-            //Debug.Log("A meteor has been destroyed !");
-            MeteorsManager.instance.DeleteMeteor(gameObject);
-            MeteorsManager.instance.MeteorDestroyed(this);
-        }
+
+        MeteorsManager.instance.DeleteMeteor(gameObject);
+        MeteorsManager.instance.MeteorDestroyed(this);
     }
 
     public void ResizeMeteorFromHealth(float health)

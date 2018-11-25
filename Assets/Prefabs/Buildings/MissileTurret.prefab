@@ -490,14 +490,14 @@ MonoBehaviour:
   turretHead: {fileID: 1375225316496828}
   shootingPoint: {fileID: 1576620320064892}
   bulletSpeed: 100
-  bulletPower: 10
+  bulletPower: 12
   range_tier_2: 150
   bulletSpeed_tier_2: 120
-  bulletPower_tier_2: 15
+  bulletPower_tier_2: 20
   energyConsumption_tier_2: 25
   range_tier_3: 200
   bulletSpeed_tier_3: 140
-  bulletPower_tier_3: 20
+  bulletPower_tier_3: 30
   energyConsumption_tier_3: 40
   bulletPrefab: {fileID: 1102555780590952, guid: a099074c57348c24a93e804b74680834,
     type: 2}

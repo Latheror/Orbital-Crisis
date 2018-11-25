@@ -35,7 +35,7 @@ public class SurroundingAreasManager : MonoBehaviour {
     {
         BuildDisksBuildingSlots();
         LockAllDisks();
-        UnlockDisk(1);
+        //UnlockDisk(1);
     }
 
     public void BuildDisksBuildingSlots()

@@ -59,13 +59,49 @@ public class EnemySpaceship : Spaceship {
         {
             if (target != null)
             {
-                if (!IsTargetInRange())
+                // Set manual destination to target
+                SetManualDestination(target.transform.position);
+
+                if (manualDestination != null)
                 {
-                    // Go closer to target
-                    transform.position = Vector3.MoveTowards(transform.position, target.transform.position, Time.deltaTime * movementSpeed);
+                    // Check if path towards destination intersects with planet
+                    if (!IsCloseEnoughToDestination() && (GeometryManager.instance.SegmentIntersectWithPlanet(gameObject.transform.position, manualDestination)))
+                    {
+                        //Debug.Log("HandleMovements | Setting a temp dest");
+                        float spaceshipPosAngle = GeometryManager.GetRadAngleFromXY(transform.position.x, transform.position.y);
+                        float spaceshipPosDistance = GeometryManager.instance.GetDistanceFromPlanetCenter(transform.position);
+                        //Debug.Log("spaceshipPosAngle: " + spaceshipPosAngle + " | spaceshipPosDistance: " + spaceshipPosDistance);
+                        float manualDestPosAngle = GeometryManager.GetRadAngleFromXY(manualDestination.x, manualDestination.y);
+                        float manualDestPosDistance = GeometryManager.instance.GetDistanceFromPlanetCenter(manualDestination);
+                        //Debug.Log("manualDestPosAngle: " + manualDestPosAngle + " | manualDestPosDistance: " + manualDestPosDistance);
+
+                        // Mean angle
+                        float meanAngle = GeometryManager.GetMeanAngle(spaceshipPosAngle, manualDestPosAngle);
+                        float meanDistance = Mathf.Max((manualDestPosAngle + manualDestPosDistance) / 2, 10);
+                        //Debug.Log("meanAngle: " + meanAngle + " | meanDistance: " + meanDistance);
+
+                        tempDestination = new Vector3(meanDistance * Mathf.Cos(meanAngle), meanDistance * Mathf.Sin(meanAngle), manualDestination.z);
+                    }
+                    else
+                    {
+                        // Set temp dest to manual dest
+                        tempDestination = manualDestination;
+                    }
                 }
 
-                RotateTowardsTarget();
+                if (!IsCloseEnoughToDestination())
+                {
+                    // Move towards destination
+                    transform.position = Vector3.MoveTowards(transform.position, tempDestination, Time.deltaTime * movementSpeed);
+                    RotateTowardsTempDest();
+                }
+                else
+                {
+                    if (target != null && IsTargetInRange())
+                    {
+                        RotateTowardsTarget();
+                    }
+                }
             }
         }
     }
