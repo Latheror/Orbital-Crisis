@@ -142,7 +142,7 @@ public class TouchManager : MonoBehaviour
                                 }
                             }
                         }
-                        else
+                        else if(GameManager.instance.gameState == GameManager.GameState.Default)
                         {
                             // Move screen verticaly / horizontaly
                             Vector2 touchDeltaPosition = Input.GetTouch(0).deltaPosition;
@@ -201,11 +201,13 @@ public class TouchManager : MonoBehaviour
         //Debug.Log("TopPanel Height: " + topPanel.GetComponent<RectTransform>().sizeDelta.y);
         //Debug.Log("BottomPanel Height: " + bottomPanel.GetComponent<RectTransform>().sizeDelta.y);
         //Debug.Log("Screen Hight: " + Screen.height);
-        betweenTopAndBottomPanels = (((touchPos.y) >= bottomPanel.GetComponent<RectTransform>().rect.height + avoidPanelsMargin)) && ((touchPos.y) <= (Screen.height - topPanel.GetComponent<RectTransform>().rect.height - avoidPanelsMargin));
-        //Debug.Log("Within Game Area : " + withinGameArea);
-        avoidsRightPanel = ((touchPos.x) <= (Screen.width - (-2 * InfoPanel.instance.GetComponent<RectTransform>().rect.x)));
 
-        //Debug.Log("xTouch: " + touchPos.x + " | Screen width: " + Screen.width + " | InfoPanel deltaX: " + InfoPanel.instance.GetComponent<RectTransform>().rect.x);
+        Debug.Log("IsTouchWithinGameArea | Top/Bottom | touchPos.y [" + touchPos.y + "] | BottomPanelY [" + (bottomPanel.GetComponent<RectTransform>().rect.height)/*bottomPanel.GetComponent<RectTransform>().rect.height*/ + "] | TopPanelY [" + (topPanel.GetComponent<RectTransform>().rect.height));
+        betweenTopAndBottomPanels = (((touchPos.y) >= 3*bottomPanel.GetComponent<RectTransform>().rect.height )) && ((touchPos.y) <= (Screen.height - 3*topPanel.GetComponent<RectTransform>().rect.height));
+        //Debug.Log("Within Game Area : " + withinGameArea);
+        avoidsRightPanel = ((touchPos.x) <= (Screen.width - (1 * InfoPanel.instance.GetComponent<RectTransform>().rect.width) - 100));
+
+        Debug.Log("xTouch: " + touchPos.x + " | Screen width: " + Screen.width + " | InfoPanel deltaX: " + InfoPanel.instance.GetComponent<RectTransform>().rect.width);
 
         return (betweenTopAndBottomPanels && avoidsRightPanel);
     }

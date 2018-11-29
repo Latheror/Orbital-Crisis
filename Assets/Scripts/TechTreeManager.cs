@@ -4,7 +4,8 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 
-public class TechTreeManager : MonoBehaviour {
+public class TechTreeManager : MonoBehaviour
+{
 
     public static TechTreeManager instance;
     void Awake()
@@ -37,6 +38,11 @@ public class TechTreeManager : MonoBehaviour {
 
     public TextMeshProUGUI experiencePointsText;
 
+    public GameObject techTab1;
+    public GameObject techTab2;
+
+    public GameObject technologyInfoPanel;
+
     [Header("Techno Items")]
     public GameObject missileTurretTechnoItem;
     public GameObject freezingTurretTechnoItem;
@@ -52,14 +58,21 @@ public class TechTreeManager : MonoBehaviour {
     public GameObject disk2TechnoItem;
     public GameObject disk3TechnoItem;
 
+    [Header("Operation")]
+    public Technology selectedTechno;
+    public TechnologyData[] technologiesData;
 
-    void Start () {
+
+
+    void Start()
+    {
         InitializeTechnologies();
-	}
-	
-	void Update () {
-		
-	}
+    }
+
+    void Update()
+    {
+
+    }
 
     public void InitializeTechnologies()
     {
@@ -119,7 +132,13 @@ public class TechTreeManager : MonoBehaviour {
     public void BackButtonClicked()
     {
         technologiesPanel.SetActive(false);
-        PanelsManager.instance.GoBackToControlsPanel();
+        HideTechnoInfoPanel();
+        PanelsManager.instance.GoBackToControlsPanel();        
+    }
+
+    public void HideTechnoInfoPanel()
+    {
+        technologyInfoPanel.SetActive(false);
     }
 
     public bool CanPayTechnology(Technology techno)
@@ -143,11 +162,22 @@ public class TechTreeManager : MonoBehaviour {
         }
     }
 
+    public void UnlockSelectedTechnologyRequest()
+    {
+        Debug.Log("UnlockTechnologyRequest | CanPay [" + CanPayTechnology(selectedTechno) + "]");
+        if (selectedTechno.available && CanPayTechnology(selectedTechno))
+        {
+            PayTechnology(selectedTechno);
+
+            UnlockTechnology(selectedTechno);
+        }
+    }
+
     public void UnlockTechnology(Technology techno)
     {
         techno.unlocked = true;
 
-        if(techno.unlockedBuildingIndex != 0)
+        if (techno.unlockedBuildingIndex != 0)
         {
             UnlockBuilding(techno.unlockedBuildingIndex);
         }
@@ -200,6 +230,75 @@ public class TechTreeManager : MonoBehaviour {
         experiencePointsText.text = experiencePoints.ToString();
     }
 
+    public void TabButton1Clicked()
+    {
+        Debug.Log("Switch to Techno Tab 1");
+        techTab1.SetActive(true);
+        techTab2.SetActive(false);
+        DisplayTechnologyInfoPanel(false);
+    }
+
+    public void TabButton2Clicked()
+    {
+        Debug.Log("Switch to Techno Tab 2");
+        techTab1.SetActive(false);
+        techTab2.SetActive(true);
+        DisplayTechnologyInfoPanel(false);
+    }
+
+    public void SetSelectedTechno(Technology technology)
+    {
+        selectedTechno = technology;
+    }
+
+    public void DisplayTechnologyInfoPanel(bool display)
+    {
+        technologyInfoPanel.SetActive(display);
+    }
+
+    public TechnologyData[] BuildTechnologyData()
+    {
+        int technologyNb = technologies.Count;
+        Debug.Log("BuildTechnologyData | Nb: " + technologyNb);
+        technologiesData = new TechnologyData[technologyNb];
+
+        for (int i = 0; i < technologies.Count; i++)
+        {
+            technologiesData[i] = (new TechnologyData(technologies[i].id, technologies[i].unlocked));
+            Debug.Log("Adding technology [" + i + "]");
+        }
+
+        return technologiesData;
+    }
+
+    public void SetupSavedTechnologies(TechnologyData[] technologiesData)
+    {
+        Debug.Log("SetupSavedTechnologies | Nb [" + technologiesData.Length + "]");
+        for (int i=0; i<technologiesData.Length; i++)
+        {
+            if(technologiesData[i].unlocked)    // Technology was previously unlocked
+            {
+                Debug.Log("Unlocking saved technology [" + GetTechnologyByID(technologiesData[i].technologyID).name + "]");
+                UnlockTechnology(GetTechnologyByID(technologiesData[i].technologyID));
+            }
+        }
+    }
+
+    public Technology GetTechnologyByID(int id)
+    {
+        Technology techno = null;
+        foreach (Technology technology in technologies)
+        {
+            if (technology.id == id)
+            {
+                techno = technology;
+                break;
+            }
+        }
+        return techno;
+    }
+
+    [System.Serializable]
     public class Technology
     {
         public int id;
@@ -230,4 +329,21 @@ public class TechTreeManager : MonoBehaviour {
             this.unlockedDiskIndex = unlockedDiskIndex;
         }
     }
+
+
+    [System.Serializable]
+    public class TechnologyData
+    {
+        public int technologyID;
+        public bool unlocked;
+
+        public TechnologyData(int technologyID, bool unlocked)
+        {
+            this.technologyID = technologyID;
+            this.unlocked = unlocked;
+        }
+
+    }
+
+
 }

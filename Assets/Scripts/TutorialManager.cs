@@ -23,8 +23,7 @@ public class TutorialManager : MonoBehaviour {
 
     // Use this for initialization
     void Start () {
-        DefineAvailableTutorialIndicators();
-        DisplayStartIndicators();
+
 	}
 
     public void DefineAvailableTutorialIndicators()
@@ -79,6 +78,11 @@ public class TutorialManager : MonoBehaviour {
             hasBeenDisplayed = t.passed;
         }
         return hasBeenDisplayed;
+    }
+
+    public void HideAllElements()
+    {
+
     }
 
     public void DisplayIndicatorIfNotDisplayedYet(int id)

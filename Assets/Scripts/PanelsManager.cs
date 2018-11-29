@@ -39,6 +39,7 @@ public class PanelsManager : MonoBehaviour {
 
     public void SwitchFromControlsToTechTreePanel()
     {
+        GameManager.instance.Pause();
         defaultBottomPanel.SetActive(false);
         TechTreeManager.instance.DisplayPanel(true);
     }
@@ -58,6 +59,7 @@ public class PanelsManager : MonoBehaviour {
 
     public void GoBackToControlsPanel()
     {
+        GameManager.instance.UnPause();
         defaultBottomPanel.SetActive(true);
     }
 }

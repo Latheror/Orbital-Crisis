@@ -60,9 +60,10 @@ public class SaveManager : MonoBehaviour {
         Level.LevelData reachedLevelData = GatherReachedLevelData();
         ResourcesManager.ResourceData[] resourcesData = GatherResourcesData();
         BuildingManager.UnlockedBuildingData[] unlockedBuildingsData = GatherUnlockedBuildingsData();
+        TechTreeManager.TechnologyData[] technologiesData = GatherTechnologiesData();
 
         // Build Game Save Data
-        GameSaveData gameSaveData = new GameSaveData(generalData, buildingDatas, spaceshipsData, reachedLevelData, resourcesData, unlockedBuildingsData);
+        GameSaveData gameSaveData = new GameSaveData(generalData, buildingDatas, spaceshipsData, reachedLevelData, resourcesData, unlockedBuildingsData, technologiesData);
         int currentLevelReached = LevelManager.instance.currentLevelNumber;
 
         // Binary Formatter + Stream
@@ -156,11 +157,17 @@ public class SaveManager : MonoBehaviour {
         int unlockedDisksNb = SurroundingAreasManager.instance.unlockedDisksNb;
         int score = ScoreManager.instance.score;
         int hits = InfoManager.instance.nbMeteorCollisions;
+        int experiencePoints = ScoreManager.instance.experiencePoints;
 
         Debug.Log("Saving game variables | LevelReached [" + levelReached + "] | UnlockedDisksNb [" + unlockedDisksNb + "]");
 
-        GameManager.GeneralGameData gameSavedVariables = new GameManager.GeneralGameData(levelReached, unlockedDisksNb, score, hits);
+        GameManager.GeneralGameData gameSavedVariables = new GameManager.GeneralGameData(levelReached, unlockedDisksNb, score, hits, experiencePoints);
         return gameSavedVariables;
+    }
+
+    public TechTreeManager.TechnologyData[] GatherTechnologiesData()
+    {
+        return TechTreeManager.instance.BuildTechnologyData();
     }
 
     public void SaveGameRequest(int saveSlotIndex)
@@ -278,8 +285,9 @@ public class SaveManager : MonoBehaviour {
         public Level.LevelData reachedLevelData;
         public ResourcesManager.ResourceData[] resourcesData;
         public BuildingManager.UnlockedBuildingData[] unlockedBuildingsData;
+        public TechTreeManager.TechnologyData[] technologiesData;
 
-        public GameSaveData(GameManager.GeneralGameData generalGameData, Building.BuildingData[] buildingsData, SpaceshipManager.SpaceshipData[] spaceshipsData, Level.LevelData reachedLevelData, ResourcesManager.ResourceData[] resourcesData, BuildingManager.UnlockedBuildingData[] unlockedBuildingsData)
+        public GameSaveData(GameManager.GeneralGameData generalGameData, Building.BuildingData[] buildingsData, SpaceshipManager.SpaceshipData[] spaceshipsData, Level.LevelData reachedLevelData, ResourcesManager.ResourceData[] resourcesData, BuildingManager.UnlockedBuildingData[] unlockedBuildingsData, TechTreeManager.TechnologyData[] technologiesData)
         {
             this.generalGameData = generalGameData;
             this.buildingsData = buildingsData;
@@ -287,6 +295,7 @@ public class SaveManager : MonoBehaviour {
             this.reachedLevelData = reachedLevelData;
             this.resourcesData = resourcesData;
             this.unlockedBuildingsData = unlockedBuildingsData;
+            this.technologiesData = technologiesData;
         }
     }
 

@@ -38,7 +38,7 @@ public class GameManager : MonoBehaviour {
         objectsDepthOffset = mainPlanet.transform.position.z;
 	}
 	
-    public void PauseUnPause()
+    public void PauseUnPauseAndDisplayPausePanel()
     {
         if(gameState == GameState.Default)
         {
@@ -52,9 +52,31 @@ public class GameManager : MonoBehaviour {
         }
     }
 
+    public void PauseUnPause()
+    {
+        if (gameState == GameState.Default)
+        {
+            gameState = GameState.Pause;
+        }
+        else if (gameState == GameState.Pause)
+        {
+            gameState = GameState.Default;
+        }
+    }
+
+    public void UnPause()
+    {
+        gameState = GameState.Default;
+    }
+
+    public void Pause()
+    {
+        gameState = GameState.Pause;
+    }
+
     public void ResumeButton()
     {
-        PauseUnPause();
+        PauseUnPauseAndDisplayPausePanel();
     }
 
     public void PauseMenuButtonAction()
@@ -121,13 +143,15 @@ public class GameManager : MonoBehaviour {
         public int unlockedDisks;
         public int score;
         public int hits;
+        public int experiencePoints;
 
-        public GeneralGameData(int currentLevelNb, int unlockedOrbits, int score, int hits)
+        public GeneralGameData(int currentLevelNb, int unlockedOrbits, int score, int hits, int experiencePoints)
         {
             this.levelReached = currentLevelNb;
             this.unlockedDisks = unlockedOrbits;
             this.score = score;
             this.hits = hits;
+            this.experiencePoints = experiencePoints;
         }
     }
 }

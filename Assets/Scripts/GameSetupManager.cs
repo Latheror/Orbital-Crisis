@@ -35,6 +35,9 @@ public class GameSetupManager : MonoBehaviour {
     public void SetupGame()
     {
         Debug.Log("SetupGame");
+
+        TutorialManager.instance.DefineAvailableTutorialIndicators();
+
         if (gameSetupParameters.isNewGame)
         {
             // New game
@@ -42,6 +45,9 @@ public class GameSetupManager : MonoBehaviour {
             BuildingSlotManager.instance.BuildGroundBuildingSlots();
             SurroundingAreasManager.instance.SetStartSetup();
             LevelManager.instance.NewGameSetup();
+
+            // Tutorial manager
+            TutorialManager.instance.DisplayStartIndicators();
 
             // Spaceship manager 
             SpaceshipManager.instance.NewGameSetupActions();
@@ -65,6 +71,7 @@ public class GameSetupManager : MonoBehaviour {
         Level.LevelData reachedLevelData = gameSetupParameters.gameSaveData.reachedLevelData;
         ResourcesManager.ResourceData[] resourcesData = gameSetupParameters.gameSaveData.resourcesData;
         BuildingManager.UnlockedBuildingData[] unlockedBuildingsData = gameSetupParameters.gameSaveData.unlockedBuildingsData;
+        TechTreeManager.TechnologyData[] technologiesData = gameSetupParameters.gameSaveData.technologiesData;
 
         if(buildingsData != null){
             SetupSavedBuildings(buildingsData);
@@ -87,10 +94,15 @@ public class GameSetupManager : MonoBehaviour {
 
         if (unlockedBuildingsData != null)
         {
-            SetupUnlockedBuildings(unlockedBuildingsData);
+            //SetupUnlockedBuildings(unlockedBuildingsData);
         }
 
-        if(spaceshipsData != null)
+        if (technologiesData != null)
+        {
+            SetupTechnologies(technologiesData);
+        }
+
+        if (spaceshipsData != null)
         {
             SetupSpaceships(spaceshipsData);
         }
@@ -112,10 +124,12 @@ public class GameSetupManager : MonoBehaviour {
         int score = generalGameData.score;
         int hits = generalGameData.hits;
         int unlockedDisksNb = generalGameData.unlockedDisks;
+        int experiencePoints = generalGameData.experiencePoints;
 
         Debug.Log("SetupGeneralParameters | Score [" + score + "] | Hits [" + hits + "] | UnlockedDisks [" + unlockedDisksNb + "]");
 
         ScoreManager.instance.SetScore(score);
+        ScoreManager.instance.SetExperiencePoints(experiencePoints);
         InfoManager.instance.SetMeteorCollisionsValue(hits);
         SurroundingAreasManager.instance.SetUnlockedDisksNb(unlockedDisksNb);
     }
@@ -144,6 +158,12 @@ public class GameSetupManager : MonoBehaviour {
     {
         Debug.Log("SetupSpaceships | SpaceshipsNb [" + spaceshipsData.Length + "]");
         SpaceshipManager.instance.SetupSavedSpaceships(spaceshipsData);
+    }
+
+    public void SetupTechnologies(TechTreeManager.TechnologyData[] technologiesData)
+    {
+        Debug.Log("SetupTechnologies | TechnologiesNb [" + technologiesData.Length + "]");
+        TechTreeManager.instance.SetupSavedTechnologies(technologiesData);
     }
 
     public class GameSetupParameters

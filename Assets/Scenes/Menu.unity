@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.07148623, g: 0.026800938, b: 0.03851832, a: 1}
+  m_IndirectSpecularColor: {r: 0.07121108, g: 0.026687978, b: 0.03834562, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -3135,68 +3135,80 @@ MonoBehaviour:
       unlockedDisks: 0
       score: 0
       hits: 0
+      experiencePoints: 0
     buildingsData: []
     spaceshipsData: []
     reachedLevelData:
       levelIndex: 0
     resourcesData: []
     unlockedBuildingsData: []
+    technologiesData: []
   - generalGameData:
       levelReached: 0
       unlockedDisks: 0
       score: 0
       hits: 0
+      experiencePoints: 0
     buildingsData: []
     spaceshipsData: []
     reachedLevelData:
       levelIndex: 0
     resourcesData: []
     unlockedBuildingsData: []
+    technologiesData: []
   - generalGameData:
       levelReached: 0
       unlockedDisks: 0
       score: 0
       hits: 0
+      experiencePoints: 0
     buildingsData: []
     spaceshipsData: []
     reachedLevelData:
       levelIndex: 0
     resourcesData: []
     unlockedBuildingsData: []
+    technologiesData: []
   - generalGameData:
       levelReached: 0
       unlockedDisks: 0
       score: 0
       hits: 0
+      experiencePoints: 0
     buildingsData: []
     spaceshipsData: []
     reachedLevelData:
       levelIndex: 0
     resourcesData: []
     unlockedBuildingsData: []
+    technologiesData: []
   - generalGameData:
       levelReached: 0
       unlockedDisks: 0
       score: 0
       hits: 0
+      experiencePoints: 0
     buildingsData: []
     spaceshipsData: []
     reachedLevelData:
       levelIndex: 0
     resourcesData: []
     unlockedBuildingsData: []
+    technologiesData: []
   gameSaveToLoad:
     generalGameData:
       levelReached: 0
       unlockedDisks: 0
       score: 0
       hits: 0
+      experiencePoints: 0
     buildingsData: []
     spaceshipsData: []
     reachedLevelData:
       levelIndex: 0
     resourcesData: []
     unlockedBuildingsData: []
+    technologiesData: []
 --- !u!4 &1005718655
 Transform:
   m_ObjectHideFlags: 0

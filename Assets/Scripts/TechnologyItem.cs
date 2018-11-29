@@ -24,10 +24,15 @@ public class TechnologyItem : MonoBehaviour {
 		
 	}
 
-    public void UnlockButtonClicked()
+    public void TechnoSelectionButtonClicked()
     {
-        Debug.Log("UnlockButtonClicked [" + associatedTechnology.name + "]");
-        TechTreeManager.instance.UnlockTechnologyRequest(associatedTechnology);
+        Debug.Log("Technology Selected [" + associatedTechnology.name + "]");
+        if(associatedTechnology != null)
+        {
+            TechTreeManager.instance.SetSelectedTechno(associatedTechnology);
+            TechTreeManager.instance.DisplayTechnologyInfoPanel(true);
+            TechnoInfoPanel.instance.SetInfo(associatedTechnology);
+        }
     }
 
     public void SetExperienceCostText(int expPoints)
