@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using TMPro;
 
 public class MenuLoadGamePanel : MonoBehaviour {
@@ -18,6 +19,10 @@ public class MenuLoadGamePanel : MonoBehaviour {
     public GameObject loadPanelGameSaveElementPrefab;
     public GameObject loadPanelGameSavesElementLayout;
     public List<GameObject> loadPanelGameSaveElements;
+
+    [Header("High Score UI")]
+    public GameObject highScorePanel;
+    public TextMeshProUGUI highScoreText;
 
     // Use this for initialization
     void Start () {
@@ -94,6 +99,15 @@ public class MenuLoadGamePanel : MonoBehaviour {
         SaveManager.instance.SetSavedGameDataFileAsNotUsed(gameSaveIndex);
         SaveManager.instance.ImportGameSavesInfoFile();
         UpdateLoadGameSavePanel();
+    }
+
+    public void DisplayHighScore()
+    {
+        if (SaveManager.instance.savedGeneralData != null)
+        {
+            highScorePanel.SetActive((SaveManager.instance.savedGeneralData.highScore > 0));
+            highScoreText.text = SaveManager.instance.savedGeneralData.highScore.ToString();
+        }
     }
 
 }

@@ -32,6 +32,7 @@ public class Spaceship : MonoBehaviour {
     [Header("Parts")]
     public GameObject[] shootingPoints;
     public GameObject trailOrigin1;
+    public GameObject shieldHolder;
 
     [Header("Attack")]
     public GameObject target;
@@ -125,6 +126,11 @@ public class Spaceship : MonoBehaviour {
 
     protected void RotateAroundPlanet()
     {
+        float positionAngle = GeometryManager.GetRadAngleFromGameObject(gameObject);
+        float degreePositionAngle = GeometryManager.RadiansToDegrees(positionAngle);
+        Debug.Log("RotateAroundPlanet | PositionAngleRad [" + positionAngle + "] | DegreePositionAngle [" + degreePositionAngle + "]");
+
+        transform.rotation = Quaternion.Euler(-90 - degreePositionAngle, 90, -90);
         transform.RotateAround(GameManager.instance.mainPlanet.transform.position, Vector3.forward, Time.deltaTime * idleRotationSpeed);
     }
 
@@ -383,6 +389,7 @@ public class Spaceship : MonoBehaviour {
         shieldPoints = Mathf.Max(0f, shieldPoints - amount);
         UpdateShieldBar();
         UpdateInfoPanels();
+        UpdateShieldDisplay();
     }
 
     public void IncreaseShieldPoints(float amount)
@@ -390,6 +397,7 @@ public class Spaceship : MonoBehaviour {
         shieldPoints = Mathf.Min(maxShield, shieldPoints + amount);
         UpdateShieldBar();
         UpdateInfoPanels();
+        UpdateShieldDisplay();
     }
 
     public void RegenerateShield()
@@ -428,5 +436,18 @@ public class Spaceship : MonoBehaviour {
         {
             shootingPoint.GetComponent<LineRenderer>().enabled = false;
         }
+    }
+
+    public void DisplayShield(bool display)
+    {
+        if(hasShield && shieldHolder != null)
+        {
+            shieldHolder.SetActive(display);
+        }
+    }
+
+    public void UpdateShieldDisplay()
+    {
+        DisplayShield(shieldPoints > 0);
     }
 }

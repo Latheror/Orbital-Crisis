@@ -71,7 +71,7 @@ public class SpaceshipManager : MonoBehaviour {
 
     public void InstantiatedSpaceshipAtPosition(GameObject spaceshipPrefab, Vector3 pos)
     {
-        GameObject instantiatedSpaceship = Instantiate(spaceshipPrefab, pos, Quaternion.identity);
+        GameObject instantiatedSpaceship = Instantiate(spaceshipPrefab, pos, Quaternion.Euler(0,90,0));
         AddAlliedSpaceshipToList(instantiatedSpaceship);
     }
 

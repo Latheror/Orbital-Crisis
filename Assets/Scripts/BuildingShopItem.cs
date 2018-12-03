@@ -11,6 +11,7 @@ public class BuildingShopItem : MonoBehaviour {
     public TextMeshProUGUI buildingNameText;
     public GameObject buildingCostsPanel;
     public List<GameObject> buildingCostPanelList = new List<GameObject>();
+    public GameObject borderPanel;
 
     [Header("Prefabs")]
     public GameObject resourceCostPanelPrefab;
@@ -27,7 +28,14 @@ public class BuildingShopItem : MonoBehaviour {
     {
         ApplyBuildingNameText();
         ApplyBuildingImage();
-        SetBackGroundColor(ShopPanel.instance.buildingShopItemDefaultBackgroundColor);
+        if(buildingType.isUnique)
+        {
+            SetBackGroundColor(ShopPanel.instance.buildingShopItemUniqueDefaultBackgroundColor);
+        }
+        else
+        {
+            SetBackGroundColor(ShopPanel.instance.buildingShopItemDefaultBackgroundColor);
+        }
         BuildCostsList();
     }
 

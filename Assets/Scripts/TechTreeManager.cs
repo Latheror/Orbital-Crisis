@@ -282,6 +282,8 @@ public class TechTreeManager : MonoBehaviour
                 UnlockTechnology(GetTechnologyByID(technologiesData[i].technologyID));
             }
         }
+
+        ShopPanel.instance.UpdateBuildingItemsAvailability();
     }
 
     public Technology GetTechnologyByID(int id)

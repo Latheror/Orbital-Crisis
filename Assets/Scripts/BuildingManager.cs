@@ -73,7 +73,8 @@ public class BuildingManager : MonoBehaviour {
                     new Building.BuildingStat(Building.BuildingStat.StatType.damagePower),
                     new Building.BuildingStat(Building.BuildingStat.StatType.range),
                     new Building.BuildingStat(Building.BuildingStat.StatType.energyConsumption)
-                }
+                },
+                false
                 ));
 
         availableBuildings.Add(new BuildingType(2, "Missile Turret", bulletTurretPrefab, 20f, new List<ResourcesManager.ResourceAmount>(){
@@ -96,7 +97,8 @@ public class BuildingManager : MonoBehaviour {
                     new Building.BuildingStat(Building.BuildingStat.StatType.damagePower),
                     new Building.BuildingStat(Building.BuildingStat.StatType.range),
                     new Building.BuildingStat(Building.BuildingStat.StatType.energyConsumption)
-                }
+                },
+                false
                 ));
 
         availableBuildings.Add(new BuildingType(3, "Freezing Turret", freezingTurretPrefab, 10f,
@@ -121,7 +123,8 @@ public class BuildingManager : MonoBehaviour {
                     new Building.BuildingStat(Building.BuildingStat.StatType.freezingPower),
                     new Building.BuildingStat(Building.BuildingStat.StatType.range),
                     new Building.BuildingStat(Building.BuildingStat.StatType.energyConsumption)
-                }
+                },
+                false
                 ));
 
         availableBuildings.Add(new BuildingType(4, "Power Plant", powerPlantPrefab, 0f,
@@ -144,7 +147,8 @@ public class BuildingManager : MonoBehaviour {
                 new List<Building.BuildingStat>()
                 {
                     new Building.BuildingStat(Building.BuildingStat.StatType.energyProduction)
-                }
+                },
+                false
                 ));
 
         availableBuildings.Add(new BuildingType(5, "Mining Facility", mineBuildingPrefab, 10f,
@@ -168,7 +172,8 @@ public class BuildingManager : MonoBehaviour {
                 {
                     new Building.BuildingStat(Building.BuildingStat.StatType.miningSpeed),
                     new Building.BuildingStat(Building.BuildingStat.StatType.energyConsumption)
-                }
+                },
+                false
                 ));
 
         availableBuildings.Add(new BuildingType(6, "Shock Satellite", shockSatellitePrefab, 10f,
@@ -193,7 +198,8 @@ public class BuildingManager : MonoBehaviour {
                     new Building.BuildingStat(Building.BuildingStat.StatType.damagePower),
                     new Building.BuildingStat(Building.BuildingStat.StatType.range),
                     new Building.BuildingStat(Building.BuildingStat.StatType.energyConsumption)
-                }
+                },
+                false
                 ));
 
         availableBuildings.Add(new BuildingType(7, "Recycling Station", debrisCollectorStationPrefab, 10f,
@@ -217,8 +223,9 @@ public class BuildingManager : MonoBehaviour {
                 {
                     new Building.BuildingStat(Building.BuildingStat.StatType.range),
                     new Building.BuildingStat(Building.BuildingStat.StatType.energyConsumption)
-                }
-                ));
+                },
+                false
+        ));
 
         availableBuildings.Add(new BuildingType(8, "Solar Station", satelliteSolarStationPrefab, 0f,
                 new List<ResourcesManager.ResourceAmount>(){
@@ -240,7 +247,8 @@ public class BuildingManager : MonoBehaviour {
                 new List<Building.BuildingStat>()
                 {
                     new Building.BuildingStat(Building.BuildingStat.StatType.energyProduction)
-                }
+                },
+                false
                 ));
 
         availableBuildings.Add(new BuildingType(9, "Healing Turret", healingTurretPrefab, 15f,
@@ -266,7 +274,8 @@ public class BuildingManager : MonoBehaviour {
                     new Building.BuildingStat(Building.BuildingStat.StatType.range),
                     new Building.BuildingStat(Building.BuildingStat.StatType.energyConsumption)
 
-                }
+                },
+                false
                 ));
 
         availableBuildings.Add(new BuildingType(10, "Spaceport", spaceportPrefab, 15f,
@@ -289,7 +298,8 @@ public class BuildingManager : MonoBehaviour {
                 new List<Building.BuildingStat>()
                 {
                     new Building.BuildingStat(Building.BuildingStat.StatType.energyConsumption)
-                }
+                },
+                true
         ));
 
         availableBuildings.Add(new BuildingType(11, "Storm Satellite", stormSatellitePrefab, 30f,
@@ -315,7 +325,8 @@ public class BuildingManager : MonoBehaviour {
                     new Building.BuildingStat(Building.BuildingStat.StatType.damagePower),
                     new Building.BuildingStat(Building.BuildingStat.StatType.range),
                     new Building.BuildingStat(Building.BuildingStat.StatType.energyConsumption)
-                }
+                },
+                false
         ));
 
         availableBuildings.Add(new BuildingType(12, "Meteor Crusher", meteorCrusherPrefab, 30f,
@@ -341,7 +352,8 @@ public class BuildingManager : MonoBehaviour {
                     new Building.BuildingStat(Building.BuildingStat.StatType.damagePower),
                     new Building.BuildingStat(Building.BuildingStat.StatType.range),
                     new Building.BuildingStat(Building.BuildingStat.StatType.energyConsumption)
-                }
+                },
+                false
         ));
     }
 
@@ -418,6 +430,13 @@ public class BuildingManager : MonoBehaviour {
                     SurroundingAreasManager.instance.ResetAllSatelliteBuildingSlotsColor();
                     ShopPanel.instance.ResetLastShopItemSelected();
                     //Debug.Log("Building Placed | Leaving Building State.");
+
+
+                    // If building is Unique, disable corresponding ShopItem
+                    if(selectedBuilding.isUnique)
+                    {
+                        ShopPanel.instance.GetShopItemAssociatedWithBuildingType(selectedBuilding).SetActive(false);
+                    }
                 }
             }
         }
@@ -669,6 +688,20 @@ public class BuildingManager : MonoBehaviour {
         }
     }
 
+    public bool IsBuildingTypeAtLeastPlacedOnce(BuildingType buildingType)
+    {
+        bool isPlaced = false;
+        foreach (GameObject building in buildingList)
+        {
+            if(building.GetComponent<Building>().buildingType == buildingType)
+            {
+                isPlaced = true;
+                break;
+            }
+        }
+        return isPlaced;
+    }
+
 
     // TODO : Only testing purpose
     public void TestBuildButton()
@@ -700,8 +733,9 @@ public class BuildingManager : MonoBehaviour {
         public bool hasRange;
         public bool producesEnergy;
         public List<Building.BuildingStat> stats;
+        public bool isUnique;
 
-        public BuildingType(int id, string name, GameObject prefab, float energyConsumption, List<ResourcesManager.ResourceAmount> cost, BuildingLocationType buildingLocationType, string imageName, int maxTier, int unlockedAtLevelNb, string description, List<ResourcesManager.UpgradeCost> upgradeCosts, bool hasRange, bool producesEnergy, List<Building.BuildingStat> stats)
+        public BuildingType(int id, string name, GameObject prefab, float energyConsumption, List<ResourcesManager.ResourceAmount> cost, BuildingLocationType buildingLocationType, string imageName, int maxTier, int unlockedAtLevelNb, string description, List<ResourcesManager.UpgradeCost> upgradeCosts, bool hasRange, bool producesEnergy, List<Building.BuildingStat> stats, bool isUnique)
         {
             this.id = id;
             this.name = name;
@@ -718,6 +752,7 @@ public class BuildingManager : MonoBehaviour {
             this.hasRange = hasRange;
             this.producesEnergy = producesEnergy;
             this.stats = stats;
+            this.isUnique = isUnique;
         }
 
         public List<ResourcesManager.ResourceAmount> GetUpgradeCostsForTierNb(int tierNb)

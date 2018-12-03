@@ -14,7 +14,9 @@ public class SaveManager : MonoBehaviour {
             instance = this;
             DontDestroyOnLoad(gameObject);
             ImportGameSaves();
+            ImportSavedGeneralData();
             MenuLoadGamePanel.instance.BuildLoadGameSaveElements();
+            MenuLoadGamePanel.instance.DisplayHighScore();
         }
     }
 
@@ -25,10 +27,15 @@ public class SaveManager : MonoBehaviour {
     public string gameSaveFileExtension = ".sav";
 
     public string savedGameFilesInfoName = ("saves");
+    public string savedGeneralDataFileName = ("general");
 
     public GameSaveData[] globalGameSaveData = new GameSaveData[5];
 
     public GameSaveData gameSaveToLoad;
+
+    [Header("General Saved Data")]
+    public SavedGeneralData savedGeneralData = null;
+    public int highScore = 0;
 
     void Start () {
     }
@@ -54,7 +61,7 @@ public class SaveManager : MonoBehaviour {
 
         string saveTime = DateTime.Now.ToString("yyyy-MM-dd h:mm:ss tt");
 
-        GameManager.GeneralGameData generalData = GatherGeneralData();
+        GameManager.GeneralGameData generalData = GatherGeneralGameData();
         Building.BuildingData[] buildingDatas = GatherBuildingsData();
         SpaceshipManager.SpaceshipData[] spaceshipsData = GatherSpaceshipsData();
         Level.LevelData reachedLevelData = GatherReachedLevelData();
@@ -87,6 +94,22 @@ public class SaveManager : MonoBehaviour {
 
         // Write game saves info file
         WriteSaveFilesInfo();
+    }
+
+    public void SaveGeneralData()
+    {
+        SavedGeneralData newSavedGeneralData = GatherGeneralData();
+        Debug.Log("SaveGeneralData | HighScore [" + newSavedGeneralData.highScore + "]");
+
+        // Binary Formatter + Stream
+        BinaryFormatter bf = new BinaryFormatter();
+        string fileName = (savedGeneralDataFileName + gameSaveFileExtension);
+        Debug.Log("File Name: " + fileName);
+        FileStream stream = new FileStream(Application.persistentDataPath + "/" + fileName, FileMode.Create);
+
+        // Write file
+        bf.Serialize(stream, newSavedGeneralData);
+        stream.Close();
     }
 
     public void SetGameSaveToLoad(GameSaveData gameSaveData)
@@ -151,7 +174,7 @@ public class SaveManager : MonoBehaviour {
         return BuildingManager.instance.BuildUnlockedBuildingsData();
     }
 
-    public GameManager.GeneralGameData GatherGeneralData()
+    public GameManager.GeneralGameData GatherGeneralGameData()
     {
         int levelReached = LevelManager.instance.currentLevelNumber;
         int unlockedDisksNb = SurroundingAreasManager.instance.unlockedDisksNb;
@@ -170,10 +193,24 @@ public class SaveManager : MonoBehaviour {
         return TechTreeManager.instance.BuildTechnologyData();
     }
 
+    public SavedGeneralData GatherGeneralData()
+    {
+        int highScoreToSave = 0;
+        // High score
+        if(ScoreManager.instance.score > highScore)
+        {
+            highScore = ScoreManager.instance.score;
+        }
+        highScoreToSave = highScore;
+
+        return (new SavedGeneralData(highScoreToSave));
+    }
+
     public void SaveGameRequest(int saveSlotIndex)
     {
         Debug.Log("SaveManager | SaveGameRequest | Slot[" + saveSlotIndex + "]");
         SaveGameStateIntoSlot(saveSlotIndex);
+        SaveGeneralData();
     }
 
     public void ImportGameSavesInfoFile()
@@ -224,6 +261,41 @@ public class SaveManager : MonoBehaviour {
         }
     }
 
+    public void ImportSavedGeneralData()
+    {
+        Debug.Log("ImportSavedGeneralData...");
+        if (File.Exists(Application.persistentDataPath + "/" + savedGeneralDataFileName + gameSaveFileExtension))
+        {
+            // saves.sav exist
+            Debug.Log("general.sav exist. Loading general data...");
+
+            // Reading existing files
+            BinaryFormatter bf = new BinaryFormatter();
+            FileStream stream = new FileStream(Application.persistentDataPath + "/" + savedGeneralDataFileName + gameSaveFileExtension, FileMode.Open);
+            
+            savedGeneralData = bf.Deserialize(stream) as SavedGeneralData;
+            highScore = savedGeneralData.highScore;
+            
+            stream.Close();
+        }
+        else
+        {
+            // saves.sav doesn't exist
+            Debug.Log("general.sav file doesn't exist. Creating...");
+
+            // Binary Formatter + Stream
+            BinaryFormatter bf = new BinaryFormatter();
+            string fileName = (savedGeneralDataFileName + gameSaveFileExtension);  // general.sav
+            Debug.Log("File Name: " + fileName);
+            FileStream stream = new FileStream(Application.persistentDataPath + "/" + fileName, FileMode.Create);
+
+            savedGeneralData = new SavedGeneralData(0);
+
+            bf.Serialize(stream, savedGeneralData);
+            stream.Close();
+        }
+    }
+
     public void LoadGameSaveData(int gameSaveIndex)
     {
         Debug.Log("LoadGameSaveData [" + gameSaveIndex + "]");
@@ -262,11 +334,13 @@ public class SaveManager : MonoBehaviour {
         stream.Close();
     }
 
-    public void ReloadGameSavesInMenu()
+    public void ReloadSavedDataInMenu()
     {
         Debug.Log("ReloadGameSavesInMenu");
         ImportGameSaves();
+        ImportSavedGeneralData();
         MenuLoadGamePanel.instance.BuildLoadGameSaveElements();
+        MenuLoadGamePanel.instance.DisplayHighScore();
     }
 
     public void SetSavedGameDataFileAsNotUsed(int savedGameIndex)
@@ -362,6 +436,17 @@ public class SaveManager : MonoBehaviour {
                 this.isUsed = isUsed;
                 this.saveTime = saveTime;
             }
+        }
+    }
+
+    [Serializable]
+    public class SavedGeneralData
+    {
+        public int highScore;
+
+        public SavedGeneralData(int highScore)
+        {
+            this.highScore = highScore;
         }
     }
 

@@ -331,7 +331,7 @@ public class LevelManager : MonoBehaviour {
     {
         foreach (GameObject enemy in currentLevel.enemies)
         {
-            GameObject instantiatedEnemy = Instantiate(enemy, GeometryManager.instance.RandomSpawnPosition(), Quaternion.identity);
+            GameObject instantiatedEnemy = Instantiate(enemy, GeometryManager.instance.RandomSpawnPositionAtRadius(EnemiesManager.instance.enemySpawnRadius), Quaternion.identity);
             instantiatedEnemy.transform.SetParent(EnemiesManager.instance.gameObject.transform);
             EnemiesManager.instance.enemies.Add(instantiatedEnemy);
         }

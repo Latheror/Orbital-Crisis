@@ -179,6 +179,14 @@ public class GeometryManager : MonoBehaviour {
         return pos;
     }
 
+    public Vector3 RandomSpawnPositionAtRadius(float radius)
+    {
+        Vector2 randomCirclePos = UnityEngine.Random.insideUnitCircle.normalized;
+        Vector3 pos = new Vector3(randomCirclePos.x * radius, randomCirclePos.y * radius, GameManager.instance.objectsDepthOffset);
+
+        return pos;
+    }
+
     public bool AreObjectsInRange(GameObject obj1, GameObject obj2, float range)
     {
         return (Vector3.Distance(obj1.transform.position, obj2.transform.position) <= range);

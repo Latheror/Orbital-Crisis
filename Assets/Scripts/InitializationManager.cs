@@ -14,7 +14,7 @@ public class InitializationManager : MonoBehaviour {
     public ResourcesManager rm;
     public ShopPanel sp;
 
-	// Use this for initialization
+	// Use this for initialization              // TODO: Put this into GameSetupManager
 	void Start () {
 
         rm.InitializeResources();

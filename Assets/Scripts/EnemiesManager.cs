@@ -14,6 +14,7 @@ public class EnemiesManager : MonoBehaviour {
     [Header("Settings")]
     public int meteorPriority = 1;
     public int spaceshipsPriority = 2;
+    public float enemySpawnRadius = 200f;
 
     [Header("Operation")]
     public List<GameObject> enemies;

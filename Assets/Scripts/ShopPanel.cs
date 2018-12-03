@@ -12,6 +12,7 @@ public class ShopPanel : MonoBehaviour {
     public int buildingsLayout2ItemNb;
     public int nbBuildingShopItemsPerLayout = 6;
     public Color buildingShopItemDefaultBackgroundColor = Color.blue;
+    public Color buildingShopItemUniqueDefaultBackgroundColor;
     public Color buildingShopItemSelectedCanPayBackgroundColor;
     public Color buildingShopItemSelectedCantPayBackgroundColor;
 
@@ -30,6 +31,7 @@ public class ShopPanel : MonoBehaviour {
 
     [Header("Prefabs")]
     public GameObject buildingShopItemPrefab;
+    public Sprite goldenBorder;
 
 
 
@@ -38,6 +40,7 @@ public class ShopPanel : MonoBehaviour {
         if (instance != null) { Debug.LogError("More than one ShopPanel in scene !"); return; }
         instance = this;
         buildingShopItemList = new List<GameObject>();
+
         buildingLayoutsItemNbs = new int[] { 0, 0, 0 };    // Change this later
     }
 
@@ -80,6 +83,12 @@ public class ShopPanel : MonoBehaviour {
                 BuildingShopItem item = instantiatedBuildingShopItem.GetComponent<BuildingShopItem>();
                 item.buildingType = buildingType;
                 item.SetInfos();
+
+                // Gold border for Unique Buildings
+                if(buildingType.isUnique)
+                {
+                    item.borderPanel.GetComponent<Image>().sprite = goldenBorder;
+                }
 
                 UpdateLayoutChangeButtons();
 
@@ -151,7 +160,14 @@ public class ShopPanel : MonoBehaviour {
     {
         if(shopItemPanelSelected != null)
         {
-            shopItemPanelSelected.GetComponent<BuildingShopItem>().SetBackGroundColor(ShopPanel.instance.buildingShopItemDefaultBackgroundColor);
+            if (shopItemPanelSelected.GetComponent<BuildingShopItem>().buildingType.isUnique)
+            {
+                shopItemPanelSelected.GetComponent<BuildingShopItem>().SetBackGroundColor(ShopPanel.instance.buildingShopItemUniqueDefaultBackgroundColor);
+            }
+            else
+            {
+                shopItemPanelSelected.GetComponent<BuildingShopItem>().SetBackGroundColor(ShopPanel.instance.buildingShopItemDefaultBackgroundColor);
+            }
         }
     }
 
@@ -168,6 +184,44 @@ public class ShopPanel : MonoBehaviour {
     {
         previousLayoutButton.SetActive((currentPanelDisplayedIndex == 0)?false:true);
         nextLayoutButton.SetActive((buildingLayoutsItemNbs[currentPanelDisplayedIndex + 1] > 0) ? true : false);
+    }
+
+    public GameObject GetShopItemAssociatedWithBuildingType(BuildingManager.BuildingType buildingType)
+    {
+        GameObject shopItem = null;
+        foreach (GameObject buildingShopItem in buildingShopItemList)
+        {
+            if(buildingShopItem.GetComponent<BuildingShopItem>().buildingType == buildingType)
+            {
+                shopItem = buildingShopItem;
+                break;
+            }
+        }
+        return shopItem;
+    }
+
+    public void UpdateBuildingItemsAvailability()
+    {
+        foreach (GameObject buildingShopItem in buildingShopItemList)
+        {
+            // Remove item when building is Unique but already placed
+            if(buildingShopItem.GetComponent<BuildingShopItem>().buildingType.isUnique)
+            {
+                if(BuildingManager.instance.IsBuildingTypeAtLeastPlacedOnce(buildingShopItem.GetComponent<BuildingShopItem>().buildingType))
+                {
+                    buildingShopItem.SetActive(false);
+                }
+            }
+        }
+    }
+
+    public void DisplayBuildingShopItemBack(BuildingManager.BuildingType buildingType)
+    {
+        GameObject shopItem = GetShopItemAssociatedWithBuildingType(buildingType);
+        if (shopItem != null)
+        {
+            shopItem.SetActive(true);
+        }
     }
 
 }

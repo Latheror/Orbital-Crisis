@@ -84,6 +84,12 @@ public class InfrastructureManager : MonoBehaviour {
             recyclingStationsList.Remove(building);
         }
 
+        // Unique Buildings
+        if (building.GetComponent<Building>().buildingType.isUnique)
+        {
+            ShopPanel.instance.DisplayBuildingShopItemBack(building.GetComponent<Building>().buildingType);
+        }
+
         EnergyPanel.instance.UpdateEnergyProductionAndConsumption();
 
         GameManager.instance.ChangeSelectionState(GameManager.SelectionState.Default);

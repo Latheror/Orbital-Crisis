@@ -48,7 +48,7 @@ public class EnemySpaceship : Spaceship {
             else
             {
                 // No target found
-                //RotateAroundPlanet();
+
             }
         }
     }
@@ -102,6 +102,10 @@ public class EnemySpaceship : Spaceship {
                         RotateTowardsTarget();
                     }
                 }
+            }
+            else
+            {
+                RotateAroundPlanet();
             }
         }
     }

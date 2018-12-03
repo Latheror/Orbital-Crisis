@@ -30,7 +30,7 @@ public class ScenesManager : MonoBehaviour {
             yield return null;
         }
 
-        SaveManager.instance.ReloadGameSavesInMenu();
+        SaveManager.instance.ReloadSavedDataInMenu();
     }
 
     IEnumerator ChangeFromMenuToGameScene()

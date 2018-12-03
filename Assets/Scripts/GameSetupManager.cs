@@ -58,6 +58,7 @@ public class GameSetupManager : MonoBehaviour {
             Debug.Log("Setup saved game...");
             BuildingSlotManager.instance.BuildGroundBuildingSlots();
             SurroundingAreasManager.instance.SetStartSetup();
+            TutorialManager.instance.HideIndicators();
             SetupSavedData();
         }
     }
@@ -92,10 +93,11 @@ public class GameSetupManager : MonoBehaviour {
             SetupResourcesData(resourcesData);
         }
 
-        if (unlockedBuildingsData != null)
+        // Buildings are now unlocked when technologies are unlocked
+        /*if (unlockedBuildingsData != null)
         {
-            //SetupUnlockedBuildings(unlockedBuildingsData);
-        }
+            SetupUnlockedBuildings(unlockedBuildingsData);
+        }*/
 
         if (technologiesData != null)
         {

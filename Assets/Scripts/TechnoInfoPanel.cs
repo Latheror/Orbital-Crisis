@@ -36,7 +36,12 @@ public class TechnoInfoPanel : MonoBehaviour {
 
         if(technology.unlockedBuildingIndex != 0)   // This technology unlocks a building
         {
-            technoDescriptionText.text = BuildingManager.instance.GetBuildingTypeByID(technology.unlockedBuildingIndex).description.ToString();
+            string buildingDescription = BuildingManager.instance.GetBuildingTypeByID(technology.unlockedBuildingIndex).description.ToString();
+            if(BuildingManager.instance.GetBuildingTypeByID(technology.unlockedBuildingIndex).isUnique)
+            {
+                buildingDescription += "(UNIQUE)";
+            }
+            technoDescriptionText.text = buildingDescription;
         }
         else if(technology.unlockedDiskIndex != 0) // This technology unlocks a disk
         {
