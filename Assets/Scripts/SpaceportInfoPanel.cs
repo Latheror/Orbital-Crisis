@@ -16,11 +16,13 @@ public class SpaceportInfoPanel : MonoBehaviour {
     [Header("UI")]
     public GameObject displayPanel;
     public TextMeshProUGUI spaceshipsNbText;
+    public TextMeshProUGUI maxSpaceshipsNbText;
     public GameObject buySpaceshipButton;
 
     [Header("Operation")]
     public GameObject selectedSpaceport;
     public int spaceshipsNb = 1;
+    public int maxSpaceshipsNb = 1;
 
     // Use this for initialization
     void Start () {
@@ -41,17 +43,24 @@ public class SpaceportInfoPanel : MonoBehaviour {
     public void DisplayInfo()
     {
         SetSpaceshipsNbText();
+        SetMaxSpaceshipsNbText();
     }
 
     public void ImportInfo()
     {
         spaceshipsNb = selectedSpaceport.GetComponent<Spaceport>().attachedSpaceships.Count;
+        maxSpaceshipsNb = selectedSpaceport.GetComponent<Spaceport>().maxSpaceships;
         DisplayInfo();
     }
 
     public void SetSpaceshipsNbText()
     {
         spaceshipsNbText.text = spaceshipsNb.ToString();
+    }
+
+    public void SetMaxSpaceshipsNbText()
+    {
+        maxSpaceshipsNbText.text = maxSpaceshipsNb.ToString();
     }
 
     public void BuySpaceshipButtonClicked()

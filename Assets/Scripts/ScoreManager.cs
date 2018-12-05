@@ -17,16 +17,19 @@ public class ScoreManager : MonoBehaviour {
     [Header("Operation")]
     public int score;
     public int experiencePoints;
+    public int artifactsNb;
 
     [Header("UI")]
     public GameObject scoreValueIndicator;
     public GameObject experienceValueText;
+    public GameObject artifactsNbText;
 
 
     void Start()
     {
         score = 0;
         experiencePoints = 0;
+        artifactsNb = 0;
         UpdateScoreDisplay();
         UpdateExperiencePointsDisplay();
     }
@@ -76,6 +79,25 @@ public class ScoreManager : MonoBehaviour {
         experienceValueText.GetComponent<TextMeshProUGUI>().text = experiencePoints.ToString();
         TechTreeManager.instance.UpdateTechnologyCostIndicatorsDisplay();
         TechTreeManager.instance.SetExperiencePointsDisplay(experiencePoints);
+    }
+
+    public void DecreaseArtifactsNb(int delta)
+    {
+        artifactsNb = Mathf.Max(0, artifactsNb - delta);
+        UpdateArtifactsNbDisplay();
+    }
+
+    public void IncreaseArtifactsNb(int delta)
+    {
+        artifactsNb += delta;
+        UpdateArtifactsNbDisplay();
+    }
+
+    public void UpdateArtifactsNbDisplay()
+    {
+        artifactsNbText.GetComponent<TextMeshProUGUI>().text = artifactsNb.ToString();
+        TechTreeManager.instance.UpdateTechnologyCostIndicatorsDisplay();       // To complete
+        TechTreeManager.instance.SetArtifactsNbDisplay(artifactsNb);
     }
 
     public void GrantPointsFromDestroyingMeteor(Meteor meteor)

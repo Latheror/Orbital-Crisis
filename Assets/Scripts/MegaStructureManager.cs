@@ -16,17 +16,56 @@ public class MegaStructureManager : MonoBehaviour {
 
     public GameObject planetaryShield;
 
+    public GameObject leftPanel;
+    public GameObject theShieldControlPanel;
+
 
     public void DefineAvailableMegastructures()
     {
         availableMegaStructures.Add(new MegaStructure(1, "Planetary Shield", planetaryShield));
     }
 
-
-
     public void EnableMegaStructure(MegaStructure megaStructure, bool enable)
     {
         megaStructure.go.SetActive(enable);
+    }
+
+    public MegaStructure GetMegaStructureFromIndex(int index)
+    {
+        MegaStructure ms = null;
+        foreach (MegaStructure megaStructure in availableMegaStructures)
+        {
+            if(megaStructure.id == index)
+            {
+                ms = megaStructure;
+                break;
+            }
+        }
+        return ms;
+    }
+
+
+
+    // Temporary
+    public void TheShieldTechnoButtonClicked()
+    {
+        Debug.Log("TheShieldTechnoButtonClicked");
+
+        bool shieldWasActive = planetaryShield.activeSelf;
+        bool activation = !shieldWasActive;
+
+        // Temp
+        planetaryShield.SetActive(activation);
+        leftPanel.SetActive(activation);
+    }
+
+
+
+
+    // Control buttons
+    public void TheShieldControlButtonClicked()
+    {
+        Debug.Log("TheShieldControlButtonClicked");
     }
 
 }

@@ -207,9 +207,9 @@ public class TouchManager : MonoBehaviour
         //Debug.Log("Within Game Area : " + withinGameArea);
         avoidsRightPanel = ((touchPos.x) <= (Screen.width - (1 * InfoPanel.instance.GetComponent<RectTransform>().rect.width)));
 
-        Debug.Log("xTouch: " + touchPos.x + " | Screen width: " + Screen.width + " | InfoPanel deltaX: " + InfoPanel.instance.GetComponent<RectTransform>().rect.width);
+        //Debug.Log("xTouch: " + touchPos.x + " | Screen width: " + Screen.width + " | InfoPanel deltaX: " + InfoPanel.instance.GetComponent<RectTransform>().rect.width);
 
-        Debug.Log("TouchPosition valid: " + (betweenTopAndBottomPanels && avoidsRightPanel) + " | Vertical: " + betweenTopAndBottomPanels + " | Horizontal: " + avoidsRightPanel);
+        //Debug.Log("TouchPosition valid: " + (betweenTopAndBottomPanels && avoidsRightPanel) + " | Vertical: " + betweenTopAndBottomPanels + " | Horizontal: " + avoidsRightPanel);
 
         return (betweenTopAndBottomPanels && avoidsRightPanel);
     }

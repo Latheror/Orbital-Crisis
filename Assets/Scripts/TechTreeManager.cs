@@ -37,9 +37,13 @@ public class TechTreeManager : MonoBehaviour
     public Color cantPayTechnologyColor;
 
     public TextMeshProUGUI experiencePointsText;
+    public TextMeshProUGUI artifactsNbText;
 
     public GameObject techTab1;
     public GameObject techTab2;
+
+    public GameObject mainTabletPanel;
+    public GameObject megaStructuresTabletPanel;
 
     public GameObject technologyInfoPanel;
 
@@ -58,42 +62,42 @@ public class TechTreeManager : MonoBehaviour
     public GameObject disk2TechnoItem;
     public GameObject disk3TechnoItem;
 
+    // The Shield
+    public GameObject shield_generatorTechnoItem;
+    public GameObject shield_stabiliserTechnoItem;
+    public GameObject shield_deflectorTechnoItem;
+    public GameObject theShield_TechnoItem;
+
     [Header("Operation")]
     public Technology selectedTechno;
     public TechnologyData[] technologiesData;
-
-
-
-    void Start()
-    {
-        InitializeTechnologies();
-    }
-
-    void Update()
-    {
-
-    }
 
     public void InitializeTechnologies()
     {
         // Init technos
 
         // Buildings
-        Technology missileTurretTechno = new Technology(1, "Missile Turret", 100, true, new List<Technology>(), "", missileTurretTechnoItem, 2, 0);
-        Technology freezingTurretTechno = new Technology(2, "Freezing Turret", 400, false, new List<Technology>(), "", freezingTurretTechnoItem, 3, 0);
-        Technology healingTurretTechno = new Technology(3, "Healing Turret", 750, false, new List<Technology>(), "", healingTurretTechnoItem, 9, 0);
-        Technology shockSatelliteTechno = new Technology(4, "Shock Satellite", 400, true, new List<Technology>(), "", shockSatelliteTechnoItem, 6, 0);
-        Technology stormSatelliteTechno = new Technology(5, "Storm Satellite", 1000, false, new List<Technology>(), "", stormSatelliteTechnoItem, 11, 0);
-        Technology meteorCrusherTechno = new Technology(6, "Meteor Crusher", 3000, false, new List<Technology>(), "", meteorCrusherTechnoItem, 12, 0);
-        Technology solarStationTechno = new Technology(7, "Solar Station", 1000, false, new List<Technology>(), "", solarStationTechnoItem, 8, 0);
-        Technology spaceportTechno = new Technology(8, "Spaceport", 2000, false, new List<Technology>(), "", spaceportTechnoItem, 10, 0);
-        Technology recyclingStationTechno = new Technology(9, "Recycling Station", 600, true, new List<Technology>(), "", recyclingStationItem, 7, 0);
+        Technology missileTurretTechno = new Technology(1, "Missile Turret", 100, true, false, new List<Technology>(), "", missileTurretTechnoItem, 2, 0, 0, false, 0);
+        Technology freezingTurretTechno = new Technology(2, "Freezing Turret", 400, false, false, new List<Technology>(), "", freezingTurretTechnoItem, 3, 0, 0, false, 0);
+        Technology healingTurretTechno = new Technology(3, "Healing Turret", 750, false, false, new List<Technology>(), "", healingTurretTechnoItem, 9, 0, 0, false, 0);
+        Technology shockSatelliteTechno = new Technology(4, "Shock Satellite", 400, true, false, new List<Technology>(), "", shockSatelliteTechnoItem, 6, 0, 0, false, 0);
+        Technology stormSatelliteTechno = new Technology(5, "Storm Satellite", 1000, false, false, new List<Technology>(), "", stormSatelliteTechnoItem, 11, 0, 0, false, 0);
+        Technology meteorCrusherTechno = new Technology(6, "Meteor Crusher", 3000, false, false, new List<Technology>(), "", meteorCrusherTechnoItem, 12, 0, 0, false, 0);
+        Technology solarStationTechno = new Technology(7, "Solar Station", 1000, false, false, new List<Technology>(), "", solarStationTechnoItem, 8, 0, 0, false, 0);
+        Technology spaceportTechno = new Technology(8, "Spaceport", 2000, false, false, new List<Technology>(), "", spaceportTechnoItem, 10, 0, 0, false, 0);
+        Technology recyclingStationTechno = new Technology(9, "Recycling Station", 600, true, false, new List<Technology>(), "", recyclingStationItem, 7, 0, 0, false, 0);
 
         // Disks
-        Technology disk1Techno = new Technology(10, "Disk I", 300, true, new List<Technology>(), "", disk1TechnoItem, 0, 1);
-        Technology disk2Techno = new Technology(11, "Disk II", 800, false, new List<Technology>(), "", disk2TechnoItem, 0, 2);
-        Technology disk3Techno = new Technology(12, "Disk III", 3000, false, new List<Technology>(), "", disk3TechnoItem, 0, 3);
+        Technology disk1Techno = new Technology(10, "Disk I", 300, true, true, new List<Technology>(), "", disk1TechnoItem, 0, 1, 0, false, 0);
+        Technology disk2Techno = new Technology(11, "Disk II", 800, false, false, new List<Technology>(), "", disk2TechnoItem, 0, 2, 0, false, 0);
+        Technology disk3Techno = new Technology(12, "Disk III", 3000, false, false, new List<Technology>(), "", disk3TechnoItem, 0, 3, 0, false, 0);
 
+        // The Shield
+        Technology shield_generatorTechno = new Technology(13, "Generator", 1500, false, false, new List<Technology>(), "", shield_generatorTechnoItem, 0, 0, 0, true, 5);
+        Technology shield_stabiliserTechno = new Technology(14, "Stabiliser", 1500, false, false, new List<Technology>(), "", shield_stabiliserTechnoItem, 0, 0, 0, true, 7);
+        Technology shield_deflectorTechno = new Technology(15, "Deflector", 1500, false, false, new List<Technology>(), "", shield_deflectorTechnoItem, 0, 0, 0, true, 10);
+        // Final step
+        Technology theShield_Techno = new Technology(16, "Deflector", 3000, false, false, new List<Technology>(), "", theShield_TechnoItem, 0, 0, 1, true, 0);
 
         // Link technos
         missileTurretTechno.unlockingTechnologies.Add(freezingTurretTechno);
@@ -114,13 +118,32 @@ public class TechTreeManager : MonoBehaviour
             missileTurretTechno, freezingTurretTechno, healingTurretTechno, shockSatelliteTechno, stormSatelliteTechno,
             meteorCrusherTechno, solarStationTechno, spaceportTechno, recyclingStationTechno,
             // Disks
-            disk1Techno, disk2Techno, disk3Techno
+            disk1Techno, disk2Techno, disk3Techno,
+            // Megastructures
+                // The Shield
+                shield_generatorTechno, shield_stabiliserTechno, shield_deflectorTechno
         };
 
         // Init locked/unlocked techno color
         foreach (Technology techno in technologies)
         {
-            techno.UIitem.GetComponent<TechnologyItem>().InitializeUIElements();
+            if(!techno.isMegaStructureTechnology)
+            {
+                techno.UIitem.GetComponent<TechnologyItem>().InitializeUIElements();
+            }
+            else
+            {
+                techno.UIitem.GetComponent<MegaStructureTechnologyItem>().InitializeUIElements();
+            }
+        }
+
+        // Unlock Technos
+        foreach (Technology techno in technologies)
+        {
+            if(techno.unlockedAtStart)
+            {
+                UnlockTechnology(techno);
+            }
         }
     }
 
@@ -143,12 +166,25 @@ public class TechTreeManager : MonoBehaviour
 
     public bool CanPayTechnology(Technology techno)
     {
-        return (ScoreManager.instance.experiencePoints >= techno.experienceCost);
+        bool canPay = false;
+        if(techno.isMegaStructureTechnology)
+        {
+            canPay = ((ScoreManager.instance.experiencePoints >= techno.experienceCost) && (ScoreManager.instance.artifactsNb >= techno.artifactCost));
+        }
+        else
+        {
+            canPay = (ScoreManager.instance.experiencePoints >= techno.experienceCost);
+        }
+        return canPay;
     }
 
     public void PayTechnology(Technology techno)
     {
         ScoreManager.instance.DecreaseExperiencePoints(techno.experienceCost);
+        if (techno.isMegaStructureTechnology)
+        {
+            ScoreManager.instance.DecreaseArtifactsNb(techno.artifactCost);
+        }
     }
 
     public void UnlockTechnologyRequest(Technology techno)
@@ -221,13 +257,25 @@ public class TechTreeManager : MonoBehaviour
     {
         foreach (Technology techno in technologies)
         {
-            techno.UIitem.GetComponent<TechnologyItem>().UpdateCostDisplay();
+            if(techno.isMegaStructureTechnology)
+            {
+                // Todo
+            }
+            else if (techno.UIitem.GetComponent<TechnologyItem>() != null)
+            {
+                techno.UIitem.GetComponent<TechnologyItem>().UpdateCostDisplay();
+            }
         }
     }
 
     public void SetExperiencePointsDisplay(int experiencePoints)
     {
         experiencePointsText.text = experiencePoints.ToString();
+    }
+
+    public void SetArtifactsNbDisplay(int artifactsNb)
+    {
+        artifactsNbText.text = artifactsNb.ToString();
     }
 
     public void TabButton1Clicked()
@@ -246,6 +294,14 @@ public class TechTreeManager : MonoBehaviour
         DisplayTechnologyInfoPanel(false);
     }
 
+    public void MegaStructurePanelButtonClicked()
+    {
+        Debug.Log("Switch to Mega Structures Panel");
+
+        mainTabletPanel.SetActive(false);
+        DisplayMegaStructuresPanel(true);
+    }
+
     public void SetSelectedTechno(Technology technology)
     {
         selectedTechno = technology;
@@ -254,6 +310,11 @@ public class TechTreeManager : MonoBehaviour
     public void DisplayTechnologyInfoPanel(bool display)
     {
         technologyInfoPanel.SetActive(display);
+    }
+
+    public void DisplayMegaStructuresPanel(bool display)
+    {
+        megaStructuresTabletPanel.SetActive(display);
     }
 
     public TechnologyData[] BuildTechnologyData()
@@ -300,22 +361,32 @@ public class TechTreeManager : MonoBehaviour
         return techno;
     }
 
+    public void BackFromMegaStructuresPanel()
+    {
+        megaStructuresTabletPanel.SetActive(false);
+        mainTabletPanel.SetActive(true);
+    }
+
     [System.Serializable]
     public class Technology
     {
         public int id;
         public string name;
         public int experienceCost;
+        public int artifactCost; // For MegaStructure technos
         public bool availableAtStart;
         public bool available;
         public List<Technology> unlockingTechnologies;  // Techs unlocked by this one
+        public bool unlockedAtStart;
         public bool unlocked;
         public string imageFilename;
         public GameObject UIitem;
         public int unlockedBuildingIndex;
         public int unlockedDiskIndex;
+        public int unlockedMegaStructureIndex;
+        public bool isMegaStructureTechnology;
 
-        public Technology(int id, string name, int experienceCost, bool availableAtStart, List<Technology> unlockingTechnologies, string imageFilename, GameObject UIitem, int unlockedBuildingIndex, int unlockedDiskIndex)
+        public Technology(int id, string name, int experienceCost, bool availableAtStart, bool unlockedAtStart, List<Technology> unlockingTechnologies, string imageFilename, GameObject UIitem, int unlockedBuildingIndex, int unlockedDiskIndex, int unlockedMegaStructureIndex, bool isMegaStructureTechnology, int artifactCost)
         {
             this.id = id;
             this.name = name;
@@ -325,10 +396,25 @@ public class TechTreeManager : MonoBehaviour
             this.unlockingTechnologies = unlockingTechnologies;
             this.imageFilename = imageFilename;
             this.UIitem = UIitem;
-            this.unlocked = false;
-            this.UIitem.GetComponent<TechnologyItem>().associatedTechnology = this;
+            this.unlockedAtStart = unlockedAtStart;
+            this.unlocked = unlockedAtStart;
             this.unlockedBuildingIndex = unlockedBuildingIndex;
             this.unlockedDiskIndex = unlockedDiskIndex;
+            this.unlockedMegaStructureIndex = unlockedMegaStructureIndex;
+            this.isMegaStructureTechnology = isMegaStructureTechnology;
+            this.artifactCost = artifactCost;
+
+            if (this.isMegaStructureTechnology)
+            {
+                if(this.UIitem.GetComponent<MegaStructureTechnologyItem>() != null)
+                {
+                    this.UIitem.GetComponent<MegaStructureTechnologyItem>().associatedTechnology = this;
+                }
+            }
+            else
+            {
+                this.UIitem.GetComponent<TechnologyItem>().associatedTechnology = this;
+            }
         }
     }
 

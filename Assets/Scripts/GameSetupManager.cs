@@ -37,13 +37,15 @@ public class GameSetupManager : MonoBehaviour {
         Debug.Log("SetupGame");
 
         TutorialManager.instance.DefineAvailableTutorialIndicators();
+        SurroundingAreasManager.instance.DefineDisks();
+
+        TechTreeManager.instance.InitializeTechnologies();
 
         if (gameSetupParameters.isNewGame)
         {
             // New game
             Debug.Log("Setup new game...");
             BuildingSlotManager.instance.BuildGroundBuildingSlots();
-            SurroundingAreasManager.instance.SetStartSetup();
             LevelManager.instance.NewGameSetup();
 
             // Tutorial manager
@@ -57,7 +59,6 @@ public class GameSetupManager : MonoBehaviour {
             // Saved game
             Debug.Log("Setup saved game...");
             BuildingSlotManager.instance.BuildGroundBuildingSlots();
-            SurroundingAreasManager.instance.SetStartSetup();
             TutorialManager.instance.HideIndicators();
             SetupSavedData();
         }

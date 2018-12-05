@@ -1059,6 +1059,7 @@ MonoBehaviour:
   - {fileID: 1302741207074038}
   - {fileID: 1568663676047376}
   trailOrigin1: {fileID: 0}
+  shieldHolder: {fileID: 0}
   target: {fileID: 0}
   previousTarget: {fileID: 0}
   attackDistance: 50
@@ -1076,6 +1077,7 @@ MonoBehaviour:
   shieldBarPanel: {fileID: 0}
   shieldPointsBar: {fileID: 0}
   shieldPointsBarBack: {fileID: 0}
+  artifactLootProbability: 0.75
 --- !u!114 &114246764546165056
 MonoBehaviour:
   m_ObjectHideFlags: 1

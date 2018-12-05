@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class EnemySpaceship : Spaceship {
 
+    public float artifactLootProbability = .5f;
+
 	// Use this for initialization
 	void Start () {
         isAllied = false;
@@ -130,6 +132,8 @@ public class EnemySpaceship : Spaceship {
         healthBarPanel.SetActive(false);
         EnemiesManager.instance.enemyWrecks.Add(gameObject);
         EnemiesManager.instance.enemies.Remove(gameObject);
+
+        RewardPlayer();
     }
 
     public void Collect()
@@ -142,6 +146,22 @@ public class EnemySpaceship : Spaceship {
         else
         {
             Debug.Log("Error: Trying to collect a spaceship which is still activated !");
+        }
+    }
+
+    public bool GetArtifactBasedOnLootProbability()
+    {
+        float rand = Random.Range(0f, 1f);
+        Debug.Log("GetArtifactBasedOnLootProbability | Rand [" + rand + "] | LootProba [" + artifactLootProbability + "] WillLoot [" + (rand <= artifactLootProbability) + "]");
+        return (rand <= artifactLootProbability);
+    }
+
+    public void RewardPlayer()
+    {
+        if(GetArtifactBasedOnLootProbability())
+        {
+            Debug.Log("Enemy Spaceship dropped an artifact !");
+            ScoreManager.instance.IncreaseArtifactsNb(1);
         }
     }
 }

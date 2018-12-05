@@ -18,7 +18,7 @@ public class Spaceship : MonoBehaviour {
     public float maxShield = 100f;
     public float shieldRegenerationDelay = 3f;
     public float shieldRegenerationAmount = 5f;
-    public GameObject homeSpaceport;
+    public GameObject homeSpaceport = null;
 
     [Header("Movement")]
     public float movementSpeed = 100f;
@@ -128,7 +128,7 @@ public class Spaceship : MonoBehaviour {
     {
         float positionAngle = GeometryManager.GetRadAngleFromGameObject(gameObject);
         float degreePositionAngle = GeometryManager.RadiansToDegrees(positionAngle);
-        Debug.Log("RotateAroundPlanet | PositionAngleRad [" + positionAngle + "] | DegreePositionAngle [" + degreePositionAngle + "]");
+        //Debug.Log("RotateAroundPlanet | PositionAngleRad [" + positionAngle + "] | DegreePositionAngle [" + degreePositionAngle + "]");
 
         transform.rotation = Quaternion.Euler(-90 - degreePositionAngle, 90, -90);
         transform.RotateAround(GameManager.instance.mainPlanet.transform.position, Vector3.forward, Time.deltaTime * idleRotationSpeed);

@@ -209,6 +209,13 @@ public class AlliedSpaceship : Spaceship {
         // temporary
         isActivated = false;
         SpaceshipManager.instance.alliedSpaceships.Remove(gameObject);
+
+        // Remove from potential Spaceport
+        if(homeSpaceport != null)
+        {
+            homeSpaceport.GetComponent<Spaceport>().RemoveSpaceship(gameObject);
+        }
+
         Destroy(gameObject);
     }
 

@@ -83,4 +83,11 @@ public class Spaceport : Building
             Debug.Log("Maximum spaceships limit reached !");
         }
     }
+
+    public void RemoveSpaceship(GameObject spaceshipToRemove)
+    {
+        attachedSpaceships.Remove(spaceshipToRemove);
+
+        SpaceportInfoPanel.instance.ImportInfo();
+    }
 }
