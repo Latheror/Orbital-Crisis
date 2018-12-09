@@ -75,7 +75,7 @@ public class ResourcesManager : MonoBehaviour {
     {
         foreach (ResourceType resource in availableResources)
         {
-            GameObject instantiatedResourceIndicator = Instantiate(resourceIndicatorPrefab, resourceIndicatorLayout.transform.position, Quaternion.identity);
+            GameObject instantiatedResourceIndicator = Instantiate(resourceIndicatorPrefab, new Vector3(0f, 0f, 0f)/*resourceIndicatorLayout.transform.position*/, Quaternion.identity);
             instantiatedResourceIndicator.transform.SetParent(resourceIndicatorLayout.transform, false);
             instantiatedResourceIndicator.GetComponent<ResourceIndicator>().SetParameters(resource);
 

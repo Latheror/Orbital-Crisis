@@ -56,10 +56,12 @@ public class ScoreManager : MonoBehaviour {
         scoreValueIndicator.GetComponent<TextMeshProUGUI>().text = score.ToString();
     }
 
-    public void SetExperiencePoints(int exp)
+    public void SetExperiencePointsAndArtifactsNb(int exp, int artifactsNb)
     {
         experiencePoints = exp;
+        this.artifactsNb = artifactsNb;
         UpdateExperiencePointsDisplay();
+        UpdateArtifactsNbDisplay();
     }
 
     public void IncreaseExperiencePoints(int delta)

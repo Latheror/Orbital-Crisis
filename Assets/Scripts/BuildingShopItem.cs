@@ -24,7 +24,7 @@ public class BuildingShopItem : MonoBehaviour {
 
     }
 
-    public void SetInfos()
+    public void SetInfo()
     {
         ApplyBuildingNameText();
         ApplyBuildingImage();
@@ -82,7 +82,7 @@ public class BuildingShopItem : MonoBehaviour {
     {
         foreach (ResourcesManager.ResourceAmount resourceAmount in buildingType.resourceCosts)
         {
-            GameObject instantiatedResourceCostPanel = Instantiate(resourceCostPanelPrefab, buildingCostsPanel.transform.position, Quaternion.identity);
+            GameObject instantiatedResourceCostPanel = Instantiate(resourceCostPanelPrefab, new Vector3(0f, 0f, 0f) /*buildingCostsPanel.transform.position*/, Quaternion.identity);
             instantiatedResourceCostPanel.transform.SetParent(buildingCostsPanel.transform, false);
 
             ResourceCostPanel rcPanel = instantiatedResourceCostPanel.GetComponent<ResourceCostPanel>();

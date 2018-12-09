@@ -92,6 +92,7 @@ public class EnergyPanel : MonoBehaviour {
     {
         float totalEnergyToDistribute = energyProduction;
 
+        // Regular Buildings
         foreach (GameObject building in BuildingManager.instance.buildingList)
         {
             Building b = building.GetComponent<Building>();
@@ -118,12 +119,28 @@ public class EnergyPanel : MonoBehaviour {
                 b.hasEnoughEnergy = false;
             }
         }
+
+        // MegaStructures
+        // Planetary Shield
+        if(PlanetaryShield.instance != null && PlanetaryShield.instance.isUnlocked)
+        {
+            if(totalEnergyToDistribute > PlanetaryShield.instance.energyConsumption && (PlanetaryShield.instance.energyConsumption != 0))
+            {
+                PlanetaryShield.instance.hasEnoughEnergy = true;
+                totalEnergyToDistribute -= PlanetaryShield.instance.energyConsumption;
+            }
+            else
+            {
+                PlanetaryShield.instance.hasEnoughEnergy = false;
+            }
+        }
+
     }
 
     public void UpdateEnergyProductionAndConsumption()
     {
         float totalEnergyProduction = 0;
-        float TotalEnergyConsumption = 0;
+        float totalEnergyConsumption = 0;
 
         foreach (GameObject building in BuildingManager.instance.buildingList)
         {
@@ -135,13 +152,20 @@ public class EnergyPanel : MonoBehaviour {
                 }
                 else    // Consumes energy
                 {
-                    TotalEnergyConsumption += building.GetComponent<Building>().energyConsumption;
+                    totalEnergyConsumption += building.GetComponent<Building>().energyConsumption;
                 }
             } 
         }
 
+        // MegaStructures
+        // Planetary Shield
+        if (PlanetaryShield.instance != null && PlanetaryShield.instance.isUnlocked)
+        {
+            totalEnergyConsumption += PlanetaryShield.instance.energyConsumption;
+        }
+
         SetEnergyProduction(totalEnergyProduction);
-        SetEnergyConsumption(TotalEnergyConsumption);
+        SetEnergyConsumption(totalEnergyConsumption);
 
         DistributeEnergy();
 

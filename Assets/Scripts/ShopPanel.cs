@@ -72,8 +72,9 @@ public class ShopPanel : MonoBehaviour {
         {
             if(buildingLayoutsItemNbs[i] < nbBuildingShopItemsPerLayout) // There is some room in this layout
             {
-                GameObject instantiatedBuildingShopItem = Instantiate(buildingShopItemPrefab, buildingsLayouts[i].transform.position, Quaternion.identity);
+                GameObject instantiatedBuildingShopItem = Instantiate(buildingShopItemPrefab, /*buildingsLayouts[i].transform.position*/ new Vector3(0f, 0f, 0f), Quaternion.identity);
                 instantiatedBuildingShopItem.transform.SetParent(buildingsLayouts[i].transform, false);
+                //instantiatedBuildingShopItem.transform.position = new Vector3(0f, 0f, 0f);
                 buildingLayoutsItemNbs[i] ++;
 
                 //Debug.Log("Nb of building items in layout " + i + " is: " + buildingLayoutsItemNbs[i]);
@@ -82,7 +83,7 @@ public class ShopPanel : MonoBehaviour {
 
                 BuildingShopItem item = instantiatedBuildingShopItem.GetComponent<BuildingShopItem>();
                 item.buildingType = buildingType;
-                item.SetInfos();
+                item.SetInfo();
 
                 // Gold border for Unique Buildings
                 if(buildingType.isUnique)

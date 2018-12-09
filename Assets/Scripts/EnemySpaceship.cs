@@ -127,7 +127,7 @@ public class EnemySpaceship : Spaceship {
 
     protected override void DestroySpaceship()
     {
-        Debug.Log("Enemy Spaceship has been destroyed !");
+        //Debug.Log("Enemy Spaceship has been destroyed !");
         isActivated = false; // temporary
         healthBarPanel.SetActive(false);
         EnemiesManager.instance.enemyWrecks.Add(gameObject);
@@ -152,7 +152,7 @@ public class EnemySpaceship : Spaceship {
     public bool GetArtifactBasedOnLootProbability()
     {
         float rand = Random.Range(0f, 1f);
-        Debug.Log("GetArtifactBasedOnLootProbability | Rand [" + rand + "] | LootProba [" + artifactLootProbability + "] WillLoot [" + (rand <= artifactLootProbability) + "]");
+        //Debug.Log("GetArtifactBasedOnLootProbability | Rand [" + rand + "] | LootProba [" + artifactLootProbability + "] WillLoot [" + (rand <= artifactLootProbability) + "]");
         return (rand <= artifactLootProbability);
     }
 
@@ -160,7 +160,7 @@ public class EnemySpaceship : Spaceship {
     {
         if(GetArtifactBasedOnLootProbability())
         {
-            Debug.Log("Enemy Spaceship dropped an artifact !");
+            //Debug.Log("Enemy Spaceship dropped an artifact !");
             ScoreManager.instance.IncreaseArtifactsNb(1);
         }
     }

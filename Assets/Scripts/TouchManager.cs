@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class TouchManager : MonoBehaviour
 {
+    public LayerMask layersToIgnore;
 
     [Header("World")]
     public new Camera camera;
@@ -13,6 +14,8 @@ public class TouchManager : MonoBehaviour
     public float orthoZoomSpeed = 0.5f;              // The rate of change of the orthographic size in orthographic mode.
     public float minFieldOfView = 20;
     public float maxFieldOfView = 100;
+    public float minOrthographicSize = 20;
+    public float maxOrthographicSize = 100;
     public float avoidPanelsMargin = 10f;
     public float moveCameraSpeed = .5f;
 
@@ -80,7 +83,7 @@ public class TouchManager : MonoBehaviour
                         bool otherPriorityElementTouched = false;
 
                         //Debug.DrawRay(ray.origin, ray.direction * 300, Color.yellow, 100f);
-                        if (Physics.Raycast(ray, out hit))
+                        if (Physics.Raycast(ray, out hit, 5000f, ~layersToIgnore))
                         {
                             //Debug.Log(hit.transform.name);
                             if (hit.collider != null)
@@ -176,7 +179,7 @@ public class TouchManager : MonoBehaviour
                     camera.orthographicSize += deltaMagnitudeDiff * orthoZoomSpeed;
 
                     // Make sure the orthographic size never drops below zero.
-                    camera.orthographicSize = Mathf.Max(camera.orthographicSize, 0.1f);
+                    camera.orthographicSize = Mathf.Clamp(camera.orthographicSize, minOrthographicSize, maxOrthographicSize);
                 }
                 // If the camera is in perspective
                 else
@@ -202,14 +205,14 @@ public class TouchManager : MonoBehaviour
         //Debug.Log("BottomPanel Height: " + bottomPanel.GetComponent<RectTransform>().sizeDelta.y);
         //Debug.Log("Screen Hight: " + Screen.height);
 
-        //Debug.Log("IsTouchWithinGameArea | Top/Bottom | touchPos.y [" + touchPos.y + "] | BottomPanelY [" + (bottomPanel.GetComponent<RectTransform>().rect.height)/*bottomPanel.GetComponent<RectTransform>().rect.height*/ + "] | TopPanelY [" + (topPanel.GetComponent<RectTransform>().rect.height));
-        betweenTopAndBottomPanels = (((touchPos.y) >= 1.2*bottomPanel.GetComponent<RectTransform>().rect.height )) && ((touchPos.y) <= (Screen.height - 1.2*topPanel.GetComponent<RectTransform>().rect.height));
-        //Debug.Log("Within Game Area : " + withinGameArea);
-        avoidsRightPanel = ((touchPos.x) <= (Screen.width - (1 * InfoPanel.instance.GetComponent<RectTransform>().rect.width)));
+        Debug.Log("IsTouchWithinGameArea | Top/Bottom | touchPos.y [" + touchPos.y + "] | BottomPanelY [" + (bottomPanel.GetComponent<RectTransform>().rect.height) + "] | TopPanelY [" + (topPanel.GetComponent<RectTransform>().rect.height));
+        betweenTopAndBottomPanels = (((touchPos.y) >= .4f *bottomPanel.GetComponent<RectTransform>().rect.height )) && ((touchPos.y) <= (Screen.height - .4f*topPanel.GetComponent<RectTransform>().rect.height));
 
-        //Debug.Log("xTouch: " + touchPos.x + " | Screen width: " + Screen.width + " | InfoPanel deltaX: " + InfoPanel.instance.GetComponent<RectTransform>().rect.width);
+        avoidsRightPanel = ((touchPos.x) <= (Screen.width - (.4f * InfoPanel.instance.GetComponent<RectTransform>().rect.width)));
 
-        //Debug.Log("TouchPosition valid: " + (betweenTopAndBottomPanels && avoidsRightPanel) + " | Vertical: " + betweenTopAndBottomPanels + " | Horizontal: " + avoidsRightPanel);
+        Debug.Log("xTouch: " + touchPos.x + " | Screen width: " + Screen.width + " | InfoPanel deltaX: " + InfoPanel.instance.GetComponent<RectTransform>().rect.width);
+
+        Debug.Log("TouchPosition valid: " + (betweenTopAndBottomPanels && avoidsRightPanel) + " | Vertical: " + betweenTopAndBottomPanels + " | Horizontal: " + avoidsRightPanel);
 
         return (betweenTopAndBottomPanels && avoidsRightPanel);
     }

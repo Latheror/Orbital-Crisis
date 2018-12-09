@@ -11,19 +11,86 @@ public class MegaStructureShortcutsPanel : MonoBehaviour {
         instance = this;
     }
 
+    public GameObject displayPanel;
+    public List<TechnoShortcutItem> shortcutItems = new List<TechnoShortcutItem>();
+
     public GameObject theShieldShortcut;
 
-
-
-
-    public void PlanetaryShieldShortcutClicked()
+    private void Start()
     {
-        TheShieldControlPanel.instance.DisplayPanel(true);
+        Init();
+        SetupNewGame();
+    }
+
+    public void Init()
+    {
+        shortcutItems = new List<TechnoShortcutItem>();
+        shortcutItems.Add(new TechnoShortcutItem(theShieldShortcut, 16));
+    }
+
+    public void HideAllShortCuts()
+    {
+        foreach (TechnoShortcutItem shortcutItem in shortcutItems)
+        {
+            shortcutItem.go.SetActive(false);
+        }
+    }
+
+    public void SetupNewGame()
+    {
+        HideAllShortCuts();
+        DisplayPanel(false);
     }
 
 
-    public void DisplayTheShieldShortcut(bool display)
+    public void DisplayPanel(bool display)
     {
-        theShieldShortcut.SetActive(display);
+        displayPanel.SetActive(display);
+    }
+
+    public void PlanetaryShieldShortcutClicked()
+    {
+        MegaStructureManager.instance.SelectPlanetaryShield(true);
+    }
+
+    public TechnoShortcutItem GetTechnoShortcutItemFromTechnoID(int id)
+    {
+        TechnoShortcutItem foundShortcurItem = null;
+        foreach (TechnoShortcutItem shortcutItem in shortcutItems)
+        {
+            if(shortcutItem.technoId == id)
+            {
+                foundShortcurItem = shortcutItem;
+                break;
+            }
+        }
+        return foundShortcurItem;
+    }
+
+    public void EnableTechnoShortcutItem(int technoId)
+    {
+        foreach (TechnoShortcutItem shortcutItem in shortcutItems)
+        {
+            if (shortcutItem.technoId == technoId)
+            {
+                DisplayPanel(true);
+                shortcutItem.go.SetActive(true);
+                break;
+            }
+        }
+    }
+
+
+
+    public class TechnoShortcutItem
+    {
+        public GameObject go;
+        public int technoId;
+
+        public TechnoShortcutItem(GameObject shortcut, int technoId)
+        {
+            this.go = shortcut;
+            this.technoId = technoId;
+        }
     }
 }

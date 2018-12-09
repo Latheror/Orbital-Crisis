@@ -29,9 +29,9 @@ TagManager:
   - MainPlanet
   - 
   - BuildingIndicator
+  - PlanetaryShieldLayer
   - 
-  - 
-  - 
+  - AboveParticlesUI
   - 
   - 
   - 

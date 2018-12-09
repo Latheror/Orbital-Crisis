@@ -95,8 +95,8 @@ MonoBehaviour:
   m_IgnoreLayout: 0
   m_MinWidth: -1
   m_MinHeight: -1
-  m_PreferredWidth: 50
-  m_PreferredHeight: 20
+  m_PreferredWidth: 75
+  m_PreferredHeight: 60
   m_FlexibleWidth: -1
   m_FlexibleHeight: -1
   m_LayoutPriority: 1
@@ -143,35 +143,6 @@ MonoBehaviour:
     resourceName: 
     color: {r: 0, g: 0, b: 0, a: 0}
     startAmount: 0
-    currentResourceAmount:
-      resourceType:
-        id: 0
-        resourceName: 
-        color: {r: 0, g: 0, b: 0, a: 0}
-        startAmount: 0
-        currentResourceAmount:
-          resourceType:
-            id: 0
-            resourceName: 
-            color: {r: 0, g: 0, b: 0, a: 0}
-            startAmount: 0
-            currentResourceAmount:
-              resourceType:
-                id: 0
-                resourceName: 
-                color: {r: 0, g: 0, b: 0, a: 0}
-                startAmount: 0
-                currentResourceAmount:
-                  amount: 0
-                resourceIndicator: {fileID: 0}
-                resourceImage: {fileID: 0}
-              amount: 0
-            resourceIndicator: {fileID: 0}
-            resourceImage: {fileID: 0}
-          amount: 0
-        resourceIndicator: {fileID: 0}
-        resourceImage: {fileID: 0}
-      amount: 0
     resourceIndicator: {fileID: 0}
     resourceImage: {fileID: 0}
   costText: {fileID: 114753429358625734}
@@ -255,10 +226,10 @@ MonoBehaviour:
   m_outlineColor:
     serializedVersion: 2
     rgba: 4278190080
-  m_fontSize: 16.31
+  m_fontSize: 31.5
   m_fontSizeBase: 16.31
   m_fontWeight: 400
-  m_enableAutoSizing: 0
+  m_enableAutoSizing: 1
   m_fontSizeMin: 1
   m_fontSizeMax: 72
   m_fontStyle: 0
@@ -273,7 +244,7 @@ MonoBehaviour:
   m_enableWordWrapping: 1
   m_wordWrappingRatios: 0.4
   m_overflowMode: 0
-  m_firstOverflowCharacterIndex: 0
+  m_firstOverflowCharacterIndex: -1
   m_linkedTextComponent: {fileID: 0}
   m_isLinkedTextComponent: 0
   m_isTextTruncated: 0
@@ -395,7 +366,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 37.06, y: 27.87}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!224 &224031000681758354
 RectTransform:
@@ -410,10 +381,10 @@ RectTransform:
   m_Father: {fileID: 224020381644262312}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 1, y: 0.5}
-  m_AnchorMax: {x: 1, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -4.23}
-  m_SizeDelta: {x: 25.87, y: 19.42}
+  m_AnchorMin: {x: 0.39333335, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: 0, y: -0.000002861023}
+  m_SizeDelta: {x: -0.54999924, y: 0}
   m_Pivot: {x: 1, y: 0.5}
 --- !u!224 &224489895099206204
 RectTransform:

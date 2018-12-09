@@ -27,7 +27,7 @@ public class SpaceshipInfoPanel : MonoBehaviour {
 
     void SetHealthText(int healthPoints, int maxHealthPoints)
     {
-        Debug.Log("SetHealthText: " + healthPoints + " / " + maxHealthPoints);
+        //Debug.Log("SetHealthText: " + healthPoints + " / " + maxHealthPoints);
         healthNumbersText.text = (healthPoints + "/" + maxHealthPoints);
     }
 

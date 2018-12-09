@@ -6,9 +6,14 @@ using TMPro;
 
 public class MegaStructureTechnologyItem : MonoBehaviour {
 
+    public GameObject experienceCostPanel;
+    public GameObject artifactCostPanel;
+
     public TextMeshProUGUI nameText;
     public TextMeshProUGUI experienceCostText;
     public TextMeshProUGUI artifactCostText;
+
+    public GameObject button;
 
     public List<GameObject> outputConnections;
 
@@ -19,9 +24,13 @@ public class MegaStructureTechnologyItem : MonoBehaviour {
     {
         if(associatedTechnology != null)
         {
-            SetNameText(associatedTechnology.name);
-            SetExperienceCostText(associatedTechnology.experienceCost);
-            SetArtifactCostText(associatedTechnology.artifactCost);
+            if (!associatedTechnology.isFinalMegaStructureTechnology)
+            {
+                SetNameText(associatedTechnology.name);
+                SetExperienceCostText(associatedTechnology.experienceCost);
+                SetArtifactCostText(associatedTechnology.artifactCost);
+            }
+            UpdatePanelDisplay();
         }
         else
         {
@@ -36,10 +45,93 @@ public class MegaStructureTechnologyItem : MonoBehaviour {
     public void ButtonClicked()
     {
         Debug.Log("MegaStructureTechnologyItem | ButtonClicked [" + associatedTechnology.name + "]");
-        if(TechTreeManager.instance.CanPayTechnology(associatedTechnology))
+        if(TechTreeManager.instance.CanPayTechnology(associatedTechnology) && !associatedTechnology.unlocked)
         {
             TechTreeManager.instance.PayTechnology(associatedTechnology);
+
+            TechTreeManager.instance.UnlockTechnology(associatedTechnology);
         }
+    }
+
+    public void UpdateItemDisplay()
+    {
+        UpdatePanelDisplay();
+    }
+
+    public void UpdatePanelDisplay()
+    {
+        bool outputConnectionEnabled = false;
+
+        if (!associatedTechnology.isFinalMegaStructureTechnology)
+        {
+            if (associatedTechnology.unlocked)
+            {
+                button.GetComponent<Image>().sprite = TechTreeManager.instance.unlockedTechnoUIBorder;
+                outputConnectionEnabled = true;
+                DisplayCostPanels(false);
+            }
+            else
+            {
+                if (TechTreeManager.instance.CanPayTechnology(associatedTechnology))
+                {
+                    button.GetComponent<Image>().sprite = TechTreeManager.instance.notUnlockedTechnoUIBorder;
+                }
+                else
+                {
+                    button.GetComponent<Image>().sprite = TechTreeManager.instance.tooExpensiveTechnoUIBorder;
+                }
+            }
+
+            // Experience cost text
+            experienceCostText.color = (TechTreeManager.instance.CanPayExperienceCost(associatedTechnology)) ? MegaStructureManager.instance.canPayColor : MegaStructureManager.instance.cantPayColor;
+
+            // Artifact cost text
+            artifactCostText.color = (TechTreeManager.instance.CanPayArtifactCost(associatedTechnology)) ? MegaStructureManager.instance.canPayColor : MegaStructureManager.instance.cantPayColor;
+        }
+        else
+        {
+            if (associatedTechnology.unlocked)
+            {
+
+            }
+            else
+            {
+                if (associatedTechnology.available)
+                {
+                    // Planetary Shield only, for now            // TODO : Separate technos
+                    Debug.Log("Planetary shield available !");
+
+                    MegaStructuresPanel.instance.activateShieldTextGo.SetActive(true);
+
+                    GetComponent<Image>().color = MegaStructuresPanel.instance.finalMegaStructureAvailableColor;
+                }
+                else
+                {
+
+                }
+            }
+        }
+
+        if (outputConnectionEnabled)
+        {
+            foreach (GameObject outputConnection in outputConnections)
+            {
+                outputConnection.GetComponent<Image>().sprite = TechTreeManager.instance.enabledConnectionSprite;
+            }
+        }
+        else
+        {
+            foreach (GameObject outputConnection in outputConnections)
+            {
+                outputConnection.GetComponent<Image>().sprite = TechTreeManager.instance.disabledConnectionSprite;
+            }
+        }
+    }
+
+    public void DisplayCostPanels(bool display)
+    {
+        experienceCostPanel.SetActive(display);
+        artifactCostPanel.SetActive(display);
     }
 
 }

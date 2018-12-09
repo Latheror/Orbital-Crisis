@@ -34,7 +34,7 @@ public class MainPlanet : MonoBehaviour {
             //Debug.Log("Planet hit by a meteor.");
             InfoManager.instance.IncrementMeteorCollisionsValue();
 
-            other.GetComponent<Meteor>().InstantiateImpactEffect();
+            other.GetComponent<Meteor>().InstantiateImpactEffect(2);
             MeteorsManager.instance.DeleteMeteor(other.gameObject);
         }
     }

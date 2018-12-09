@@ -73,7 +73,7 @@ public class BuildingInfoPanel : MonoBehaviour {
         {
             //Debug.Log("Adding resource indicator to Upgrade panel: " + resourceAmount.resourceType.resourceName);
 
-            GameObject instantiatedUpgradeCostPanel = Instantiate(upgradeCostPanelPrefab, upgradeCostsLayout.transform.position, Quaternion.identity);
+            GameObject instantiatedUpgradeCostPanel = Instantiate(upgradeCostPanelPrefab, new Vector3(0f,0f,0f) /*upgradeCostsLayout.transform.position*/, Quaternion.identity);
             instantiatedUpgradeCostPanel.transform.SetParent(upgradeCostsLayout.transform, false);
 
             // Customize CostPanel

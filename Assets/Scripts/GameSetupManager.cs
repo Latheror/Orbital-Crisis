@@ -128,11 +128,12 @@ public class GameSetupManager : MonoBehaviour {
         int hits = generalGameData.hits;
         int unlockedDisksNb = generalGameData.unlockedDisks;
         int experiencePoints = generalGameData.experiencePoints;
+        int artifactsNb = generalGameData.artifactsNb;
 
-        Debug.Log("SetupGeneralParameters | Score [" + score + "] | Hits [" + hits + "] | UnlockedDisks [" + unlockedDisksNb + "]");
+        //Debug.Log("SetupGeneralParameters | Score [" + score + "] | Hits [" + hits + "] | UnlockedDisks [" + unlockedDisksNb + "]");
 
         ScoreManager.instance.SetScore(score);
-        ScoreManager.instance.SetExperiencePoints(experiencePoints);
+        ScoreManager.instance.SetExperiencePointsAndArtifactsNb(experiencePoints, artifactsNb);
         InfoManager.instance.SetMeteorCollisionsValue(hits);
         SurroundingAreasManager.instance.SetUnlockedDisksNb(unlockedDisksNb);
     }

@@ -13,7 +13,7 @@ public class GameManager : MonoBehaviour {
     }
 
     public enum GameState { Default, Pause } 
-    public enum SelectionState { Default, SpaceshipSelected, ShopItemSelected, BuildingSelected, EnemySelected }
+    public enum SelectionState { Default, SpaceshipSelected, ShopItemSelected, BuildingSelected, EnemySelected, PlanetaryShieldSelected }
 
     [Header("Settings")]
     public float objectsDepthOffset;
@@ -97,6 +97,7 @@ public class GameManager : MonoBehaviour {
                     BuildingInfoPanel.instance.Deselection();
                     SpaceportInfoPanel.instance.DisplayPanel(false);
                     EnemiesManager.instance.DeselectEnemy();
+                    PlanetaryShieldControlPanel.instance.DisplayPanel(false);
                     break;
                 }
                 case SelectionState.SpaceshipSelected:
@@ -104,12 +105,15 @@ public class GameManager : MonoBehaviour {
                     BuildingInfoPanel.instance.Deselection();
                     SpaceportInfoPanel.instance.DisplayPanel(false);
                     EnemiesManager.instance.DeselectEnemy();
+                    PlanetaryShieldControlPanel.instance.DisplayPanel(false);
                     break;
                 }
                 case SelectionState.BuildingSelected:
                 {
                     SpaceshipManager.instance.DeselectSpaceship();
+                    SpaceportInfoPanel.instance.DisplayPanel(false);
                     EnemiesManager.instance.DeselectEnemy();
+                    PlanetaryShieldControlPanel.instance.DisplayPanel(false);
                     break;
                 }
                 case SelectionState.ShopItemSelected:
@@ -118,6 +122,7 @@ public class GameManager : MonoBehaviour {
                     BuildingInfoPanel.instance.Deselection();
                     SpaceportInfoPanel.instance.DisplayPanel(false);
                     EnemiesManager.instance.DeselectEnemy();
+                    PlanetaryShieldControlPanel.instance.DisplayPanel(false);
                     break;
                 }
                 case SelectionState.EnemySelected:
@@ -125,6 +130,15 @@ public class GameManager : MonoBehaviour {
                     SpaceshipManager.instance.DeselectSpaceship();
                     BuildingInfoPanel.instance.Deselection();
                     SpaceportInfoPanel.instance.DisplayPanel(false);
+                    PlanetaryShieldControlPanel.instance.DisplayPanel(false);
+                    break;
+                }
+                case SelectionState.PlanetaryShieldSelected:
+                {
+                    SpaceshipManager.instance.DeselectSpaceship();
+                    BuildingInfoPanel.instance.Deselection();
+                    SpaceportInfoPanel.instance.DisplayPanel(false);
+                    EnemiesManager.instance.DeselectEnemy();
                     break;
                 }
             }
@@ -144,14 +158,16 @@ public class GameManager : MonoBehaviour {
         public int score;
         public int hits;
         public int experiencePoints;
+        public int artifactsNb;
 
-        public GeneralGameData(int currentLevelNb, int unlockedOrbits, int score, int hits, int experiencePoints)
+        public GeneralGameData(int currentLevelNb, int unlockedOrbits, int score, int hits, int experiencePoints, int artifactsNb)
         {
             this.levelReached = currentLevelNb;
             this.unlockedDisks = unlockedOrbits;
             this.score = score;
             this.hits = hits;
             this.experiencePoints = experiencePoints;
+            this.artifactsNb = artifactsNb;
         }
     }
 }

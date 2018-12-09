@@ -21,13 +21,15 @@ public class Meteor : MonoBehaviour {
     public bool willLetDebris = false;
 
     [Header("Prefabs")]
-    public GameObject impactEffect;
+    public GameObject brownImpactEffect;
+    public GameObject yellowImpactEffect;
     public Material defaultMeteorMaterial;
     public Material touchedByPlayerMaterial;
 
     [Header("Operation")]
     public float currentApproachSpeed = 5f;
     public float healthPoints;
+    public bool hasAlreadyBeenHitByPlanetaryShield = false;
 
 	// Use this for initialization
 	void Start () {
@@ -81,7 +83,7 @@ public class Meteor : MonoBehaviour {
     {
         //Debug.Log("Dealing " + amount + " damages to meteor.");
         healthPoints -= amount;
-        InstantiateImpactEffect();
+        InstantiateImpactEffect(1);
 
         if (healthPoints <= 0)
         {
@@ -93,8 +95,22 @@ public class Meteor : MonoBehaviour {
         }
     }
 
-    public void InstantiateImpactEffect()
+    public void InstantiateImpactEffect(int impactEffectId)
     {
+        GameObject impactEffect = null;
+        switch (impactEffectId)
+        {
+            case 1:
+            {
+                impactEffect = brownImpactEffect;
+                break;
+            }
+            case 2:
+            {
+                impactEffect = yellowImpactEffect;
+                break;
+            }
+        }
         GameObject impactEff = Instantiate(impactEffect, transform.position, transform.rotation);
         Destroy(impactEff, 2f);
     }

@@ -14,6 +14,10 @@ public class MegaStructuresPanel : MonoBehaviour {
     public GameObject megaStructurePanel1;
     public GameObject megaStructurePanel2;
 
+    public GameObject activateShieldTextGo;
+
+    public Color finalMegaStructureAvailableColor;
+
     public void BackButtonClicked()
     {
         TechTreeManager.instance.BackFromMegaStructuresPanel();
@@ -22,7 +26,7 @@ public class MegaStructuresPanel : MonoBehaviour {
     public void MegaStructurePanel1ButtonClicked()
     {
         megaStructurePanel1.SetActive(true);
-        megaStructurePanel1.SetActive(false);
+        megaStructurePanel2.SetActive(false);
     }
 
     public void MegaStructurePanel2ButtonClicked()

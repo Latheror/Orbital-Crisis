@@ -26,7 +26,7 @@ public class TechnologyItem : MonoBehaviour {
 
     public void TechnoSelectionButtonClicked()
     {
-        Debug.Log("Technology Selected [" + associatedTechnology.name + "]");
+        //Debug.Log("Technology Selected [" + associatedTechnology.name + "]");
         if(associatedTechnology != null)
         {
             TechTreeManager.instance.SetSelectedTechno(associatedTechnology);
@@ -48,7 +48,7 @@ public class TechnologyItem : MonoBehaviour {
 
     public void UpdateItemDisplay()
     {
-        Debug.Log("UpdateItemDisplay | Available [" + associatedTechnology.available + "] | Unlocked [" + associatedTechnology.unlocked + "]");
+        //Debug.Log("UpdateItemDisplay | Available [" + associatedTechnology.available + "] | Unlocked [" + associatedTechnology.unlocked + "]");
 
         bool outputConnectionEnabled = false;
 
@@ -66,7 +66,14 @@ public class TechnologyItem : MonoBehaviour {
             }
             else
             {
-                button.GetComponent<Image>().sprite = TechTreeManager.instance.notUnlockedTechnoUIBorder;
+                if (TechTreeManager.instance.CanPayTechnology(associatedTechnology))
+                {
+                    button.GetComponent<Image>().sprite = TechTreeManager.instance.notUnlockedTechnoUIBorder;
+                }
+                else
+                {
+                    button.GetComponent<Image>().sprite = TechTreeManager.instance.tooExpensiveTechnoUIBorder;
+                }
             }
         }
         else
