@@ -20,10 +20,12 @@ public class MeteorsManager : MonoBehaviour {
     public float circleFactor = 50f;
     public float meteorSpawnMinSize = 5f;
     public float meteorSpawnMaxSize = 15f;
+    public float meteorSpawnSizeFactor = 1f;
     public float healthPointsAtMinSize = 10f;
     public float healthPointsAtMaxSize = 30f;
     public float healthSizeFactor = 1f;
     public int valuePerSizeUnit = 10;
+    public float currentSpawnSizeFactor = 1;
 
     [Header("Operation")]
     public List<GameObject> meteorsList;
@@ -46,7 +48,7 @@ public class MeteorsManager : MonoBehaviour {
 
     public void CalculateHealthSizeFactor()
     {
-        healthSizeFactor = (healthPointsAtMaxSize - healthPointsAtMinSize) / (meteorSpawnMaxSize - meteorSpawnMinSize);
+        healthSizeFactor = (healthPointsAtMaxSize - healthPointsAtMinSize) / (meteorSpawnMaxSize*currentSpawnSizeFactor - meteorSpawnMinSize*currentSpawnSizeFactor);
         //Debug.Log("healthSizeFactor: " + healthSizeFactor);
     }
 
@@ -57,7 +59,9 @@ public class MeteorsManager : MonoBehaviour {
         Vector2 randomCirclePos = Random.insideUnitCircle.normalized;
         Vector3 pos = new Vector3(randomCirclePos.x * circleFactor, randomCirclePos.y * circleFactor, GameManager.instance.objectsDepthOffset);
 
-        float meteorSize = Random.Range(meteorSpawnMinSize, meteorSpawnMaxSize);
+        CalculateHealthSizeFactor();
+
+        float meteorSize = Random.Range(meteorSpawnMinSize, meteorSpawnMaxSize)* currentSpawnSizeFactor;
         float meteorHealth = GetMeteorHealthFromSize(meteorSize);
 
         // Instantiate Meteor Prefab
@@ -114,10 +118,10 @@ public class MeteorsManager : MonoBehaviour {
 
     public float GetMeteorHealthFromSize(float size)
     {
-        if (size >= meteorSpawnMinSize && size <= meteorSpawnMaxSize)
+        if (size >= meteorSpawnMinSize * currentSpawnSizeFactor && size <= meteorSpawnMaxSize * currentSpawnSizeFactor)
         {
             //return (size - meteorSpawnMinSize) * (healthPointsAtMaxSize - healthPointsAtMinSize) / (meteorSpawnMaxSize - meteorSpawnMinSize) + healthPointsAtMinSize;
-            return (healthSizeFactor * (size - meteorSpawnMinSize) + healthPointsAtMinSize);
+            return (healthSizeFactor * (size - meteorSpawnMinSize * currentSpawnSizeFactor) + healthPointsAtMinSize);
             // MAP : y = (x - in_min) * (out_max - out_min) / (in_max - in_min) + out_min;
             // IN: Size, OUT: Health
         }
@@ -134,7 +138,7 @@ public class MeteorsManager : MonoBehaviour {
         {
             //return ((health)*(meteorSpawnMaxSize - meteorSpawnMinSize) - healthPointsAtMinSize)/(healthPointsAtMaxSize - healthPointsAtMinSize) + meteorSpawnMinSize;
             //return ((health - healthPointsAtMaxSize) * (meteorSpawnMaxSize + meteorSpawnMinSize) / (healthPointsAtMaxSize - healthPointsAtMinSize) + meteorSpawnMinSize);
-            return (((health - healthPointsAtMinSize) / (healthSizeFactor)) + meteorSpawnMinSize);
+            return (((health - healthPointsAtMinSize) / (healthSizeFactor)) + meteorSpawnMinSize * currentSpawnSizeFactor);
             // MAP : x = (y - out_min) * (in_max - in_min) / (out_max - out_min) + in_min
         }
         else

@@ -205,14 +205,14 @@ public class TouchManager : MonoBehaviour
         //Debug.Log("BottomPanel Height: " + bottomPanel.GetComponent<RectTransform>().sizeDelta.y);
         //Debug.Log("Screen Hight: " + Screen.height);
 
-        Debug.Log("IsTouchWithinGameArea | Top/Bottom | touchPos.y [" + touchPos.y + "] | BottomPanelY [" + (bottomPanel.GetComponent<RectTransform>().rect.height) + "] | TopPanelY [" + (topPanel.GetComponent<RectTransform>().rect.height));
+        //Debug.Log("IsTouchWithinGameArea | Top/Bottom | touchPos.y [" + touchPos.y + "] | BottomPanelY [" + (bottomPanel.GetComponent<RectTransform>().rect.height) + "] | TopPanelY [" + (topPanel.GetComponent<RectTransform>().rect.height));
         betweenTopAndBottomPanels = (((touchPos.y) >= .4f *bottomPanel.GetComponent<RectTransform>().rect.height )) && ((touchPos.y) <= (Screen.height - .4f*topPanel.GetComponent<RectTransform>().rect.height));
 
         avoidsRightPanel = ((touchPos.x) <= (Screen.width - (.4f * InfoPanel.instance.GetComponent<RectTransform>().rect.width)));
 
-        Debug.Log("xTouch: " + touchPos.x + " | Screen width: " + Screen.width + " | InfoPanel deltaX: " + InfoPanel.instance.GetComponent<RectTransform>().rect.width);
+        //Debug.Log("xTouch: " + touchPos.x + " | Screen width: " + Screen.width + " | InfoPanel deltaX: " + InfoPanel.instance.GetComponent<RectTransform>().rect.width);
 
-        Debug.Log("TouchPosition valid: " + (betweenTopAndBottomPanels && avoidsRightPanel) + " | Vertical: " + betweenTopAndBottomPanels + " | Horizontal: " + avoidsRightPanel);
+        //Debug.Log("TouchPosition valid: " + (betweenTopAndBottomPanels && avoidsRightPanel) + " | Vertical: " + betweenTopAndBottomPanels + " | Horizontal: " + avoidsRightPanel);
 
         return (betweenTopAndBottomPanels && avoidsRightPanel);
     }

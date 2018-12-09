@@ -290,6 +290,8 @@ public class TechTreeManager : MonoBehaviour
         if(techno.isMegaStructureTechnology && techno.isFinalMegaStructureTechnology)
         {
             MegaStructureShortcutsPanel.instance.EnableTechnoShortcutItem(techno.id);
+
+            MegaStructureManager.instance.UnlockMegaStructureActions(16);
         }
     }
 

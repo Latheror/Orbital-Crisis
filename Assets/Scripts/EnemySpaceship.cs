@@ -132,14 +132,15 @@ public class EnemySpaceship : Spaceship {
         healthBarPanel.SetActive(false);
         EnemiesManager.instance.enemyWrecks.Add(gameObject);
         EnemiesManager.instance.enemies.Remove(gameObject);
-
-        RewardPlayer();
     }
 
     public void Collect()
     {
         if(!isActivated)
         {
+            // Add artifacts points
+            RewardPlayer();
+
             EnemiesManager.instance.enemyWrecks.Remove(gameObject);
             Destroy(gameObject);
         }

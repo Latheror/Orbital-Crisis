@@ -71,7 +71,7 @@ public class PlanetaryShield : MonoBehaviour {
 
     public void CalculateEnergyConsumption()
     {
-        energyConsumption = Mathf.CeilToInt(radius * damagePower);
+        energyConsumption = Mathf.CeilToInt(radius * 0.5f * damagePower);
         EnergyPanel.instance.UpdateEnergyProductionAndConsumption();
         ApplySettings();
     }

@@ -67,6 +67,7 @@ public class MegaStructureManager : MonoBehaviour {
         {
             TechTreeManager.instance.UnlockTechnology(TechTreeManager.instance.GetTechnologyByID(16));
 
+            /* --- Now done in UnlockTechnology function ---
             // Enable Shield itself
             planetaryShield.SetActive(true);
             PlanetaryShield.instance.isUnlocked = true;
@@ -80,6 +81,7 @@ public class MegaStructureManager : MonoBehaviour {
             // Enable shield on button
             planetaryShieldActivationAnimationGo.SetActive(true);
             planetaryShieldActivationAnimationGoParticleSystem.GetComponent<ParticleSystem>().startSize = planetaryShieldTechnoItem.GetComponent<RectTransform>().rect.width / 3;
+            */
         }
     }
 
@@ -94,6 +96,26 @@ public class MegaStructureManager : MonoBehaviour {
         else
         {
             PlanetaryShieldControlPanel.instance.DisplayPanel(false);
+        }
+    }
+
+    public void UnlockMegaStructureActions(int megaStructureIndex)
+    {
+        if(megaStructureIndex == 16)
+        {
+            // Enable Shield itself
+            planetaryShield.SetActive(true);
+            PlanetaryShield.instance.isUnlocked = true;
+
+            // Initialize Planetary Shield settings
+            PlanetaryShield.instance.Initialize();
+
+            // Disable "Activate!" text
+            MegaStructuresPanel.instance.activateShieldTextGo.SetActive(false);
+
+            // Enable shield on button
+            planetaryShieldActivationAnimationGo.SetActive(true);
+            planetaryShieldActivationAnimationGoParticleSystem.GetComponent<ParticleSystem>().startSize = planetaryShieldTechnoItem.GetComponent<RectTransform>().rect.width / 3;
         }
     }
 

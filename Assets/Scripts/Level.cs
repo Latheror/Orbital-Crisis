@@ -14,6 +14,7 @@ public class Level {
     public float timeBetweenSpawns = 1f;
     public EnemyWave enemyWave;
     public List<GameObject> enemies;
+    public float meteorSpawnSizeFactor;
 
     [Header("Operation")]
     public int destroyedMeteorsNb = 0;
@@ -33,12 +34,13 @@ public class Level {
 	}
 
 
-    public Level(int number, string name, int meteorsNb, int meteorSerieNb, float timeBetweenSpawns, List<GameObject> enemies)
+    public Level(int number, string name, int meteorsNb, int meteorSerieNb, float meteorSpawnSizeFactor, float timeBetweenSpawns, List<GameObject> enemies)
     {
         this.levelNb = number;
         this.levelName = name;
         this.levelMeteorsNb = meteorsNb;
         this.meteorSerieNb = meteorSerieNb;
+        this.meteorSpawnSizeFactor = meteorSpawnSizeFactor;
         this.timeBetweenSpawns = timeBetweenSpawns;
         this.enemies = enemies;
     }
