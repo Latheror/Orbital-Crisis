@@ -286,13 +286,13 @@ public class BuildingManager : MonoBehaviour {
                 "Build new spaceships and recruit pilots in the spaceport.",
                 new List<ResourcesManager.UpgradeCost>() {
                             new ResourcesManager.UpgradeCost(2, new List<ResourcesManager.ResourceAmount>(){
-                                new ResourcesManager.ResourceAmount("steel", 120),
-                                new ResourcesManager.ResourceAmount("carbon", 50),
+                                new ResourcesManager.ResourceAmount("steel", 400),
+                                new ResourcesManager.ResourceAmount("carbon", 100),
 
                             }),
                             new ResourcesManager.UpgradeCost(3, new List<ResourcesManager.ResourceAmount>(){
-                               new ResourcesManager.ResourceAmount("composite", 50),
-                               new ResourcesManager.ResourceAmount("electronics", 50),
+                               new ResourcesManager.ResourceAmount("composite", 1000),
+                               new ResourcesManager.ResourceAmount("electronics", 200),
                             })        },
                 false, false,
                 new List<Building.BuildingStat>()

@@ -24,7 +24,7 @@ public class BuildingStatsPanel : MonoBehaviour {
         CleanStatsLayout();
         foreach (Building.BuildingStat stat in building.GetComponent<Building>().buildingType.stats)
         {
-            GameObject instantiatedBuildingStatPanel = Instantiate(buildingStatPrefab, statsLayout.transform.position, Quaternion.identity);
+            GameObject instantiatedBuildingStatPanel = Instantiate(buildingStatPrefab, new Vector3(0,0,0)/*statsLayout.transform.position*/, Quaternion.identity);
             instantiatedBuildingStatPanel.transform.SetParent(statsLayout.transform, false);
 
             statInfoPanelsList.Add(instantiatedBuildingStatPanel);

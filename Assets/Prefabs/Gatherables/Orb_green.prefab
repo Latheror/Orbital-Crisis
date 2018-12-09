@@ -172,7 +172,7 @@ MonoBehaviour:
   name: Healing Gatherable
   type: 0
   healingPower: 50
-  timeBeforeDespawn: 30
+  timeBeforeDespawn: 60
 --- !u!135 &135985878464170022
 SphereCollider:
   m_ObjectHideFlags: 1

@@ -72,7 +72,7 @@ public class GatherablesManager : MonoBehaviour {
         foreach (GameObject gatherablePrefab in gatherablePrefabs)
         {
             Gatherable g = gatherablePrefab.GetComponent<Gatherable>();
-            Debug.Log("Searched Type: " + type.ToString() + " | Found Type: " + g.type.ToString());
+            //Debug.Log("Searched Type: " + type.ToString() + " | Found Type: " + g.type.ToString());
             if (g.type == type)
             {
                 correspondingGatherable = gatherablePrefab;

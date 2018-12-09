@@ -31,7 +31,7 @@ public class Gatherable : MonoBehaviour {
     {
         if(type == GatherableType.Heal)
         {
-            Debug.Log("Applying healing gatherable effects to Spaceship");
+            //Debug.Log("Applying healing gatherable effects to Spaceship");
             spaceship.Heal(healingPower);
         }
 

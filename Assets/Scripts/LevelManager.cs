@@ -190,13 +190,13 @@ public class LevelManager : MonoBehaviour {
         List<GameObject> levelEnemies = new List<GameObject> {};
         for (int i = 0; i < index; i++)
         {
-            if(i%6 == 0)
+            if(i%19 == 0)
             {
                 levelEnemies.Add(EnemiesManager.instance.enemySpaceship_1);
             }            
         }
 
-        Level newLevel = new Level(currentLevelNumber + 1, "Level Nb " + (index), Mathf.FloorToInt((index) * 10f * (0.5f*(1f - (1f / (1f - index))))), (index), 1 + (.05f * (currentLevelNumber + 1)), 1f, levelEnemies);
+        Level newLevel = new Level(index, "Level Nb " + (index), Mathf.FloorToInt((index) * 10f * (0.5f*(1f - (1f / (1f - index))))), (index), 1 + (.05f * (index)), (1 + 0.2f * index), levelEnemies);
 
         return newLevel;
     }
