@@ -10,6 +10,7 @@ public class Debris : MonoBehaviour {
     public float lifeTime = 30f;
     public int resourcesToGatherPerUnitOfSize = 10;
     public int resourcesToGather = 0;
+    public bool isBeingCollected = false;
 
 	// Use this for initialization
 	void Start () {
@@ -27,6 +28,7 @@ public class Debris : MonoBehaviour {
     public void Collect(/*float collectionPower*/)
     {
         ResourcesManager.instance.ProduceResource(ResourcesManager.instance.GetResourceTypeByName("steel"), resourcesToGather);
+        ResourcesManager.instance.ProduceResource(ResourcesManager.instance.GetResourceTypeByName("copper"), resourcesToGather);
         Vanish();
     }
 

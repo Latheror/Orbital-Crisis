@@ -13,7 +13,7 @@ public class GameManager : MonoBehaviour {
     }
 
     public enum GameState { Default, Pause } 
-    public enum SelectionState { Default, SpaceshipSelected, ShopItemSelected, BuildingSelected, EnemySelected, PlanetaryShieldSelected }
+    public enum SelectionState { Default, SpaceshipSelected, ShopItemSelected, BuildingSelected, EnemySelected, PlanetaryShieldSelected, CollectorSelected }
 
     [Header("Settings")]
     public float objectsDepthOffset;
@@ -134,6 +134,14 @@ public class GameManager : MonoBehaviour {
                     break;
                 }
                 case SelectionState.PlanetaryShieldSelected:
+                {
+                    SpaceshipManager.instance.DeselectSpaceship();
+                    BuildingInfoPanel.instance.Deselection();
+                    SpaceportInfoPanel.instance.DisplayPanel(false);
+                    EnemiesManager.instance.DeselectEnemy();
+                    break;
+                }
+                case SelectionState.CollectorSelected:
                 {
                     SpaceshipManager.instance.DeselectSpaceship();
                     BuildingInfoPanel.instance.Deselection();

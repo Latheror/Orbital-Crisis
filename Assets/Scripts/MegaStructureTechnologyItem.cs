@@ -98,12 +98,23 @@ public class MegaStructureTechnologyItem : MonoBehaviour {
             {
                 if (associatedTechnology.available)
                 {
-                    // Planetary Shield only, for now            // TODO : Separate technos
-                    Debug.Log("Planetary shield available !");
-
-                    MegaStructuresPanel.instance.activateShieldTextGo.SetActive(true);
-
                     GetComponent<Image>().color = MegaStructuresPanel.instance.finalMegaStructureAvailableColor;
+                    switch (associatedTechnology.id)
+                    {
+                        case 16:
+                        {
+                            Debug.Log("Planetary shield available !");
+                            MegaStructuresPanel.instance.activateShieldTextGo.SetActive(true);
+                            break;
+                        }
+                        case 20:
+                        {
+                            MegaStructuresPanel.instance.activateCollectorTextGo.SetActive(true);
+                            break;
+                        }
+                        default:
+                            break;
+                    }
                 }
                 else
                 {

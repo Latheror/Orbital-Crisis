@@ -135,6 +135,20 @@ public class EnergyPanel : MonoBehaviour {
             }
         }
 
+        // Mega Collector
+        if (MegaCollector.instance != null && MegaCollector.instance.isUnlocked)
+        {
+            if (totalEnergyToDistribute > MegaCollector.instance.energyConsumption && (MegaCollector.instance.energyConsumption != 0))
+            {
+                MegaCollector.instance.hasEnoughEnergy = true;
+                totalEnergyToDistribute -= MegaCollector.instance.energyConsumption;
+            }
+            else
+            {
+                MegaCollector.instance.hasEnoughEnergy = false;
+            }
+        }
+
     }
 
     public void UpdateEnergyProductionAndConsumption()

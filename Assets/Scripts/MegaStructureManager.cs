@@ -14,13 +14,20 @@ public class MegaStructureManager : MonoBehaviour {
 
     public List<MegaStructure> availableMegaStructures;
 
+    // Planetary Shield
     public GameObject planetaryShield;
     public GameObject planetaryShieldActivationAnimationGo;
     public GameObject planetaryShieldActivationAnimationGoParticleSystem;
     public GameObject planetaryShieldTechnoItem;
 
+    // MegaCollector
+    public GameObject megaCollector;
+    //public GameObject planetaryShieldActivationAnimationGo;
+    //public GameObject planetaryShieldActivationAnimationGoParticleSystem;
+    public GameObject collectorTechnoItem;
+
     public GameObject leftPanel;
-    public GameObject theShieldControlPanel;
+    public GameObject planetaryShieldControlPanel;
 
     public Color canPayColor;
     public Color cantPayColor;
@@ -58,31 +65,30 @@ public class MegaStructureManager : MonoBehaviour {
 
 
     // Temporary
-    public void TheShieldTechnoButtonClicked()
+    public void PlanetaryShieldTechnoButtonClicked()
     {
         Debug.Log("TheShieldTechnoButtonClicked");
 
-        // Shield technology not yet unlocked
         if(TechTreeManager.instance.GetTechnologyByID(16).available && !TechTreeManager.instance.GetTechnologyByID(16).unlocked)
         {
             TechTreeManager.instance.UnlockTechnology(TechTreeManager.instance.GetTechnologyByID(16));
-
-            /* --- Now done in UnlockTechnology function ---
-            // Enable Shield itself
-            planetaryShield.SetActive(true);
-            PlanetaryShield.instance.isUnlocked = true;
-
-            // Initialize Planetary Shield settings
-            PlanetaryShield.instance.Initialize();
-
-            // Disable "Activate!" text
-            MegaStructuresPanel.instance.activateShieldTextGo.SetActive(false);
-
-            // Enable shield on button
-            planetaryShieldActivationAnimationGo.SetActive(true);
-            planetaryShieldActivationAnimationGoParticleSystem.GetComponent<ParticleSystem>().startSize = planetaryShieldTechnoItem.GetComponent<RectTransform>().rect.width / 3;
-            */
         }
+    }
+
+    public void MegaCollectorTechnoButtonClicked()
+    {
+        Debug.Log("MegaCollectorTechnoButtonClicked");
+
+        if (TechTreeManager.instance.GetTechnologyByID(20).available && !TechTreeManager.instance.GetTechnologyByID(20).unlocked)
+        {
+            TechTreeManager.instance.UnlockTechnology(TechTreeManager.instance.GetTechnologyByID(20));
+        }
+    }
+
+    public void DeselectAllControlPanels()
+    {
+        PlanetaryShieldControlPanel.instance.DisplayPanel(false);
+        CollectorControlPanel.instance.DisplayPanel(false);
     }
 
 
@@ -90,12 +96,27 @@ public class MegaStructureManager : MonoBehaviour {
     {
         if(select)
         {
+            DeselectAllControlPanels();
             GameManager.instance.ChangeSelectionState(GameManager.SelectionState.PlanetaryShieldSelected);
             PlanetaryShieldControlPanel.instance.DisplayPanel(true);
         }
         else
         {
             PlanetaryShieldControlPanel.instance.DisplayPanel(false);
+        }
+    }
+
+    public void SelectCollector(bool select)
+    {
+        if (select)
+        {
+            DeselectAllControlPanels();
+            GameManager.instance.ChangeSelectionState(GameManager.SelectionState.CollectorSelected);
+            CollectorControlPanel.instance.DisplayPanel(true);
+        }
+        else
+        {
+            CollectorControlPanel.instance.DisplayPanel(false);
         }
     }
 
@@ -116,6 +137,19 @@ public class MegaStructureManager : MonoBehaviour {
             // Enable shield on button
             planetaryShieldActivationAnimationGo.SetActive(true);
             planetaryShieldActivationAnimationGoParticleSystem.GetComponent<ParticleSystem>().startSize = planetaryShieldTechnoItem.GetComponent<RectTransform>().rect.width / 3;
+        }
+        else
+        if (megaStructureIndex == 20)
+        {
+            // Enable MegaCollector itself
+            megaCollector.SetActive(true);
+            MegaCollector.instance.isUnlocked = true;
+
+            // Initialize settings
+            MegaCollector.instance.Initialize();
+
+            // Disable "Activate!" text
+            MegaStructuresPanel.instance.activateCollectorTextGo.SetActive(false);
         }
     }
 

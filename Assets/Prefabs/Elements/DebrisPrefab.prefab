@@ -8,15 +8,15 @@ Prefab:
     m_TransformParent: {fileID: 0}
     m_Modifications: []
     m_RemovedComponents: []
-  m_ParentPrefab: {fileID: 0}
+  m_SourcePrefab: {fileID: 0}
   m_RootGameObject: {fileID: 1868828309893870}
-  m_IsPrefabParent: 1
+  m_IsPrefabAsset: 1
 --- !u!1 &1868828309893870
 GameObject:
   m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  serializedVersion: 5
+  serializedVersion: 6
   m_Component:
   - component: {fileID: 4727354380507636}
   - component: {fileID: 33162808809993608}
@@ -33,7 +33,7 @@ GameObject:
 --- !u!4 &4727354380507636
 Transform:
   m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1868828309893870}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
@@ -46,7 +46,7 @@ Transform:
 --- !u!23 &23749729241616234
 MeshRenderer:
   m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1868828309893870}
   m_Enabled: 1
@@ -81,14 +81,14 @@ MeshRenderer:
 --- !u!33 &33162808809993608
 MeshFilter:
   m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1868828309893870}
   m_Mesh: {fileID: 4300000, guid: b15545bad60e6144680a27799d591dc8, type: 3}
 --- !u!64 &64442099707847546
 MeshCollider:
   m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1868828309893870}
   m_Material: {fileID: 0}
@@ -102,7 +102,7 @@ MeshCollider:
 --- !u!114 &114933656671145196
 MonoBehaviour:
   m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1868828309893870}
   m_Enabled: 1
@@ -113,5 +113,5 @@ MonoBehaviour:
   originalSize: 0
   size: 0
   lifeTime: 30
-  resourcesToGatherPerUnitOfSize: 10
+  resourcesToGatherPerUnitOfSize: 5
   resourcesToGather: 0

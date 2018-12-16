@@ -14,7 +14,8 @@ public class MegaStructureShortcutsPanel : MonoBehaviour {
     public GameObject displayPanel;
     public List<TechnoShortcutItem> shortcutItems = new List<TechnoShortcutItem>();
 
-    public GameObject theShieldShortcut;
+    public GameObject planetaryShieldShortcut;
+    public GameObject megaCollectorShortcut;
 
     private void Start()
     {
@@ -25,10 +26,11 @@ public class MegaStructureShortcutsPanel : MonoBehaviour {
     public void Init()
     {
         shortcutItems = new List<TechnoShortcutItem>();
-        shortcutItems.Add(new TechnoShortcutItem(theShieldShortcut, 16));
+        shortcutItems.Add(new TechnoShortcutItem(planetaryShieldShortcut, 16));
+        shortcutItems.Add(new TechnoShortcutItem(megaCollectorShortcut, 20));
     }
 
-    public void HideAllShortCuts()
+    public void HideAllShortcuts()
     {
         foreach (TechnoShortcutItem shortcutItem in shortcutItems)
         {
@@ -38,7 +40,7 @@ public class MegaStructureShortcutsPanel : MonoBehaviour {
 
     public void SetupNewGame()
     {
-        HideAllShortCuts();
+        HideAllShortcuts();
         DisplayPanel(false);
     }
 
@@ -51,6 +53,11 @@ public class MegaStructureShortcutsPanel : MonoBehaviour {
     public void PlanetaryShieldShortcutClicked()
     {
         MegaStructureManager.instance.SelectPlanetaryShield(true);
+    }
+
+    public void MegaCollectorShortcutClicked()
+    {
+        MegaStructureManager.instance.SelectCollector(true);
     }
 
     public TechnoShortcutItem GetTechnoShortcutItemFromTechnoID(int id)

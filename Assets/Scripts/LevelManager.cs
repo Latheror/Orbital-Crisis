@@ -126,35 +126,8 @@ public class LevelManager : MonoBehaviour {
     private void AllLevelMeteorsDestroyed()
     {
         Debug.Log("AllLevelMeteorsDestroyed");
-
-        // Get unlocked building(s)
-        //List<BuildingManager.BuildingType> unlockedBuildings = UnlockedBuildingsAtLevelNb(currentLevelNumber);
-        /*if (unlockedBuildings.Count > 0)
-        {
-            Debug.Log("Buildings are unlocked at the end of this level.");
-
-            // Unlock building(s)
-            BuildingManager bManager = BuildingManager.instance;
-            foreach (BuildingManager.BuildingType bType in unlockedBuildings)
-            {
-                if (!bType.isUnlocked && bType.unlockedAtLevelNb == currentLevelNumber)
-                {
-                    bManager.UnlockBuildingType(bType);
-                }
-            }
-
-            EventsInfoManager.instance.DisplayNewBuildingsInfo(unlockedBuildings);
-        }*/
-
-        nextLevelButton.SetActive(true);
-
-        // Unlock satellite disks (Temporary solution)
-        /*if ((diskUnlockingLevelNbs.Length >= SurroundingAreasManager.instance.unlockedDisksNb) && (diskUnlockingLevelNbs[SurroundingAreasManager.instance.unlockedDisksNb - 1] == currentLevelNumber))
-        {
-            SurroundingAreasManager.instance.UnlockNextDisk();
-        }*/
-
         currentLevelFinished = true;
+        nextLevelButton.SetActive(true);
     }
 
     private void GoToNextLevel()

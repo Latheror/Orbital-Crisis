@@ -62,15 +62,34 @@ public class TechTreeManager : MonoBehaviour
     public GameObject disk2TechnoItem;
     public GameObject disk3TechnoItem;
 
-    // The Shield
+    // Planetary Shield
     public GameObject shield_generatorTechnoItem;
     public GameObject shield_stabiliserTechnoItem;
     public GameObject shield_deflectorTechnoItem;
     public GameObject theShield_TechnoItem;
 
+    // Mega Collector
+    public GameObject megaCollector_tractorBeamTechnoItem;
+    public GameObject megaCollector_foundryTechnoItem;
+    public GameObject megaCollector_compactorTechnoItem;
+    public GameObject megaCollector_TechnoItem;
+
+
     [Header("Operation")]
     public Technology selectedTechno;
     public TechnologyData[] technologiesData;
+
+    public void Start()
+    {
+        //InitializePanels();
+    }
+
+    public void InitializePanels()
+    {
+        mainTabletPanel.SetActive(true);
+        megaStructuresTabletPanel.SetActive(false);
+        technologyInfoPanel.SetActive(false);
+    }
 
     public void InitializeTechnologies()
     {
@@ -94,10 +113,18 @@ public class TechTreeManager : MonoBehaviour
 
         // The Shield
         Technology shield_generatorTechno = new Technology(13, "Generator", 1500, false, false, new List<Technology>(), "", shield_generatorTechnoItem, 0, 0, 0, true, 5, false, 16, null);
-        Technology shield_stabiliserTechno = new Technology(14, "Stabiliser", 2000, false, false, new List<Technology>(), "", shield_stabiliserTechnoItem, 0, 0, 0, true, 10, false, 16, null);
-        Technology shield_deflectorTechno = new Technology(15, "Deflector", 2500, false, false, new List<Technology>(), "", shield_deflectorTechnoItem, 0, 0, 0, true, 15, false, 16, null);
-        // Final step
+        Technology shield_stabiliserTechno = new Technology(14, "Stabiliser", 2000, false, false, new List<Technology>(), "", shield_stabiliserTechnoItem, 0, 0, 0, true, 8, false, 16, null);
+        Technology shield_deflectorTechno = new Technology(15, "Deflector", 2500, false, false, new List<Technology>(), "", shield_deflectorTechnoItem, 0, 0, 0, true, 12, false, 16, null);
+            // Final step
         Technology theShield_Techno = new Technology(16, "Deflector", 300, false, false, new List<Technology>(), "", theShield_TechnoItem, 0, 0, 1, true, 0, true, 0, new int[]{ 13, 14, 15 });
+
+        // Mega Collector
+        Technology megaCollector_tractorBeamTechno = new Technology(17, "Tractor Beam", 150, false, false, new List<Technology>(), "", megaCollector_tractorBeamTechnoItem, 0, 0, 0, true, 1/*5*/, false, 20, null);
+        Technology megaCollector_foundryTechno = new Technology(18, "Foundry", 200, false, false, new List<Technology>(), "", megaCollector_foundryTechnoItem, 0, 0, 0, true, 8, false, 1/*20*/, null);
+        Technology megaCollector_compactorTechno = new Technology(19, "Compactor", 250, false, false, new List<Technology>(), "", megaCollector_compactorTechnoItem, 0, 0, 0, true, 1/*12*/, false, 20, null);
+            // Final step
+        Technology megaCollector_Techno = new Technology(20, "Mega Collector", 300, false, false, new List<Technology>(), "", megaCollector_TechnoItem, 0, 0, 2, true, 0, true, 0, new int[] { 17, 18, 19 });
+
 
         // Link technos
         missileTurretTechno.unlockingTechnologies.Add(freezingTurretTechno);
@@ -120,8 +147,10 @@ public class TechTreeManager : MonoBehaviour
             // Disks
             disk1Techno, disk2Techno, disk3Techno,
             // Megastructures
-                // The Shield
-                shield_generatorTechno, shield_stabiliserTechno, shield_deflectorTechno, theShield_Techno
+                // Planetary Shield
+                shield_generatorTechno, shield_stabiliserTechno, shield_deflectorTechno, theShield_Techno,
+                // Mega Collector
+                megaCollector_tractorBeamTechno, megaCollector_foundryTechno, megaCollector_compactorTechno, megaCollector_Techno
         };
 
         // Init locked/unlocked techno color
@@ -291,7 +320,7 @@ public class TechTreeManager : MonoBehaviour
         {
             MegaStructureShortcutsPanel.instance.EnableTechnoShortcutItem(techno.id);
 
-            MegaStructureManager.instance.UnlockMegaStructureActions(16);
+            MegaStructureManager.instance.UnlockMegaStructureActions(techno.id);
         }
     }
 

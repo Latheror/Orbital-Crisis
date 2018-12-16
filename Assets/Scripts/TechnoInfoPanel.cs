@@ -106,7 +106,7 @@ public class TechnoInfoPanel : MonoBehaviour {
         else
         {
             unlockTechnoButtonText.text = "Not available";
-            unlockTechnoButton.GetComponent<Image>().sprite = notUnlockedTechnoSprite;
+            unlockTechnoButton.GetComponent<Image>().sprite = null;
             unlockTechnoButton.GetComponent<Image>().color = notUnlockedTechnoColor;
             unlockTechnoButtonBackground.GetComponent<Image>().color = notUnlockableTechnoColor;
         }

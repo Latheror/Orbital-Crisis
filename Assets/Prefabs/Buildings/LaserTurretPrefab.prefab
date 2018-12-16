@@ -447,6 +447,7 @@ MonoBehaviour:
     upgradeCosts: []
     hasRange: 0
     producesEnergy: 0
+    isUnique: 0
   buildingName: Laser Turret
   buildingColor: {r: 1, g: 0.49694997, b: 0, a: 1}
   buildingPrefab: {fileID: 0}
@@ -473,16 +474,16 @@ MonoBehaviour:
   previousTarget: {fileID: 0}
   target: {fileID: 0}
   meteorTag: meteor
-  power: 3
+  power: 2
   healingPower: 0
   turretBase: {fileID: 1459057759605530}
   turretBody: {fileID: 1456415355609882}
   turretHead: {fileID: 1170484623087142}
   shootingPoint: {fileID: 1632271507654466}
-  power_tier_2: 5
+  power_tier_2: 3
   range_tier_2: 100
   energyConsumption_tier_2: 20
-  power_tier_3: 7
+  power_tier_3: 5
   range_tier_3: 120
   energyConsumption_tier_3: 30
 --- !u!114 &114368917767193182
