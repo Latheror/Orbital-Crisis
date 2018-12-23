@@ -138,8 +138,11 @@ public class EnemySpaceship : Spaceship {
     {
         if(!isActivated)
         {
+            // Add resources
+            RewardResources();
+
             // Add artifacts points
-            RewardPlayer();
+            RewardArtifacts();
 
             EnemiesManager.instance.enemyWrecks.Remove(gameObject);
             Destroy(gameObject);
@@ -157,12 +160,18 @@ public class EnemySpaceship : Spaceship {
         return (rand <= artifactLootProbability);
     }
 
-    public void RewardPlayer()
+    public void RewardArtifacts()
     {
         if(GetArtifactBasedOnLootProbability())
         {
             //Debug.Log("Enemy Spaceship dropped an artifact !");
             ScoreManager.instance.IncreaseArtifactsNb(1);
         }
+    }
+
+    public void RewardResources()
+    {
+        ResourcesManager.instance.ProduceResource(ResourcesManager.instance.GetResourceTypeByName("composite"),100);
+        ResourcesManager.instance.ProduceResource(ResourcesManager.instance.GetResourceTypeByName("electronics"), 100);
     }
 }

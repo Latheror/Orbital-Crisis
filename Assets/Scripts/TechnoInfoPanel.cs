@@ -22,11 +22,13 @@ public class TechnoInfoPanel : MonoBehaviour {
 
     public Color unlockableTechnoColor;
     public Color notUnlockableTechnoColor;
-
     public Color unlockedTechnoColor;
     public Color notUnlockedTechnoColor;
-    public Sprite notUnlockedTechnoSprite;
+    public Color fullWhiteColor;
+    public Color transparentColor;
 
+    public Sprite buttonBorderSprite;
+    public Sprite buttonBackgroundSprite;
 
     public void SetInfo(TechTreeManager.Technology technology)
     {
@@ -78,7 +80,9 @@ public class TechnoInfoPanel : MonoBehaviour {
 
     public void SetUnlockButtonParameters(TechTreeManager.Technology technology)
     {
-        if(technology.available)
+        unlockTechnoButtonBackground.GetComponent<Image>().sprite = buttonBackgroundSprite;
+
+        if (technology.available)
         {
             if (technology.unlocked)
             {
@@ -90,16 +94,17 @@ public class TechnoInfoPanel : MonoBehaviour {
             else
             {
                 unlockTechnoButtonText.text = "Unlock";
-                unlockTechnoButton.GetComponent<Image>().sprite = notUnlockedTechnoSprite;
-                unlockTechnoButton.GetComponent<Image>().color = notUnlockedTechnoColor;
 
                 if (TechTreeManager.instance.CanPayTechnology(technology))
-                {
+                {                
                     unlockTechnoButtonBackground.GetComponent<Image>().color = unlockableTechnoColor;
+                    unlockTechnoButton.GetComponent<Image>().sprite = buttonBorderSprite;
+                    unlockTechnoButton.GetComponent<Image>().color = fullWhiteColor;
                 }
                 else
                 {
                     unlockTechnoButtonBackground.GetComponent<Image>().color = notUnlockableTechnoColor;
+                    unlockTechnoButton.GetComponent<Image>().color = transparentColor;
                 }
             }
         }

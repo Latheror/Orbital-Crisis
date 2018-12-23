@@ -178,6 +178,12 @@ public class EnergyPanel : MonoBehaviour {
             totalEnergyConsumption += PlanetaryShield.instance.energyConsumption;
         }
 
+        // Mega Collector
+        if (MegaCollector.instance != null && MegaCollector.instance.isUnlocked)
+        {
+            totalEnergyConsumption += MegaCollector.instance.energyConsumption;
+        }
+
         SetEnergyProduction(totalEnergyProduction);
         SetEnergyConsumption(totalEnergyConsumption);
 

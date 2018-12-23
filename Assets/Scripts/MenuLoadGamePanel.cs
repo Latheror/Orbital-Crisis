@@ -16,9 +16,15 @@ public class MenuLoadGamePanel : MonoBehaviour {
         //DontDestroyOnLoad(gameObject);
     }
 
+    public enum LeftPanelDisplayMode { Options, LoadGame };
+
     public GameObject loadPanelGameSaveElementPrefab;
     public GameObject loadPanelGameSavesElementLayout;
     public List<GameObject> loadPanelGameSaveElements;
+
+    public GameObject loadGamePanel;
+    public GameObject optionsPanel;
+    public LeftPanelDisplayMode leftPanelDisplayMode;
 
     [Header("High Score UI")]
     public GameObject highScorePanel;
@@ -26,12 +32,14 @@ public class MenuLoadGamePanel : MonoBehaviour {
 
     // Use this for initialization
     void Start () {
+        Initialize();
     }
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
+
+    public void Initialize()
+    {
+        loadGamePanel.SetActive(true);
+        optionsPanel.SetActive(false);
+    }
 
     public void PlayCanvas_NewGameButton(){
         ScenesManager.instance.LaunchNewGame();
@@ -108,6 +116,21 @@ public class MenuLoadGamePanel : MonoBehaviour {
             highScorePanel.SetActive((SaveManager.instance.savedGeneralData.highScore > 0));
             highScoreText.text = SaveManager.instance.savedGeneralData.highScore.ToString();
         }
+    }
+
+    public void ShowOptionsPanelButtonClicked()
+    {
+        // Disabled for now
+        /*
+        loadGamePanel.SetActive(false);
+        optionsPanel.SetActive(true);
+        */
+    }
+
+    public void ShowLoadGamePanelButtonClicked()
+    {
+        optionsPanel.SetActive(false);
+        loadGamePanel.SetActive(true);
     }
 
 }

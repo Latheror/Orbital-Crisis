@@ -102,11 +102,18 @@ public class MegaCollector : MonoBehaviour {
 
     public void Collect()
     {
-        if(isActivated)
+        if(isActivated && hasEnoughEnergy)
         {
             foreach (GameObject collectionPoint in collectionPoints)
             {
                 collectionPoint.GetComponent<CollectionPoint>().Collect();
+            }
+        }
+        else
+        {
+            foreach (GameObject collectionPoint in collectionPoints)
+            {
+                collectionPoint.GetComponent<CollectionPoint>().DisableCollectionRay();
             }
         }
     }
@@ -120,15 +127,13 @@ public class MegaCollector : MonoBehaviour {
             currentCollectionSpeed = collectionSpeed;
             currentCollectionPointNb = collectionPointNb;
             ActivateCollectionPoints();
+            CalculateEnergyConsumption();
             UpdateControlPanel();
         }
         else
         {
             Debug.LogError("Configure | Settings out of range !");
         }
-
-        CalculateEnergyConsumption();
-        UpdateControlPanel();
     }
 
     public void CalculateEnergyConsumption()

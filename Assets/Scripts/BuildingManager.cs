@@ -59,12 +59,12 @@ public class BuildingManager : MonoBehaviour {
                 new List<ResourcesManager.UpgradeCost>(){
                     new ResourcesManager.UpgradeCost(2, new List<ResourcesManager.ResourceAmount>(){
                         new ResourcesManager.ResourceAmount("steel", 120),
-                        new ResourcesManager.ResourceAmount("carbon", 50),
+                        new ResourcesManager.ResourceAmount("carbon", 50)
 
                     }),
                     new ResourcesManager.UpgradeCost(3, new List<ResourcesManager.ResourceAmount>(){
                        new ResourcesManager.ResourceAmount("composite", 50),
-                       new ResourcesManager.ResourceAmount("electronics", 50),
+                       new ResourcesManager.ResourceAmount("electronics", 50)
                     })
                 },
                 true, false,
@@ -85,12 +85,12 @@ public class BuildingManager : MonoBehaviour {
                 new List<ResourcesManager.UpgradeCost>() {
                     new ResourcesManager.UpgradeCost(2, new List<ResourcesManager.ResourceAmount>(){
                         new ResourcesManager.ResourceAmount("steel", 120),
-                        new ResourcesManager.ResourceAmount("carbon", 50),
+                        new ResourcesManager.ResourceAmount("carbon", 50)
 
                     }),
                     new ResourcesManager.UpgradeCost(3, new List<ResourcesManager.ResourceAmount>(){
                        new ResourcesManager.ResourceAmount("composite", 50),
-                       new ResourcesManager.ResourceAmount("electronics", 50),
+                       new ResourcesManager.ResourceAmount("electronics", 50)
                     })},
                 true, false,
                 new List<Building.BuildingStat>()
@@ -112,12 +112,12 @@ public class BuildingManager : MonoBehaviour {
                 new List<ResourcesManager.UpgradeCost>() {
                     new ResourcesManager.UpgradeCost(2, new List<ResourcesManager.ResourceAmount>(){
                         new ResourcesManager.ResourceAmount("steel", 120),
-                        new ResourcesManager.ResourceAmount("carbon", 50),
+                        new ResourcesManager.ResourceAmount("carbon", 50)
 
                     }),
                     new ResourcesManager.UpgradeCost(3, new List<ResourcesManager.ResourceAmount>(){
                        new ResourcesManager.ResourceAmount("composite", 50),
-                       new ResourcesManager.ResourceAmount("electronics", 50),
+                       new ResourcesManager.ResourceAmount("electronics", 50)
                     })                },
                 true, false,
                 new List<Building.BuildingStat>()
@@ -139,12 +139,12 @@ public class BuildingManager : MonoBehaviour {
                 new List<ResourcesManager.UpgradeCost>() {
                     new ResourcesManager.UpgradeCost(2, new List<ResourcesManager.ResourceAmount>(){
                         new ResourcesManager.ResourceAmount("steel", 120),
-                        new ResourcesManager.ResourceAmount("carbon", 50),
+                        new ResourcesManager.ResourceAmount("carbon", 50)
 
                     }),
                     new ResourcesManager.UpgradeCost(3, new List<ResourcesManager.ResourceAmount>(){
                        new ResourcesManager.ResourceAmount("composite", 50),
-                       new ResourcesManager.ResourceAmount("electronics", 50),
+                       new ResourcesManager.ResourceAmount("electronics", 50)
                     })                },
                 false, true,
                 new List<Building.BuildingStat>()
@@ -164,12 +164,12 @@ public class BuildingManager : MonoBehaviour {
                     new ResourcesManager.UpgradeCost(2, new List<ResourcesManager.ResourceAmount>(){
                         new ResourcesManager.ResourceAmount("steel", 50),
                         new ResourcesManager.ResourceAmount("copper", 50),
-                        new ResourcesManager.ResourceAmount("carbon", 50),
+                        new ResourcesManager.ResourceAmount("carbon", 50)
 
                     }),
                     new ResourcesManager.UpgradeCost(3, new List<ResourcesManager.ResourceAmount>(){
                        new ResourcesManager.ResourceAmount("composite", 50),
-                       new ResourcesManager.ResourceAmount("electronics", 50),
+                       new ResourcesManager.ResourceAmount("electronics", 50)
                     })                },
                 false, false,
                 new List<Building.BuildingStat>()
@@ -190,12 +190,12 @@ public class BuildingManager : MonoBehaviour {
                 new List<ResourcesManager.UpgradeCost>() {
                     new ResourcesManager.UpgradeCost(2, new List<ResourcesManager.ResourceAmount>(){
                         new ResourcesManager.ResourceAmount("steel", 120),
-                        new ResourcesManager.ResourceAmount("carbon", 50),
+                        new ResourcesManager.ResourceAmount("carbon", 50)
 
                     }),
                     new ResourcesManager.UpgradeCost(3, new List<ResourcesManager.ResourceAmount>(){
                        new ResourcesManager.ResourceAmount("composite", 50),
-                       new ResourcesManager.ResourceAmount("electronics", 100),
+                       new ResourcesManager.ResourceAmount("electronics", 100)
                     })                },
                 true, false,
                 new List<Building.BuildingStat>()
@@ -217,12 +217,12 @@ public class BuildingManager : MonoBehaviour {
                 new List<ResourcesManager.UpgradeCost>() {
                     new ResourcesManager.UpgradeCost(2, new List<ResourcesManager.ResourceAmount>(){
                         new ResourcesManager.ResourceAmount("steel", 120),
-                        new ResourcesManager.ResourceAmount("carbon", 50),
+                        new ResourcesManager.ResourceAmount("carbon", 50)
 
                     }),
                     new ResourcesManager.UpgradeCost(3, new List<ResourcesManager.ResourceAmount>(){
                        new ResourcesManager.ResourceAmount("composite", 100),
-                       new ResourcesManager.ResourceAmount("electronics", 50),
+                       new ResourcesManager.ResourceAmount("electronics", 50)
                     })                },
                 true, false,
                 new List<Building.BuildingStat>()
@@ -244,12 +244,12 @@ public class BuildingManager : MonoBehaviour {
                     new ResourcesManager.UpgradeCost(2, new List<ResourcesManager.ResourceAmount>(){
                         new ResourcesManager.ResourceAmount("copper", 100),
                         new ResourcesManager.ResourceAmount("steel", 100),
-                        new ResourcesManager.ResourceAmount("carbon", 70),
+                        new ResourcesManager.ResourceAmount("carbon", 70)
 
                     }),
                     new ResourcesManager.UpgradeCost(3, new List<ResourcesManager.ResourceAmount>(){
                        new ResourcesManager.ResourceAmount("composite", 50),
-                       new ResourcesManager.ResourceAmount("electronics", 50),
+                       new ResourcesManager.ResourceAmount("electronics", 50)
                     })                },
                 false, true,
                 new List<Building.BuildingStat>()
@@ -269,12 +269,12 @@ public class BuildingManager : MonoBehaviour {
                 new List<ResourcesManager.UpgradeCost>() {
                     new ResourcesManager.UpgradeCost(2, new List<ResourcesManager.ResourceAmount>(){
                         new ResourcesManager.ResourceAmount("steel", 120),
-                        new ResourcesManager.ResourceAmount("carbon", 80),
+                        new ResourcesManager.ResourceAmount("carbon", 80)
 
                     }),
                     new ResourcesManager.UpgradeCost(3, new List<ResourcesManager.ResourceAmount>(){
-                               new ResourcesManager.ResourceAmount("composite", 50),
-                               new ResourcesManager.ResourceAmount("electronics", 50),
+                               new ResourcesManager.ResourceAmount("composite", 80),
+                               new ResourcesManager.ResourceAmount("electronics", 40)
                     })                },
                 true, false,
                 new List<Building.BuildingStat>()
@@ -297,12 +297,11 @@ public class BuildingManager : MonoBehaviour {
                 new List<ResourcesManager.UpgradeCost>() {
                             new ResourcesManager.UpgradeCost(2, new List<ResourcesManager.ResourceAmount>(){
                                 new ResourcesManager.ResourceAmount("steel", 400),
-                                new ResourcesManager.ResourceAmount("carbon", 300),
-
+                                new ResourcesManager.ResourceAmount("carbon", 300)
                             }),
                             new ResourcesManager.UpgradeCost(3, new List<ResourcesManager.ResourceAmount>(){
-                               new ResourcesManager.ResourceAmount("composite", 1000),
-                               new ResourcesManager.ResourceAmount("electronics", 400),
+                               new ResourcesManager.ResourceAmount("composite", 800),
+                               new ResourcesManager.ResourceAmount("electronics", 400)
                             })        },
                 false, false,
                 new List<Building.BuildingStat>()
@@ -322,12 +321,11 @@ public class BuildingManager : MonoBehaviour {
                 new List<ResourcesManager.UpgradeCost>() {
                             new ResourcesManager.UpgradeCost(2, new List<ResourcesManager.ResourceAmount>(){
                                 new ResourcesManager.ResourceAmount("steel", 120),
-                                new ResourcesManager.ResourceAmount("carbon", 50),
-
+                                new ResourcesManager.ResourceAmount("carbon", 50)
                             }),
                             new ResourcesManager.UpgradeCost(3, new List<ResourcesManager.ResourceAmount>(){
                                 new ResourcesManager.ResourceAmount("composite", 50),
-                                new ResourcesManager.ResourceAmount("electronics", 50),
+                                new ResourcesManager.ResourceAmount("electronics", 50)
                             })        },
                 true, false,
                 new List<Building.BuildingStat>()
@@ -350,13 +348,13 @@ public class BuildingManager : MonoBehaviour {
                 new List<ResourcesManager.UpgradeCost>() {
                             new ResourcesManager.UpgradeCost(2, new List<ResourcesManager.ResourceAmount>(){
                                 new ResourcesManager.ResourceAmount("steel", 200),
-                                new ResourcesManager.ResourceAmount("carbon", 80),
-
+                                new ResourcesManager.ResourceAmount("carbon", 80)
                             }),
                             new ResourcesManager.UpgradeCost(3, new List<ResourcesManager.ResourceAmount>(){
                                 new ResourcesManager.ResourceAmount("composite", 50),
-                                new ResourcesManager.ResourceAmount("electronics", 80),
-                            })        },
+                                new ResourcesManager.ResourceAmount("electronics", 80)
+                            })
+                },
                 true, false,
                 new List<Building.BuildingStat>()
                 {
@@ -441,7 +439,6 @@ public class BuildingManager : MonoBehaviour {
                     SurroundingAreasManager.instance.ResetAllSatelliteBuildingSlotsColor();
                     ShopPanel.instance.ResetLastShopItemSelected();
                     //Debug.Log("Building Placed | Leaving Building State.");
-
 
                     // If building is Unique, disable corresponding ShopItem
                     if(selectedBuilding.isUnique)

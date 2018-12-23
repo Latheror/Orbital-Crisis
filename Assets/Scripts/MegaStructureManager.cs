@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class MegaStructureManager : MonoBehaviour {
 
@@ -29,6 +30,12 @@ public class MegaStructureManager : MonoBehaviour {
     public GameObject leftPanel;
     public GameObject planetaryShieldControlPanel;
 
+    public GameObject planetaryShield_logo;
+    public GameObject megaCollector_logo;
+
+    public Color shieldUnlockedColor;
+    public Color megaCollectorUnlockedColor;
+
     public Color canPayColor;
     public Color cantPayColor;
 
@@ -41,6 +48,7 @@ public class MegaStructureManager : MonoBehaviour {
     public void DefineAvailableMegastructures()
     {
         availableMegaStructures.Add(new MegaStructure(1, "Planetary Shield", planetaryShield));
+        availableMegaStructures.Add(new MegaStructure(2, "Mega Collector", megaCollector));
     }
 
     public void EnableMegaStructure(MegaStructure megaStructure, bool enable)
@@ -132,11 +140,15 @@ public class MegaStructureManager : MonoBehaviour {
             PlanetaryShield.instance.Initialize();
 
             // Disable "Activate!" text
-            MegaStructuresPanel.instance.activateShieldTextGo.SetActive(false);
+            if(MegaStructuresPanel.instance != null)
+            {
+                MegaStructuresPanel.instance.activateShieldTextGo.SetActive(false);
+            }
 
-            // Enable shield on button
-            planetaryShieldActivationAnimationGo.SetActive(true);
-            planetaryShieldActivationAnimationGoParticleSystem.GetComponent<ParticleSystem>().startSize = planetaryShieldTechnoItem.GetComponent<RectTransform>().rect.width / 3;
+            // Change shield color
+            planetaryShield_logo.GetComponent<Image>().color = shieldUnlockedColor;
+            //planetaryShieldActivationAnimationGo.SetActive(true);
+            //planetaryShieldActivationAnimationGoParticleSystem.GetComponent<ParticleSystem>().startSize = planetaryShieldTechnoItem.GetComponent<RectTransform>().rect.width / 3;
         }
         else
         if (megaStructureIndex == 20)
@@ -149,7 +161,13 @@ public class MegaStructureManager : MonoBehaviour {
             MegaCollector.instance.Initialize();
 
             // Disable "Activate!" text
-            MegaStructuresPanel.instance.activateCollectorTextGo.SetActive(false);
+            if (MegaStructuresPanel.instance != null)
+            {
+                MegaStructuresPanel.instance.activateCollectorTextGo.SetActive(false);
+            }
+
+            // Change collector color
+            megaCollector_logo.GetComponent<Image>().color = megaCollectorUnlockedColor;
         }
     }
 

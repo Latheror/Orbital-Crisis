@@ -19,6 +19,7 @@ public class BuildingInfoPanel : MonoBehaviour {
     public GameObject buildingImagePanel;
     public GameObject buildingNamePanel;
     public GameObject upgradeButton;
+    public GameObject upgradeButtonBorder;
     public GameObject upgradeCostsLayout;
     public GameObject upgradeCostPanelPrefab;
     public List<GameObject> upgradeCostPanelsList;
@@ -27,6 +28,8 @@ public class BuildingInfoPanel : MonoBehaviour {
     public TextMeshProUGUI upgradeText;
     public GameObject enoughEnergyPanel;
     public GameObject powerOnPanel;
+    public Sprite upgradeAvailableSprite;
+    public Sprite upgradeNotAvailableSprite;
 
     [Header("Colors")]
     public Color upgradePossibleColor = Color.green;
@@ -35,6 +38,8 @@ public class BuildingInfoPanel : MonoBehaviour {
     public Color powerOffColor = Color.grey;
     public Color enoughEnergyColor = Color.green;
     public Color notEnoughEnergyColor = Color.red;
+    public Color transparentColor;
+    public Color fullWhiteColor;
 
     [Header("Operation")]
     public GameObject selectedBuilding;
@@ -203,6 +208,8 @@ public class BuildingInfoPanel : MonoBehaviour {
     public void UpgradeUpdateButtonColorAndText(bool upgradeAvailable)
     {
         upgradeButton.GetComponent<Image>().color = (upgradeAvailable) ? upgradePossibleColor : upgradeImpossibleColor;
+        upgradeButtonBorder.GetComponent<Image>().sprite = (GetMaxUpgradeLevelReached()) ? null : upgradeAvailableSprite;
+        upgradeButtonBorder.GetComponent<Image>().color = (GetMaxUpgradeLevelReached()) ? transparentColor : fullWhiteColor;
         upgradeText.text = (GetMaxUpgradeLevelReached()) ? "Max level" : "Upgrade";
     }
 

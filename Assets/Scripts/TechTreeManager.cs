@@ -112,18 +112,18 @@ public class TechTreeManager : MonoBehaviour
         Technology disk3Techno = new Technology(12, "Disk III", 3000, false, false, new List<Technology>(), "", disk3TechnoItem, 0, 3, 0, false, 0, false, 0, null);
 
         // The Shield
-        Technology shield_generatorTechno = new Technology(13, "Generator", 1500, false, false, new List<Technology>(), "", shield_generatorTechnoItem, 0, 0, 0, true, 5, false, 16, null);
-        Technology shield_stabiliserTechno = new Technology(14, "Stabiliser", 2000, false, false, new List<Technology>(), "", shield_stabiliserTechnoItem, 0, 0, 0, true, 8, false, 16, null);
-        Technology shield_deflectorTechno = new Technology(15, "Deflector", 2500, false, false, new List<Technology>(), "", shield_deflectorTechnoItem, 0, 0, 0, true, 12, false, 16, null);
+        Technology shield_generatorTechno = new Technology(13, "Generator", 10/*1500*/, false, false, new List<Technology>(), "", shield_generatorTechnoItem, 0, 0, 0, true, 0/*5*/, false, 16, null);
+        Technology shield_stabiliserTechno = new Technology(14, "Stabiliser", 10/*2000*/, false, false, new List<Technology>(), "", shield_stabiliserTechnoItem, 0, 0, 0, true, 0/*8*/, false, 16, null);
+        Technology shield_deflectorTechno = new Technology(15, "Deflector", 10/*2500*/, false, false, new List<Technology>(), "", shield_deflectorTechnoItem, 0, 0, 0, true, 0/*12*/, false, 16, null);
             // Final step
-        Technology theShield_Techno = new Technology(16, "Deflector", 300, false, false, new List<Technology>(), "", theShield_TechnoItem, 0, 0, 1, true, 0, true, 0, new int[]{ 13, 14, 15 });
+        Technology theShield_Techno = new Technology(16, "Deflector", 10/*300*/, false, false, new List<Technology>(), "", theShield_TechnoItem, 0, 0, 1, true, 0, true, 0, new int[]{ 13, 14, 15 });
 
         // Mega Collector
-        Technology megaCollector_tractorBeamTechno = new Technology(17, "Tractor Beam", 150, false, false, new List<Technology>(), "", megaCollector_tractorBeamTechnoItem, 0, 0, 0, true, 1/*5*/, false, 20, null);
-        Technology megaCollector_foundryTechno = new Technology(18, "Foundry", 200, false, false, new List<Technology>(), "", megaCollector_foundryTechnoItem, 0, 0, 0, true, 8, false, 1/*20*/, null);
-        Technology megaCollector_compactorTechno = new Technology(19, "Compactor", 250, false, false, new List<Technology>(), "", megaCollector_compactorTechnoItem, 0, 0, 0, true, 1/*12*/, false, 20, null);
+        Technology megaCollector_tractorBeamTechno = new Technology(17, "Tractor Beam", 10/*150*/, false, false, new List<Technology>(), "", megaCollector_tractorBeamTechnoItem, 0, 0, 0, true, 0/*5*/, false, 20, null);
+        Technology megaCollector_foundryTechno = new Technology(18, "Foundry", 10/*200*/, false, false, new List<Technology>(), "", megaCollector_foundryTechnoItem, 0, 0, 0, true, 0/*8*/, false, 20, null);
+        Technology megaCollector_compactorTechno = new Technology(19, "Compactor", 10/*250*/, false, false, new List<Technology>(), "", megaCollector_compactorTechnoItem, 0, 0, 0, true, 0/*12*/, false, 20, null);
             // Final step
-        Technology megaCollector_Techno = new Technology(20, "Mega Collector", 300, false, false, new List<Technology>(), "", megaCollector_TechnoItem, 0, 0, 2, true, 0, true, 0, new int[] { 17, 18, 19 });
+        Technology megaCollector_Techno = new Technology(20, "Mega Collector", 10/*300*/, false, false, new List<Technology>(), "", megaCollector_TechnoItem, 0, 0, 2, true, 0, true, 0, new int[] { 17, 18, 19 });
 
 
         // Link technos

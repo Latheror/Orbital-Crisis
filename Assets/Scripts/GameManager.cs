@@ -98,6 +98,7 @@ public class GameManager : MonoBehaviour {
                     SpaceportInfoPanel.instance.DisplayPanel(false);
                     EnemiesManager.instance.DeselectEnemy();
                     PlanetaryShieldControlPanel.instance.DisplayPanel(false);
+                    CollectorControlPanel.instance.DisplayPanel(false);
                     break;
                 }
                 case SelectionState.SpaceshipSelected:
@@ -106,6 +107,7 @@ public class GameManager : MonoBehaviour {
                     SpaceportInfoPanel.instance.DisplayPanel(false);
                     EnemiesManager.instance.DeselectEnemy();
                     PlanetaryShieldControlPanel.instance.DisplayPanel(false);
+                    CollectorControlPanel.instance.DisplayPanel(false);
                     break;
                 }
                 case SelectionState.BuildingSelected:
@@ -114,6 +116,7 @@ public class GameManager : MonoBehaviour {
                     SpaceportInfoPanel.instance.DisplayPanel(false);
                     EnemiesManager.instance.DeselectEnemy();
                     PlanetaryShieldControlPanel.instance.DisplayPanel(false);
+                    CollectorControlPanel.instance.DisplayPanel(false);
                     break;
                 }
                 case SelectionState.ShopItemSelected:
@@ -123,6 +126,7 @@ public class GameManager : MonoBehaviour {
                     SpaceportInfoPanel.instance.DisplayPanel(false);
                     EnemiesManager.instance.DeselectEnemy();
                     PlanetaryShieldControlPanel.instance.DisplayPanel(false);
+                    CollectorControlPanel.instance.DisplayPanel(false);
                     break;
                 }
                 case SelectionState.EnemySelected:
@@ -131,6 +135,7 @@ public class GameManager : MonoBehaviour {
                     BuildingInfoPanel.instance.Deselection();
                     SpaceportInfoPanel.instance.DisplayPanel(false);
                     PlanetaryShieldControlPanel.instance.DisplayPanel(false);
+                    CollectorControlPanel.instance.DisplayPanel(false);
                     break;
                 }
                 case SelectionState.PlanetaryShieldSelected:
@@ -139,6 +144,7 @@ public class GameManager : MonoBehaviour {
                     BuildingInfoPanel.instance.Deselection();
                     SpaceportInfoPanel.instance.DisplayPanel(false);
                     EnemiesManager.instance.DeselectEnemy();
+                    CollectorControlPanel.instance.DisplayPanel(false);
                     break;
                 }
                 case SelectionState.CollectorSelected:
@@ -147,6 +153,7 @@ public class GameManager : MonoBehaviour {
                     BuildingInfoPanel.instance.Deselection();
                     SpaceportInfoPanel.instance.DisplayPanel(false);
                     EnemiesManager.instance.DeselectEnemy();
+                    PlanetaryShieldControlPanel.instance.DisplayPanel(false);
                     break;
                 }
             }

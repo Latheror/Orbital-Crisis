@@ -74,6 +74,7 @@ public class CollectionPoint : MonoBehaviour {
         }
         else
         {
+            isCollecting = false;
             lr.enabled = false;
         }
     }
@@ -87,5 +88,10 @@ public class CollectionPoint : MonoBehaviour {
     public void SetActivationMaterial()
     {
         activationIndicator.GetComponent<Renderer>().material = (isActivated) ? activationOnIndicatorMaterial : activationOffIndicatorMaterial;
+    }
+
+    public void DisableCollectionRay()
+    {
+        GetComponent<LineRenderer>().enabled = false;
     }
 }

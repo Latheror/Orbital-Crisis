@@ -15,7 +15,7 @@ public class TouchManager : MonoBehaviour
     public float minFieldOfView = 20;
     public float maxFieldOfView = 100;
     public float minOrthographicSize = 20;
-    public float maxOrthographicSize = 100;
+    public float maxOrthographicSize = 150;
     public float avoidPanelsMargin = 10f;
     public float moveCameraSpeed = .5f;
 
@@ -147,10 +147,13 @@ public class TouchManager : MonoBehaviour
                         }
                         else if(GameManager.instance.gameState == GameManager.GameState.Default)
                         {
-                            // Move screen verticaly / horizontaly
-                            Vector2 touchDeltaPosition = Input.GetTouch(0).deltaPosition;
+                            if(IsTouchWithinGameArea(Input.GetTouch(0).position))
+                            {
+                                // Move screen verticaly / horizontaly
+                                Vector2 touchDeltaPosition = Input.GetTouch(0).deltaPosition;
 
-                            Camera.main.transform.Translate(-touchDeltaPosition.x * moveCameraSpeed, -touchDeltaPosition.y * moveCameraSpeed, 0f);
+                                Camera.main.transform.Translate(-touchDeltaPosition.x * moveCameraSpeed, -touchDeltaPosition.y * moveCameraSpeed, 0f);
+                            }
                         }
                     }
                 }

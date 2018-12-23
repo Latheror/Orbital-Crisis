@@ -7,11 +7,15 @@ using TMPro;
 public class MegaStructureTechnologyItem : MonoBehaviour {
 
     public GameObject experienceCostPanel;
+    public GameObject experienceCostCenterPanel;
+
     public GameObject artifactCostPanel;
+    public GameObject artifactCostCenterPanel;
 
     public TextMeshProUGUI nameText;
     public TextMeshProUGUI experienceCostText;
     public TextMeshProUGUI artifactCostText;
+
 
     public GameObject button;
 
@@ -82,11 +86,11 @@ public class MegaStructureTechnologyItem : MonoBehaviour {
                 }
             }
 
-            // Experience cost text
-            experienceCostText.color = (TechTreeManager.instance.CanPayExperienceCost(associatedTechnology)) ? MegaStructureManager.instance.canPayColor : MegaStructureManager.instance.cantPayColor;
+            // Experience cost background
+            experienceCostCenterPanel.GetComponent<Image>().color = (TechTreeManager.instance.CanPayExperienceCost(associatedTechnology)) ? MegaStructureManager.instance.canPayColor : MegaStructureManager.instance.cantPayColor;
 
-            // Artifact cost text
-            artifactCostText.color = (TechTreeManager.instance.CanPayArtifactCost(associatedTechnology)) ? MegaStructureManager.instance.canPayColor : MegaStructureManager.instance.cantPayColor;
+            // Artifact cost background
+            artifactCostCenterPanel.GetComponent<Image>().color = (TechTreeManager.instance.CanPayArtifactCost(associatedTechnology)) ? MegaStructureManager.instance.canPayColor : MegaStructureManager.instance.cantPayColor;
         }
         else
         {
@@ -104,12 +108,18 @@ public class MegaStructureTechnologyItem : MonoBehaviour {
                         case 16:
                         {
                             Debug.Log("Planetary shield available !");
-                            MegaStructuresPanel.instance.activateShieldTextGo.SetActive(true);
-                            break;
+                            if (MegaStructuresPanel.instance != null)
+                            {
+                                //MegaStructuresPanel.instance.activateShieldTextGo.SetActive(true);
+                            }
+                                break;
                         }
                         case 20:
                         {
-                            MegaStructuresPanel.instance.activateCollectorTextGo.SetActive(true);
+                            if (MegaStructuresPanel.instance != null)
+                            {
+                                //MegaStructuresPanel.instance.activateCollectorTextGo.SetActive(true);
+                            }
                             break;
                         }
                         default:
