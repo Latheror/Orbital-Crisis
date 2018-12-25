@@ -31,6 +31,9 @@ public class LevelManager : MonoBehaviour {
     public GameObject pressStartPanel;
     public GameObject waveInfoPanel;
 
+    [Header("Maths")]
+    public float alpha = 0.05f;
+
     // REMOVE
     public int currentWaveNumber;
 
@@ -163,13 +166,13 @@ public class LevelManager : MonoBehaviour {
         List<GameObject> levelEnemies = new List<GameObject> {};
         for (int i = 0; i < index; i++)
         {
-            if(i%19 == 0)
+            if(i%9 == 0)
             {
                 levelEnemies.Add(EnemiesManager.instance.enemySpaceship_1);
             }            
         }
 
-        Level newLevel = new Level(index, "Level Nb " + (index), Mathf.FloorToInt((index) * 10f * (0.5f*(1f - (1f / (1f - index))))), (index), 1 + (.05f * (index)), (1 + 0.2f * index), levelEnemies);
+        Level newLevel = new Level(index, "Level Nb " + (index), Mathf.FloorToInt((index) * 10f * MathManager.instance.GetLevelMeteorNbFactor(index)), (index), 1 + (.05f * (index)), (1 + 0.2f * index), levelEnemies);
 
         return newLevel;
     }

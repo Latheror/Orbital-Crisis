@@ -626,6 +626,7 @@ MonoBehaviour:
     upgradeCosts: []
     hasRange: 0
     producesEnergy: 0
+    isUnique: 0
   buildingName: 
   buildingColor: {r: 0.5613208, g: 0.9481741, b: 1, a: 1}
   buildingPrefab: {fileID: 0}
@@ -642,22 +643,22 @@ MonoBehaviour:
   hasAngleRange: 0
   angleRange: 0
   rangeIndicatorNbPoints: 30
-  energyConsumption: 20
+  energyConsumption: 30
   buildingSpot: {fileID: 0}
   tags: []
   maxUpgradeLevelReached: 0
   powerOn: 1
   buildingLocationType: 1
-  damagePower: 20
+  damagePower: 10
   actionDelay: 5
-  damagePower_tier_2: 25
+  damagePower_tier_2: 15
   range_tier_2: 75
   actionDelay_tier_2: 4
-  energyConsumption_tier_2: 60
-  damagePower_tier_3: 30
+  energyConsumption_tier_2: 70
+  damagePower_tier_3: 20
   range_tier_3: 100
   actionDelay_tier_3: 3
-  energyConsumption_tier_3: 100
+  energyConsumption_tier_3: 150
   inRangeMeteors: []
   shockWave: {fileID: 1153648174547462}
 --- !u!120 &120560862628196902

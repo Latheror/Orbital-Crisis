@@ -9734,7 +9734,7 @@ Prefab:
     - target: {fileID: 224810219568180938, guid: 0a95ec4aacb1c6944b5eb616a92d284f,
         type: 2}
       propertyPath: m_AnchoredPosition.x
-      value: -1.5
+      value: -1.4999924
       objectReference: {fileID: 0}
     - target: {fileID: 224810219568180938, guid: 0a95ec4aacb1c6944b5eb616a92d284f,
         type: 2}
@@ -13171,7 +13171,7 @@ Prefab:
     - target: {fileID: 224810219568180938, guid: 0a95ec4aacb1c6944b5eb616a92d284f,
         type: 2}
       propertyPath: m_AnchoredPosition.x
-      value: -1.5
+      value: -1.5000076
       objectReference: {fileID: 0}
     - target: {fileID: 114882609839012542, guid: 0a95ec4aacb1c6944b5eb616a92d284f,
         type: 2}
@@ -19869,6 +19869,7 @@ MonoBehaviour:
   remainingEnnemiesText: {fileID: 1945273677}
   pressStartPanel: {fileID: 1092492328}
   waveInfoPanel: {fileID: 916798697}
+  alpha: 0.05
   currentWaveNumber: 0
 --- !u!4 &716305280
 Transform:
@@ -37271,7 +37272,7 @@ Prefab:
     - target: {fileID: 224810219568180938, guid: 0a95ec4aacb1c6944b5eb616a92d284f,
         type: 2}
       propertyPath: m_AnchoredPosition.x
-      value: -1.5
+      value: -1.5000076
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0a95ec4aacb1c6944b5eb616a92d284f, type: 2}
@@ -48149,7 +48150,7 @@ Prefab:
     - target: {fileID: 224810219568180938, guid: 0a95ec4aacb1c6944b5eb616a92d284f,
         type: 2}
       propertyPath: m_AnchoredPosition.x
-      value: -1.5
+      value: -1.5000076
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0a95ec4aacb1c6944b5eb616a92d284f, type: 2}
