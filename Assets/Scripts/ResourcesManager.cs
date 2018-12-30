@@ -12,11 +12,16 @@ public class ResourcesManager : MonoBehaviour {
     public int productionEnergy;
     public int consumptionEnergy;
 
+    public float maxResourcesMargin = .2f;
+
     public Color steelColor;
     public Color copperColor;
     public Color carbonColor;
     public Color compositeColor;
     public Color electronicsColor;
+
+    public Color maxResourceAmountReachedColor;
+    public Color maxResourceAmountNotReachedColor;
 
     [Header("Operation")]
     public List<ResourceAmount> currentResourceAmounts = new List<ResourceAmount>();
@@ -38,11 +43,11 @@ public class ResourcesManager : MonoBehaviour {
     // Types of resources and their info
     public void InitializeResources()
     {
-        availableResources.Add(new ResourceType(1, "steel", steelColor, "steel", 600));
-        availableResources.Add(new ResourceType(2, "copper", copperColor, "copper", 400));
-        availableResources.Add(new ResourceType(3, "carbon", carbonColor, "carbon", 200));
-        availableResources.Add(new ResourceType(4, "composite", compositeColor, "composite", 150));
-        availableResources.Add(new ResourceType(5, "electronics", electronicsColor, "electronics", 100));
+        availableResources.Add(new ResourceType(1, "steel", steelColor, "steel", 600, 7500));
+        availableResources.Add(new ResourceType(2, "copper", copperColor, "copper", 400, 5000));
+        availableResources.Add(new ResourceType(3, "carbon", carbonColor, "carbon", 200, 3500));
+        availableResources.Add(new ResourceType(4, "composite", compositeColor, "composite", 150, 2000));
+        availableResources.Add(new ResourceType(5, "electronics", electronicsColor, "electronics", 100, 1000));
     }
 
     // Set starting resource amounts
@@ -93,7 +98,7 @@ public class ResourcesManager : MonoBehaviour {
             if(resourceAmount.resourceType.Equals(rType))
             {
                 // We found the right resource
-                resourceAmount.amount += amount;
+                resourceAmount.amount = Mathf.Min(resourceAmount.amount + amount, resourceAmount.resourceType.maxAmount);
                 resourceAmount.resourceType.resourceIndicator.GetComponent<ResourceIndicator>().UpdateIndicator();
                 break;
             }
@@ -282,16 +287,18 @@ public class ResourcesManager : MonoBehaviour {
         public string resourceName;
         public Color color;
         public int startAmount;
+        public int maxAmount;
         public GameObject resourceIndicator;
         public Sprite resourceImage;
 
-        public ResourceType(int id, string name, Color color, string imageName, int startAmount)
+        public ResourceType(int id, string name, Color color, string imageName, int startAmount, int maxAmount)
         {
             this.id = id;
             this.resourceName = name;
             this.color = color;
             this.resourceImage = Resources.Load<Sprite>("Images/Resources/" + imageName);
             this.startAmount = startAmount;
+            this.maxAmount = maxAmount;
         }
 
         public bool Equals(ResourceType rt)

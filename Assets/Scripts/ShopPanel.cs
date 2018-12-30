@@ -107,7 +107,7 @@ public class ShopPanel : MonoBehaviour {
     {
         // Tutorial indicator //
         TutorialManager.instance.DisplayIndicator(4, false);
-        //TutorialManager.instance.DisplayIndicatorIfNotDisplayedYet(5);
+        TutorialManager.instance.DisplayIndicatorIfNotDisplayedYet(5);
         // ------------------ //
 
         BuildingManager.instance.BuildButton();

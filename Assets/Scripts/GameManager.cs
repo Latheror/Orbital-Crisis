@@ -174,8 +174,9 @@ public class GameManager : MonoBehaviour {
         public int hits;
         public int experiencePoints;
         public int artifactsNb;
+        public bool timerEnabled;
 
-        public GeneralGameData(int currentLevelNb, int unlockedOrbits, int score, int hits, int experiencePoints, int artifactsNb)
+        public GeneralGameData(int currentLevelNb, int unlockedOrbits, int score, int hits, int experiencePoints, int artifactsNb, bool timerOptionEnabled)
         {
             this.levelReached = currentLevelNb;
             this.unlockedDisks = unlockedOrbits;
@@ -183,6 +184,7 @@ public class GameManager : MonoBehaviour {
             this.hits = hits;
             this.experiencePoints = experiencePoints;
             this.artifactsNb = artifactsNb;
+            this.timerEnabled = timerOptionEnabled;
         }
     }
 }

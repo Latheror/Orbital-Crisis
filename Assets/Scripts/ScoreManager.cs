@@ -13,6 +13,8 @@ public class ScoreManager : MonoBehaviour {
 
     [Header("Settings")]
     public int experiencePointsPerMeteorUnitOfSize = 10;
+    public float scoreFactor = 1f;
+    public float scoreFactorWithTimerEnabled = 1.25f;
 
     [Header("Operation")]
     public int score;
@@ -32,6 +34,13 @@ public class ScoreManager : MonoBehaviour {
         artifactsNb = 0;
         UpdateScoreDisplay();
         UpdateExperiencePointsDisplay();
+
+        // TEMP
+        if (OptionsManager.instance.IsTimerOptionEnabled())
+        {
+            scoreFactor = scoreFactorWithTimerEnabled;
+        }
+
     }
 
     public void SetScore(int score)
@@ -104,7 +113,7 @@ public class ScoreManager : MonoBehaviour {
 
     public void GrantPointsFromDestroyingMeteor(Meteor meteor)
     {
-        IncreaseScore((int)(meteor.originalSize * MeteorsManager.instance.valuePerSizeUnit));
+        IncreaseScore((int)(meteor.originalSize * MeteorsManager.instance.valuePerSizeUnit * scoreFactor));
     }
 
     public void GrantExperiencePointsFromDestroyingMeteor(Meteor meteor)

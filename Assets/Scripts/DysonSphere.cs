@@ -4,13 +4,33 @@ using UnityEngine;
 
 public class DysonSphere : MonoBehaviour {
 
-	// Use this for initialization
-	void Start () {
-		
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
+    public static DysonSphere instance;
+    void Awake(){
+        if (instance != null) { Debug.LogError("More than one DysonSphere in scene !"); return; } instance = this;
+    }
+
+    [Header("Settings")]
+    public float baseEnergyProduction = 2000f;
+
+    [Header("Operation")]
+    public bool isUnlocked = false;
+    public bool isActivated = false;
+    public float currentEnergyProduction = 2000f;
+
+
+    void Start()
+    {
+        SetSettings();
+    }
+
+    public void SetSettings()
+    {
+        currentEnergyProduction = baseEnergyProduction;
+        EnergyPanel.instance.UpdateEnergyProductionAndConsumption();
+    }
+
+
+
+
+
 }

@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class AlliedSpaceship : Spaceship {
 
+    public int id = -1;
+
 	// Use this for initialization
 	void Start () {
         isAllied = true;
@@ -24,6 +26,7 @@ public class AlliedSpaceship : Spaceship {
             UpdateTarget();
             HandleMovements();
             AttackTarget();
+            AvoidOtherAllies();
         }
     }
 
@@ -203,7 +206,7 @@ public class AlliedSpaceship : Spaceship {
         }
     }
 
-    protected override void DestroySpaceship()
+    public override void DestroySpaceship()
     {
         //Debug.Log("Allied Spaceship has been destroyed !");
         // temporary
@@ -229,4 +232,24 @@ public class AlliedSpaceship : Spaceship {
             g.ActOnSpaceship(this);       
         }
     }
+
+    // Avoid spaceships being at the same position when they don't have any target
+    public void AvoidOtherAllies()
+    {
+        if(target == null)
+        {
+            GameObject otherAlly = SpaceshipManager.instance.IsOtherAllyInRange(gameObject);
+            //Debug.Log("AvoidOtherAllies |" + otherAlly);
+            if (otherAlly != null)
+            {
+                gameObject.transform.position = Vector3.MoveTowards(gameObject.transform.position, otherAlly.transform.position, -movementSpeed * Time.deltaTime);
+
+                Vector3 alliedDir = otherAlly.transform.position - transform.position;
+                float rotationStep = rotationSpeed * Time.deltaTime;
+                Vector3 newDir = Vector3.RotateTowards(- transform.forward, alliedDir, rotationStep, 0.0f);
+                transform.rotation = Quaternion.LookRotation(newDir);
+            }
+        }
+    }
+
 }

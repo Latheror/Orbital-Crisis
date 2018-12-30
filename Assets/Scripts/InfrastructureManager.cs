@@ -84,6 +84,15 @@ public class InfrastructureManager : MonoBehaviour {
             recyclingStationsList.Remove(building);
         }
 
+        if(building.GetComponent<Building>().buildingType.name == "Spaceport")
+        {
+            Spaceport sp = building.GetComponent<Spaceport>();
+            foreach (GameObject spaceship in sp.attachedSpaceships)
+            {
+                spaceship.GetComponent<Spaceship>().DestroySpaceship();
+            }
+        }
+
         // Unique Buildings
         if (building.GetComponent<Building>().buildingType.isUnique)
         {

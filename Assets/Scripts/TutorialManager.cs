@@ -33,7 +33,7 @@ public class TutorialManager : MonoBehaviour {
         availableTutorialIndicators.Add(new TutorialIndicator(2, "select_building", "Select a building", selectBuildingIndicator, false));
         availableTutorialIndicators.Add(new TutorialIndicator(3, "select_building_location", "Tap to choose a building spot", selectBuildingLocationIndicator, false));
         availableTutorialIndicators.Add(new TutorialIndicator(4, "click_on_build", "Click to build !", clickOnBuildIndicator, false));
-        availableTutorialIndicators.Add(new TutorialIndicator(5, "start_when_ready", "Start when ready !", startWhenReadyIndicator, true));
+        availableTutorialIndicators.Add(new TutorialIndicator(5, "start_when_ready", "Start when ready !", startWhenReadyIndicator, false));
     }
 
     public void DisplayStartIndicators()

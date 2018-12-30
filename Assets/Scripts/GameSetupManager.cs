@@ -53,6 +53,9 @@ public class GameSetupManager : MonoBehaviour {
 
             // Spaceship manager 
             SpaceshipManager.instance.NewGameSetupActions();
+
+            // Timer
+            TimeManager.instance.SetTimerEnabled(OptionsManager.instance.IsTimerOptionEnabled());
         }
         else
         {
@@ -129,6 +132,7 @@ public class GameSetupManager : MonoBehaviour {
         int unlockedDisksNb = generalGameData.unlockedDisks;
         int experiencePoints = generalGameData.experiencePoints;
         int artifactsNb = generalGameData.artifactsNb;
+        bool timerEnabled = generalGameData.timerEnabled;
 
         //Debug.Log("SetupGeneralParameters | Score [" + score + "] | Hits [" + hits + "] | UnlockedDisks [" + unlockedDisksNb + "]");
 
@@ -136,6 +140,7 @@ public class GameSetupManager : MonoBehaviour {
         ScoreManager.instance.SetExperiencePointsAndArtifactsNb(experiencePoints, artifactsNb);
         InfoManager.instance.SetMeteorCollisionsValue(hits);
         SurroundingAreasManager.instance.SetUnlockedDisksNb(unlockedDisksNb);
+        TimeManager.instance.SetTimerEnabled(timerEnabled);
     }
 
     public void SetupReachedLevelParameters(Level.LevelData reachedLevelData)

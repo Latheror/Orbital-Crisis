@@ -33,14 +33,27 @@ public class ResourceIndicator : MonoBehaviour {
         resourceImage.GetComponent<Image>().sprite = resource.resourceImage;
     }
 
-    public void SetResourceValueText(int value)
+    public void SetResourceValueText()
     {
-        resourceValueText.text = value.ToString();
+        resourceValueText.text = resourceAmount.amount.ToString();
+    }
+
+    public void SetResourceValueColor()
+    {
+        if((resourceAmount.amount * (1 + ResourcesManager.instance.maxResourcesMargin) > resourceAmount.resourceType.maxAmount))
+        {
+            resourceValueText.color = ResourcesManager.instance.maxResourceAmountReachedColor;
+        }
+        else
+        {
+            resourceValueText.color = ResourcesManager.instance.maxResourceAmountNotReachedColor;
+        }
     }
 
     public void UpdateIndicator()
     {
-        SetResourceValueText(resourceAmount.amount);
+        SetResourceValueText();
+        SetResourceValueColor();
     }
 
 }

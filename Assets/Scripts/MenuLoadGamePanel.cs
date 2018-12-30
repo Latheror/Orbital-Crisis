@@ -120,11 +120,8 @@ public class MenuLoadGamePanel : MonoBehaviour {
 
     public void ShowOptionsPanelButtonClicked()
     {
-        // Disabled for now
-        /*
         loadGamePanel.SetActive(false);
         optionsPanel.SetActive(true);
-        */
     }
 
     public void ShowLoadGamePanelButtonClicked()

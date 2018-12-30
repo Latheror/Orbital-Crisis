@@ -9,6 +9,8 @@ public class SpaceshipManager : MonoBehaviour {
     public GameObject newGameSpaceshipPosition;
     public GameObject alliedSpaceship1_Prefab;
 
+    public float avoidOtherAlliesDistance = 50f;
+
     [Header("Operation")]
     public GameObject selectedSpaceship;
     public GameObject currentSelectedSpaceshipInfoPanel;
@@ -72,6 +74,8 @@ public class SpaceshipManager : MonoBehaviour {
     public void InstantiatedSpaceshipAtPosition(GameObject spaceshipPrefab, Vector3 pos)
     {
         GameObject instantiatedSpaceship = Instantiate(spaceshipPrefab, pos, Quaternion.Euler(0,90,0));
+        // Attribute ID to spaceship
+        instantiatedSpaceship.GetComponent<AlliedSpaceship>().id = GetAvailableSpaceshipId();
         AddAlliedSpaceshipToList(instantiatedSpaceship);
     }
 
@@ -84,6 +88,10 @@ public class SpaceshipManager : MonoBehaviour {
     {
         Debug.Log("Spawning saved spaceship");
         GameObject instantiatedSpaceship = Instantiate(alliedSpaceship1_Prefab, new Vector3(pos.x, pos.y, pos.z), Quaternion.identity);
+
+        // Attribute ID to spaceship
+        instantiatedSpaceship.GetComponent<AlliedSpaceship>().id = GetAvailableSpaceshipId();
+
         AddAlliedSpaceshipToList(instantiatedSpaceship);
     }
 
@@ -93,6 +101,55 @@ public class SpaceshipManager : MonoBehaviour {
         {
             SpawnSpaceshipAtPos(spaceshipsData[i].position);
         }
+    }
+
+    public int GetAvailableSpaceshipId()
+    {
+        int idFound = -1;
+        int index = 1;
+        bool isIdFound = false;
+        while(!isIdFound)
+        {
+            if (IsSpaceshipIdAvailable(index))
+            {
+                idFound = index;
+                isIdFound = true;
+                break;
+            }
+            else
+            {
+                index++;
+            }
+        }
+        return idFound;
+    }
+
+    public bool IsSpaceshipIdAvailable(int id)
+    {
+        bool available = true;
+        foreach (GameObject spaceship in alliedSpaceships)
+        {
+            if(spaceship.GetComponent<AlliedSpaceship>().id == id)
+            {
+                available = false;
+                break;
+            }
+        }
+        return available;
+    }
+
+    public GameObject IsOtherAllyInRange(GameObject referenceAlliedSpaceship)
+    {
+        GameObject otherAlly = null;
+        foreach (GameObject otherAlliedSpaceship in alliedSpaceships)
+        {
+            if((otherAlliedSpaceship != referenceAlliedSpaceship) && Vector3.Distance(referenceAlliedSpaceship.transform.position, otherAlliedSpaceship.transform.position) < avoidOtherAlliesDistance)
+            {
+                otherAlly = otherAlliedSpaceship;
+                break;
+            }
+        }
+        return otherAlly;
     }
 
     [Serializable]

@@ -14,8 +14,9 @@ public class OptionsManager : MonoBehaviour {
         }
     }
 
-    public bool isTimerEnabled = false;
 
+    public bool isTimerEnabled = false;
+    public bool isTutorialEnabled = false;
 
 
     public void SetTimerEnabled(bool enabled)
@@ -28,5 +29,16 @@ public class OptionsManager : MonoBehaviour {
     {
         Debug.Log("TimerOptionToggle [" + !isTimerEnabled + "]");
         isTimerEnabled = !isTimerEnabled;
+    }
+
+    public void TutorialOptionToggle()
+    {
+        Debug.Log("TutorialOptionToggle [" + !isTutorialEnabled + "]");
+        isTutorialEnabled = !isTutorialEnabled;
+    }
+
+    public bool IsTimerOptionEnabled()
+    {
+        return isTimerEnabled;
     }
 }

@@ -125,7 +125,7 @@ public class EnemySpaceship : Spaceship {
         }
     }
 
-    protected override void DestroySpaceship()
+    public override void DestroySpaceship()
     {
         //Debug.Log("Enemy Spaceship has been destroyed !");
         isActivated = false; // temporary

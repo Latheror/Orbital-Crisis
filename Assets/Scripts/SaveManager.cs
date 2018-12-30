@@ -182,10 +182,11 @@ public class SaveManager : MonoBehaviour {
         int hits = InfoManager.instance.nbMeteorCollisions;
         int experiencePoints = ScoreManager.instance.experiencePoints;
         int artifactsNb = ScoreManager.instance.artifactsNb;
+        bool timerOptionEnabled = TimeManager.instance.isTimerEnabled;
 
         //Debug.Log("Saving game variables | LevelReached [" + levelReached + "] | UnlockedDisksNb [" + unlockedDisksNb + "]");
 
-        GameManager.GeneralGameData gameSavedVariables = new GameManager.GeneralGameData(levelReached, unlockedDisksNb, score, hits, experiencePoints, artifactsNb);
+        GameManager.GeneralGameData gameSavedVariables = new GameManager.GeneralGameData(levelReached, unlockedDisksNb, score, hits, experiencePoints, artifactsNb, timerOptionEnabled);
         return gameSavedVariables;
     }
 

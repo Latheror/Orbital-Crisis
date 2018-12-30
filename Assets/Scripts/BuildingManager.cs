@@ -183,19 +183,19 @@ public class BuildingManager : MonoBehaviour {
         availableBuildings.Add(new BuildingType(6, "Shock Satellite", shockSatellitePrefab, 10f,
                 new List<ResourcesManager.ResourceAmount>(){
                     new ResourcesManager.ResourceAmount("steel", 60),
-                    new ResourcesManager.ResourceAmount("copper", 30)
+                    new ResourcesManager.ResourceAmount("copper", 80)
                 },
                 BuildingType.BuildingLocationType.Disks, "shock_satellite", 3, 3,
                 "Satellite building dealing damage salves in a circle around it.",
                 new List<ResourcesManager.UpgradeCost>() {
                     new ResourcesManager.UpgradeCost(2, new List<ResourcesManager.ResourceAmount>(){
-                        new ResourcesManager.ResourceAmount("steel", 120),
-                        new ResourcesManager.ResourceAmount("carbon", 50)
+                        new ResourcesManager.ResourceAmount("steel", 200),
+                        new ResourcesManager.ResourceAmount("carbon", 100)
 
                     }),
                     new ResourcesManager.UpgradeCost(3, new List<ResourcesManager.ResourceAmount>(){
-                       new ResourcesManager.ResourceAmount("composite", 50),
-                       new ResourcesManager.ResourceAmount("electronics", 100)
+                       new ResourcesManager.ResourceAmount("composite", 300),
+                       new ResourcesManager.ResourceAmount("electronics", 250)
                     })                },
                 true, false,
                 new List<Building.BuildingStat>()
@@ -217,6 +217,7 @@ public class BuildingManager : MonoBehaviour {
                 new List<ResourcesManager.UpgradeCost>() {
                     new ResourcesManager.UpgradeCost(2, new List<ResourcesManager.ResourceAmount>(){
                         new ResourcesManager.ResourceAmount("steel", 120),
+                        new ResourcesManager.ResourceAmount("copper", 160),
                         new ResourcesManager.ResourceAmount("carbon", 50)
 
                     }),

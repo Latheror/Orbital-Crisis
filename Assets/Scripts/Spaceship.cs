@@ -272,7 +272,7 @@ public class Spaceship : MonoBehaviour {
         }
     }
 
-    protected virtual void DestroySpaceship() { }
+    public virtual void DestroySpaceship() { }
 
     // Not used anymore
     private void SetLasersPositions(Vector3 pos11, Vector3 pos12, Vector3 pos21, Vector3 pos22)

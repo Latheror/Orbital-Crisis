@@ -148,7 +148,6 @@ public class EnergyPanel : MonoBehaviour {
                 MegaCollector.instance.hasEnoughEnergy = false;
             }
         }
-
     }
 
     public void UpdateEnergyProductionAndConsumption()
@@ -182,6 +181,12 @@ public class EnergyPanel : MonoBehaviour {
         if (MegaCollector.instance != null && MegaCollector.instance.isUnlocked)
         {
             totalEnergyConsumption += MegaCollector.instance.energyConsumption;
+        }
+
+        // Dyson Sphere
+        if (DysonSphere.instance != null && DysonSphere.instance.isUnlocked && DysonSphere.instance.isActivated)
+        {
+            totalEnergyProduction += DysonSphere.instance.currentEnergyProduction;
         }
 
         SetEnergyProduction(totalEnergyProduction);

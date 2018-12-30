@@ -15,6 +15,7 @@ public class Level {
     public EnemyWave enemyWave;
     public List<GameObject> enemies;
     public float meteorSpawnSizeFactor;
+    public float countdownTime;
 
     [Header("Operation")]
     public int destroyedMeteorsNb = 0;
@@ -34,7 +35,7 @@ public class Level {
 	}
 
 
-    public Level(int number, string name, int meteorsNb, int meteorSerieNb, float meteorSpawnSizeFactor, float timeBetweenSpawns, List<GameObject> enemies)
+    public Level(int number, string name, int meteorsNb, int meteorSerieNb, float meteorSpawnSizeFactor, float timeBetweenSpawns, List<GameObject> enemies, float countdownTime)
     {
         this.levelNb = number;
         this.levelName = name;
@@ -43,6 +44,7 @@ public class Level {
         this.meteorSpawnSizeFactor = meteorSpawnSizeFactor;
         this.timeBetweenSpawns = timeBetweenSpawns;
         this.enemies = enemies;
+        this.countdownTime = countdownTime;
     }
 
     // Returns true if level is completed
@@ -51,6 +53,12 @@ public class Level {
         //Debug.Log("IncrementDestroyedMeteorsNb | Destroyed: " + destroyedMeteorsNb + " | Total: " + levelMeteorsNb);
 
         destroyedMeteorsNb += nb;
+
+        if(destroyedMeteorsNb >= (levelMeteorsNb / 2))
+        {
+            LevelManager.instance.HalfLevelMeteorsDestroyed();
+        }
+
         if(destroyedMeteorsNb >= levelMeteorsNb)
         {
             allLevelMeteorsDestroyed = true;
