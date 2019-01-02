@@ -131,7 +131,7 @@ public class LevelManager : MonoBehaviour {
 
     private void AllLevelMeteorsDestroyed()
     {
-        Debug.Log("AllLevelMeteorsDestroyed");
+        //Debug.Log("AllLevelMeteorsDestroyed");
         currentLevelFinished = true;
     }
 
@@ -139,7 +139,7 @@ public class LevelManager : MonoBehaviour {
     {
         if(currentLevelNumber < levelsList.Count)
         {
-            Debug.Log("Going to next level | Nb: " + currentLevelNumber);
+            //Debug.Log("Going to next level | Nb: " + currentLevelNumber);
             currentLevelNumber++;
             currentLevel = GetLevelFromNumber(currentLevelNumber);
             DisplayWaveNumber();
@@ -160,7 +160,7 @@ public class LevelManager : MonoBehaviour {
         }
         else
         {
-            Debug.Log("Last level reached !");
+            //Debug.Log("Last level reached !");
             //levelsList.Add(new Level(currentLevelNumber + 1, "Level Nb " + (currentLevelNumber + 1), (currentLevelNumber + 1) * 10, (currentLevelNumber + 1), 1f, new List<GameObject> {EnemiesManager.instance.ennemySpaceship_1 }));
             levelsList.Add(CreateNewLevelAtIndex(currentLevelNumber + 1));
             GoToNextLevel();
@@ -231,6 +231,7 @@ public class LevelManager : MonoBehaviour {
                 GoToNextLevel();
             }
         }
+        TutorialManager.instance.DisplayIndicator(5, false);
     }
 
     public void StopCurrentLevel()
@@ -261,7 +262,7 @@ public class LevelManager : MonoBehaviour {
     public IEnumerator MeteorSpawnCouroutine(int totalNb, int serieNb, float spawnSizeFactor, float delay)
     {
         MeteorsManager.instance.currentSpawnSizeFactor = spawnSizeFactor;
-        Debug.Log("MeteorSpawnCouroutine | TotalNb [" + totalNb + "] | SerieNb [" + serieNb + "] | SpawnSizeFactor [" + spawnSizeFactor + "] | Delay [" + delay + "]");
+        //Debug.Log("MeteorSpawnCouroutine | TotalNb [" + totalNb + "] | SerieNb [" + serieNb + "] | SpawnSizeFactor [" + spawnSizeFactor + "] | Delay [" + delay + "]");
         while (totalNb > 0)
         {
             //Debug.Log("Meteor Spawn Coroutine.");
@@ -350,7 +351,7 @@ public class LevelManager : MonoBehaviour {
 
     public void HalfLevelMeteorsDestroyed()
     {
-        Debug.Log("HalfLevelMeteorsDestroyed");
+        //Debug.Log("HalfLevelMeteorsDestroyed");
         nextLevelButton.SetActive(true);
     }
 

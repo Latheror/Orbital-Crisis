@@ -86,7 +86,7 @@ public class BuildingShopItem : MonoBehaviour {
             instantiatedResourceCostPanel.transform.SetParent(buildingCostsPanel.transform, false);
 
             ResourceCostPanel rcPanel = instantiatedResourceCostPanel.GetComponent<ResourceCostPanel>();
-            rcPanel.SetInfos(resourceAmount);
+            rcPanel.SetInfo(resourceAmount);
             rcPanel.BuildPanel();
 
             //Debug.Log("BuildCostsList | Building: " + buildingType.name + " | Resource: " + resourceAmount.resourceType.resourceName + " | Adding to list");

@@ -243,8 +243,8 @@ public class BuildingManager : MonoBehaviour {
                 "A satellite covered by solar panels, providing energy to your infrastructures.",
                 new List<ResourcesManager.UpgradeCost>() {
                     new ResourcesManager.UpgradeCost(2, new List<ResourcesManager.ResourceAmount>(){
-                        new ResourcesManager.ResourceAmount("copper", 100),
                         new ResourcesManager.ResourceAmount("steel", 100),
+                        new ResourcesManager.ResourceAmount("copper", 100),
                         new ResourcesManager.ResourceAmount("carbon", 70)
 
                     }),
@@ -543,7 +543,10 @@ public class BuildingManager : MonoBehaviour {
             buildingSpot = SurroundingAreasManager.instance.FindClosestBuildingSlotInUnlockedDisks(planeLoc);
         }
 
-        buildingSpot.GetComponent<BuildingSlot>().SetSelectionColor();
+        if(buildingSpot != null)
+        {
+            buildingSpot.GetComponent<BuildingSlot>().SetSelectionColor();
+        }
 
         return buildingSpot;
     }

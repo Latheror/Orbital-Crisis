@@ -74,6 +74,12 @@ public class TechTreeManager : MonoBehaviour
     public GameObject megaCollector_compactorTechnoItem;
     public GameObject megaCollector_TechnoItem;
 
+    // Dyson Sphere
+    public GameObject dysonSphere_1_TechnoItem;
+    public GameObject dysonSphere_2_TechnoItem;
+    public GameObject dysonSphere_3_TechnoItem;
+    public GameObject dysonSphere_TechnoItem;
+
 
     [Header("Operation")]
     public Technology selectedTechno;
@@ -96,34 +102,41 @@ public class TechTreeManager : MonoBehaviour
         // Init technos
 
         // Buildings
-        Technology missileTurretTechno = new Technology(1, "Missile Turret", 300, true, false, new List<Technology>(), "", missileTurretTechnoItem, 2, 0, 0, false, 0, false, 0, null);
-        Technology freezingTurretTechno = new Technology(2, "Freezing Turret", 1000, false, false, new List<Technology>(), "", freezingTurretTechnoItem, 3, 0, 0, false, 0, false, 0, null);
-        Technology healingTurretTechno = new Technology(3, "Healing Turret", 1500, false, false, new List<Technology>(), "", healingTurretTechnoItem, 9, 0, 0, false, 0, false, 0, null);
-        Technology shockSatelliteTechno = new Technology(4, "Shock Satellite", 400, true, false, new List<Technology>(), "", shockSatelliteTechnoItem, 6, 0, 0, false, 0, false, 0, null);
-        Technology stormSatelliteTechno = new Technology(5, "Storm Satellite", 1000, false, false, new List<Technology>(), "", stormSatelliteTechnoItem, 11, 0, 0, false, 0, false, 0, null);
-        Technology meteorCrusherTechno = new Technology(6, "Meteor Crusher", 3000, false, false, new List<Technology>(), "", meteorCrusherTechnoItem, 12, 0, 0, false, 0, false, 0, null);
-        Technology solarStationTechno = new Technology(7, "Solar Station", 1000, false, false, new List<Technology>(), "", solarStationTechnoItem, 8, 0, 0, false, 0, false, 0, null);
-        Technology spaceportTechno = new Technology(8, "Spaceport", 2000, false, false, new List<Technology>(), "", spaceportTechnoItem, 10, 0, 0, false, 0, false, 0, null);
-        Technology recyclingStationTechno = new Technology(9, "Recycling Station", 500, true, false, new List<Technology>(), "", recyclingStationItem, 7, 0, 0, false, 0, false, 0, null);
+        Technology missileTurretTechno = new Technology(1, "Missile Turret", 300, true, false, new List<Technology>(), "", missileTurretTechnoItem, 2, 0, 0, false, 0, false, 0, null, 0);
+        Technology freezingTurretTechno = new Technology(2, "Freezing Turret", 1000, false, false, new List<Technology>(), "", freezingTurretTechnoItem, 3, 0, 0, false, 0, false, 0, null, 0);
+        Technology healingTurretTechno = new Technology(3, "Healing Turret", 1500, false, false, new List<Technology>(), "", healingTurretTechnoItem, 9, 0, 0, false, 0, false, 0, null, 0);
+        Technology shockSatelliteTechno = new Technology(4, "Shock Satellite", 400, true, false, new List<Technology>(), "", shockSatelliteTechnoItem, 6, 0, 0, false, 0, false, 0, null, 0);
+        Technology stormSatelliteTechno = new Technology(5, "Storm Satellite", 1000, false, false, new List<Technology>(), "", stormSatelliteTechnoItem, 11, 0, 0, false, 0, false, 0, null, 0);
+        Technology meteorCrusherTechno = new Technology(6, "Meteor Crusher", 3000, false, false, new List<Technology>(), "", meteorCrusherTechnoItem, 12, 0, 0, false, 0, false, 0, null, 0);
+        Technology solarStationTechno = new Technology(7, "Solar Station", 1000, false, false, new List<Technology>(), "", solarStationTechnoItem, 8, 0, 0, false, 0, false, 0, null, 0);
+        Technology spaceportTechno = new Technology(8, "Spaceport", 2000, false, false, new List<Technology>(), "", spaceportTechnoItem, 10, 0, 0, false, 0, false, 0, null, 0);
+        Technology recyclingStationTechno = new Technology(9, "Recycling Station", 500, true, false, new List<Technology>(), "", recyclingStationItem, 7, 0, 0, false, 0, false, 0, null, 0);
 
         // Disks
-        Technology disk1Techno = new Technology(10, "Disk I", 300, true, true, new List<Technology>(), "", disk1TechnoItem, 0, 1, 0, false, 0, false, 0, null);
-        Technology disk2Techno = new Technology(11, "Disk II", 800, false, false, new List<Technology>(), "", disk2TechnoItem, 0, 2, 0, false, 0, false, 0, null);
-        Technology disk3Techno = new Technology(12, "Disk III", 3000, false, false, new List<Technology>(), "", disk3TechnoItem, 0, 3, 0, false, 0, false, 0, null);
+        Technology disk1Techno = new Technology(10, "Disk I", 300, true, true, new List<Technology>(), "", disk1TechnoItem, 0, 1, 0, false, 0, false, 0, null, 0);
+        Technology disk2Techno = new Technology(11, "Disk II", 800, false, false, new List<Technology>(), "", disk2TechnoItem, 0, 2, 0, false, 0, false, 0, null, 0);
+        Technology disk3Techno = new Technology(12, "Disk III", 3000, false, false, new List<Technology>(), "", disk3TechnoItem, 0, 3, 0, false, 0, false, 0, null, 0);
 
         // The Shield
-        Technology shield_generatorTechno = new Technology(13, "Generator", 2000/*1500*/, false, false, new List<Technology>(), "", shield_generatorTechnoItem, 0, 0, 0, true, 5/*5*/, false, 16, null);
-        Technology shield_stabiliserTechno = new Technology(14, "Stabiliser", 2500/*2000*/, false, false, new List<Technology>(), "", shield_stabiliserTechnoItem, 0, 0, 0, true, 8/*8*/, false, 16, null);
-        Technology shield_deflectorTechno = new Technology(15, "Deflector", 3000/*2500*/, false, false, new List<Technology>(), "", shield_deflectorTechnoItem, 0, 0, 0, true, 10/*12*/, false, 16, null);
+        Technology shield_generatorTechno = new Technology(13, "Generator", 2000/*1500*/, false, false, new List<Technology>(), "", shield_generatorTechnoItem, 0, 0, 0, true, 5/*5*/, false, 16, null, 0);
+        Technology shield_stabiliserTechno = new Technology(14, "Stabiliser", 2500/*2000*/, false, false, new List<Technology>(), "", shield_stabiliserTechnoItem, 0, 0, 0, true, 8/*8*/, false, 16, null, 0);
+        Technology shield_deflectorTechno = new Technology(15, "Deflector", 3000/*2500*/, false, false, new List<Technology>(), "", shield_deflectorTechnoItem, 0, 0, 0, true, 10/*12*/, false, 16, null, 0);
             // Final step
-        Technology theShield_Techno = new Technology(16, "Deflector", 0/*300*/, false, false, new List<Technology>(), "", theShield_TechnoItem, 0, 0, 1, true, 0, true, 0, new int[]{ 13, 14, 15 });
+        Technology theShield_Techno = new Technology(16, "Deflector", 0/*300*/, false, false, new List<Technology>(), "", theShield_TechnoItem, 0, 0, 1, true, 0, true, 0, new int[]{ 13, 14, 15 }, 1);
 
         // Mega Collector
-        Technology megaCollector_tractorBeamTechno = new Technology(17, "Tractor Beam", 4000/*150*/, false, false, new List<Technology>(), "", megaCollector_tractorBeamTechnoItem, 0, 0, 0, true, 5/*5*/, false, 20, null);
-        Technology megaCollector_foundryTechno = new Technology(18, "Foundry", 2500/*200*/, false, false, new List<Technology>(), "", megaCollector_foundryTechnoItem, 0, 0, 0, true, 8/*8*/, false, 20, null);
-        Technology megaCollector_compactorTechno = new Technology(19, "Compactor", 2500/*250*/, false, false, new List<Technology>(), "", megaCollector_compactorTechnoItem, 0, 0, 0, true, 10/*12*/, false, 20, null);
+        Technology megaCollector_tractorBeamTechno = new Technology(17, "Tractor Beam", 4000/*150*/, false, false, new List<Technology>(), "", megaCollector_tractorBeamTechnoItem, 0, 0, 0, true, 5/*5*/, false, 20, null, 0);
+        Technology megaCollector_foundryTechno = new Technology(18, "Foundry", 2500/*200*/, false, false, new List<Technology>(), "", megaCollector_foundryTechnoItem, 0, 0, 0, true, 8/*8*/, false, 20, null, 0);
+        Technology megaCollector_compactorTechno = new Technology(19, "Compactor", 2500/*250*/, false, false, new List<Technology>(), "", megaCollector_compactorTechnoItem, 0, 0, 0, true, 10/*12*/, false, 20, null, 0);
             // Final step
-        Technology megaCollector_Techno = new Technology(20, "Mega Collector", 0/*300*/, false, false, new List<Technology>(), "", megaCollector_TechnoItem, 0, 0, 2, true, 0, true, 0, new int[] { 17, 18, 19 });
+        Technology megaCollector_Techno = new Technology(20, "Mega Collector", 0/*300*/, false, false, new List<Technology>(), "", megaCollector_TechnoItem, 0, 0, 2, true, 0, true, 0, new int[] { 17, 18, 19 }, 2);
+
+        // Dyson Sphere
+        Technology dysonSphere_1_Techno = new Technology(21, "Focalizers", /*0*/2500, false, false, new List<Technology>(), "", dysonSphere_1_TechnoItem, 0, 0, 0, true, /*0*/6, false, 24, null, 0);
+        Technology dysonSphere_2_Techno = new Technology(22, "Laser", /*0*/3000, false, false, new List<Technology>(), "", dysonSphere_2_TechnoItem, 0, 0, 0, true, /*0*/10, false, 24, null, 0);
+        Technology dysonSphere_3_Techno = new Technology(23, "Receptor", /*0*/4000, false, false, new List<Technology>(), "", dysonSphere_3_TechnoItem, 0, 0, 0, true, /*0*/8, false, 24, null, 0);
+            // Final step
+        Technology dysonSphere_Techno = new Technology(24, "Dyson Sphere", 0/*300*/, false, false, new List<Technology>(), "", dysonSphere_TechnoItem, 0, 0, 3, true, 0, true, 0, new int[] { 21, 22, 23 }, 3);
 
 
         // Link technos
@@ -138,7 +151,6 @@ public class TechTreeManager : MonoBehaviour
         disk2Techno.unlockingTechnologies.Add(disk3Techno);
 
 
-
         technologies = new List<Technology>()
         {
             // Buildings
@@ -150,7 +162,9 @@ public class TechTreeManager : MonoBehaviour
                 // Planetary Shield
                 shield_generatorTechno, shield_stabiliserTechno, shield_deflectorTechno, theShield_Techno,
                 // Mega Collector
-                megaCollector_tractorBeamTechno, megaCollector_foundryTechno, megaCollector_compactorTechno, megaCollector_Techno
+                megaCollector_tractorBeamTechno, megaCollector_foundryTechno, megaCollector_compactorTechno, megaCollector_Techno,
+                // Dyson Sphere
+                dysonSphere_1_Techno, dysonSphere_2_Techno, dysonSphere_3_Techno, dysonSphere_Techno
         };
 
         // Init locked/unlocked techno color
@@ -169,13 +183,11 @@ public class TechTreeManager : MonoBehaviour
         // Unlock Technos at start
         foreach (Technology techno in technologies)
         {
-            if(techno.unlockedAtStart)
+            if (techno.unlockedAtStart)
             {
                 UnlockTechnology(techno);
             }
         }
-
-
     }
 
     public void DisplayPanel(bool display)
@@ -481,8 +493,9 @@ public class TechTreeManager : MonoBehaviour
         public bool isFinalMegaStructureTechnology;
         public int partiallyUnlockingTechnologyIndex;
         public int[] neededTechnologyIndexes;
+        public int megaStructureIndex;
 
-        public Technology(int id, string name, int experienceCost, bool availableAtStart, bool unlockedAtStart, List<Technology> unlockingTechnologies, string imageFilename, GameObject UIitem, int unlockedBuildingIndex, int unlockedDiskIndex, int unlockedMegaStructureIndex, bool isMegaStructureTechnology, int artifactCost, bool isFinalMegaStructureTechnology, int partiallyUnlockingTechnologyIndex, int[] neededTechnologyIndexes)
+        public Technology(int id, string name, int experienceCost, bool availableAtStart, bool unlockedAtStart, List<Technology> unlockingTechnologies, string imageFilename, GameObject UIitem, int unlockedBuildingIndex, int unlockedDiskIndex, int unlockedMegaStructureIndex, bool isMegaStructureTechnology, int artifactCost, bool isFinalMegaStructureTechnology, int partiallyUnlockingTechnologyIndex, int[] neededTechnologyIndexes, int megaStructureIndex)
         {
             this.id = id;
             this.name = name;
@@ -502,6 +515,7 @@ public class TechTreeManager : MonoBehaviour
             this.isFinalMegaStructureTechnology = isFinalMegaStructureTechnology;
             this.partiallyUnlockingTechnologyIndex = partiallyUnlockingTechnologyIndex;
             this.neededTechnologyIndexes = neededTechnologyIndexes;
+            this.megaStructureIndex = megaStructureIndex;
 
             if (this.isMegaStructureTechnology)
             {

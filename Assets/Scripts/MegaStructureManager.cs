@@ -27,14 +27,20 @@ public class MegaStructureManager : MonoBehaviour {
     //public GameObject planetaryShieldActivationAnimationGoParticleSystem;
     public GameObject collectorTechnoItem;
 
+    // Dyson Sphere
+    public GameObject dysonSphere;
+    public GameObject dysonSphereTechnoItem;
+
     public GameObject leftPanel;
     public GameObject planetaryShieldControlPanel;
 
     public GameObject planetaryShield_logo;
     public GameObject megaCollector_logo;
+    public GameObject dysonSphere_logo;
 
     public Color shieldUnlockedColor;
     public Color megaCollectorUnlockedColor;
+    public Color dysonSphereUnlockedColor;
 
     public Color canPayColor;
     public Color cantPayColor;
@@ -49,6 +55,7 @@ public class MegaStructureManager : MonoBehaviour {
     {
         availableMegaStructures.Add(new MegaStructure(1, "Planetary Shield", planetaryShield));
         availableMegaStructures.Add(new MegaStructure(2, "Mega Collector", megaCollector));
+        availableMegaStructures.Add(new MegaStructure(3, "Dyson Sphere", dysonSphere));
     }
 
     public void EnableMegaStructure(MegaStructure megaStructure, bool enable)
@@ -93,6 +100,17 @@ public class MegaStructureManager : MonoBehaviour {
         }
     }
 
+    public void DysonSphereTechnoButtonClicked()
+    {
+        Debug.Log("DysonSphereTechnoButtonClicked");
+
+        if (TechTreeManager.instance.GetTechnologyByID(24).available && !TechTreeManager.instance.GetTechnologyByID(24).unlocked)
+        {
+            TechTreeManager.instance.UnlockTechnology(TechTreeManager.instance.GetTechnologyByID(24));
+        }
+    }
+
+
     public void DeselectAllControlPanels()
     {
         PlanetaryShieldControlPanel.instance.DisplayPanel(false);
@@ -125,6 +143,20 @@ public class MegaStructureManager : MonoBehaviour {
         else
         {
             CollectorControlPanel.instance.DisplayPanel(false);
+        }
+    }
+
+    public void SelectDysonSphere(bool select)
+    {
+        if (select)
+        {
+            DeselectAllControlPanels();
+            GameManager.instance.ChangeSelectionState(GameManager.SelectionState.DysonSphereSelected);
+            DysonSphereControlPanel.instance.DisplayPanel(true);
+        }
+        else
+        {
+            DysonSphereControlPanel.instance.DisplayPanel(false);
         }
     }
 
@@ -168,6 +200,25 @@ public class MegaStructureManager : MonoBehaviour {
 
             // Change collector color
             megaCollector_logo.GetComponent<Image>().color = megaCollectorUnlockedColor;
+        }
+        else
+        if (megaStructureIndex == 24)
+        {
+            // Enable MegaCollector itself
+            dysonSphere.SetActive(true);
+            DysonSphere.instance.isUnlocked = true;
+
+            // Initialize settings
+            DysonSphere.instance.Initialize();
+
+            // Disable "Activate!" text
+            if (MegaStructuresPanel.instance != null)
+            {
+                MegaStructuresPanel.instance.activateDysonSphereTextGo.SetActive(false);
+            }
+
+            // Change collector color
+            dysonSphere_logo.GetComponent<Image>().color = dysonSphereUnlockedColor;
         }
     }
 

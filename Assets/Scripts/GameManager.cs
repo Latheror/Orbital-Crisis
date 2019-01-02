@@ -13,7 +13,7 @@ public class GameManager : MonoBehaviour {
     }
 
     public enum GameState { Default, Pause } 
-    public enum SelectionState { Default, SpaceshipSelected, ShopItemSelected, BuildingSelected, EnemySelected, PlanetaryShieldSelected, CollectorSelected }
+    public enum SelectionState { Default, SpaceshipSelected, ShopItemSelected, BuildingSelected, EnemySelected, PlanetaryShieldSelected, CollectorSelected, DysonSphereSelected }
 
     [Header("Settings")]
     public float objectsDepthOffset;
@@ -99,6 +99,7 @@ public class GameManager : MonoBehaviour {
                     EnemiesManager.instance.DeselectEnemy();
                     PlanetaryShieldControlPanel.instance.DisplayPanel(false);
                     CollectorControlPanel.instance.DisplayPanel(false);
+                    DysonSphereControlPanel.instance.DisplayPanel(false);
                     break;
                 }
                 case SelectionState.SpaceshipSelected:
@@ -108,6 +109,7 @@ public class GameManager : MonoBehaviour {
                     EnemiesManager.instance.DeselectEnemy();
                     PlanetaryShieldControlPanel.instance.DisplayPanel(false);
                     CollectorControlPanel.instance.DisplayPanel(false);
+                    DysonSphereControlPanel.instance.DisplayPanel(false);
                     break;
                 }
                 case SelectionState.BuildingSelected:
@@ -117,6 +119,7 @@ public class GameManager : MonoBehaviour {
                     EnemiesManager.instance.DeselectEnemy();
                     PlanetaryShieldControlPanel.instance.DisplayPanel(false);
                     CollectorControlPanel.instance.DisplayPanel(false);
+                    DysonSphereControlPanel.instance.DisplayPanel(false);
                     break;
                 }
                 case SelectionState.ShopItemSelected:
@@ -127,6 +130,7 @@ public class GameManager : MonoBehaviour {
                     EnemiesManager.instance.DeselectEnemy();
                     PlanetaryShieldControlPanel.instance.DisplayPanel(false);
                     CollectorControlPanel.instance.DisplayPanel(false);
+                    DysonSphereControlPanel.instance.DisplayPanel(false);
                     break;
                 }
                 case SelectionState.EnemySelected:
@@ -136,6 +140,7 @@ public class GameManager : MonoBehaviour {
                     SpaceportInfoPanel.instance.DisplayPanel(false);
                     PlanetaryShieldControlPanel.instance.DisplayPanel(false);
                     CollectorControlPanel.instance.DisplayPanel(false);
+                    DysonSphereControlPanel.instance.DisplayPanel(false);
                     break;
                 }
                 case SelectionState.PlanetaryShieldSelected:
@@ -145,6 +150,7 @@ public class GameManager : MonoBehaviour {
                     SpaceportInfoPanel.instance.DisplayPanel(false);
                     EnemiesManager.instance.DeselectEnemy();
                     CollectorControlPanel.instance.DisplayPanel(false);
+                    DysonSphereControlPanel.instance.DisplayPanel(false);
                     break;
                 }
                 case SelectionState.CollectorSelected:
@@ -154,6 +160,17 @@ public class GameManager : MonoBehaviour {
                     SpaceportInfoPanel.instance.DisplayPanel(false);
                     EnemiesManager.instance.DeselectEnemy();
                     PlanetaryShieldControlPanel.instance.DisplayPanel(false);
+                    DysonSphereControlPanel.instance.DisplayPanel(false);
+                    break;
+                }
+                case SelectionState.DysonSphereSelected:
+                {
+                    SpaceshipManager.instance.DeselectSpaceship();
+                    BuildingInfoPanel.instance.Deselection();
+                    SpaceportInfoPanel.instance.DisplayPanel(false);
+                    EnemiesManager.instance.DeselectEnemy();
+                    PlanetaryShieldControlPanel.instance.DisplayPanel(false);
+                    CollectorControlPanel.instance.DisplayPanel(false);
                     break;
                 }
             }

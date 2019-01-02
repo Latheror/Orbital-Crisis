@@ -24,6 +24,7 @@ public class MegaStructuresPanel : MonoBehaviour {
 
     public GameObject activateShieldTextGo;
     public GameObject activateCollectorTextGo;
+    public GameObject activateDysonSphereTextGo;
 
     public Color finalMegaStructureAvailableColor;
 
@@ -60,20 +61,14 @@ public class MegaStructuresPanel : MonoBehaviour {
 
     public void MegaStructurePanel1ButtonClicked()
     {
-        DisplayButtonsMenuPanel(false);
-        DisplayMegaStructuresTreePanel(true);
-        DisableAllMegaStructurePanels();
+        MegaStructurePanelButtonOperations();
         EnableMegaStructurePanel(1);
-        currentDisplayMode = DisplayMode.Trees;
     }
 
     public void MegaStructurePanel2ButtonClicked()
     {
-        DisplayButtonsMenuPanel(false);
-        DisplayMegaStructuresTreePanel(true);
-        DisableAllMegaStructurePanels();
+        MegaStructurePanelButtonOperations();
         EnableMegaStructurePanel(2);
-        currentDisplayMode = DisplayMode.Trees;
     }
 
     public void MegaStructurePanel3ButtonClicked()
@@ -83,7 +78,17 @@ public class MegaStructuresPanel : MonoBehaviour {
 
     public void MegaStructurePanel4ButtonClicked()
     {
-        // Nothing for now
+        MegaStructurePanelButtonOperations();
+        EnableMegaStructurePanel(4);
+    }
+
+    public void MegaStructurePanelButtonOperations()
+    {
+        DisplayButtonsMenuPanel(false);
+        DisplayMegaStructuresTreePanel(true);
+        DisableAllMegaStructurePanels();
+
+        currentDisplayMode = DisplayMode.Trees;
     }
 
     public void DisableAllMegaStructurePanels()

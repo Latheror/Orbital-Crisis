@@ -82,7 +82,7 @@ public class BuildingInfoPanel : MonoBehaviour {
             instantiatedUpgradeCostPanel.transform.SetParent(upgradeCostsLayout.transform, false);
 
             // Customize CostPanel
-            instantiatedUpgradeCostPanel.GetComponent<ResourceCostPanel>().SetInfos(resourceAmount);
+            instantiatedUpgradeCostPanel.GetComponent<ResourceCostPanel>().SetInfo(resourceAmount);
 
             upgradeCostPanelsList.Add(instantiatedUpgradeCostPanel);
         }

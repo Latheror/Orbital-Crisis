@@ -50,14 +50,14 @@ public class EnergyPanel : MonoBehaviour {
 
     public void UpdateEnergyProductionDisplay()
     {
-        energyProductionText.text = energyProduction.ToString();
+        energyProductionText.text = Mathf.RoundToInt(energyProduction).ToString();
         EnergyConsumptionColorIndication();
         energyBar.GetComponent<EnergyBar>().UpdateEnergyBar();
     }
 
     public void UpdateEnergyConsumptionDisplay()
     {
-        energyConsumptionText.text = energyConsumption.ToString();
+        energyConsumptionText.text = Mathf.RoundToInt(energyConsumption).ToString();
         EnergyConsumptionColorIndication();
         energyBar.GetComponent<EnergyBar>().UpdateEnergyBar();
     }

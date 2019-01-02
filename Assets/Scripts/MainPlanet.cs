@@ -17,9 +17,6 @@ public class MainPlanet : MonoBehaviour {
     void Start()
     {
         size = transform.localScale.x;
-
-        
-
         currentSurroundingLevelsShown = 0;
         //InvokeRepeating("AnimateSurroundingLevels", 0f, 0.5f);
     }

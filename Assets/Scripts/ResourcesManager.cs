@@ -5,6 +5,12 @@ using UnityEngine;
 public class ResourcesManager : MonoBehaviour {
 
     public static ResourcesManager instance;
+    void Awake()
+    {
+        if (instance != null) { Debug.LogError("More than one ResourcesManager in scene !"); return; }
+        instance = this;
+
+    }
 
     [Header("Settings")]
     public List<ResourceType> availableResources = new List<ResourceType>();
@@ -32,13 +38,6 @@ public class ResourcesManager : MonoBehaviour {
 
     [Header("Prefabs")]
     public GameObject resourceIndicatorPrefab;
-         
-
-    void Awake()
-    {
-        if (instance != null){ Debug.LogError("More than one ResourcesManager in scene !"); return; } instance = this;
-       
-    }
 
     // Types of resources and their info
     public void InitializeResources()
@@ -73,6 +72,20 @@ public class ResourcesManager : MonoBehaviour {
             }
         }
         return toGiveBack;
+    }
+
+    public int GetCurrentResourceAmount(ResourceType rType)
+    {
+        int ra = 0;
+        foreach (var resAmount in currentResourceAmounts)
+        {
+            if (resAmount.resourceType.Equals(rType))
+            {
+                ra = resAmount.amount;
+                break;
+            }
+        }
+        return ra;
     }
 
     // Build resource indicators

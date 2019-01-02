@@ -153,6 +153,11 @@ public class TouchManager : MonoBehaviour
                                 Vector2 touchDeltaPosition = Input.GetTouch(0).deltaPosition;
 
                                 Camera.main.transform.Translate(-touchDeltaPosition.x * moveCameraSpeed, -touchDeltaPosition.y * moveCameraSpeed, 0f);
+
+                                if(DysonSphere.instance != null && DysonSphere.instance.isActivated)
+                                {
+                                    DysonSphere.instance.AdaptLaserToPlanetMovement();
+                                }
                             }
                         }
                     }

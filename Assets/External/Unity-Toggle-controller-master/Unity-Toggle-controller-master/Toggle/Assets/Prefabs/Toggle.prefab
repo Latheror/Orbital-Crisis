@@ -267,17 +267,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isOn: 1
-  changingColor: 1
-  onColorBg:
-    r: 0.33333334
-    g: 0.7176471
-    b: 0.101960786
-    a: 1
-  offColorBg:
-    r: 0.87058824
-    g: 0.18039216
-    b: 0.3019608
-    a: 1
+  onColorBg: {r: 0.33333334, g: 0.7176471, b: 0.101960786, a: 1}
+  offColorBg: {r: 0.87058824, g: 0.18039216, b: 0.3019608, a: 1}
   toggleBgImage: {fileID: 114843458076090440}
   toggle: {fileID: 224340200432122086}
   handle: {fileID: 1600659033580190}

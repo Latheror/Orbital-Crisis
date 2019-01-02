@@ -52,7 +52,7 @@ public class StormSatellite : Building {
         if (cooldownReached && closestTarget != null)
         {
             firstTarget = closestTarget;
-            Debug.Log("StormSatellite: New target set");
+            //Debug.Log("StormSatellite: New target set");
 
             BuildTargetList();
 
@@ -65,7 +65,7 @@ public class StormSatellite : Building {
         if(hasEnoughEnergy && finishedDrawing )
         {
             cooldownReached = false;
-            Debug.Log("StormSatellite | StartAttack");
+            //Debug.Log("StormSatellite | StartAttack");
 
             UpdateTarget();
             RotateCanonTowardsTarget();
@@ -79,7 +79,7 @@ public class StormSatellite : Building {
 
     public void BuildTargetList()
     {
-        Debug.Log("Building target list");
+        //Debug.Log("Building target list");
         targets = new List<GameObject>();
         if(firstTarget != null)
         {
@@ -98,7 +98,7 @@ public class StormSatellite : Building {
                     break;
                 }
             }
-            Debug.Log("Finished building target list. Nb of targets: " + targets.Count);
+            //Debug.Log("Finished building target list. Nb of targets: " + targets.Count);
         }
     }
 
@@ -131,7 +131,7 @@ public class StormSatellite : Building {
             lr.positionCount = 1;
             lr.SetPosition(0, shootingPoint.transform.position);
 
-            Debug.Log("StormSatellite | Drawing Line Renderer with [" + (targets.Count + 1) + "] points.");
+            //Debug.Log("StormSatellite | Drawing Line Renderer with [" + (targets.Count + 1) + "] points.");
 
             lr.enabled = true;
             
@@ -172,7 +172,7 @@ public class StormSatellite : Building {
 
             float angle = GeometryManager.GetRadAngleFromXY(deltaX, deltaY);
 
-            Debug.Log("StormSatellite | Angle to meteor: " + angle);
+            //Debug.Log("StormSatellite | Angle to meteor: " + angle);
 
             // To degree
             angle = GeometryManager.RadiansToDegrees(angle);
@@ -185,7 +185,7 @@ public class StormSatellite : Building {
 
     public override void ApplyCurrentTierSettings()
     {
-        Debug.Log("ApplyCurrentTierSettings | STORM SATELLITE | CurrentTier: " + currentTier);
+        //Debug.Log("ApplyCurrentTierSettings | STORM SATELLITE | CurrentTier: " + currentTier);
         switch (currentTier)
         {
             case 2:
