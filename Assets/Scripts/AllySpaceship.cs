@@ -2,13 +2,20 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class AlliedSpaceship : Spaceship {
+public class AllySpaceship : Spaceship {
 
     public int id = -1;
+    public int experiencePoints = 0;
+    public int experiencePointsPerMeteorSizeUnit = 10;
 
 	// Use this for initialization
 	void Start () {
-        isAllied = true;
+        Initialize();
+    }
+
+    public void Initialize()
+    {
+        isAlly = true;
         target = null;
         isActivated = true;
         manualDestination = transform.position;
@@ -250,6 +257,12 @@ public class AlliedSpaceship : Spaceship {
                 transform.rotation = Quaternion.LookRotation(newDir);
             }
         }
+    }
+
+    public void IncreaseExperiencePoints(int delta)
+    {
+        experiencePoints += delta;
+        Debug.Log("IncreaseExperiencePoints [" + experiencePoints + "]");
     }
 
 }

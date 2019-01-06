@@ -285,6 +285,28 @@ public class ResourcesManager : MonoBehaviour {
         }
     }
 
+    public bool CanPayResourceAmounts(List<ResourceAmount> resourceAmounts)
+    {
+        bool canPay = true;
+        foreach (ResourceAmount rAmount in resourceAmounts)
+        {
+            if(! CanPayResourceAmount(rAmount))
+            {
+                canPay = false;
+                break;
+            }
+        }
+        return canPay;
+    }
+
+    public void PayResourceAmounts(List<ResourceAmount> resourceAmounts)
+    {
+        foreach (ResourceAmount rAmount in resourceAmounts)
+        {
+            PayResourceAmount(rAmount);
+        }
+    }
+
 
     //[System.Serializable]
     public class Resource

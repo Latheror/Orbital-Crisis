@@ -5,18 +5,6 @@ using System;
 
 public class SpaceshipManager : MonoBehaviour {
 
-    [Header("Settings")]
-    public GameObject newGameSpaceshipPosition;
-    public GameObject alliedSpaceship1_Prefab;
-
-    public float avoidOtherAlliesDistance = 50f;
-
-    [Header("Operation")]
-    public GameObject selectedSpaceship;
-    public GameObject currentSelectedSpaceshipInfoPanel;
-    public List<GameObject> alliedSpaceships;
-    public SpaceshipData[] spaceshipsData;
-
     public static SpaceshipManager instance;
     void Awake()
     {
@@ -24,14 +12,47 @@ public class SpaceshipManager : MonoBehaviour {
         instance = this;
     }
 
+    [Header("Prefabs")]
+    public GameObject corvettePrefab, cruiserPrefab;
+
+    [Header("Settings")]
+    public GameObject newGameSpaceshipPosition;
+    public GameObject alliedSpaceship1_Prefab;
+    public GameObject mainSpaceship1_Prefab;
+    public float avoidOtherAlliesDistance = 50f;
+    public List<SpaceshipType> spaceshipTypes;
+
+    [Header("Operation")]
+    public GameObject selectedSpaceship;
+    public GameObject currentSelectedSpaceshipInfoPanel;
+    public List<GameObject> alliedSpaceships;
+    public SpaceshipData[] spaceshipsData;
+    public GameObject mainSpaceship;
+
+    //public List<GameObject> availableSpaceships;
+
     // Use this for initialization
-    void Start () {
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
+    void Start() {
+        Initialize();
+    }
+
+
+    public void Initialize()
+    {
+        DefineAvailableSpaceships();
+    }
+
+    public void DefineAvailableSpaceships()
+    {
+        spaceshipTypes.Add(new SpaceshipType("Corvette", corvettePrefab, new List<ResourcesManager.ResourceAmount>(){
+                                                                             new ResourcesManager.ResourceAmount("steel", 75),
+                                                                             new ResourcesManager.ResourceAmount("copper", 50)
+                                                                        }, true));
+        spaceshipTypes.Add(new SpaceshipType("Cruiser", cruiserPrefab, new List<ResourcesManager.ResourceAmount>(){
+                                                                             new ResourcesManager.ResourceAmount("steel", 200),
+                                                                             new ResourcesManager.ResourceAmount("copper", 200)
+                                                                        }, true));
+    }
 
     public void SelectSpaceship(GameObject spaceship)
     {
@@ -57,7 +78,7 @@ public class SpaceshipManager : MonoBehaviour {
         Debug.Log("BuildSpaceshipsData | Nb: " + spaceshipsNb);
         spaceshipsData = new SpaceshipData[spaceshipsNb];
 
-        for(int i=0; i<alliedSpaceships.Count; i++)
+        for (int i = 0; i < alliedSpaceships.Count; i++)
         {
             spaceshipsData[i] = (new SpaceshipData(1, new GeometryManager.Position(alliedSpaceships[i].transform.position)));
             Debug.Log("Adding spaceship [" + i + "]");
@@ -68,15 +89,20 @@ public class SpaceshipManager : MonoBehaviour {
 
     public void NewGameSetupActions()
     {
-        InstantiatedSpaceshipAtPosition(alliedSpaceship1_Prefab, newGameSpaceshipPosition.transform.position);
+        // Instantiate Main Spaceship
+        GameObject instantiatedMainSpaceship = InstantiateSpaceshipAtPosition(mainSpaceship1_Prefab, newGameSpaceshipPosition.transform.position);
+
+        mainSpaceship = instantiatedMainSpaceship;
     }
 
-    public void InstantiatedSpaceshipAtPosition(GameObject spaceshipPrefab, Vector3 pos)
+    public GameObject InstantiateSpaceshipAtPosition(GameObject spaceshipPrefab, Vector3 pos)
     {
-        GameObject instantiatedSpaceship = Instantiate(spaceshipPrefab, pos, Quaternion.Euler(0,90,0));
+        GameObject instantiatedSpaceship = Instantiate(spaceshipPrefab, pos, Quaternion.Euler(0, 90, 0));
         // Attribute ID to spaceship
-        instantiatedSpaceship.GetComponent<AlliedSpaceship>().id = GetAvailableSpaceshipId();
+        instantiatedSpaceship.GetComponent<AllySpaceship>().id = GetAvailableSpaceshipId();
         AddAlliedSpaceshipToList(instantiatedSpaceship);
+
+        return instantiatedSpaceship;
     }
 
     public void AddAlliedSpaceshipToList(GameObject alliedSpaceship)
@@ -90,14 +116,14 @@ public class SpaceshipManager : MonoBehaviour {
         GameObject instantiatedSpaceship = Instantiate(alliedSpaceship1_Prefab, new Vector3(pos.x, pos.y, pos.z), Quaternion.identity);
 
         // Attribute ID to spaceship
-        instantiatedSpaceship.GetComponent<AlliedSpaceship>().id = GetAvailableSpaceshipId();
+        instantiatedSpaceship.GetComponent<AllySpaceship>().id = GetAvailableSpaceshipId();
 
         AddAlliedSpaceshipToList(instantiatedSpaceship);
     }
 
     public void SetupSavedSpaceships(SpaceshipData[] spaceshipsData)
     {
-        for(int i=0; i<spaceshipsData.Length; i++)
+        for (int i = 0; i < spaceshipsData.Length; i++)
         {
             SpawnSpaceshipAtPos(spaceshipsData[i].position);
         }
@@ -108,7 +134,7 @@ public class SpaceshipManager : MonoBehaviour {
         int idFound = -1;
         int index = 1;
         bool isIdFound = false;
-        while(!isIdFound)
+        while (!isIdFound)
         {
             if (IsSpaceshipIdAvailable(index))
             {
@@ -129,7 +155,7 @@ public class SpaceshipManager : MonoBehaviour {
         bool available = true;
         foreach (GameObject spaceship in alliedSpaceships)
         {
-            if(spaceship.GetComponent<AlliedSpaceship>().id == id)
+            if (spaceship.GetComponent<AllySpaceship>().id == id)
             {
                 available = false;
                 break;
@@ -143,7 +169,7 @@ public class SpaceshipManager : MonoBehaviour {
         GameObject otherAlly = null;
         foreach (GameObject otherAlliedSpaceship in alliedSpaceships)
         {
-            if((otherAlliedSpaceship != referenceAlliedSpaceship) && Vector3.Distance(referenceAlliedSpaceship.transform.position, otherAlliedSpaceship.transform.position) < avoidOtherAlliesDistance)
+            if ((otherAlliedSpaceship != referenceAlliedSpaceship) && Vector3.Distance(referenceAlliedSpaceship.transform.position, otherAlliedSpaceship.transform.position) < avoidOtherAlliesDistance)
             {
                 otherAlly = otherAlliedSpaceship;
                 break;
@@ -165,4 +191,26 @@ public class SpaceshipManager : MonoBehaviour {
         }
     }
 
+    [System.Serializable]
+    public class SpaceshipType
+    {
+        public string name;
+        public GameObject prefab;
+        public List<ResourcesManager.ResourceAmount> resourceCosts;
+        public bool isAlly;
+        public GameObject associatedSpaceshipShopItem;
+
+        public SpaceshipType(string name, GameObject prefab, List<ResourcesManager.ResourceAmount> resourceCosts, bool isAlly)
+        {
+            this.name = name;
+            this.prefab = prefab;
+            this.resourceCosts = resourceCosts;
+            this.isAlly = isAlly;
+        }
+
+        public void SetAssociatedSpaceshipShopItem(GameObject item)
+        {
+            associatedSpaceshipShopItem = item;
+        }
+    }
 }

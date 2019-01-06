@@ -15,6 +15,7 @@ public class PanelsManager : MonoBehaviour {
     public GameObject controlsPanel;
     public GameObject shopPanel;
     public GameObject defaultBottomPanel;
+    public GameObject fleetPanel;
 
     // Use this for initialization
     void Start () {
@@ -49,6 +50,76 @@ public class PanelsManager : MonoBehaviour {
         shopPanel.SetActive(false);
         defaultBottomPanel.SetActive(true);
     }
+
+    public void SwitchFromControlToFleetPanel()
+    {
+        GameManager.instance.Pause();
+        defaultBottomPanel.SetActive(false);
+        fleetPanel.SetActive(true);
+        fleetPanel.GetComponent<FleetPanel>().BuildInfo();
+    }
+
+    public void SwitchFromFleetToControlPanel()
+    {
+        GameManager.instance.UnPause();
+        defaultBottomPanel.SetActive(true);
+        fleetPanel.SetActive(false);
+    }
+
+    /*public void SwitchFromPanelToPanel(int panelFromId, int panelToId)
+    {
+        // FROM
+        switch(panelFromId)
+        {
+            case 0: // Control panel
+            {
+                defaultBottomPanel.SetActive(false);
+                break;
+            }
+            case 1: // Shop panel
+            {
+                shopPanel.SetActive(false);
+                break;
+            }
+            case 2: // Lab panel
+            {
+                GameManager.instance.Pause();
+                defaultBottomPanel.SetActive(false);
+                TechTreeManager.instance.DisplayPanel(true);
+                break;
+            }
+            case 3: // Fleet panel
+            {
+                break;
+            }
+        }
+
+        // TO
+        switch (panelToId)
+        {
+            case 0: // Control panel
+            {
+                break;
+            }
+            case 1: // Shop panel
+            {
+                shopPanel.SetActive(false);
+                defaultBottomPanel.SetActive(true);
+                break;
+            }
+            case 2: // Lab panel
+            {
+                GameManager.instance.Pause();
+                defaultBottomPanel.SetActive(false);
+                TechTreeManager.instance.DisplayPanel(true);
+                break;
+            }
+            case 3: // Fleet panel
+            {
+                break;
+            }
+        }
+    }*/
 
     public void BackButtonClicked()
     {

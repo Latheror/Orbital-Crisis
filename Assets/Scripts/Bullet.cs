@@ -57,6 +57,14 @@ public class Bullet : MonoBehaviour {
             other.gameObject.GetComponent<Meteor>().DealDamage(power);
             DestroyBullet();
         }
+        else if (other.gameObject.tag == "enemy")
+        {
+            if(other.gameObject.GetComponent<EnemySpaceship>() != null)
+            {
+                other.gameObject.GetComponent<EnemySpaceship>().TakeDamage(power);
+                DestroyBullet();
+            }
+        }
     }
 
     private void RotateTowardsTarget()

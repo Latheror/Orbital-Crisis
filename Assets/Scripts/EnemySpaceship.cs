@@ -8,7 +8,7 @@ public class EnemySpaceship : Spaceship {
 
 	// Use this for initialization
 	void Start () {
-        isAllied = false;
+        isAlly = false;
         isActivated = true;
         target = null;
         InvokeRepeating("UpdateTarget", 0f, 0.2f);

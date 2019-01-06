@@ -39,7 +39,7 @@ public class HealingTurret : Turret {
                 LineRenderer lineRenderer = gameObject.GetComponent<LineRenderer>();
                 if (target != null)
                 {
-                    if (target.GetComponent<Spaceship>().healthPoints < target.GetComponent<Spaceship>().maxHealth)    // Target has not full health
+                    if (target.GetComponent<Spaceship>().healthPoints < target.GetComponent<Spaceship>().maxHealthPoints)    // Target has not full health
                     {
                         lineRenderer.enabled = true;
                         GameObject chosenTarget = target;

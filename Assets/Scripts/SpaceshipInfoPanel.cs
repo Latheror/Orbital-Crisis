@@ -38,12 +38,12 @@ public class SpaceshipInfoPanel : MonoBehaviour {
 
     void UpdateHealthInfo()
     {
-        SetHealthText((int)SpaceshipManager.instance.selectedSpaceship.GetComponent<Spaceship>().healthPoints, (int)SpaceshipManager.instance.selectedSpaceship.GetComponent<Spaceship>().maxHealth);
+        SetHealthText((int)SpaceshipManager.instance.selectedSpaceship.GetComponent<Spaceship>().healthPoints, (int)SpaceshipManager.instance.selectedSpaceship.GetComponent<Spaceship>().maxHealthPoints);
     }
 
     void UpdateShieldInfo()
     {
-        SetShieldText((int)SpaceshipManager.instance.selectedSpaceship.GetComponent<Spaceship>().shieldPoints, (int)SpaceshipManager.instance.selectedSpaceship.GetComponent<Spaceship>().maxShield);
+        SetShieldText((int)SpaceshipManager.instance.selectedSpaceship.GetComponent<Spaceship>().shieldPoints, (int)SpaceshipManager.instance.selectedSpaceship.GetComponent<Spaceship>().maxShieldPoints);
     }
 
     public void UpdateModeDisplay()

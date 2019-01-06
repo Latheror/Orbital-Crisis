@@ -90,4 +90,22 @@ public class Spaceport : Building
 
         SpaceportInfoPanel.instance.ImportInfo();
     }
+
+    public void SpawnSpaceshipOfType(SpaceshipManager.SpaceshipType spaceshipType)
+    {
+        Debug.Log("SpawnSpaceshipOfType [" + spaceshipType.name + "]");
+
+        Vector2 randomCirclePos = Random.insideUnitCircle.normalized;
+        Vector3 pos = transform.position + new Vector3(randomCirclePos.x * spawnRadius, randomCirclePos.y * spawnRadius, 0f);
+
+        GameObject instantiatedSpaceship = Instantiate(spaceshipType.prefab, pos, Quaternion.Euler(0,90,0));
+
+        // Set attributes
+        instantiatedSpaceship.GetComponent<Spaceship>().homeSpaceport = gameObject;
+
+        attachedSpaceships.Add(instantiatedSpaceship);
+        SpaceshipManager.instance.AddAlliedSpaceshipToList(instantiatedSpaceship);
+
+        //SpaceportInfoPanel.instance.ImportInfo();
+    }
 }

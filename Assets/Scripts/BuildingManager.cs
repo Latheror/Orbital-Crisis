@@ -584,6 +584,10 @@ public class BuildingManager : MonoBehaviour {
             {
                 InfrastructureManager.instance.recyclingStationsList.Add(instantiatedBuilding);
             }
+            else if (selectedBuilding.name == "Spaceport")
+            {
+                InfrastructureManager.instance.SetSpaceport(instantiatedBuilding);
+            }
         }
     }
 

@@ -15,6 +15,7 @@ public class InfrastructureManager : MonoBehaviour {
     public GameObject previouslySelectedBuilding;
 
     public List<GameObject> recyclingStationsList = new List<GameObject>();
+    public GameObject spaceport = null; // unique
 
     // Use this for initialization
     void Start () {
@@ -91,6 +92,7 @@ public class InfrastructureManager : MonoBehaviour {
             {
                 spaceship.GetComponent<Spaceship>().DestroySpaceship();
             }
+            spaceport = null;   // Reset associated spaceport
         }
 
         // Unique Buildings
@@ -127,5 +129,10 @@ public class InfrastructureManager : MonoBehaviour {
         {
             DestroyBuilding(building);
         }
+    }
+
+    public void SetSpaceport(GameObject newSpaceport)
+    {
+        spaceport = newSpaceport;
     }
 }

@@ -63,9 +63,9 @@ public class SpaceportInfoPanel : MonoBehaviour {
         maxSpaceshipsNbText.text = maxSpaceshipsNb.ToString();
     }
 
-    public void BuySpaceshipButtonClicked()
+    public void OnOpenFleetPanelButton()
     {
-        selectedSpaceport.GetComponent<Spaceport>().BuySpaceshipRequest();
+        Debug.Log("OnOpenFleetPanelButton");
     }
 
     public void DisplayPanel(bool display)

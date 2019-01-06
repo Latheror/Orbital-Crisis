@@ -63,11 +63,6 @@ public class BulletTurret : Turret {
                     // bulletPrefab.GetComponent<Renderer>().material.color = Color.red;
 
                 }
-                else
-                {
-
-
-                }
             }
             else
             {

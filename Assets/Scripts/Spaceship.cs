@@ -10,12 +10,12 @@ public class Spaceship : MonoBehaviour {
     public bool isActivated;
     public bool isInAutomaticMode;
     public bool selected = false;
-    public bool isAllied = false;
-    public float maxHealth = 100f;
+    public bool isAlly = false;
+    public float maxHealthPoints = 100f;
     public float healthPoints = 100f;
     public bool hasShield;
     public float shieldPoints = 100f;
-    public float maxShield = 100f;
+    public float maxShieldPoints = 100f;
     public float shieldRegenerationDelay = 3f;
     public float shieldRegenerationAmount = 5f;
     public GameObject homeSpaceport = null;
@@ -64,7 +64,7 @@ public class Spaceship : MonoBehaviour {
     void Start () {
         target = null;
         isActivated = true;
-        healthPoints = maxHealth;
+        healthPoints = maxHealthPoints;
         manualDestination = transform.position;
         manualDestinationReached = true;
         isInAutomaticMode = true;
@@ -210,7 +210,7 @@ public class Spaceship : MonoBehaviour {
         }
     }
 
-    protected void TakeDamage(float damage)
+    public void TakeDamage(float damage)
     {
         if(hasShield)
         {
@@ -239,7 +239,7 @@ public class Spaceship : MonoBehaviour {
 
     public void Heal(float healingPower)
     {
-        healthPoints = Mathf.Min(maxHealth, healthPoints + healingPower);
+        healthPoints = Mathf.Min(maxHealthPoints, healthPoints + healingPower);
         UpdateHealthBar();
         SpaceshipInfoPanel.instance.UpdateInfo();
     }
@@ -249,11 +249,13 @@ public class Spaceship : MonoBehaviour {
         if(healthBarPanel != null && healthPointsBar != null)
         {
             float healthBarBackPanelWidth = healthPointsBarBack.GetComponent<RectTransform>().rect.width;
+            //Debug.Log("Spaceship | healthBarBackPanelWidth [" + healthBarBackPanelWidth + "]");
 
-            float healthRatio = healthPoints / maxHealth;
+            float healthRatio = healthPoints / maxHealthPoints;
 
             RectTransform healthPointsBarRectTransform = healthPointsBar.GetComponent<RectTransform>();
             healthPointsBarRectTransform.sizeDelta = new Vector2(healthBarBackPanelWidth * healthRatio, healthPointsBarRectTransform.sizeDelta.y);
+            //Debug.Log("Spaceship | sizeDelta [" + healthPointsBarRectTransform.sizeDelta + "]");
         }
     }
 
@@ -262,13 +264,15 @@ public class Spaceship : MonoBehaviour {
         if (shieldBarPanel != null && shieldPointsBar != null)
         {
             float shieldBarBackPanelWidth = shieldPointsBarBack.GetComponent<RectTransform>().rect.width;
+            Debug.Log("Spaceship | shieldBarBackPanelWidth [" + shieldBarBackPanelWidth + "]");
 
-            float shieldRatio = shieldPoints / maxShield;
+            float shieldRatio = shieldPoints / maxShieldPoints;
 
             //Debug.Log("Shield Ratio: " + shieldRatio);
 
             RectTransform shieldPointsBarRectTransform = shieldPointsBar.GetComponent<RectTransform>();
             shieldPointsBarRectTransform.sizeDelta = new Vector2(shieldBarBackPanelWidth * shieldRatio, shieldPointsBarRectTransform.sizeDelta.y);
+            Debug.Log("Spaceship | sizeDelta [" + shieldPointsBarRectTransform.sizeDelta + "]");
         }
     }
 
@@ -357,7 +361,7 @@ public class Spaceship : MonoBehaviour {
     public void UpdateInfoPanels()
     {
         // Allied spaceship
-        if(isAllied)
+        if(isAlly)
         {
             SpaceshipInfoPanel.instance.UpdateInfo();
         }
@@ -379,7 +383,7 @@ public class Spaceship : MonoBehaviour {
 
     public void IncreaseHealthPoints(float amount)
     {
-        healthPoints = Mathf.Min(maxHealth, healthPoints + amount);
+        healthPoints = Mathf.Min(maxHealthPoints, healthPoints + amount);
         UpdateHealthBar();
         UpdateInfoPanels();
     }
@@ -394,7 +398,7 @@ public class Spaceship : MonoBehaviour {
 
     public void IncreaseShieldPoints(float amount)
     {
-        shieldPoints = Mathf.Min(maxShield, shieldPoints + amount);
+        shieldPoints = Mathf.Min(maxShieldPoints, shieldPoints + amount);
         UpdateShieldBar();
         UpdateInfoPanels();
         UpdateShieldDisplay();
@@ -403,7 +407,7 @@ public class Spaceship : MonoBehaviour {
     public void RegenerateShield()
     {
         //Debug.Log("RegenerateShield");
-        if(!isUnderAttack && shieldPoints < maxShield)
+        if(!isUnderAttack && shieldPoints < maxShieldPoints)
         {
             IncreaseShieldPoints(shieldRegenerationAmount);
         }
