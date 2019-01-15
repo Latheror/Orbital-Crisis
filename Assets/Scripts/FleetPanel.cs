@@ -53,7 +53,7 @@ public class FleetPanel : MonoBehaviour {
         // Get Main Spaceship
         mainSpaceship = SpaceshipManager.instance.mainSpaceship;
 
-        BuildMainSpaceshipInfo();
+        //BuildMainSpaceshipInfo(); // TO DELETE ?
 
         BuildAlliedSpaceshipsInfo();
 
@@ -63,10 +63,10 @@ public class FleetPanel : MonoBehaviour {
     public void RefreshInfo()
     {
         mainSpaceship = SpaceshipManager.instance.mainSpaceship;
-        BuildMainSpaceshipInfo();
         BuildAlliedSpaceshipsInfo();
     }
-
+    
+    // Obsolete
     public void BuildMainSpaceshipInfo()
     {
         if(mainSpaceship != null && mainSpaceship.GetComponent<MainSpaceship>() != null)
@@ -154,11 +154,13 @@ public class FleetPanel : MonoBehaviour {
         Debug.Log("OnAddSpaceshipButtonClick");
         spaceshipShopPanel.SetActive(true);
         buySpaceshipButton.SetActive(false);
+        allySpaceshipsDisplayPanel.SetActive(false);
     }
 
     public void OnSpaceshipShopPanelCloseButton()
     {
         spaceshipShopPanel.SetActive(false);
+        allySpaceshipsDisplayPanel.SetActive(true);
     }
 
     public void OnBuySpaceshipButton()
@@ -174,6 +176,9 @@ public class FleetPanel : MonoBehaviour {
             buySpaceshipButton.SetActive(false);
 
             BuildInfo();
+
+            spaceshipShopPanel.SetActive(false);
+            allySpaceshipsDisplayPanel.SetActive(true);
         }
     }
     

@@ -7,6 +7,10 @@ public class AllySpaceship : Spaceship {
     public int id = -1;
     public int experiencePoints = 0;
     public int experiencePointsPerMeteorSizeUnit = 10;
+    public int experiencePointsPerSpaceshipDestroyed = 100;
+    public int nextLevelExperiencePoints = 5000;
+
+    public int level = 1;
 
 	// Use this for initialization
 	void Start () {
@@ -23,6 +27,7 @@ public class AllySpaceship : Spaceship {
         isInAutomaticMode = true;
         //infoPanel.SetActive(false);
         SetStartingMode();
+        level = 1;
         InvokeRepeating("RegenerateShield", 0f, shieldRegenerationDelay);
     }
 
@@ -263,6 +268,18 @@ public class AllySpaceship : Spaceship {
     {
         experiencePoints += delta;
         Debug.Log("IncreaseExperiencePoints [" + experiencePoints + "]");
+    }
+
+    public void RewardExperiencePointsFromMeteor(Meteor meteor)
+    {
+        IncreaseExperiencePoints(Mathf.FloorToInt(meteor.originalSize * experiencePointsPerMeteorSizeUnit));
+    }
+
+    public void RewardExperiencePointsFromSpaceship(Spaceship spaceship)
+    {
+        // TODO : Take spaceship parameters into account
+
+        IncreaseExperiencePoints(Mathf.FloorToInt(experiencePointsPerSpaceshipDestroyed));
     }
 
 }

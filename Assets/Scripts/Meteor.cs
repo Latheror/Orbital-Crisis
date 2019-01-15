@@ -79,20 +79,23 @@ public class Meteor : MonoBehaviour {
         this.gameObject.transform.position = Vector3.MoveTowards(this.gameObject.transform.position, GameManager.instance.mainPlanet.transform.position, step);
     }
 
-    public void DealDamage(float amount)
+    public bool DealDamage(float amount)
     {
+        bool isFatal = false;
         //Debug.Log("Dealing " + amount + " damages to meteor.");
         healthPoints -= amount;
         InstantiateImpactEffect(1);
 
         if (healthPoints <= 0)
         {
+            isFatal = true;
             DestroyMeteor();
         }
         else
         {
             ResizeMeteorFromHealth(healthPoints);
         }
+        return isFatal;
     }
 
     public void InstantiateImpactEffect(int impactEffectId)

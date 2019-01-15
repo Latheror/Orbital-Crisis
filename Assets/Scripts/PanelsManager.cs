@@ -16,6 +16,7 @@ public class PanelsManager : MonoBehaviour {
     public GameObject shopPanel;
     public GameObject defaultBottomPanel;
     public GameObject fleetPanel;
+    public GameObject gameOverPanel;
 
     // Use this for initialization
     void Start () {
@@ -132,5 +133,11 @@ public class PanelsManager : MonoBehaviour {
     {
         GameManager.instance.UnPause();
         defaultBottomPanel.SetActive(true);
+    }
+
+    public void DisplayGameOverPanel()
+    {
+        GameManager.instance.UnPause();
+        gameOverPanel.SetActive(true);
     }
 }

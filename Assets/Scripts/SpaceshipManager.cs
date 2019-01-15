@@ -15,6 +15,11 @@ public class SpaceshipManager : MonoBehaviour {
     [Header("Prefabs")]
     public GameObject corvettePrefab, cruiserPrefab;
 
+    [Header("Resources")]
+    public Sprite oneStarSprite;
+    public Sprite twoStarsSprite;
+    public Sprite threeStarsSprite;
+
     [Header("Settings")]
     public GameObject newGameSpaceshipPosition;
     public GameObject alliedSpaceship1_Prefab;
@@ -211,6 +216,20 @@ public class SpaceshipManager : MonoBehaviour {
         public void SetAssociatedSpaceshipShopItem(GameObject item)
         {
             associatedSpaceshipShopItem = item;
+        }
+    }
+
+    public class SpaceshipLevel
+    {
+        public int levelId;
+        public int experienceBeforeNextLevel;
+        public bool isMaximumLevel;
+
+        public SpaceshipLevel(int levelId, int experienceBeforeNextLevel, bool isMaximumLevel)
+        {
+            this.levelId = levelId;
+            this.experienceBeforeNextLevel = experienceBeforeNextLevel;
+            this.isMaximumLevel = isMaximumLevel;
         }
     }
 }

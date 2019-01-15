@@ -19,6 +19,7 @@ public class Spaceship : MonoBehaviour {
     public float shieldRegenerationDelay = 3f;
     public float shieldRegenerationAmount = 5f;
     public GameObject homeSpaceport = null;
+    public SpaceshipManager.SpaceshipType spaceshipType;
 
     [Header("Movement")]
     public float movementSpeed = 100f;
@@ -201,17 +202,33 @@ public class Spaceship : MonoBehaviour {
         {
             if(target.CompareTag("meteor"))   // Target is a meteor
             {
-                target.GetComponent<Meteor>().DealDamage(damagePower);
+                if(target.GetComponent<Meteor>().DealDamage(damagePower))
+                {
+                    // Meteor destroyed
+                    if(isAlly)
+                    {
+                        GetComponent<AllySpaceship>().RewardExperiencePointsFromMeteor(target.GetComponent<Meteor>());
+                    }
+                }
             }
             else if(target.CompareTag("spaceship") || target.CompareTag("enemy"))
             {
-                target.GetComponent<Spaceship>().TakeDamage(damagePower);
+                if(target.GetComponent<Spaceship>().TakeDamage(damagePower))
+                {
+                    // Meteor destroyed
+                    if (isAlly)
+                    {
+                        GetComponent<AllySpaceship>().RewardExperiencePointsFromSpaceship(target.GetComponent<Spaceship>());
+                    }
+                }
             }
         }
     }
 
-    public void TakeDamage(float damage)
+    // Returns true if spaceship is destroyed after taking damage
+    public bool TakeDamage(float damage)
     {
+        bool destroyed = false;
         if(hasShield)
         {
             float damageTakenByShield = AbsorbDamageInShield(damage);
@@ -228,6 +245,7 @@ public class Spaceship : MonoBehaviour {
 
         if(healthPoints <= 0)
         {
+            destroyed = true;
             DestroySpaceship();
         }
         else
@@ -235,6 +253,8 @@ public class Spaceship : MonoBehaviour {
             StopCoroutine(UnderAttackTimerCoroutine(0f));
             StartCoroutine(UnderAttackTimerCoroutine(isUnderAttackCoolDown));
         }
+
+        return destroyed;
     }
 
     public void Heal(float healingPower)
@@ -264,7 +284,7 @@ public class Spaceship : MonoBehaviour {
         if (shieldBarPanel != null && shieldPointsBar != null)
         {
             float shieldBarBackPanelWidth = shieldPointsBarBack.GetComponent<RectTransform>().rect.width;
-            Debug.Log("Spaceship | shieldBarBackPanelWidth [" + shieldBarBackPanelWidth + "]");
+            //Debug.Log("Spaceship | shieldBarBackPanelWidth [" + shieldBarBackPanelWidth + "]");
 
             float shieldRatio = shieldPoints / maxShieldPoints;
 
@@ -272,7 +292,7 @@ public class Spaceship : MonoBehaviour {
 
             RectTransform shieldPointsBarRectTransform = shieldPointsBar.GetComponent<RectTransform>();
             shieldPointsBarRectTransform.sizeDelta = new Vector2(shieldBarBackPanelWidth * shieldRatio, shieldPointsBarRectTransform.sizeDelta.y);
-            Debug.Log("Spaceship | sizeDelta [" + shieldPointsBarRectTransform.sizeDelta + "]");
+            //Debug.Log("Spaceship | sizeDelta [" + shieldPointsBarRectTransform.sizeDelta + "]");
         }
     }
 
@@ -453,5 +473,10 @@ public class Spaceship : MonoBehaviour {
     public void UpdateShieldDisplay()
     {
         DisplayShield(shieldPoints > 0);
+    }
+
+    public void SetSpaceshipType(SpaceshipManager.SpaceshipType sType)
+    {
+        spaceshipType = sType;
     }
 }

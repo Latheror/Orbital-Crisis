@@ -48,9 +48,12 @@ public class SpaceportInfoPanel : MonoBehaviour {
 
     public void ImportInfo()
     {
-        spaceshipsNb = selectedSpaceport.GetComponent<Spaceport>().attachedSpaceships.Count;
-        maxSpaceshipsNb = selectedSpaceport.GetComponent<Spaceport>().maxSpaceships;
-        DisplayInfo();
+        if(selectedSpaceport != null)
+        {
+            spaceshipsNb = selectedSpaceport.GetComponent<Spaceport>().attachedSpaceships.Count;
+            maxSpaceshipsNb = selectedSpaceport.GetComponent<Spaceport>().maxSpaceships;
+            DisplayInfo();
+        }
     }
 
     public void SetSpaceshipsNbText()

@@ -101,6 +101,7 @@ public class Spaceport : Building
         GameObject instantiatedSpaceship = Instantiate(spaceshipType.prefab, pos, Quaternion.Euler(0,90,0));
 
         // Set attributes
+        instantiatedSpaceship.GetComponent<Spaceship>().SetSpaceshipType(spaceshipType);
         instantiatedSpaceship.GetComponent<Spaceship>().homeSpaceport = gameObject;
 
         attachedSpaceships.Add(instantiatedSpaceship);

@@ -1,76 +1,78 @@
 fileFormatVersion: 2
-guid: d965af49bf24d904b8f9cddc54ad2b60
+guid: b4c54958679b3ae4f8fc54cb841ccf53
 ModelImporter:
   serializedVersion: 23
   fileIDToRecycleName:
     100000: //RootNode
-    100002: MainBody
-    100004: Reactor
-    100006: Weapon1
-    100008: Weapon2
-    100010: Torus
-    100012: Torus_001
-    100014: Torus_002
-    100016: Cylinder
-    100018: Circle
+    100002: Cylinder
+    100004: MainBody
+    100006: MainBody_001
+    100008: MainBody_002
+    100010: MainBody_003
+    100012: Reactor
+    100014: Torus
+    100016: Torus_001
+    100018: Torus_002
+    100020: Weapon1
+    100022: Weapon2
     400000: //RootNode
-    400002: MainBody
-    400004: Reactor
-    400006: Weapon1
-    400008: Weapon2
-    400010: Torus
-    400012: Torus_001
-    400014: Torus_002
-    400016: Cylinder
-    400018: Circle
-    2100000: DefaultMat
-    2100002: Mat2
-    2100004: unnamed
-    2100006: ReactorMat
-    2100008: Material
-    2100010: MainColor
-    2100012: Mat2_001
-    2100014: LightMat
-    2100016: Mat1
-    2100018: Mat4
-    2100020: BarMat1
-    2100022: MainMat2
-    2100024: BandMat2
-    2100026: CircleMat1
-    2100028: GreyMat1
-    2300000: //RootNode
+    400002: Cylinder
+    400004: MainBody
+    400006: MainBody_001
+    400008: MainBody_002
+    400010: MainBody_003
+    400012: Reactor
+    400014: Torus
+    400016: Torus_001
+    400018: Torus_002
+    400020: Weapon1
+    400022: Weapon2
+    2100000: LightMat
+    2100002: Mat2_001
+    2100004: MainColor
+    2100006: Material
+    2100008: Mat4
+    2100010: BarMat1
+    2100012: Mat1
+    2100014: Mat2
+    2100016: MainMat2
+    2100018: BandMat2
+    2100020: ReactorMat
+    2300000: Cylinder
     2300002: MainBody
-    2300004: Reactor
-    2300006: Weapon1
-    2300008: Weapon2
-    2300010: Torus
-    2300012: Torus_001
-    2300014: Torus_002
-    2300016: Cylinder
-    2300018: Circle
-    3300000: //RootNode
+    2300004: MainBody_001
+    2300006: MainBody_002
+    2300008: MainBody_003
+    2300010: Reactor
+    2300012: Torus
+    2300014: Torus_001
+    2300016: Torus_002
+    2300018: Weapon1
+    2300020: Weapon2
+    3300000: Cylinder
     3300002: MainBody
-    3300004: Reactor
-    3300006: Weapon1
-    3300008: Weapon2
-    3300010: Torus
-    3300012: Torus_001
-    3300014: Torus_002
-    3300016: Cylinder
-    3300018: Circle
-    4300000: Cube
-    4300002: MainBody
-    4300004: Weapon2
-    4300006: Weapon1
-    4300008: Reactor
-    4300010: Torus_002
-    4300012: Torus_001
-    4300014: Torus
-    4300016: Cylinder
-    4300018: Circle
+    3300004: MainBody_001
+    3300006: MainBody_002
+    3300008: MainBody_003
+    3300010: Reactor
+    3300012: Torus
+    3300014: Torus_001
+    3300016: Torus_002
+    3300018: Weapon1
+    3300020: Weapon2
+    4300000: MainBody_003
+    4300002: MainBody_002
+    4300004: MainBody_001
+    4300006: Torus_002
+    4300008: Torus_001
+    4300010: Torus
+    4300012: MainBody
+    4300014: Cylinder
+    4300016: Weapon2
+    4300018: Weapon1
+    4300020: Reactor
     7400000: Default Take
     9500000: //RootNode
-    2186277476908879412: ImportLogs
   externalObjects: {}
   materials:
     importMaterials: 1

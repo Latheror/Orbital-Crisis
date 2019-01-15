@@ -15,11 +15,14 @@ public class ScoreManager : MonoBehaviour {
     public int experiencePointsPerMeteorUnitOfSize = 10;
     public float scoreFactor = 1f;
     public float scoreFactorWithTimerEnabled = 1.25f;
+    public float planetLifeLossPerMeteorSizeUnit = 1f;
+    public float planetLifeStart = 1000f;
 
     [Header("Operation")]
     public int score;
     public int experiencePoints;
     public int artifactsNb;
+    public float planetLife;
 
     [Header("UI")]
     public GameObject scoreValueIndicator;
@@ -32,6 +35,7 @@ public class ScoreManager : MonoBehaviour {
         score = 0;
         experiencePoints = 0;
         artifactsNb = 0;
+        planetLife = planetLifeStart;
         UpdateScoreDisplay();
         UpdateExperiencePointsDisplay();
 
@@ -119,6 +123,27 @@ public class ScoreManager : MonoBehaviour {
     public void GrantExperiencePointsFromDestroyingMeteor(Meteor meteor)
     {
         IncreaseExperiencePoints((int)(meteor.originalSize * experiencePointsPerMeteorUnitOfSize));
+    }
+
+    public void DecreasePlanetLife(float amount)
+    {
+        planetLife -= amount;
+        Debug.Log("DecreasePlanetLife [" + planetLife + "]");
+        if (planetLife <= 0)
+        {
+            TriggerGameOver();
+        }
+    }
+
+    public void PlanetHitByMeteor(Meteor meteor)
+    {
+        DecreasePlanetLife(meteor.size * planetLifeLossPerMeteorSizeUnit);
+    }
+
+    public void TriggerGameOver()
+    {
+        Debug.Log("TriggerGameOver");
+        PanelsManager.instance.DisplayGameOverPanel();
     }
 
 }
