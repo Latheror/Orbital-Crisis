@@ -135,9 +135,17 @@ public class PanelsManager : MonoBehaviour {
         defaultBottomPanel.SetActive(true);
     }
 
-    public void DisplayGameOverPanel()
+    public void DisplayGameOverPanel(bool display)
     {
-        GameManager.instance.UnPause();
-        gameOverPanel.SetActive(true);
+        if(display)
+        {
+            GameManager.instance.Pause();
+            gameOverPanel.SetActive(true);
+        }
+        else
+        {
+            GameManager.instance.UnPause();
+            gameOverPanel.SetActive(false);
+        }
     }
 }

@@ -8,17 +8,17 @@ public class Spaceport : Building
     [Header("Settings")]
     public float spawnRadius = 20;
     public int maxSpaceships = 1;
+    public int fleetPoints = 3;
 
     [Header("Tier 2")]
     public int maxSpaceshipsNb_tier_2 = 2;
-    //public float range_tier_2 = 200f;
-    //public float energyConsumption_tier_2 = 25;
+    public float energyConsumption_tier_2 = 25;
+    public int fleetPoints_tier_2 = 6;
 
     [Header("Tier 3")]
     public int maxSpaceshipsNb_tier_3 = 3;
-    //public float power_tier_3 = 30f;
-    //public float range_tier_3 = 300f;
-    //public float energyConsumption_tier_3 = 40;*/
+    public float energyConsumption_tier_3 = 40;
+    public int fleetPoints_tier_3 = 10;
 
     [Header("Prefabs")]
     public GameObject spaceshipPrefab;
@@ -29,6 +29,7 @@ public class Spaceport : Building
     // Use this for initialization
     void Start()
     {
+        Initialize();
         attachedSpaceships = new List<GameObject>();
     }
 
@@ -36,6 +37,11 @@ public class Spaceport : Building
     void Update()
     {
 
+    }
+
+    public void Initialize()
+    {
+        SpaceshipManager.instance.currentMaxFleetPoints = fleetPoints;
     }
 
     public void SpawnSpaceship()
@@ -62,11 +68,19 @@ public class Spaceport : Building
             case 2:
             {
                 maxSpaceships = maxSpaceshipsNb_tier_2;
+                energyConsumption = energyConsumption_tier_2;
+                // Fleet points
+                fleetPoints = fleetPoints_tier_2;
+                SpaceshipManager.instance.currentMaxFleetPoints = fleetPoints;
                 break;
             }
             case 3:
             {
                 maxSpaceships = maxSpaceshipsNb_tier_3;
+                energyConsumption = energyConsumption_tier_3;
+                // Fleet points
+                fleetPoints = fleetPoints_tier_3;
+                SpaceshipManager.instance.currentMaxFleetPoints = fleetPoints;
                 break;
             }
         }
@@ -88,6 +102,8 @@ public class Spaceport : Building
     {
         attachedSpaceships.Remove(spaceshipToRemove);
 
+        SpaceshipManager.instance.RemoveSpaceship(spaceshipToRemove);
+
         SpaceportInfoPanel.instance.ImportInfo();
     }
 
@@ -99,6 +115,7 @@ public class Spaceport : Building
         Vector3 pos = transform.position + new Vector3(randomCirclePos.x * spawnRadius, randomCirclePos.y * spawnRadius, 0f);
 
         GameObject instantiatedSpaceship = Instantiate(spaceshipType.prefab, pos, Quaternion.Euler(0,90,0));
+        instantiatedSpaceship.transform.SetParent(SpaceshipManager.instance.spaceshipsParent);
 
         // Set attributes
         instantiatedSpaceship.GetComponent<Spaceship>().SetSpaceshipType(spaceshipType);

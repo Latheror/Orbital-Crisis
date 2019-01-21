@@ -244,8 +244,8 @@ public class MeteorCrusher : Turret
             //Debug.Log("Distance: " + distance);
             if (distance < 10f)
             {
-                target_1.GetComponent<Meteor>().DealDamage(200);
-                target_2.GetComponent<Meteor>().DealDamage(200);
+                target_1.GetComponent<Meteor>().TakeDamage(200);
+                target_2.GetComponent<Meteor>().TakeDamage(200);
 
                 targets_set = false;
 

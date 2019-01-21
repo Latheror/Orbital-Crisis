@@ -19,6 +19,7 @@ public class Meteor : MonoBehaviour {
     public float maxApproachSpeed = 20f;
     public bool isMovingTowardsPlanet;
     public bool willLetDebris = false;
+    public float hardnessFactor = 1f;   // Damage taken reduced by hardnessFactor
 
     [Header("Prefabs")]
     public GameObject brownImpactEffect;
@@ -79,11 +80,11 @@ public class Meteor : MonoBehaviour {
         this.gameObject.transform.position = Vector3.MoveTowards(this.gameObject.transform.position, GameManager.instance.mainPlanet.transform.position, step);
     }
 
-    public bool DealDamage(float amount)
+    public bool TakeDamage(float amount)
     {
         bool isFatal = false;
         //Debug.Log("Dealing " + amount + " damages to meteor.");
-        healthPoints -= amount;
+        healthPoints -= (amount / hardnessFactor);
         InstantiateImpactEffect(1);
 
         if (healthPoints <= 0)

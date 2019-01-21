@@ -14,6 +14,7 @@ public class FleetPanelSpaceshipInfo : MonoBehaviour {
     public TextMeshProUGUI maxShieldPointsText;
     public TextMeshProUGUI experiencePointsText;
     public TextMeshProUGUI nextLevelexperiencePointsText;
+    public TextMeshProUGUI fleetPointsUsedText;
 
     public GameObject healthBarBackground;
     public GameObject healthBar;
@@ -46,7 +47,8 @@ public class FleetPanelSpaceshipInfo : MonoBehaviour {
             shieldPointsText.text = alliedSpaceship.shieldPoints.ToString();
             maxShieldPointsText.text = alliedSpaceship.maxShieldPoints.ToString();
             experiencePointsText.text = alliedSpaceship.experiencePoints.ToString();
-            nextLevelexperiencePointsText.text = alliedSpaceship.nextLevelExperiencePoints.ToString();
+            nextLevelexperiencePointsText.text = (alliedSpaceship.level < 3 /* USE A VARIABLE HERE */) ? (alliedSpaceship.spaceshipType.levelExperiencePointLimits[alliedSpaceship.level - 1].ToString()) : " - ";
+            fleetPointsUsedText.text = alliedSpaceship.spaceshipType.fleetPointsNeeded.ToString();
 
             UpdateShieldBar();
             UpdateHealthBar();
@@ -91,7 +93,8 @@ public class FleetPanelSpaceshipInfo : MonoBehaviour {
     {
         if (experienceBarBackground != null && experienceBar != null)
         {
-            float nextLevelExperiencePoints = spaceship.GetComponent<AllySpaceship>().nextLevelExperiencePoints;
+            AllySpaceship allyS = spaceship.GetComponent<AllySpaceship>();
+            float nextLevelExperiencePoints = (allyS.level < 3) ? allyS.spaceshipType.levelExperiencePointLimits[allyS.level - 1] : allyS.experiencePoints;
             float experiencePoints = spaceship.GetComponent<AllySpaceship>().experiencePoints;
             float experienceRatio = experiencePoints / nextLevelExperiencePoints;
 

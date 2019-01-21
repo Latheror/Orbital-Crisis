@@ -92,6 +92,11 @@ public class MenuManager : MonoBehaviour
         StartCoroutine("CameraPlayToMainMovement");
     }
 
+    public void OnRateMeButton()
+    {
+        Application.OpenURL("market://details?id=" + Application.productName);
+    }
+
     IEnumerator CameraMainToPlayMovement()
     {
         while ((cameraPivotPoint.transform.rotation.y) > -0.69f)

@@ -19,19 +19,17 @@ public class FleetPanel : MonoBehaviour {
 
     [Header("UI")]
     public GameObject allySpaceshipsLayout;
-    public TextMeshProUGUI mainSpaceshipHealthPointsText;
-    public TextMeshProUGUI mainSpaceshipMaxHealthPointsText;
     public GameObject allySpaceshipsDisplayPanel;
     public GameObject allySpaceshipsHiddingPanel;
     public GameObject spaceshipShopPanel;
-
-    public TextMeshProUGUI mainSpaceshipShieldPointsText;
-    public TextMeshProUGUI mainSpaceshipMaxShieldPointsText;
 
     public GameObject availableSpaceshipModelsLayout;
     public GameObject availableSpaceshipModelPanelPrefab;
 
     public GameObject buySpaceshipButton;
+
+    public TextMeshProUGUI allySpaceshipUsedFleetPointsText;
+    public TextMeshProUGUI allySpaceshipTotalFleetPointsText;
 
     [Header("Settings")]
     public float refreshInfoRate = 1f;
@@ -50,11 +48,6 @@ public class FleetPanel : MonoBehaviour {
 
     public void BuildInfo()
     {
-        // Get Main Spaceship
-        mainSpaceship = SpaceshipManager.instance.mainSpaceship;
-
-        //BuildMainSpaceshipInfo(); // TO DELETE ?
-
         BuildAlliedSpaceshipsInfo();
 
         BuildSpaceshipsShopInfo();
@@ -62,33 +55,19 @@ public class FleetPanel : MonoBehaviour {
 
     public void RefreshInfo()
     {
-        mainSpaceship = SpaceshipManager.instance.mainSpaceship;
         BuildAlliedSpaceshipsInfo();
     }
     
-    // Obsolete
-    public void BuildMainSpaceshipInfo()
-    {
-        if(mainSpaceship != null && mainSpaceship.GetComponent<MainSpaceship>() != null)
-        {
-            MainSpaceship ms = mainSpaceship.GetComponent<MainSpaceship>();
-
-            mainSpaceshipHealthPointsText.text = ms.healthPoints.ToString();
-            mainSpaceshipMaxHealthPointsText.text = ms.maxHealthPoints.ToString();
-            mainSpaceshipShieldPointsText.text = ms.shieldPoints.ToString();
-            mainSpaceshipMaxShieldPointsText.text = ms.maxShieldPoints.ToString();
-        }
-    }
-
     public void BuildAlliedSpaceshipsInfo()
     {
+        BuildGeneralAllySpaceshipsInfo();
         EmptyAllySpaceshipsLayout();
 
         if(InfrastructureManager.instance.spaceport != null)
         {
             allySpaceshipsHiddingPanel.SetActive(false);
 
-            foreach (GameObject alliedSpaceship in SpaceshipManager.instance.alliedSpaceships)
+            foreach (GameObject alliedSpaceship in SpaceshipManager.instance.allySpaceships)
             {
                 GameObject instantiatedSpaceshipInfoPanel = Instantiate(spaceshipInfoPanelPrefab, Vector3.zero, Quaternion.identity);
                 instantiatedSpaceshipInfoPanel.transform.SetParent(allySpaceshipsLayout.transform, false);
@@ -110,6 +89,12 @@ public class FleetPanel : MonoBehaviour {
         {
             allySpaceshipsHiddingPanel.SetActive(true);
         }
+    }
+
+    public void BuildGeneralAllySpaceshipsInfo()
+    {
+        allySpaceshipUsedFleetPointsText.text = SpaceshipManager.instance.usedFleetPoints.ToString();
+        allySpaceshipTotalFleetPointsText.text = SpaceshipManager.instance.currentMaxFleetPoints.ToString();
     }
 
     public void BuildSpaceshipsShopInfo()
@@ -173,6 +158,8 @@ public class FleetPanel : MonoBehaviour {
 
             InfrastructureManager.instance.spaceport.GetComponent<Spaceport>().SpawnSpaceshipOfType(selectedSpaceshipType);
 
+            SpaceshipManager.instance.UpdateFleetPointsInfo();
+
             buySpaceshipButton.SetActive(false);
 
             BuildInfo();
@@ -188,7 +175,7 @@ public class FleetPanel : MonoBehaviour {
         {
             Debug.Log("SelectSpaceshipOnShop [" + spaceshipType.name + "]");
             selectedSpaceshipType = spaceshipType;
-            if(ResourcesManager.instance.CanPayResourceAmounts(spaceshipType.resourceCosts))
+            if(ResourcesManager.instance.CanPayResourceAmounts(spaceshipType.resourceCosts) && SpaceshipManager.instance.HasAvailableFleetPointsNb(selectedSpaceshipType.fleetPointsNeeded))
             {
                 buySpaceshipButton.SetActive(true);
                 EnableOnlyThisSpaceshipShopItemBorder(spaceshipType);

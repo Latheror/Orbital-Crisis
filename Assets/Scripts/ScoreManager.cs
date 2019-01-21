@@ -23,28 +23,38 @@ public class ScoreManager : MonoBehaviour {
     public int experiencePoints;
     public int artifactsNb;
     public float planetLife;
+    public bool isScoreLocked;
+    public bool gameOverHappened;
 
     [Header("UI")]
     public GameObject scoreValueIndicator;
     public GameObject experienceValueText;
     public GameObject artifactsNbText;
+    public TextMeshProUGUI planetLifeText;
 
 
     void Start()
     {
-        score = 0;
-        experiencePoints = 0;
-        artifactsNb = 0;
-        planetLife = planetLifeStart;
-        UpdateScoreDisplay();
-        UpdateExperiencePointsDisplay();
+        Initialize();
 
         // TEMP
         if (OptionsManager.instance.IsTimerOptionEnabled())
         {
             scoreFactor = scoreFactorWithTimerEnabled;
         }
+    }
 
+    public void Initialize()
+    {
+        score = 0;
+        experiencePoints = 0;
+        artifactsNb = 0;
+        planetLife = planetLifeStart;
+        isScoreLocked = false;  // Becomes true after gameOver, when "infinite mode" is selected.
+        gameOverHappened = false;
+        UpdateScoreDisplay();
+        UpdateExperiencePointsDisplay();
+        UpdatePlanetLifeDisplay();
     }
 
     public void SetScore(int score)
@@ -55,8 +65,11 @@ public class ScoreManager : MonoBehaviour {
 
     public void IncreaseScore(int delta)
     {
-        this.score += delta;
-        UpdateScoreDisplay();
+        if(! GameManager.instance.IsInfiniteModeEnabled())  // Stop increasing score after a game over
+        {
+            this.score += delta;
+            UpdateScoreDisplay();
+        }
     }
 
     public void DecreaseScore(int delta)
@@ -67,6 +80,11 @@ public class ScoreManager : MonoBehaviour {
 
     public void UpdateScoreDisplay(){
         scoreValueIndicator.GetComponent<TextMeshProUGUI>().text = score.ToString();
+    }
+
+    public void UpdatePlanetLifeDisplay()
+    {
+        planetLifeText.text = Mathf.FloorToInt(planetLife).ToString();
     }
 
     public void SetExperiencePointsAndArtifactsNb(int exp, int artifactsNb)
@@ -128,11 +146,13 @@ public class ScoreManager : MonoBehaviour {
     public void DecreasePlanetLife(float amount)
     {
         planetLife -= amount;
-        Debug.Log("DecreasePlanetLife [" + planetLife + "]");
+        //Debug.Log("DecreasePlanetLife [" + planetLife + "]");
         if (planetLife <= 0)
         {
+            planetLife = 0;
             TriggerGameOver();
         }
+        UpdatePlanetLifeDisplay();
     }
 
     public void PlanetHitByMeteor(Meteor meteor)
@@ -142,8 +162,12 @@ public class ScoreManager : MonoBehaviour {
 
     public void TriggerGameOver()
     {
-        Debug.Log("TriggerGameOver");
-        PanelsManager.instance.DisplayGameOverPanel();
+        if(! gameOverHappened)
+        {
+            Debug.Log("TriggerGameOver");
+            gameOverHappened = true;
+            PanelsManager.instance.DisplayGameOverPanel(true);
+        }
     }
 
 }

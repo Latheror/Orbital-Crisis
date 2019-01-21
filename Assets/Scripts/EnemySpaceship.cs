@@ -32,7 +32,7 @@ public class EnemySpaceship : Spaceship {
             float minDist = Mathf.Infinity;
             GameObject closestTarget = null;
 
-            foreach (GameObject alliedSpaceship in SpaceshipManager.instance.alliedSpaceships)
+            foreach (GameObject alliedSpaceship in SpaceshipManager.instance.allySpaceships)
             {
                 float dist = Vector3.Distance(transform.position, alliedSpaceship.transform.position);
                 if ((dist < minDist) && (alliedSpaceship.GetComponent<Spaceship>().isActivated))

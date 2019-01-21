@@ -15,4 +15,10 @@ public class GameOverPanel : MonoBehaviour {
     {
         ScenesManager.instance.ChangeFromGameToMenuScene();
     }
+
+    public void OnInfiniteModeButton()
+    {
+        GameManager.instance.SetInfiniteMode(true);
+        PanelsManager.instance.DisplayGameOverPanel(false);
+    }
 }

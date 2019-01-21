@@ -4,17 +4,17 @@ using UnityEngine;
 
 public class AllySpaceship : Spaceship {
 
+    [Header("Operation")]
     public int id = -1;
     public int experiencePoints = 0;
     public int experiencePointsPerMeteorSizeUnit = 10;
     public int experiencePointsPerSpaceshipDestroyed = 100;
-    public int nextLevelExperiencePoints = 5000;
 
     public int level = 1;
 
 	// Use this for initialization
 	void Start () {
-        Initialize();
+        //Initialize();
     }
 
     public void Initialize()
@@ -28,6 +28,7 @@ public class AllySpaceship : Spaceship {
         //infoPanel.SetActive(false);
         SetStartingMode();
         level = 1;
+        experiencePoints = 0;
         InvokeRepeating("RegenerateShield", 0f, shieldRegenerationDelay);
     }
 
@@ -223,7 +224,8 @@ public class AllySpaceship : Spaceship {
         //Debug.Log("Allied Spaceship has been destroyed !");
         // temporary
         isActivated = false;
-        SpaceshipManager.instance.alliedSpaceships.Remove(gameObject);
+        SpaceshipManager.instance.allySpaceships.Remove(gameObject);
+        SpaceshipManager.instance.UpdateFleetPointsInfo();
 
         // Remove from potential Spaceport
         if(homeSpaceport != null)
@@ -267,7 +269,26 @@ public class AllySpaceship : Spaceship {
     public void IncreaseExperiencePoints(int delta)
     {
         experiencePoints += delta;
-        Debug.Log("IncreaseExperiencePoints [" + experiencePoints + "]");
+        //Debug.Log("IncreaseExperiencePoints [" + experiencePoints + "]");
+
+        if(level < 3)   // TODO: use a variable (max level)
+        {
+            if(experiencePoints > spaceshipType.levelExperiencePointLimits[level - 1])
+            {
+                Debug.Log("AllySpaceship | Level increased !");
+                IncreaseLevel();
+            }
+        }
+        else
+        {
+            experiencePoints = spaceshipType.levelExperiencePointLimits[level - 1];
+        }
+    }
+
+    public void IncreaseLevel()
+    {
+        level++;
+        // ?
     }
 
     public void RewardExperiencePointsFromMeteor(Meteor meteor)
@@ -278,8 +299,12 @@ public class AllySpaceship : Spaceship {
     public void RewardExperiencePointsFromSpaceship(Spaceship spaceship)
     {
         // TODO : Take spaceship parameters into account
-
         IncreaseExperiencePoints(Mathf.FloorToInt(experiencePointsPerSpaceshipDestroyed));
+    }
+
+    public void SetLevel(int level_)
+    {
+        level = level_;
     }
 
 }

@@ -52,7 +52,7 @@ public class MeteorsManager : MonoBehaviour {
         //Debug.Log("healthSizeFactor: " + healthSizeFactor);
     }
 
-    public void SpawnNewMeteor()
+    public void SpawnNewMeteor(float hardnessFactor)
     {
         GameObject meteorModel = meteorPrefabsList[(Random.Range(0, meteorPrefabsList.Count))];
 
@@ -64,7 +64,7 @@ public class MeteorsManager : MonoBehaviour {
         float meteorSize = Random.Range(meteorSpawnMinSize, meteorSpawnMaxSize) * currentSpawnSizeFactor;
         float meteorHealth = GetMeteorHealthFromSize(meteorSize);
 
-        //Debug.Log("SpawnNewMeteor | SizeFactor [" + currentSpawnSizeFactor + "] | Size [" + meteorSize + "] | Health [" + meteorHealth + "]");
+        Debug.Log("SpawnNewMeteor | SizeFactor [" + currentSpawnSizeFactor + "] | Size [" + meteorSize + "] | Health [" + meteorHealth + "] | Hardness [" + hardnessFactor + "]");
 
         // Instantiate Meteor Prefab
         GameObject instantiatedMeteor = Instantiate(meteorModel, pos, Quaternion.Euler(Random.Range(0f,360f),Random.Range(0f,360f),Random.Range(0f,360f)));
@@ -79,6 +79,7 @@ public class MeteorsManager : MonoBehaviour {
         meteor.size = meteorSize;
         meteor.healthPoints = meteorHealth;
         meteor.willLetDebris = LogicFunctions.RandomTrueFalse();
+        meteor.hardnessFactor = hardnessFactor;
 
         // Add meteor to list
         meteorsList.Add(instantiatedMeteor);
@@ -87,9 +88,9 @@ public class MeteorsManager : MonoBehaviour {
         instantiatedMeteor.GetComponent<Meteor>().TestMeteorFunction();
     }
 
-    public void SpawnNewMeteors(int nb){
+    public void SpawnNewMeteors(int nb, float hardness = 1f){
         while(nb > 0){
-            SpawnNewMeteor();
+            SpawnNewMeteor(hardness);
             nb--;
         }         
     }

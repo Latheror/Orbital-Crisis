@@ -2031,15 +2031,23 @@ MonoBehaviour:
   isActivated: 1
   isInAutomaticMode: 1
   selected: 0
-  isAllied: 1
-  maxHealth: 100
+  isAlly: 0
+  maxHealthPoints: 100
   healthPoints: 100
   hasShield: 1
   shieldPoints: 100
-  maxShield: 100
+  maxShieldPoints: 100
   shieldRegenerationDelay: 1
   shieldRegenerationAmount: 5
   homeSpaceport: {fileID: 0}
+  spaceshipType:
+    name: 
+    prefab: {fileID: 0}
+    resourceCosts: []
+    isAlly: 0
+    associatedSpaceshipShopItem: {fileID: 0}
+    fleetPointsNeeded: 0
+    levelExperiencePointLimits: 
   movementSpeed: 100
   rotationSpeed: 20
   idleRotationSpeed: 5
@@ -2069,6 +2077,11 @@ MonoBehaviour:
   shieldBarPanel: {fileID: 1830093464443428}
   shieldPointsBar: {fileID: 1321975769595526}
   shieldPointsBarBack: {fileID: 1064421955083390}
+  id: -1
+  experiencePoints: 0
+  experiencePointsPerMeteorSizeUnit: 1
+  experiencePointsPerSpaceshipDestroyed: 20
+  level: 1
 --- !u!114 &114467134645749316
 MonoBehaviour:
   m_ObjectHideFlags: 1

@@ -142,7 +142,7 @@ public class StormSatellite : Building {
                     GameObject chainTarget = targets[i];
                     lr.positionCount++;
                     lr.SetPosition(i + 1, chainTarget.transform.position);
-                    chainTarget.GetComponent<Meteor>().DealDamage(damagePower);
+                    chainTarget.GetComponent<Meteor>().TakeDamage(damagePower);
                     yield return new WaitForSeconds(.2f);
                 }
                 else

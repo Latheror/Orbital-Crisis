@@ -21,6 +21,7 @@ public class GameManager : MonoBehaviour {
     [Header("Operation")]
     public GameState gameState;
     public SelectionState selectionState;
+    public bool infiniteMode;
 
     [Header("World")]
     public GameObject mainPlanet;
@@ -179,6 +180,16 @@ public class GameManager : MonoBehaviour {
         {
 
         }
+    }
+
+    public void SetInfiniteMode(bool enable)
+    {
+        infiniteMode = enable;
+    }
+
+    public bool IsInfiniteModeEnabled()
+    {
+        return infiniteMode;
     }
 
 

@@ -202,7 +202,7 @@ public class Spaceship : MonoBehaviour {
         {
             if(target.CompareTag("meteor"))   // Target is a meteor
             {
-                if(target.GetComponent<Meteor>().DealDamage(damagePower))
+                if(target.GetComponent<Meteor>().TakeDamage(damagePower))
                 {
                     // Meteor destroyed
                     if(isAlly)

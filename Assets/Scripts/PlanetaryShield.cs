@@ -103,7 +103,7 @@ public class PlanetaryShield : MonoBehaviour {
                 if(! other.gameObject.GetComponent<Meteor>().hasAlreadyBeenHitByPlanetaryShield)
                 {
                     other.gameObject.GetComponent<Meteor>().hasAlreadyBeenHitByPlanetaryShield = true;
-                    other.gameObject.GetComponent<Meteor>().DealDamage(damagePower * damageMultiplicationFactor);
+                    other.gameObject.GetComponent<Meteor>().TakeDamage(damagePower * damageMultiplicationFactor);
                 }
             }
         }

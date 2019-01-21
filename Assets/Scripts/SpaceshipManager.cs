@@ -26,37 +26,68 @@ public class SpaceshipManager : MonoBehaviour {
     public GameObject mainSpaceship1_Prefab;
     public float avoidOtherAlliesDistance = 50f;
     public List<SpaceshipType> spaceshipTypes;
+    public int startFleetPoints = 1;
+    public Transform spaceshipsParent;
 
     [Header("Operation")]
     public GameObject selectedSpaceship;
     public GameObject currentSelectedSpaceshipInfoPanel;
-    public List<GameObject> alliedSpaceships;
+    public List<GameObject> allySpaceships;
     public SpaceshipData[] spaceshipsData;
-    public GameObject mainSpaceship;
-
-    //public List<GameObject> availableSpaceships;
+    public int currentMaxFleetPoints;
+    public int availableFleetPoints;
+    public int usedFleetPoints;
 
     // Use this for initialization
     void Start() {
         Initialize();
     }
 
-
     public void Initialize()
     {
         DefineAvailableSpaceships();
+        currentMaxFleetPoints = startFleetPoints;
+        UpdateFleetPointsInfo();
     }
 
     public void DefineAvailableSpaceships()
     {
-        spaceshipTypes.Add(new SpaceshipType("Corvette", corvettePrefab, new List<ResourcesManager.ResourceAmount>(){
+        spaceshipTypes.Add(new SpaceshipType(1, "Corvette", corvettePrefab, new List<ResourcesManager.ResourceAmount>(){
                                                                              new ResourcesManager.ResourceAmount("steel", 75),
                                                                              new ResourcesManager.ResourceAmount("copper", 50)
-                                                                        }, true));
-        spaceshipTypes.Add(new SpaceshipType("Cruiser", cruiserPrefab, new List<ResourcesManager.ResourceAmount>(){
+                                                                        }, true, 1, new int[] { 1000, 4000, 9999}));
+        spaceshipTypes.Add(new SpaceshipType(2, "Cruiser", cruiserPrefab, new List<ResourcesManager.ResourceAmount>(){
                                                                              new ResourcesManager.ResourceAmount("steel", 200),
                                                                              new ResourcesManager.ResourceAmount("copper", 200)
-                                                                        }, true));
+                                                                        }, true, 3, new int[] { 1000, 4000, 9999 }));
+    }
+
+    public SpaceshipType GetSpaceshipTypeByName(string name)
+    {
+        SpaceshipType st_found = null;
+        foreach (SpaceshipType st in spaceshipTypes)
+        {
+            if(st.name == name)
+            {
+                st_found = st;
+                break;
+            }
+        }
+        return st_found;
+    }
+
+    public SpaceshipType GetSpaceshipTypeByIndex(int index)
+    {
+        SpaceshipType st_found = null;
+        foreach (SpaceshipType st in spaceshipTypes)
+        {
+            if (st.index == index)
+            {
+                st_found = st;
+                break;
+            }
+        }
+        return st_found;
     }
 
     public void SelectSpaceship(GameObject spaceship)
@@ -79,14 +110,15 @@ public class SpaceshipManager : MonoBehaviour {
 
     public SpaceshipData[] BuildSpaceshipsData()
     {
-        int spaceshipsNb = alliedSpaceships.Count;
+        int spaceshipsNb = allySpaceships.Count;
         Debug.Log("BuildSpaceshipsData | Nb: " + spaceshipsNb);
         spaceshipsData = new SpaceshipData[spaceshipsNb];
 
-        for (int i = 0; i < alliedSpaceships.Count; i++)
+        for (int i = 0; i < allySpaceships.Count; i++)
         {
-            spaceshipsData[i] = (new SpaceshipData(1, new GeometryManager.Position(alliedSpaceships[i].transform.position)));
-            Debug.Log("Adding spaceship [" + i + "]");
+            AllySpaceship allyS = allySpaceships[i].GetComponent<AllySpaceship>();
+            spaceshipsData[i] = (new SpaceshipData(allyS.spaceshipType.index, new GeometryManager.Position(allySpaceships[i].transform.position), allyS.level, allyS.experiencePoints));
+            Debug.Log("Adding spaceship [" + i + "] | TypeIndex [" + allyS.spaceshipType.index + "] | Level [" + allyS.level + "] | Exp [" + allyS.experiencePoints + "]");
         }
 
         return spaceshipsData;
@@ -95,9 +127,7 @@ public class SpaceshipManager : MonoBehaviour {
     public void NewGameSetupActions()
     {
         // Instantiate Main Spaceship
-        GameObject instantiatedMainSpaceship = InstantiateSpaceshipAtPosition(mainSpaceship1_Prefab, newGameSpaceshipPosition.transform.position);
-
-        mainSpaceship = instantiatedMainSpaceship;
+        SpawnSpaceshipOfType(GetSpaceshipTypeByName("Corvette"));
     }
 
     public GameObject InstantiateSpaceshipAtPosition(GameObject spaceshipPrefab, Vector3 pos)
@@ -112,25 +142,54 @@ public class SpaceshipManager : MonoBehaviour {
 
     public void AddAlliedSpaceshipToList(GameObject alliedSpaceship)
     {
-        alliedSpaceships.Add(alliedSpaceship);
+        allySpaceships.Add(alliedSpaceship);
     }
 
-    public void SpawnSpaceshipAtPos(GeometryManager.Position pos)
+    public GameObject SpawnSpaceshipTypeAtPos(SpaceshipType sType, GeometryManager.Position pos)
     {
-        Debug.Log("Spawning saved spaceship");
-        GameObject instantiatedSpaceship = Instantiate(alliedSpaceship1_Prefab, new Vector3(pos.x, pos.y, pos.z), Quaternion.identity);
+        //Debug.Log("Spawning saved spaceship");
+        GameObject instantiatedSpaceship = Instantiate(sType.prefab, new Vector3(pos.x, pos.y, pos.z), Quaternion.identity);
 
         // Attribute ID to spaceship
         instantiatedSpaceship.GetComponent<AllySpaceship>().id = GetAvailableSpaceshipId();
 
         AddAlliedSpaceshipToList(instantiatedSpaceship);
+
+        instantiatedSpaceship.transform.SetParent(spaceshipsParent.transform);
+
+        UpdateFleetPointsInfo();
+
+        return instantiatedSpaceship;
+    }
+
+    public GameObject SpawnSavedSpaceship(SpaceshipData sData)
+    {
+        //Debug.Log("Spawning saved spaceship");
+        GameObject instantiatedSpaceship = Instantiate(GetSpaceshipTypeByIndex(sData.spaceshipTypeIndex).prefab, new Vector3(sData.position.x, sData.position.y, sData.position.z), Quaternion.identity);
+
+        // Attribute ID to spaceship
+        AllySpaceship allyS = instantiatedSpaceship.GetComponent<AllySpaceship>();
+        allyS.Initialize();
+        allyS.id = GetAvailableSpaceshipId();
+        allyS.spaceshipType = GetSpaceshipTypeByIndex(sData.spaceshipTypeIndex);
+        allyS.level = sData.level;
+        allyS.experiencePoints = sData.experiencePoints;
+
+        AddAlliedSpaceshipToList(instantiatedSpaceship);
+
+        instantiatedSpaceship.transform.SetParent(spaceshipsParent.transform);
+
+        UpdateFleetPointsInfo();
+
+        return instantiatedSpaceship;
     }
 
     public void SetupSavedSpaceships(SpaceshipData[] spaceshipsData)
     {
         for (int i = 0; i < spaceshipsData.Length; i++)
         {
-            SpawnSpaceshipAtPos(spaceshipsData[i].position);
+            Debug.Log("SetupSavedSpaceships | " + spaceshipsData[i].ToString());
+            SpawnSavedSpaceship(spaceshipsData[i]);
         }
     }
 
@@ -158,7 +217,7 @@ public class SpaceshipManager : MonoBehaviour {
     public bool IsSpaceshipIdAvailable(int id)
     {
         bool available = true;
-        foreach (GameObject spaceship in alliedSpaceships)
+        foreach (GameObject spaceship in allySpaceships)
         {
             if (spaceship.GetComponent<AllySpaceship>().id == id)
             {
@@ -172,7 +231,7 @@ public class SpaceshipManager : MonoBehaviour {
     public GameObject IsOtherAllyInRange(GameObject referenceAlliedSpaceship)
     {
         GameObject otherAlly = null;
-        foreach (GameObject otherAlliedSpaceship in alliedSpaceships)
+        foreach (GameObject otherAlliedSpaceship in allySpaceships)
         {
             if ((otherAlliedSpaceship != referenceAlliedSpaceship) && Vector3.Distance(referenceAlliedSpaceship.transform.position, otherAlliedSpaceship.transform.position) < avoidOtherAlliesDistance)
             {
@@ -183,34 +242,90 @@ public class SpaceshipManager : MonoBehaviour {
         return otherAlly;
     }
 
+    public bool HasAvailableFleetPointsNb(int nb)
+    {
+        return (nb <= availableFleetPoints);
+    }
+
+    public void UpdateFleetPointsInfo()
+    {
+        int tmpUsedFleetPoints = 0;
+        foreach (GameObject allySpaceship in allySpaceships)
+        {
+            tmpUsedFleetPoints += allySpaceship.GetComponent<AllySpaceship>().spaceshipType.fleetPointsNeeded;
+        }
+
+        usedFleetPoints = tmpUsedFleetPoints;
+        availableFleetPoints = currentMaxFleetPoints - usedFleetPoints;
+    }
+
+    public void RemoveSpaceship(GameObject spaceshipToRemove)
+    {
+        allySpaceships.Remove(spaceshipToRemove);
+        UpdateFleetPointsInfo();
+    }
+
+    public void SpawnSpaceshipOfType(SpaceshipType spaceshipType)
+    {
+        Debug.Log("SpawnSpaceshipOfType [" + spaceshipType.name + "]");
+
+        GameObject instantiatedSpaceship = Instantiate(spaceshipType.prefab, newGameSpaceshipPosition.transform.position, Quaternion.Euler(0, 90, 0));
+
+        // Set attributes
+        AllySpaceship spaceship = instantiatedSpaceship.GetComponent<AllySpaceship>();
+        spaceship.Initialize();
+        spaceship.SetSpaceshipType(spaceshipType);
+        spaceship.homeSpaceport = null;
+
+        instantiatedSpaceship.transform.SetParent(spaceshipsParent);
+
+        AddAlliedSpaceshipToList(instantiatedSpaceship);
+        UpdateFleetPointsInfo();
+    }
+
     [Serializable]
     public class SpaceshipData
     {
         public int spaceshipTypeIndex;
         public GeometryManager.Position position;
+        public int level;
+        public int experiencePoints;
 
-        public SpaceshipData(int spaceshipTypeIndex, GeometryManager.Position position)
+        public SpaceshipData(int spaceshipTypeIndex, GeometryManager.Position position, int level, int experiencePoints)
         {
             this.spaceshipTypeIndex = spaceshipTypeIndex;
             this.position = position;
+            this.level = level;
+            this.experiencePoints = experiencePoints;
+        }
+
+        public override string ToString()
+        {
+            return ("SpaceshipData | Type [" + spaceshipTypeIndex + "] | Level [" + level + "] | Exp [" + experiencePoints + "]");
         }
     }
 
     [System.Serializable]
     public class SpaceshipType
     {
+        public int index;
         public string name;
         public GameObject prefab;
         public List<ResourcesManager.ResourceAmount> resourceCosts;
         public bool isAlly;
         public GameObject associatedSpaceshipShopItem;
+        public int fleetPointsNeeded;
+        public int[] levelExperiencePointLimits;
 
-        public SpaceshipType(string name, GameObject prefab, List<ResourcesManager.ResourceAmount> resourceCosts, bool isAlly)
+        public SpaceshipType(int index, string name, GameObject prefab, List<ResourcesManager.ResourceAmount> resourceCosts, bool isAlly, int fleetPointsNeeded, int[] levelExperiencePointLimits)
         {
+            this.index = index;
             this.name = name;
             this.prefab = prefab;
             this.resourceCosts = resourceCosts;
             this.isAlly = isAlly;
+            this.fleetPointsNeeded = fleetPointsNeeded;
+            this.levelExperiencePointLimits = levelExperiencePointLimits;
         }
 
         public void SetAssociatedSpaceshipShopItem(GameObject item)

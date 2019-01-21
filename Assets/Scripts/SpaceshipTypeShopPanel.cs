@@ -10,6 +10,9 @@ public class SpaceshipTypeShopPanel : MonoBehaviour {
     public TextMeshProUGUI spaceshipTypeNameText;
     public GameObject spaceshipCostLayout;
     public GameObject borderPanel;
+    public TextMeshProUGUI fleetPointsNeededText;
+    public Color enoughFleetPointsColor;
+    public Color notEnoughFleetPointsColor;
 
     [Header("Prefabs")]
     public GameObject spaceshipCostPrefab;
@@ -30,6 +33,10 @@ public class SpaceshipTypeShopPanel : MonoBehaviour {
         if(associatedSpaceshipType != null)
         {
             spaceshipTypeNameText.text = associatedSpaceshipType.name.ToString();
+
+            // Fleet Points
+            fleetPointsNeededText.text = associatedSpaceshipType.fleetPointsNeeded.ToString();
+            fleetPointsNeededText.color = (associatedSpaceshipType.fleetPointsNeeded <= SpaceshipManager.instance.availableFleetPoints)? enoughFleetPointsColor: notEnoughFleetPointsColor;
 
             // Costs
             EmptyResourceCostsLayout();

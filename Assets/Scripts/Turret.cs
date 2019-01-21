@@ -74,7 +74,7 @@ public class Turret : Building {
                 }
                 else    // Support turret (healing, ...)
                 {
-                    List<GameObject> allieds = SpaceshipManager.instance.alliedSpaceships;
+                    List<GameObject> allieds = SpaceshipManager.instance.allySpaceships;
                     float shortestDistance = Mathf.Infinity;
                     GameObject nearestAlly = null;
 
@@ -148,7 +148,7 @@ public class Turret : Building {
     public void DealDamageToMeteorTarget()
     {
         //Debug.Log("Dealing damage to meteor");
-        target.GetComponent<Meteor>().DealDamage(power);
+        target.GetComponent<Meteor>().TakeDamage(power);
     }
 
     public void HealTarget()
