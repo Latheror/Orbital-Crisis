@@ -17,11 +17,6 @@ public class Gatherable : MonoBehaviour {
         InvokeRepeating("SelfDestruct", timeBeforeDespawn, 0f);
     }
 
-    // Update is called once per frame
-    void Update () {
-		
-	}
-
     public void Remove()
     {
         Destroy(this.gameObject);

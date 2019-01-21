@@ -30,7 +30,6 @@ public class ShockSatellite : Building {
 
 	// Use this for initialization
 	void Start () {
-        range = 50f;
         InvokeRepeating("PlayAnimation", 0f, actionDelay);
 	}
 	

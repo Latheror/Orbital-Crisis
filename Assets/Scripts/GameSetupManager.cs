@@ -16,16 +16,6 @@ public class GameSetupManager : MonoBehaviour {
 
     public GameSetupParameters gameSetupParameters;
 
-    // Use this for initialization
-    void Start () {
-		
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
-
     public void SetGameSetupParameters(GameSetupParameters gameSetupParameters)
     {
         this.gameSetupParameters = gameSetupParameters;

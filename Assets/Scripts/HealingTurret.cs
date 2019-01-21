@@ -34,13 +34,12 @@ public class HealingTurret : Turret {
         {
             if (hasEnoughEnergy)
             {
-                RotateCanonTowardsTarget();       // No model yet
-
                 LineRenderer lineRenderer = gameObject.GetComponent<LineRenderer>();
                 if (target != null)
                 {
                     if (target.GetComponent<Spaceship>().healthPoints < target.GetComponent<Spaceship>().maxHealthPoints)    // Target has not full health
                     {
+                        RotateCanonTowardsTarget();
                         lineRenderer.enabled = true;
                         GameObject chosenTarget = target;
                         lineRenderer.SetPosition(0, shootingPoint.transform.position);

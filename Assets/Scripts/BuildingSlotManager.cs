@@ -11,24 +11,20 @@ public class BuildingSlotManager : MonoBehaviour {
         instance = this;
     }
 
+    [Header("Operation")]
     public GameObject mainPlanet;
-
     public List<GameObject> groundBuildingSlots;
     public List<GameObject> orbitalBuildingSlots;
     public List<GameObject> allBuildingSlots;
 
+    [Header("Utility")]
     public GameObject buildingSlotsParent;
+
+    [Header("Prefabs")]
     public GameObject buildingSlotPrefab;
+
+    [Header("Settings")]
     public int nbStartBuildingSlots = 10;
-
-
-    void Start () {
-		
-	}
-	
-	void Update () {
-		
-	}
 
     public GameObject GetBuildingSlotByID(int id)
     {
@@ -63,10 +59,11 @@ public class BuildingSlotManager : MonoBehaviour {
             groundBuildingSlots.Add(instantiatedSlot);
             allBuildingSlots.Add(instantiatedSlot);
 
-            instantiatedSlot.GetComponent<BuildingSlot>().id = (100 + i);
-            instantiatedSlot.GetComponent<BuildingSlot>().locationType = BuildingManager.BuildingType.BuildingLocationType.Planet;
-            instantiatedSlot.GetComponent<BuildingSlot>().SetDefaultColor();
-            instantiatedSlot.GetComponent<BuildingSlot>().angleRad = stepAngle * i;
+            BuildingSlot bs = instantiatedSlot.GetComponent<BuildingSlot>();
+            bs.id = (100 + i);
+            bs.locationType = BuildingManager.BuildingType.BuildingLocationType.Planet;
+            bs.SetDefaultColor();
+            bs.angleRad = stepAngle * i;
         }
 
         ResetAllBuildingSlotsColor();

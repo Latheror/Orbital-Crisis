@@ -151,7 +151,10 @@ public class SpaceshipManager : MonoBehaviour {
         GameObject instantiatedSpaceship = Instantiate(sType.prefab, new Vector3(pos.x, pos.y, pos.z), Quaternion.identity);
 
         // Attribute ID to spaceship
-        instantiatedSpaceship.GetComponent<AllySpaceship>().id = GetAvailableSpaceshipId();
+        AllySpaceship allyS = instantiatedSpaceship.GetComponent<AllySpaceship>();
+        allyS.Initialize();
+        allyS.id = GetAvailableSpaceshipId();
+        allyS.spaceshipType = sType;
 
         AddAlliedSpaceshipToList(instantiatedSpaceship);
 
@@ -280,6 +283,12 @@ public class SpaceshipManager : MonoBehaviour {
         instantiatedSpaceship.transform.SetParent(spaceshipsParent);
 
         AddAlliedSpaceshipToList(instantiatedSpaceship);
+        UpdateFleetPointsInfo();
+    }
+
+    public void SetCurrentMaxFleetPoints(int fPoints)
+    {
+        currentMaxFleetPoints = fPoints;
         UpdateFleetPointsInfo();
     }
 

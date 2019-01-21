@@ -24,11 +24,6 @@ public class SurroundingAreasManager : MonoBehaviour {
     public GameObject secondDisk;
     public GameObject thirdDisk;
 
-    void Start()
-    {
-       // DefineDisks();  // Done in GameSetupManager
-    }
-
     public void DefineDisks()
     {
         disks[0] = new SurroundingDisk(firstDisk, 3);

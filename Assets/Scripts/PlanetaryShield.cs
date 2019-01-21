@@ -11,21 +11,24 @@ public class PlanetaryShield : MonoBehaviour {
         instance = this;
     }
 
+    [Header("Parts")]
+    public ParticleSystem shieldParticleSystem;
+
+    [Header("UI")]
+    public Color ViewModeFullColor;
+    public Color ViewModePartialColor;
+    public Color ViewModeHiddenColor;
+
+    [Header("Operation")]
     public float damagePower = 0f;
     public int energyConsumption;
     public float radius;
-    public ParticleSystem shieldParticleSystem;
     public bool isUnlocked = false;
     public bool hasEnoughEnergy = false;
     public float damageMultiplicationFactor = 2f;
 
     public enum ViewMode { Full, Hidden, Partial };
     public ViewMode viewMode;
-
-    public Color ViewModeFullColor;
-    public Color ViewModePartialColor;
-    public Color ViewModeHiddenColor;
-
 
     public void Initialize()
     {

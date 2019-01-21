@@ -21,15 +21,6 @@ public class BuildingsUnlockedPanel : MonoBehaviour {
     [Header("Settings")]
     public BuildingManager.BuildingType buildingType;
 
-    // Use this for initialization
-    void Start () {
-		
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
 
     public void SetInfo()
     {

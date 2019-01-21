@@ -19,16 +19,6 @@ public class EventsInfoManager : MonoBehaviour {
     [Header("Prefabs")]
     public GameObject newBuildingInfoUIPrefab;
 
-    // Use this for initialization
-    void Start () {
-		
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
-
     public void DisplayNewBuildingsInfo(List<BuildingManager.BuildingType> newBuildingTypes)
     {
         buildingUnlockedPanel.SetActive(true);

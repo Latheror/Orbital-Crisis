@@ -11,23 +11,31 @@ public class Building : MonoBehaviour {
     public Color buildingColor;
     public GameObject buildingPrefab;
 	public List<ResourcesManager.ResourceAmount> buildingPrice;
-    public float alocatedEnergy;
-    public bool hasEnoughEnergy = false;
+    public List<string> tags;
+
+    [Header("Building Spot")]
+    public GameObject buildingSpot;
     public float buildingSpotAngleDeg = 0f;
     public float buildingSpotAngleRad = 0f;
-    public int currentTier = 1;
-    public GameObject rangeCircle;
-    public GameObject rangeIndicator;
-    public GameObject rangeIndicatorStart;
+
+    [Header("Range")]
     public float range = 100f;
     public bool hasAngleRange = true;
     public float angleRange = 3f;
     public int rangeIndicatorNbPoints = 10;
+    public GameObject rangeCircle;
+    public GameObject rangeIndicator;
+    public GameObject rangeIndicatorStart;
+
+    [Header("Energy")]
     public float energyConsumption = 10f;
-    public GameObject buildingSpot;
-    public List<string> tags;
-    public bool maxUpgradeLevelReached = false;
     public bool powerOn = true;
+    public float alocatedEnergy;
+    public bool hasEnoughEnergy = false;
+
+    [Header("Level")]
+    public int currentTier = 1;
+    public bool maxUpgradeLevelReached = false;
 
     public enum BuildingLocationType {Planet, Disks};
     public BuildingLocationType buildingLocationType;

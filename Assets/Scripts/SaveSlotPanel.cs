@@ -6,9 +6,12 @@ using TMPro;
 
 public class SaveSlotPanel : MonoBehaviour {
 
+    [Header("UI")]
     public TextMeshProUGUI saveSlotTitleText;
     public TextMeshProUGUI saveTimeText;
     public GameObject saveButton;
+
+    [Header("Settings")]
     public int saveSlotIndex;
 
 	public void SetInfo(SaveManager.SavedGameFilesInfoData.SaveFileInfo savedFileInfo)

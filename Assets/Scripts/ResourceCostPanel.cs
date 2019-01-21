@@ -6,29 +6,24 @@ using TMPro;
 
 public class ResourceCostPanel : MonoBehaviour {
 
-    public ResourcesManager.ResourceType resourceType;
-
+    [Header("UI")]
     public TextMeshProUGUI costText;
     public GameObject imagePanelParent;
     public GameObject imagePanel;
-
-    public int costAmount;
     public Sprite resourceImage;
 
     public Color resourceAmountAvailableColor = Color.green;
     public Color resourceAmountUnavailableColor = Color.red;
 
+    [Header("Operation")]
+    public ResourcesManager.ResourceType resourceType;
+    public int costAmount;
+
     public bool resourceAvailable = false;
 
-    // Use this for initialization
     void Start () {
         UpdateResourceAvailabilityIndicator();
     }
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
 
     public void SetInfo(ResourcesManager.ResourceAmount resourceAmount)
     {

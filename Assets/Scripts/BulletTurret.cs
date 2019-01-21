@@ -32,12 +32,6 @@ public class BulletTurret : Turret {
         InvokeRepeating("ShootOnTarget", 0f, 1.5f); 
 	}
 	
-    public BulletTurret()
-    {
-        //Debug.Log("BulletTurret constructor");
-    }
-
-
     public void ShootOnTarget()
     {
         if (GameManager.instance.gameState == GameManager.GameState.Default)

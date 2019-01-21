@@ -42,9 +42,7 @@ public class TouchManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
         // Debug.Log("TouchCount :" + Input.touchCount);
-
         // Are we touching the screen ?
         if (Input.touchCount > 0)
         {

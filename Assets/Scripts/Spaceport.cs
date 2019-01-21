@@ -30,18 +30,12 @@ public class Spaceport : Building
     void Start()
     {
         Initialize();
-        attachedSpaceships = new List<GameObject>();
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-
     }
 
     public void Initialize()
     {
-        SpaceshipManager.instance.currentMaxFleetPoints = fleetPoints;
+        SpaceshipManager.instance.SetCurrentMaxFleetPoints(fleetPoints);
+        attachedSpaceships = new List<GameObject>();
     }
 
     public void SpawnSpaceship()
@@ -107,6 +101,7 @@ public class Spaceport : Building
         SpaceportInfoPanel.instance.ImportInfo();
     }
 
+    // Deprecated
     public void SpawnSpaceshipOfType(SpaceshipManager.SpaceshipType spaceshipType)
     {
         Debug.Log("SpawnSpaceshipOfType [" + spaceshipType.name + "]");

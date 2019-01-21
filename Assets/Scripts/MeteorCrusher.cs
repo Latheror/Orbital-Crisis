@@ -45,7 +45,7 @@ public class MeteorCrusher : Turret
     }
 
     // Update is called once per frame
-    void FixedUpdate()
+    void Update()
     {
         Crush();
     }

@@ -29,12 +29,6 @@ public class Level {
         allLevelMeteorsDestroyed = false;
     }
 	
-	// Update is called once per frame
-	void Update () {
-		
-	}
-
-
     public Level(int number, string name, int meteorsNb, int meteorSerieNb, float meteorSpawnSizeFactor, float timeBetweenSpawns, List<GameObject> enemies, float countdownTime)
     {
         this.levelNb = number;

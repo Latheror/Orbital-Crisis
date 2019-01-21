@@ -34,7 +34,7 @@ public class DebrisManager : MonoBehaviour {
             GameObject instantiatedDebris = Instantiate(debrisPrefab, debrisPos, Quaternion.identity);
             instantiatedDebris.transform.localScale = new Vector3((originalMeteorSize / debrisNb)*(1 + debrisSizeRandomFactor), originalMeteorSize / debrisNb, originalMeteorSize / debrisNb);
             debrisList.Add(instantiatedDebris);
-            instantiatedDebris.transform.SetParent(DebrisManager.instance.transform);
+            instantiatedDebris.transform.SetParent(transform);
             instantiatedDebris.GetComponent<Debris>().SetOriginalSize(originalMeteorSize / debrisNb);
             debrisIndex--;
         }

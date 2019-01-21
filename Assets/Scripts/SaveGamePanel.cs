@@ -13,25 +13,24 @@ public class SaveGamePanel : MonoBehaviour {
         instance = this;
     }
 
+    [Header("UI")]
     public GameObject pausePanel;
-
-    public List<GameObject> saveSlotIndicators;
-    public GameObject saveSlotPanelPrefab;
     public GameObject saveSlotPanelsLayout;
 
     public Color saveButtonEnabledColor;
     public Color saveButtonDisabledColor;
+
+    [Header("Prefabs")]
+    public GameObject saveSlotPanelPrefab;
+
+    [Header("Operation")]
+    public List<GameObject> saveSlotIndicators;
 
 	// Use this for initialization
 	void Start () {
         BuildSaveSlotsIndicators();
     }
 	
-	// Update is called once per frame
-	void Update () {
-		
-	}
-
     public void SaveGamePanel_BackButton()
     {
         pausePanel.SetActive(true);

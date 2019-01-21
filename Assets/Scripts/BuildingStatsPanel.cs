@@ -13,6 +13,7 @@ public class BuildingStatsPanel : MonoBehaviour {
         instance = this;
     }
 
+    [Header("UI")]
     public GameObject statsLayout;
     public List<GameObject> statInfoPanelsList = new List<GameObject>();
     public GameObject buildingStatPrefab;

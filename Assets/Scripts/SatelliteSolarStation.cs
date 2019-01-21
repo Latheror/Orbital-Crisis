@@ -10,22 +10,6 @@ public class SatelliteSolarStation : PowerPlant {
     [Header("Tier 3")]
     public float energyProduction_tier_3 = 150f;
 
-    // Use this for initialization
-    void Start () {
-
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
-
-    public SatelliteSolarStation()
-    {
-        //Debug.Log("SatelliteSolarStation constructor");
-        buildingLocationType = BuildingLocationType.Disks;
-    }
-
     public override void ApplyCurrentTierSettings()
     {
         Debug.Log("ApplyCurrentTierSettings | SATELLITE SOLAR STATION | CurrentTier: " + currentTier);

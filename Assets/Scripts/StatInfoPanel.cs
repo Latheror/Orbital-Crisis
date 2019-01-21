@@ -6,10 +6,13 @@ using TMPro;
 
 public class StatInfoPanel : MonoBehaviour {
 
-    public GameObject selectedBuilding;
-    public Building.BuildingStat buildingStat;
+    [Header("UI")]
     public TextMeshProUGUI valueText;
     public Image statImage;
+
+    [Header("Operation")]
+    public GameObject selectedBuilding;
+    public Building.BuildingStat buildingStat;
 
     public void SetSelectedBuildingAndStat(GameObject building, Building.BuildingStat buildingStat)
     {

@@ -14,17 +14,6 @@ public class ResourceIndicator : MonoBehaviour {
     public TextMeshProUGUI resourceNameText;
     public TextMeshProUGUI resourceValueText;
 
-	// Use this for initialization
-	void Start () {
-		
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
-
-
     public void SetParameters(ResourcesManager.ResourceType resource)
     {
         resourceNameText.text = resource.resourceName;

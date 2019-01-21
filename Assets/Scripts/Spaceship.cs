@@ -32,7 +32,6 @@ public class Spaceship : MonoBehaviour {
 
     [Header("Parts")]
     public GameObject[] shootingPoints;
-    public GameObject trailOrigin1;
     public GameObject shieldHolder;
 
     [Header("Attack")]
@@ -72,11 +71,6 @@ public class Spaceship : MonoBehaviour {
         //infoPanel.SetActive(false);
         SetStartingMode();
         DisableShootingPoints();
-    }
-	
-	// Update is called once per frame
-	void Update () {
-
     }
 
     protected virtual void UpdateTarget(){ }

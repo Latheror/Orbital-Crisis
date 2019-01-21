@@ -22,10 +22,9 @@ public class SpaceshipTypeShopPanel : MonoBehaviour {
     public List<GameObject> costPanels;
 
 
-
     public void SetAssociatedSpaceshipType(SpaceshipManager.SpaceshipType spaceshipType)
     {
-        this.associatedSpaceshipType = spaceshipType;
+        associatedSpaceshipType = spaceshipType;
     }
 
     public void SetInfo()

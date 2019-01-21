@@ -8,10 +8,5 @@ public class LogicFunctions : MonoBehaviour {
     {
         return (Random.Range(0, 10) < 5 ? true : false);
     }
-
-
-
-
-
 }
 

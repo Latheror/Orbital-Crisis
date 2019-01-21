@@ -33,8 +33,6 @@ public class ShopPanel : MonoBehaviour {
     public GameObject buildingShopItemPrefab;
     public Sprite goldenBorder;
 
-
-
     void Awake()
     {
         if (instance != null) { Debug.LogError("More than one ShopPanel in scene !"); return; }

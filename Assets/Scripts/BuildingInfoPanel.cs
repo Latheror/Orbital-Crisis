@@ -44,11 +44,6 @@ public class BuildingInfoPanel : MonoBehaviour {
     [Header("Operation")]
     public GameObject selectedBuilding;
     public bool upgradeAvailable;
-
-    // Use this for initialization
-    void Start () {
-
-    }
 	
 	public void SetImage()
     {

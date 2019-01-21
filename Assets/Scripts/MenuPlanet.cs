@@ -4,21 +4,13 @@ using UnityEngine;
 
 public class MenuPlanet : MonoBehaviour {
 
-    public float rotationSpeed = 10f;
+    [Header("Settings")]
     public float reachedPointDelta = 2f;
 
-    //public GameObject shootingPoint1;
-    //public GameObject shootingPoint2;
-    //public GameObject meteor1;
-    //public GameObject meteor2;
-
+    [Header("Operation")]
+    public float rotationSpeed = 10f;
     public List<ShootingPointAndMeteor> shootingPointAndMeteorList;
     public List<TranslatingObjectAndPath> translatingObjectAndPathList;
-
-    // Use this for initialization
-    void Start() {
-
-    }
 
     // Update is called once per frame
     void Update() {

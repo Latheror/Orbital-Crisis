@@ -72,8 +72,9 @@ public class FleetPanel : MonoBehaviour {
                 GameObject instantiatedSpaceshipInfoPanel = Instantiate(spaceshipInfoPanelPrefab, Vector3.zero, Quaternion.identity);
                 instantiatedSpaceshipInfoPanel.transform.SetParent(allySpaceshipsLayout.transform, false);
 
-                instantiatedSpaceshipInfoPanel.GetComponent<FleetPanelSpaceshipInfo>().SetSpaceship(alliedSpaceship);
-                instantiatedSpaceshipInfoPanel.GetComponent<FleetPanelSpaceshipInfo>().UpdateInfo();
+                FleetPanelSpaceshipInfo fleetPSI = instantiatedSpaceshipInfoPanel.GetComponent<FleetPanelSpaceshipInfo>();
+                fleetPSI.SetSpaceship(alliedSpaceship);
+                fleetPSI.UpdateInfo();
             }
 
             if(true)    // TODO: Check is max spaceship nb isn't reached
@@ -108,8 +109,9 @@ public class FleetPanel : MonoBehaviour {
                 GameObject instantiatedSpaceshipTypePanel = Instantiate(availableSpaceshipModelPanelPrefab, Vector3.zero, Quaternion.identity);
                 instantiatedSpaceshipTypePanel.transform.SetParent(availableSpaceshipModelsLayout.transform, false);
 
-                instantiatedSpaceshipTypePanel.GetComponent<SpaceshipTypeShopPanel>().SetAssociatedSpaceshipType(spaceshipType);
-                instantiatedSpaceshipTypePanel.GetComponent<SpaceshipTypeShopPanel>().SetInfo();
+                SpaceshipTypeShopPanel spaceshipTSP = instantiatedSpaceshipTypePanel.GetComponent<SpaceshipTypeShopPanel>();
+                spaceshipTSP.SetAssociatedSpaceshipType(spaceshipType);
+                spaceshipTSP.SetInfo();
 
                 spaceshipType.SetAssociatedSpaceshipShopItem(instantiatedSpaceshipTypePanel);
 
@@ -156,7 +158,7 @@ public class FleetPanel : MonoBehaviour {
             // Pay spaceship costs
             ResourcesManager.instance.PayResourceAmounts(selectedSpaceshipType.resourceCosts);
 
-            InfrastructureManager.instance.spaceport.GetComponent<Spaceport>().SpawnSpaceshipOfType(selectedSpaceshipType);
+            SpaceshipManager.instance.SpawnSpaceshipOfType(selectedSpaceshipType);
 
             SpaceshipManager.instance.UpdateFleetPointsInfo();
 

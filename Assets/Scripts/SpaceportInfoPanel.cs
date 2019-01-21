@@ -15,60 +15,46 @@ public class SpaceportInfoPanel : MonoBehaviour {
 
     [Header("UI")]
     public GameObject displayPanel;
-    public TextMeshProUGUI spaceshipsNbText;
-    public TextMeshProUGUI maxSpaceshipsNbText;
-    public GameObject buySpaceshipButton;
+    public TextMeshProUGUI usedFleetPointsText;
+    public TextMeshProUGUI maxFleetPointsText;
+    public GameObject openFleetPanelButton;
 
     [Header("Operation")]
-    public GameObject selectedSpaceport;
-    public int spaceshipsNb = 1;
-    public int maxSpaceshipsNb = 1;
+    public int usedFleetPoints = 0;
+    public int maxFleetPoints = 0;
 
-    // Use this for initialization
-    void Start () {
-		
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
-
-    public void SetInfo(GameObject spaceport)
+    public void SetInfo()
     {
-        selectedSpaceport = spaceport;
         ImportInfo();
     }
 
     public void DisplayInfo()
     {
-        SetSpaceshipsNbText();
-        SetMaxSpaceshipsNbText();
+        SetUsedFleetPointsText();
+        SetMaxFleetPointsText();
     }
 
     public void ImportInfo()
     {
-        if(selectedSpaceport != null)
-        {
-            spaceshipsNb = selectedSpaceport.GetComponent<Spaceport>().attachedSpaceships.Count;
-            maxSpaceshipsNb = selectedSpaceport.GetComponent<Spaceport>().maxSpaceships;
-            DisplayInfo();
-        }
+        maxFleetPoints = SpaceshipManager.instance.currentMaxFleetPoints;
+        usedFleetPoints = SpaceshipManager.instance.usedFleetPoints;
+        DisplayInfo();
     }
 
-    public void SetSpaceshipsNbText()
+    public void SetUsedFleetPointsText()
     {
-        spaceshipsNbText.text = spaceshipsNb.ToString();
+        usedFleetPointsText.text = usedFleetPoints.ToString();
     }
 
-    public void SetMaxSpaceshipsNbText()
+    public void SetMaxFleetPointsText()
     {
-        maxSpaceshipsNbText.text = maxSpaceshipsNb.ToString();
+        maxFleetPointsText.text = maxFleetPoints.ToString();
     }
 
     public void OnOpenFleetPanelButton()
     {
         Debug.Log("OnOpenFleetPanelButton");
+        PanelsManager.instance.SwitchFromControlToFleetPanel();
     }
 
     public void DisplayPanel(bool display)
@@ -78,7 +64,7 @@ public class SpaceportInfoPanel : MonoBehaviour {
 
     public void SpaceportTouched(GameObject spaceport)
     {
-        SetInfo(spaceport);
+        SetInfo();
         DisplayPanel(true);
     }
 }

@@ -23,11 +23,6 @@ public class PanelsManager : MonoBehaviour {
         SwitchFromShopToControlsPanel();
     }
     
-    // Update is called once per frame
-    void Update () {
-        
-    }
-
     public void SwitchFromControlsToShopPanel()
     {
         // Tutorial indicator //

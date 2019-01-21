@@ -9,18 +9,8 @@ public class SettingsImportManager : MonoBehaviour {
 
     public TextAsset xmlBuildingsFile;
 
-	// Use this for initialization
-	void Start () {
-        //ImportBuildingsSettings();
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
-
-
-    public void ImportBuildingsSettings()
+    // NOT USED
+    /*public void ImportBuildingsSettings()
     {
         Debug.Log("Importing Buildings Settings.");
 
@@ -111,12 +101,7 @@ public class SettingsImportManager : MonoBehaviour {
                 }
             }
         }
-
-
-
-
-
-    }
+    }*/
 
     public XmlNode GetChildNode_Tiers(XmlNode parent){
         return parent.SelectSingleNode("tiers");

@@ -11,12 +11,14 @@ public class MegaStructureShortcutsPanel : MonoBehaviour {
         instance = this;
     }
 
+    [Header("UI")]
     public GameObject displayPanel;
-    public List<TechnoShortcutItem> shortcutItems = new List<TechnoShortcutItem>();
-
     public GameObject planetaryShieldShortcut;
     public GameObject megaCollectorShortcut;
     public GameObject dysonSphereShortcut;
+
+    [Header("Operation")]
+    public List<TechnoShortcutItem> shortcutItems = new List<TechnoShortcutItem>();
 
     private void Start()
     {

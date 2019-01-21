@@ -10,21 +10,6 @@ public class GroundPowerPlant : PowerPlant {
     [Header("Tier 3")]
     public float energyProduction_tier_3 = 150f;
 
-    // Use this for initialization
-    void Start () {
-
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
-
-    public GroundPowerPlant()
-    {
-        //Debug.Log("GroundPowerPlant constructor");
-    }
-
     public override void ApplyCurrentTierSettings()
     {
         Debug.Log("ApplyCurrentTierSettings | GROUND POWER PLANT | CurrentTier: " + currentTier);

@@ -12,25 +12,26 @@ public class MegaStructureManager : MonoBehaviour {
         instance = this;
     }
 
-
+    [Header("Operation")]
     public List<MegaStructure> availableMegaStructures;
 
-    // Planetary Shield
+    [Header("Planetary Shield")]
     public GameObject planetaryShield;
     public GameObject planetaryShieldActivationAnimationGo;
     public GameObject planetaryShieldActivationAnimationGoParticleSystem;
     public GameObject planetaryShieldTechnoItem;
 
-    // MegaCollector
+    [Header("MegaCollector")]
     public GameObject megaCollector;
     //public GameObject planetaryShieldActivationAnimationGo;
     //public GameObject planetaryShieldActivationAnimationGoParticleSystem;
     public GameObject collectorTechnoItem;
 
-    // Dyson Sphere
+    [Header("Dyson Sphere")]
     public GameObject dysonSphere;
     public GameObject dysonSphereTechnoItem;
 
+    [Header("UI")]
     public GameObject leftPanel;
     public GameObject planetaryShieldControlPanel;
 

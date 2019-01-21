@@ -11,6 +11,7 @@ public class TutorialManager : MonoBehaviour {
         instance = this;
     }
 
+    [Header("Operation")]
     public List<TutorialIndicator> availableTutorialIndicators = new List<TutorialIndicator>();
     public List<GameObject> instantiatedTutorialIndicators = new List<GameObject>();
 
@@ -20,12 +21,6 @@ public class TutorialManager : MonoBehaviour {
     public GameObject clickOnBuildIndicator;
     public GameObject selectBuildingLocationIndicator;
     public GameObject startWhenReadyIndicator;
-
-
-    // Use this for initialization
-    void Start () {
-
-	}
 
     public void DefineAvailableTutorialIndicators()
     {

@@ -4,15 +4,19 @@ using UnityEngine;
 
 public class CollectionPoint : MonoBehaviour {
 
+    [Header("Parts")]
+    public GameObject activationIndicator;
+
+    [Header("Resources")]
+    public Material activationOnIndicatorMaterial;
+    public Material activationOffIndicatorMaterial;
+
+    [Header("Operation")]
     public int collectionPointIndex;
+    public GameObject lineRendererOrigin;
     public bool isActivated = false;
     public GameObject targetDebris;
     public bool isCollecting = false;
-    public GameObject lineRendererOrigin;
-    public GameObject activationIndicator;
-
-    public Material activationOnIndicatorMaterial;
-    public Material activationOffIndicatorMaterial;
 
     public GameObject GetClosestAvailableDebris()
     {

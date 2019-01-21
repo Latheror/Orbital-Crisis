@@ -14,10 +14,9 @@ public class OptionsManager : MonoBehaviour {
         }
     }
 
-
+    [Header("Operation")]
     public bool isTimerEnabled = false;
     public bool isTutorialEnabled = false;
-
 
     public void SetTimerEnabled(bool enabled)
     {

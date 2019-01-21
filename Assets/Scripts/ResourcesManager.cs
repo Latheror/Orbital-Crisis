@@ -15,11 +15,7 @@ public class ResourcesManager : MonoBehaviour {
     [Header("Settings")]
     public List<ResourceType> availableResources = new List<ResourceType>();
     public List<ResourceAmount> startResourceAmounts = new List<ResourceAmount>();
-    public int productionEnergy;
-    public int consumptionEnergy;
-
-    public float maxResourcesMargin = .2f;
-
+    
     public Color steelColor;
     public Color copperColor;
     public Color carbonColor;
@@ -28,6 +24,7 @@ public class ResourcesManager : MonoBehaviour {
 
     public Color maxResourceAmountReachedColor;
     public Color maxResourceAmountNotReachedColor;
+    public float maxResourcesMargin = .2f;
 
     [Header("Operation")]
     public List<ResourceAmount> currentResourceAmounts = new List<ResourceAmount>();

@@ -10,20 +10,14 @@ public class Bullet : MonoBehaviour {
     public float power = 10f;
     public float rotationSpeed = 10f;
 
-    void Start()
-    {
-        //ChaseTarget();
-        //InvokeRepeating("ChaseTarget", 0f, 0.05f);
-    }
-
-    private void Update()
+    void Update()
     {
         ChaseTarget();
     }
 
     public void SetTarget(GameObject newTarget)
     {
-        this.target = newTarget;
+        target = newTarget;
     }
 
     public void ChaseTarget()
@@ -34,6 +28,12 @@ public class Bullet : MonoBehaviour {
             {
                 transform.position = Vector3.MoveTowards(transform.position, target.transform.position, speed * Time.deltaTime);
                 RotateTowardsTarget();
+
+                // Prevent missiles from being stuck
+                if (Vector3.Distance(transform.position, target.transform.position) < .1f)
+                {
+                    DestroyBullet();
+                }
             }
             else
             {

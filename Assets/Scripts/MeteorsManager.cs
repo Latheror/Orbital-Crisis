@@ -30,22 +30,15 @@ public class MeteorsManager : MonoBehaviour {
     [Header("Operation")]
     public List<GameObject> meteorsList;
 
-
     void Awake(){ 
         if (instance != null){ Debug.LogError("More than one MeteorsManager in scene !"); return; } instance = this;
     }
 
-	// Use this for initialization
 	void Start () {
         meteorsList = new List<GameObject>();
         CalculateHealthSizeFactor();
 	}
 	
-	// Update is called once per frame
-	void Update () {
-
-	}
-
     public void CalculateHealthSizeFactor()
     {
         healthSizeFactor = (healthPointsAtMaxSize - healthPointsAtMinSize) / (meteorSpawnMaxSize*currentSpawnSizeFactor - meteorSpawnMinSize*currentSpawnSizeFactor);
@@ -64,7 +57,7 @@ public class MeteorsManager : MonoBehaviour {
         float meteorSize = Random.Range(meteorSpawnMinSize, meteorSpawnMaxSize) * currentSpawnSizeFactor;
         float meteorHealth = GetMeteorHealthFromSize(meteorSize);
 
-        Debug.Log("SpawnNewMeteor | SizeFactor [" + currentSpawnSizeFactor + "] | Size [" + meteorSize + "] | Health [" + meteorHealth + "] | Hardness [" + hardnessFactor + "]");
+        //Debug.Log("SpawnNewMeteor | SizeFactor [" + currentSpawnSizeFactor + "] | Size [" + meteorSize + "] | Health [" + meteorHealth + "] | Hardness [" + hardnessFactor + "]");
 
         // Instantiate Meteor Prefab
         GameObject instantiatedMeteor = Instantiate(meteorModel, pos, Quaternion.Euler(Random.Range(0f,360f),Random.Range(0f,360f),Random.Range(0f,360f)));

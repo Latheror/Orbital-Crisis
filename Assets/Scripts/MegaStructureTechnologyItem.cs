@@ -6,23 +6,19 @@ using TMPro;
 
 public class MegaStructureTechnologyItem : MonoBehaviour {
 
+    [Header("UI")]
     public GameObject experienceCostPanel;
     public GameObject experienceCostCenterPanel;
-
     public GameObject artifactCostPanel;
     public GameObject artifactCostCenterPanel;
-
+    public GameObject button;
+    public List<GameObject> outputConnections;
     public TextMeshProUGUI nameText;
     public TextMeshProUGUI experienceCostText;
     public TextMeshProUGUI artifactCostText;
 
-
-    public GameObject button;
-
-    public List<GameObject> outputConnections;
-
+    [Header("Operation")]
     public TechTreeManager.Technology associatedTechnology;
-
 
     public void InitializeUIElements()
     {

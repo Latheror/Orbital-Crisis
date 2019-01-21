@@ -19,11 +19,6 @@ public class BuildingShopItem : MonoBehaviour {
     public BuildingManager.BuildingType buildingType;
     // public TextMeshProUGUI building
 
-    public void Start()
-    {
-
-    }
-
     public void SetInfo()
     {
         ApplyBuildingNameText();

@@ -37,13 +37,6 @@ public class SaveManager : MonoBehaviour {
     public SavedGeneralData savedGeneralData = null;
     public int highScore = 0;
 
-    void Start () {
-    }
-	
-	void Update () {
-		
-	}
-
     public void ImportGameSaves()
     {
         ImportGameSavesInfoFile();

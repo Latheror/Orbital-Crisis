@@ -13,6 +13,7 @@ public class TechnoInfoPanel : MonoBehaviour {
         instance = this;
     }
 
+    [Header("UI")]
     public TextMeshProUGUI technoNameText;
     public TextMeshProUGUI technoDescriptionText;
 
@@ -29,6 +30,9 @@ public class TechnoInfoPanel : MonoBehaviour {
 
     public Sprite buttonBorderSprite;
     public Sprite buttonBackgroundSprite;
+
+    [Header("Operation")]
+    public TechTreeManager.Technology associatedTechnology;
 
     public void SetInfo(TechTreeManager.Technology technology)
     {

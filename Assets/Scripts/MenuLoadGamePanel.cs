@@ -18,17 +18,21 @@ public class MenuLoadGamePanel : MonoBehaviour {
 
     public enum LeftPanelDisplayMode { Options, LoadGame };
 
-    public GameObject loadPanelGameSaveElementPrefab;
+    [Header("UI")]
     public GameObject loadPanelGameSavesElementLayout;
-    public List<GameObject> loadPanelGameSaveElements;
-
     public GameObject loadGamePanel;
     public GameObject optionsPanel;
-    public LeftPanelDisplayMode leftPanelDisplayMode;
 
     [Header("High Score UI")]
     public GameObject highScorePanel;
     public TextMeshProUGUI highScoreText;
+
+    [Header("Prefabs")]
+    public GameObject loadPanelGameSaveElementPrefab;
+
+    [Header("Operation")]
+    public List<GameObject> loadPanelGameSaveElements;
+    public LeftPanelDisplayMode leftPanelDisplayMode;
 
     // Use this for initialization
     void Start () {

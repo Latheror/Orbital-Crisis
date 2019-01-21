@@ -13,25 +13,23 @@ public class PlanetaryShieldControlPanel : MonoBehaviour {
         instance = this;
     }
 
+    [Header("UI")]
     public GameObject displayPanel;
-    public GameObject theShield;
-
-    public float shieldRadius;
-    public float shieldPower;
     public Slider radiusSlider;
     public Slider powerSlider;
-
     public TextMeshProUGUI energyConsumptionText;
     public TextMeshProUGUI radiusValueText;
     public TextMeshProUGUI powerValueText;
-
-    public PlanetaryShield.ViewMode currentViewMode = PlanetaryShield.ViewMode.Full;
-
     public Image viewModeDisplayImage;
     public Sprite ViewModeFullImage;
     public Sprite ViewModePartialImage;
     public Sprite ViewModeHiddenImage;
 
+    [Header("Operation")]
+    public GameObject theShield;
+    public float shieldRadius;
+    public float shieldPower;
+    public PlanetaryShield.ViewMode currentViewMode = PlanetaryShield.ViewMode.Full;
 
     public void DisplayPanel(bool display)
     {

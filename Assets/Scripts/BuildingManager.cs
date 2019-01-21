@@ -41,12 +41,6 @@ public class BuildingManager : MonoBehaviour {
     public GameObject stormSatellitePrefab;
     public GameObject meteorCrusherPrefab;
 
-    void Start()
-    {
-
-    }
-
-
     public void SetAvailableBuildings()
     {
         availableBuildings.Add(new BuildingType(1, "Laser Turret", laserTurretPrefab, 25f,
@@ -410,7 +404,6 @@ public class BuildingManager : MonoBehaviour {
         {
             buildingState = BuildingState.Default;
 
-            DebugManager.instance.DisplayBuildingState();
             ShopPanel.instance.ResetLastShopItemSelected();
             DeselectBuilding();
             ShopPanel.instance.HideBuildButton();
@@ -566,12 +559,13 @@ public class BuildingManager : MonoBehaviour {
             }
             GameObject instantiatedBuilding = Instantiate(selectedBuilding.prefab, instantiationPosition, Quaternion.Euler(0f, 0f, buildingSpotAngle_deg));
             buildingList.Add(instantiatedBuilding);
-            instantiatedBuilding.GetComponent<Building>().buildingType = selectedBuilding;
-            instantiatedBuilding.GetComponent<Building>().buildingSpotAngleRad = buildingSpotAngle_rad;
-            instantiatedBuilding.GetComponent<Building>().buildingSpotAngleDeg = buildingSpotAngle_deg;
-            instantiatedBuilding.GetComponent<Building>().currentTier = 1;
+            Building b = instantiatedBuilding.GetComponent<Building>();
+            b.buildingType = selectedBuilding;
+            b.buildingSpotAngleRad = buildingSpotAngle_rad;
+            b.buildingSpotAngleDeg = buildingSpotAngle_deg;
+            b.currentTier = 1;
             //instantiatedBuilding.GetComponent<Building>().energyConsumption = selectedBuilding.energyConsumption;
-            instantiatedBuilding.GetComponent<Building>().buildingSpot = chosenBuildingSlot;
+            b.buildingSpot = chosenBuildingSlot;
             chosenBuildingSlot.GetComponent<BuildingSlot>().SetBuilding(laserTurretPrefab.GetComponent<LaserTurret>());
             instantiatedBuilding.transform.SetParent(chosenBuildingSlot.transform);
             //Debug.Log("New building instantiated !");
@@ -657,12 +651,14 @@ public class BuildingManager : MonoBehaviour {
 
         GameObject instantiatedBuilding = Instantiate(buildingType.prefab, instantiationPosition, Quaternion.Euler(0f, 0f, buildingSpotAngle_deg));
         buildingList.Add(instantiatedBuilding);
-        instantiatedBuilding.GetComponent<Building>().buildingType = buildingType;
-        instantiatedBuilding.GetComponent<Building>().buildingSpotAngleRad = buildingSpotAngle_rad;
-        instantiatedBuilding.GetComponent<Building>().buildingSpotAngleDeg = buildingSpotAngle_deg;
-        instantiatedBuilding.GetComponent<Building>().currentTier = 1;
-        instantiatedBuilding.GetComponent<Building>().energyConsumption = buildingType.energyConsumption;
-        instantiatedBuilding.GetComponent<Building>().buildingSpot = buildingSlot;
+        Building b = instantiatedBuilding.GetComponent<Building>();
+        b.buildingType = buildingType;
+        b.buildingSpotAngleRad = buildingSpotAngle_rad;
+        b.buildingSpotAngleDeg = buildingSpotAngle_deg;
+        b.currentTier = 1;
+        b.energyConsumption = buildingType.energyConsumption;
+        b.buildingSpot = buildingSlot;
+
         buildingSlot.GetComponent<BuildingSlot>().SetBuilding(laserTurretPrefab.GetComponent<LaserTurret>());
         instantiatedBuilding.transform.SetParent(buildingSlot.transform);
         //Debug.Log("New building instantiated !");
@@ -670,10 +666,14 @@ public class BuildingManager : MonoBehaviour {
         // Distribute the available energy across all buildings
         EnergyPanel.instance.UpdateEnergyProductionAndConsumption();
 
-        // Building type lists
+        // Special needs for some buildings
         if (selectedBuilding.name == "Recycling Station")
         {
             InfrastructureManager.instance.recyclingStationsList.Add(instantiatedBuilding);
+        }
+        else if (selectedBuilding.name == "Spaceport")
+        {
+            InfrastructureManager.instance.SetSpaceport(instantiatedBuilding);
         }
 
         if (tier > 1)

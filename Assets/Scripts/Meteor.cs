@@ -31,11 +31,6 @@ public class Meteor : MonoBehaviour {
     public float currentApproachSpeed = 5f;
     public float healthPoints;
     public bool hasAlreadyBeenHitByPlanetaryShield = false;
-
-	// Use this for initialization
-	void Start () {
-
-	}
 	
 	// Update is called once per frame
 	void FixedUpdate () {

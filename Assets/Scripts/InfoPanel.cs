@@ -18,16 +18,6 @@ public class InfoPanel : MonoBehaviour {
     public GameObject buildingInfoPanel;
     public GameObject enemyInfoPanel;
 
-    // Use this for initialization
-    void Start () {
-		
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
-
     public void spaceshipSelectedActions()
     {
         Debug.Log("Spaceship selected");

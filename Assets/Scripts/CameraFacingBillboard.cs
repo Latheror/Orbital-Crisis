@@ -3,6 +3,7 @@ using System.Collections;
 
 public class CameraFacingBillboard : MonoBehaviour
 {
+    [Header("Operation")]
     public Camera m_Camera;
 
     private void Start()

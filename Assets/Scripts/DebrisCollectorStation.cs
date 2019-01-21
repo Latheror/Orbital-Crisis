@@ -25,11 +25,6 @@ public class DebrisCollectorStation : Building {
     [Header("Prefabs")]
     public GameObject debrisCollectorPrefab;
 
-    public DebrisCollectorStation()
-    {
-        //Debug.Log("DebrisCollectorStation constructor");
-    }
-
     void Start()
     {
         LaunchDebrisCollector();
@@ -47,8 +42,9 @@ public class DebrisCollectorStation : Building {
                 Vector3 instantiationPos = transform.position + instantiationDeltaPos;
 
                 GameObject instantiatedDebrisCollector = Instantiate(debrisCollectorPrefab, instantiationPos, Quaternion.identity);
-                instantiatedDebrisCollector.GetComponent<DebrisCollector>().homeStation = gameObject;
-                instantiatedDebrisCollector.GetComponent<DebrisCollector>().collectionTime = collectionTime;
+                DebrisCollector debrisC = instantiatedDebrisCollector.GetComponent<DebrisCollector>();
+                debrisC.homeStation = gameObject;
+                debrisC.collectionTime = collectionTime;
                 debrisCollectorsList.Add(instantiatedDebrisCollector);
                 instantiatedDebrisCollector.transform.SetParent(transform);
             }

@@ -4,12 +4,12 @@ using UnityEngine;
 
 public class MenuOrbitingObject : MonoBehaviour {
 
+    [Header("Settings")]
     public GameObject menuPlanet;
     public float rotationSpeed = 10f;
     public bool isMeteor;
     public bool isBeingTargeted;
     public GameObject meteorImpactEffect;
-
 
     // Use this for initialization
     void Start () {
@@ -18,8 +18,7 @@ public class MenuOrbitingObject : MonoBehaviour {
         InvokeRepeating("InstantiateMeteorEffect", 0f, 0.2f);
     }
 	
-	// Update is called once per frame
-	void FixedUpdate()
+	void Update()
     {
         RotateAroundPlanet();
     }

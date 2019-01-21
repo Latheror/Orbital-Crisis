@@ -12,26 +12,21 @@ public class MegaStructuresPanel : MonoBehaviour {
     }
 
     public enum DisplayMode { ButtonsMenu, Trees};
-    public DisplayMode currentDisplayMode = DisplayMode.ButtonsMenu;
 
+    [Header("UI")]
     public GameObject buttonsMenuPanel;
     public GameObject megaStructuresTreePanel;
-
     public GameObject megaStructurePanel1;
     public GameObject megaStructurePanel2;
     public GameObject megaStructurePanel3;
     public GameObject megaStructurePanel4;
-
     public GameObject activateShieldTextGo;
     public GameObject activateCollectorTextGo;
     public GameObject activateDysonSphereTextGo;
-
     public Color finalMegaStructureAvailableColor;
 
-    private void Start()
-    {
-        //InitializePanels();
-    }
+    [Header("Operation")]
+    public DisplayMode currentDisplayMode = DisplayMode.ButtonsMenu;
 
     public void InitializePanels()
     {

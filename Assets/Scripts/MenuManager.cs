@@ -94,7 +94,7 @@ public class MenuManager : MonoBehaviour
 
     public void OnRateMeButton()
     {
-        Application.OpenURL("market://details?id=" + Application.productName);
+        Application.OpenURL("https://play.google.com/store/apps/details?id=com.LathGames.OrbitalCrisis");
     }
 
     IEnumerator CameraMainToPlayMovement()

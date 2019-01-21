@@ -9,13 +9,7 @@ public class AllySpaceship : Spaceship {
     public int experiencePoints = 0;
     public int experiencePointsPerMeteorSizeUnit = 10;
     public int experiencePointsPerSpaceshipDestroyed = 100;
-
     public int level = 1;
-
-	// Use this for initialization
-	void Start () {
-        //Initialize();
-    }
 
     public void Initialize()
     {
@@ -25,7 +19,6 @@ public class AllySpaceship : Spaceship {
         manualDestination = transform.position;
         manualDestinationReached = true;
         isInAutomaticMode = true;
-        //infoPanel.SetActive(false);
         SetStartingMode();
         level = 1;
         experiencePoints = 0;
@@ -42,7 +35,6 @@ public class AllySpaceship : Spaceship {
             AvoidOtherAllies();
         }
     }
-
 
     protected override void UpdateTarget()
     {

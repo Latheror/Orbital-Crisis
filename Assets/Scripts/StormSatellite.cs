@@ -41,11 +41,6 @@ public class StormSatellite : Building {
         InvokeRepeating("UpdateTarget", 0f, updateTargetDelay);
     }
 
-    // Update is called once per frame
-    void Update () {
-		
-	}
-
     public void UpdateTarget()
     {
         GameObject closestTarget = GetClosestMeteorFromObject(gameObject, range);

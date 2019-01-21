@@ -21,11 +21,6 @@ public class LaserTurret : Turret {
         InvokeRepeating("UpdateTarget", 0f, 0.5f);
         InvokeRepeating("LockOnTarget", 0f, 0.1f); 
 	}
-	
-    public LaserTurret()
-    {
-        //Debug.Log("LaserTurret constructor");
-    }
 
     public void LockOnTarget()
     {

@@ -9,7 +9,7 @@ public class RotatingObject : MonoBehaviour {
     public Vector3 axe = Vector3.up;
 
 	// Update is called once per frame
-	void FixedUpdate () {
+	void Update () {
         transform.RotateAround(rotationCenter.transform.position, axe, Time.deltaTime * rotationSpeed);
 	}
 }

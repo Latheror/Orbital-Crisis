@@ -6,16 +6,17 @@ using TMPro;
 
 public class LoadGameSaveElement : MonoBehaviour {
 
-    public SaveManager.GameSaveData gameSaveData;
-    public SaveManager.SavedGameFilesInfoData.SaveFileInfo saveFileInfo;
-
-    public int saveIndex;
-
+    [Header("UI")]
     public GameObject deleteSaveFileButton;
     public TextMeshProUGUI saveTimeText;
     public GameObject loadSaveButton;
     public TextMeshProUGUI saveTitleText;
     public TextMeshProUGUI levelReachedText;
+
+    [Header("Operation")]
+    public SaveManager.GameSaveData gameSaveData;
+    public SaveManager.SavedGameFilesInfoData.SaveFileInfo saveFileInfo;
+    public int saveIndex;
 
     public void SetInfo(int saveIndex, SaveManager.SavedGameFilesInfoData.SaveFileInfo saveFileInfo, SaveManager.GameSaveData gameSaveData)
     {

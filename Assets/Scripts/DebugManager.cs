@@ -11,52 +11,16 @@ public class DebugManager : MonoBehaviour {
         if (instance != null){ Debug.LogError("More than one DebugManager in scene !"); return; } instance = this;
     }
 
-    [Header("UI")]
-    public GameObject debugArea1;
-    public GameObject debugArea2;
-    public bool debugPanelDisplayed = false;
-    public Text showDebugControlsButtonText;
+    [Header("Operation")]
+    public bool debugEnabled;
 
-    public void Start()
+    void Start()
     {
-        debugPanelDisplayed = false;
+        debugEnabled = false;
     }
 
-
-    public void SetDebugArea1Text(string text)
+    public void SetDebugEnabled(bool enabled)
     {
-        debugArea1.GetComponent<TextMeshProUGUI>().text = text;
+        debugEnabled = enabled;
     }
-
-    public void DisplayBuildingState()
-    {
-        SetDebugArea1Text(BuildingManager.instance.buildingState.ToString());
-    }
-
-    public void SetDebugArea2Text(string text)
-    {
-        debugArea2.GetComponent<Text>().text = text;
-    }
-
-    public void ShowDebugControls()
-    {
-        if(debugPanelDisplayed)
-        {
-            this.gameObject.SetActive(false);
-            debugPanelDisplayed = false;
-            showDebugControlsButtonText.text = "Show Debug Actions";
-        }
-        else
-        {
-            this.gameObject.SetActive(true);
-            debugPanelDisplayed = true;
-            showDebugControlsButtonText.text = "Hide Debug Actions";
-        }
-    }
-
-    //public void DisplayBuildingState()
-    //{
-    //    SetDebugArea2Text(BuildingManager.instance.buildingState.ToString());
-    //}
-
 }

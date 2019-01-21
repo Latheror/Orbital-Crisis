@@ -17,13 +17,6 @@ public class MovementsManager : MonoBehaviour {
         if (instance != null){ Debug.LogError("More than one MovementsManager in scene !"); return; } instance = this;
     }
 
-	// Use this for initialization
-	void Start()
-    {
-
-    }
-	
-	// Update is called once per frame
 	void Update () {
         if (GameManager.instance.gameState == GameManager.GameState.Default)
         {
@@ -31,10 +24,7 @@ public class MovementsManager : MonoBehaviour {
 
             RotateSkyBox();
         }
-
 	}
-
-
 
     public void RotatePlanet()
     {

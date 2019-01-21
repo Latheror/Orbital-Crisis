@@ -6,23 +6,16 @@ using TMPro;
 
 public class TechnologyItem : MonoBehaviour {
 
-    public TechTreeManager.Technology associatedTechnology;
-    public TextMeshProUGUI experienceCostText;
-    public GameObject experienceCostPanel;
-
+    [Header("UI")]
     public GameObject button;
     public GameObject background;
     public GameObject image;
+    public TextMeshProUGUI experienceCostText;
+    public GameObject experienceCostPanel;
 
+    [Header("Operation")]
+    public TechTreeManager.Technology associatedTechnology;
     public List<GameObject> outputConnections;
-
-	void Start () {
-		
-	}
-
-    void Update () {
-		
-	}
 
     public void TechnoSelectionButtonClicked()
     {

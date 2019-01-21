@@ -862,11 +862,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   buildingType:
+    id: 0
     name: 
     prefab: {fileID: 0}
     resourceCosts: []
-    requiredEnergy: 0
-    buildingLocationType: 0
+    energyConsumption: 0
+    buildingLocationType: 1
     buildingImage: {fileID: 0}
     maxTier: 0
     isUnlocked: 0
@@ -875,6 +876,7 @@ MonoBehaviour:
     upgradeCosts: []
     hasRange: 0
     producesEnergy: 0
+    isUnique: 0
   buildingName: 
   buildingColor: {r: 0, g: 0, b: 0, a: 0}
   buildingPrefab: {fileID: 0}
@@ -892,6 +894,10 @@ MonoBehaviour:
   angleRange: 0
   rangeIndicatorNbPoints: 0
   energyConsumption: 0
+  buildingSpot: {fileID: 0}
+  tags: []
+  maxUpgradeLevelReached: 0
+  powerOn: 1
   buildingLocationType: 1
   energyProduction: 75
   energyProduction_tier_2: 120

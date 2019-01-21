@@ -14,14 +14,14 @@ public class SpaceshipInfoPanel : MonoBehaviour {
         instance = this;
     }
 
+    [Header("UI")]
     public GameObject displayPanel;
     public GameObject spaceshipImageUI;
+    public GameObject modeButton;
+    public GameObject modePanel;
     public TextMeshProUGUI healthNumbersText;
     public TextMeshProUGUI shieldNumbersText;
-    public GameObject modeButton;
     public TextMeshProUGUI modeButtonText;
-    public GameObject modePanel;
-
     public Color autoModeColor = Color.green;
     public Color manualModeColor = Color.red;
 

@@ -20,19 +20,10 @@ public class Turret : Building {
     public GameObject turretHead;
     public GameObject shootingPoint;
 
-
-    public Turret()
-    {
-        //Debug.Log("LaserTurret constructor");
-    }
-
     void Start()
     {
-        // Run a function at a fixed rate
         InvokeRepeating("UpdateTarget", 0f, 0.5f);
-        //InvokeRepeating("LockOnTarget", 0f, 0.1f); 
     }
-
 
     public virtual void UpdateTarget()
     {
@@ -105,7 +96,6 @@ public class Turret : Building {
             }
         }
     }
-
 
     // Turrets shouldn't be able to shoot through the planet !
     public bool CanReachTarget(GameObject target)
@@ -189,11 +179,8 @@ public class Turret : Building {
             //Debug.Log("Angle: " + angle);
 
             turretHead.transform.localEulerAngles = new Vector3(angle, 0, 0);
-
-
         }
     }
 
     public virtual void ResetPreviousTargetSettings() { }
-
 }

@@ -7,16 +7,6 @@ public class EnergyBar : MonoBehaviour {
     [Header("UI")]
     public GameObject[] energyLevels;
 
-	// Use this for initialization
-	void Start () {
-		
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
-
     public void UpdateEnergyBar()
     {
         float production = EnergyPanel.instance.energyProduction;

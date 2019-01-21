@@ -17,16 +17,6 @@ public class InfrastructureManager : MonoBehaviour {
     public List<GameObject> recyclingStationsList = new List<GameObject>();
     public GameObject spaceport = null; // unique
 
-    // Use this for initialization
-    void Start () {
-		
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
-
     public void BuildingTouched(GameObject building)
     {
         selectedBuilding = building;
@@ -73,19 +63,19 @@ public class InfrastructureManager : MonoBehaviour {
 
     public void DestroyBuilding(GameObject building)
     {
-        building.GetComponent<Building>().DestroyBuildingSpecificActions();
-
-        building.GetComponent<Building>().buildingSpot.GetComponent<BuildingSlot>().RemoveBuilding();
+        Building b = building.GetComponent<Building>();       
+        b.DestroyBuildingSpecificActions();
+        b.buildingSpot.GetComponent<BuildingSlot>().RemoveBuilding();
 
         BuildingManager.instance.buildingList.Remove(building);
 
         // Building type lists
-        if(building.GetComponent<Building>().buildingType.name == "Recycling Station")
+        if(b.buildingType.name == "Recycling Station")
         {
             recyclingStationsList.Remove(building);
         }
 
-        if(building.GetComponent<Building>().buildingType.name == "Spaceport")
+        if(b.buildingType.name == "Spaceport")
         {
             Spaceport sp = building.GetComponent<Spaceport>();
             foreach (GameObject spaceship in sp.attachedSpaceships)
@@ -96,9 +86,9 @@ public class InfrastructureManager : MonoBehaviour {
         }
 
         // Unique Buildings
-        if (building.GetComponent<Building>().buildingType.isUnique)
+        if (b.buildingType.isUnique)
         {
-            ShopPanel.instance.DisplayBuildingShopItemBack(building.GetComponent<Building>().buildingType);
+            ShopPanel.instance.DisplayBuildingShopItemBack(b.buildingType);
         }
 
         EnergyPanel.instance.UpdateEnergyProductionAndConsumption();

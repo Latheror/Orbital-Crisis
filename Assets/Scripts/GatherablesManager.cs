@@ -22,16 +22,6 @@ public class GatherablesManager : MonoBehaviour {
     [Header("Prefabs")]
     public List<GameObject> gatherablePrefabs;
 
-    // Use this for initialization
-    void Start () {
-		
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
-
     public void NewWaveActions(int waveNb)
     {
         SpawnGatherable(Gatherable.GatherableType.Heal);

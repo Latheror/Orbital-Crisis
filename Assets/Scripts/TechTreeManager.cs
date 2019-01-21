@@ -80,15 +80,9 @@ public class TechTreeManager : MonoBehaviour
     public GameObject dysonSphere_3_TechnoItem;
     public GameObject dysonSphere_TechnoItem;
 
-
     [Header("Operation")]
     public Technology selectedTechno;
     public TechnologyData[] technologiesData;
-
-    public void Start()
-    {
-        //InitializePanels();
-    }
 
     public void InitializePanels()
     {
@@ -149,7 +143,6 @@ public class TechTreeManager : MonoBehaviour
 
         disk1Techno.unlockingTechnologies.Add(disk2Techno);
         disk2Techno.unlockingTechnologies.Add(disk3Techno);
-
 
         technologies = new List<Technology>()
         {
