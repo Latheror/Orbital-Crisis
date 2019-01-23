@@ -223,4 +223,65 @@ public class MegaStructureManager : MonoBehaviour {
         }
     }
 
+    public MegaStructuresData BuildMegaStructuresData()
+    {
+        PlanetaryShield ps = planetaryShield.GetComponent<PlanetaryShield>();
+        MegaCollector mc = megaCollector.GetComponent<MegaCollector>();
+        DysonSphere ds = dysonSphere.GetComponent<DysonSphere>();
+        return new MegaStructuresData(ps.enabled, ps.radius, ps.damagePower, mc.isUnlocked, mc.currentCollectionPointNb, mc.currentCollectionSpeed, ds.isUnlocked, ds.currentStructurePoints, ds.currentAutoRepairState);
+    }
+
+    public void SetupSavedMegaStructuresData(MegaStructuresData megaStructuresData)
+    {
+        PlanetaryShield ps = planetaryShield.GetComponent<PlanetaryShield>();
+        MegaCollector mc = megaCollector.GetComponent<MegaCollector>();
+        DysonSphere ds = dysonSphere.GetComponent<DysonSphere>();
+
+        Debug.Log("SetupSavedMegaStructuresData | PlanetaryShield unlocked [" + ps.isUnlocked + "] | MegaCollector unlocked [" + mc.isUnlocked + "] | DysonSphere unlocked [" + ds.isUnlocked + "]");
+
+        ps.isUnlocked = megaStructuresData.shieldUnlocked;
+        if(ps.isUnlocked)
+            ps.ReceiveSettings(megaStructuresData.shieldRadius, megaStructuresData.shieldPower, PlanetaryShield.ViewMode.Full);
+
+        mc.isUnlocked = megaStructuresData.collectorUnlocked;
+        if(mc.isUnlocked)
+            mc.Configure(megaStructuresData.collectionSpeed, megaStructuresData.collectionPointsNb);
+
+        ds.isUnlocked = megaStructuresData.dysonSphereUnlocked;
+        if(ds.isUnlocked)
+            ds.Configure(megaStructuresData.dysonSphereStructurePoints, megaStructuresData.dysonSphereAutoRepair);
+    }
+
+    [System.Serializable]
+    public class MegaStructuresData
+    {
+        // Shield
+        public bool shieldUnlocked;
+        public float shieldRadius;
+        public float shieldPower;
+
+        // Collector
+        public bool collectorUnlocked;
+        public int collectionPointsNb;
+        public float collectionSpeed;
+
+        // Dyson Sphere
+        public bool dysonSphereUnlocked;
+        public float dysonSphereStructurePoints;
+        public bool dysonSphereAutoRepair;
+
+        public MegaStructuresData(bool shieldUnlocked, float shieldRadius, float shieldPower, bool collectorUnlocked, int collectionPointsNb, float collectionSpeed, bool dysonSphereUnlocked, float dysonSphereStructurePoints, bool dysonSphereAutoRepair)
+        {
+            this.shieldUnlocked = shieldUnlocked;
+            this.shieldRadius = shieldRadius;
+            this.shieldPower = shieldPower;
+            this.collectorUnlocked = collectorUnlocked;
+            this.collectionPointsNb = collectionPointsNb;
+            this.collectionSpeed = collectionSpeed;
+            this.dysonSphereUnlocked = dysonSphereUnlocked;
+            this.dysonSphereStructurePoints = dysonSphereStructurePoints;
+            this.dysonSphereAutoRepair = dysonSphereAutoRepair;
+        }
+    }
+
 }

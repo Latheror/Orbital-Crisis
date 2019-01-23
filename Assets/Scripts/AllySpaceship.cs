@@ -1,8 +1,12 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class AllySpaceship : Spaceship {
+
+    [Header("UI")]
+    public Image starImage;
 
     [Header("Operation")]
     public int id = -1;
@@ -22,6 +26,7 @@ public class AllySpaceship : Spaceship {
         SetStartingMode();
         level = 1;
         experiencePoints = 0;
+        SetStarImage();
         InvokeRepeating("RegenerateShield", 0f, shieldRegenerationDelay);
     }
 
@@ -280,7 +285,7 @@ public class AllySpaceship : Spaceship {
     public void IncreaseLevel()
     {
         level++;
-        // ?
+        SetStarImage();
     }
 
     public void RewardExperiencePointsFromMeteor(Meteor meteor)
@@ -297,6 +302,37 @@ public class AllySpaceship : Spaceship {
     public void SetLevel(int level_)
     {
         level = level_;
+        SetStarImage();
+    }
+
+    public void SetStarImage()
+    {
+        Sprite starSprite = SpaceshipManager.instance.oneStarSprite;
+        switch(level)
+        {
+            case 1:
+            {
+                starSprite = SpaceshipManager.instance.oneStarSprite;
+                break;
+            }
+            case 2:
+            {
+                starSprite = SpaceshipManager.instance.twoStarsSprite;
+                break;
+            }
+            case 3:
+            {
+                starSprite = SpaceshipManager.instance.threeStarsSprite;
+                break;
+            }
+            default:
+            {
+                Debug.Log("Spaceship Level out of range [" + level + "]");
+                break;
+            }
+        }
+
+        starImage.sprite = starSprite;
     }
 
 }

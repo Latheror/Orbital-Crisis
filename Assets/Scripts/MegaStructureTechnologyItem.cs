@@ -90,7 +90,7 @@ public class MegaStructureTechnologyItem : MonoBehaviour {
         }
         else
         {
-            if (associatedTechnology.unlocked)
+            /*if (associatedTechnology.unlocked)
             {
 
             }
@@ -126,7 +126,7 @@ public class MegaStructureTechnologyItem : MonoBehaviour {
                 {
 
                 }
-            }
+            }*/
         }
 
         if (outputConnectionEnabled)

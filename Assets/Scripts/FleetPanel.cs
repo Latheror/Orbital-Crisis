@@ -138,7 +138,7 @@ public class FleetPanel : MonoBehaviour {
 
     public void OnAddSpaceshipButton()
     {
-        Debug.Log("OnAddSpaceshipButtonClick");
+        //Debug.Log("OnAddSpaceshipButtonClick");
         spaceshipShopPanel.SetActive(true);
         buySpaceshipButton.SetActive(false);
         allySpaceshipsDisplayPanel.SetActive(false);
@@ -152,7 +152,7 @@ public class FleetPanel : MonoBehaviour {
 
     public void OnBuySpaceshipButton()
     {
-        Debug.Log("OnBuySpaceshipButton | SelectedSpaceshipType [" + selectedSpaceshipType + "]");
+        //Debug.Log("OnBuySpaceshipButton | SelectedSpaceshipType [" + selectedSpaceshipType + "]");
         if(selectedSpaceshipType != null && InfrastructureManager.instance.spaceport != null)
         {
             // Pay spaceship costs
@@ -175,7 +175,7 @@ public class FleetPanel : MonoBehaviour {
     {
         if(spaceshipType != null)
         {
-            Debug.Log("SelectSpaceshipOnShop [" + spaceshipType.name + "]");
+            //Debug.Log("SelectSpaceshipOnShop [" + spaceshipType.typeName + "]");
             selectedSpaceshipType = spaceshipType;
             if(ResourcesManager.instance.CanPayResourceAmounts(spaceshipType.resourceCosts) && SpaceshipManager.instance.HasAvailableFleetPointsNb(selectedSpaceshipType.fleetPointsNeeded))
             {

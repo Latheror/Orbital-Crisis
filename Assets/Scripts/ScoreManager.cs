@@ -63,6 +63,11 @@ public class ScoreManager : MonoBehaviour {
         UpdateScoreDisplay();
     }
 
+    public void SetPlanetLife(int pLife)
+    {
+        planetLife = pLife;
+    }
+
     public void IncreaseScore(int delta)
     {
         if(! GameManager.instance.IsInfiniteModeEnabled())  // Stop increasing score after a game over
@@ -168,6 +173,11 @@ public class ScoreManager : MonoBehaviour {
             gameOverHappened = true;
             PanelsManager.instance.DisplayGameOverPanel(true);
         }
+    }
+
+    public void SetGameOverHappened(bool happened)
+    {
+        gameOverHappened = happened;
     }
 
 }

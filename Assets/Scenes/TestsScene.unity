@@ -375,10 +375,6 @@ Prefab:
       propertyPath: m_RootOrder
       value: 4
       objectReference: {fileID: 0}
-    - target: {fileID: 1784674483790602, guid: d9310b2f087e0094a80604452de0867b, type: 2}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d9310b2f087e0094a80604452de0867b, type: 2}
   m_IsPrefabAsset: 0
@@ -448,7 +444,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
---- !u!1001 &1802864042
+--- !u!1001 &2027193275
 Prefab:
   m_ObjectHideFlags: 0
   serializedVersion: 2

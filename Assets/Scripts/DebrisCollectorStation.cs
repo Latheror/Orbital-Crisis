@@ -36,7 +36,7 @@ public class DebrisCollectorStation : Building {
         {
             if(debrisCollectorPrefab != null)
             {
-                Debug.Log("Error : Debris Collector has been assigned to station.");
+                //Debug.Log("Debris Collector has been assigned to station.");
                 float randomAngle = Random.Range(0, Mathf.PI * 2);
                 Vector3 instantiationDeltaPos = new Vector3(debrisCollectorInstantiationDistance * Mathf.Cos(randomAngle), debrisCollectorInstantiationDistance * Mathf.Sin(randomAngle), 0f);
                 Vector3 instantiationPos = transform.position + instantiationDeltaPos;
@@ -50,7 +50,7 @@ public class DebrisCollectorStation : Building {
             }
             else
             {
-                Debug.Log("Error : Debris Collector Prefab hasn't been assigned to station.");
+                //Debug.Log("Error : Debris Collector Prefab hasn't been assigned to station.");
             }
 
         }
@@ -62,7 +62,7 @@ public class DebrisCollectorStation : Building {
 
     public override void ApplyCurrentTierSettings()
     {
-        Debug.Log("ApplyCurrentTierSettings | LASER TURRET | CurrentTier: " + currentTier);
+        //Debug.Log("ApplyCurrentTierSettings | LASER TURRET | CurrentTier: " + currentTier);
         switch (currentTier)
         {
             case 2:

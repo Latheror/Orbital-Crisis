@@ -16,14 +16,20 @@ public class SpaceshipInfoPanel : MonoBehaviour {
 
     [Header("UI")]
     public GameObject displayPanel;
-    public GameObject spaceshipImageUI;
+    public Image spaceshipImage;
     public GameObject modeButton;
     public GameObject modePanel;
+    public TextMeshProUGUI spaceshipTypeText;
     public TextMeshProUGUI healthNumbersText;
     public TextMeshProUGUI shieldNumbersText;
     public TextMeshProUGUI modeButtonText;
     public Color autoModeColor = Color.green;
     public Color manualModeColor = Color.red;
+
+    void SetSpaceshipTypeText(AllySpaceship allyS)
+    {
+        spaceshipTypeText.text = allyS.spaceshipType.typeName;
+    }
 
     void SetHealthText(int healthPoints, int maxHealthPoints)
     {
@@ -36,31 +42,42 @@ public class SpaceshipInfoPanel : MonoBehaviour {
         shieldNumbersText.text = (shieldPoints + "/" + maxShieldPoints);
     }
 
-    void UpdateHealthInfo()
+    void SetSpaceshipImage(AllySpaceship allyS)
     {
-        SetHealthText((int)SpaceshipManager.instance.selectedSpaceship.GetComponent<Spaceship>().healthPoints, (int)SpaceshipManager.instance.selectedSpaceship.GetComponent<Spaceship>().maxHealthPoints);
+        spaceshipImage.sprite = allyS.spaceshipType.sprite;
     }
 
-    void UpdateShieldInfo()
+    void UpdateHealthInfo(AllySpaceship allyS)
     {
-        SetShieldText((int)SpaceshipManager.instance.selectedSpaceship.GetComponent<Spaceship>().shieldPoints, (int)SpaceshipManager.instance.selectedSpaceship.GetComponent<Spaceship>().maxShieldPoints);
+        SetHealthText((int)allyS.healthPoints, (int)allyS.maxHealthPoints);
+    }
+
+    void UpdateShieldInfo(AllySpaceship allyS)
+    {
+        SetShieldText((int)allyS.shieldPoints, (int)allyS.maxShieldPoints);
     }
 
     public void UpdateModeDisplay()
     {
-        if(SpaceshipManager.instance.selectedSpaceship != null)
+        GameObject selectedS = SpaceshipManager.instance.selectedSpaceship;
+        if(selectedS != null)
         {
-            if (SpaceshipManager.instance.selectedSpaceship.GetComponent<Spaceship>().isInAutomaticMode)
+            AllySpaceship allyS = selectedS.GetComponent<AllySpaceship>();
+            if (allyS != null)
             {
-                modeButtonText.text = "AUTO";
-                modePanel.GetComponent<Image>().color = autoModeColor;
-            }
-            else
-            {
-                modeButtonText.text = "MANUAL";
-                modePanel.GetComponent<Image>().color = manualModeColor;
+                if (allyS.isInAutomaticMode)
+                {
+                    modeButtonText.text = "AUTO";
+                    modePanel.GetComponent<Image>().color = autoModeColor;
+                }
+                else
+                {
+                    modeButtonText.text = "MANUAL";
+                    modePanel.GetComponent<Image>().color = manualModeColor;
+                }
             }
         }
+
     }
 
     public void SelectSpaceshipActions()
@@ -82,12 +99,19 @@ public class SpaceshipInfoPanel : MonoBehaviour {
 
     public void UpdateInfo()
     {
-        if(SpaceshipManager.instance.selectedSpaceship != null)
+        GameObject selectedSpaceship = SpaceshipManager.instance.selectedSpaceship;
+        if (selectedSpaceship != null)
         {
-            //Debug.Log("Update Spaceship panel info");
-            UpdateHealthInfo();
-            UpdateShieldInfo();
-            UpdateModeDisplay();
+            AllySpaceship allyS = selectedSpaceship.GetComponent<AllySpaceship>();
+            if(allyS != null)
+            {
+                //Debug.Log("Update Spaceship panel info");
+                UpdateHealthInfo(allyS);
+                UpdateShieldInfo(allyS);
+                UpdateModeDisplay();
+                SetSpaceshipImage(allyS);
+                SetSpaceshipTypeText(allyS);
+            }
         }
         else
         {
@@ -97,7 +121,8 @@ public class SpaceshipInfoPanel : MonoBehaviour {
 
     public void ModeButtonClicked()
     {
-        SpaceshipManager.instance.selectedSpaceship.GetComponent<Spaceship>().SwitchMode();
+        AllySpaceship allyS = SpaceshipManager.instance.selectedSpaceship.GetComponent<AllySpaceship>();
+        allyS.SwitchMode();
         UpdateModeDisplay();
     }
 

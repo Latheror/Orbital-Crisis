@@ -173,7 +173,7 @@ public class StormSatellite : Building {
             angle = GeometryManager.RadiansToDegrees(angle);
             angle = 360 - angle + buildingSpotAngleDeg;
 
-            Debug.Log("Angle: " + angle);
+            //Debug.Log("Angle: " + angle);
             head.transform.localEulerAngles = new Vector3(0, 0, angle);
         }
     }

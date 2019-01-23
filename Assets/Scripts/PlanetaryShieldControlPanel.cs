@@ -31,23 +31,37 @@ public class PlanetaryShieldControlPanel : MonoBehaviour {
     public float shieldPower;
     public PlanetaryShield.ViewMode currentViewMode = PlanetaryShield.ViewMode.Full;
 
+    public bool disableSlidersTrigger = false;
+
     public void DisplayPanel(bool display)
     {
         displayPanel.SetActive(display);
     }
 
-	public void SubmitRadiusSliderSetting()
+    public void DisableSlidersTrigger(bool disable)
     {
-        shieldRadius = radiusSlider.value;
-        SendSettings();
-        UpdateRadiusValueDisplay();
+        disableSlidersTrigger = disable;
+    }
+
+    public void SubmitRadiusSliderSetting()
+    {
+        if(! disableSlidersTrigger)
+        {
+            Debug.Log("SubmitRadiusSliderSetting");
+            shieldRadius = radiusSlider.value;
+            SendSettings();
+            UpdateRadiusValueDisplay();
+        }
     }
 
     public void SubmitPowerSliderSetting()
     {
-        shieldPower = powerSlider.value;
-        SendSettings();
-        UpdatePowerValueDisplay();
+        if (! disableSlidersTrigger)
+        {
+            shieldPower = powerSlider.value;
+            SendSettings();
+            UpdatePowerValueDisplay();
+        }
     }
 
     public void CloseButtonClicked()
@@ -63,11 +77,13 @@ public class PlanetaryShieldControlPanel : MonoBehaviour {
     public void UpdateRadiusValueDisplay()
     {
         radiusValueText.text = (Mathf.CeilToInt(shieldRadius)).ToString();
+        radiusSlider.value = shieldRadius;
     }
 
     public void UpdatePowerValueDisplay()
     {
         powerValueText.text = (Mathf.CeilToInt(shieldPower)).ToString();
+        powerSlider.value = shieldPower;
     }
 
     public void UpdateCurrentViewModeDisplay()
@@ -110,8 +126,11 @@ public class PlanetaryShieldControlPanel : MonoBehaviour {
         shieldPower = damagePower;
         currentViewMode = viewMode;
 
+        DisableSlidersTrigger(true);
         UpdateRadiusValueDisplay();
         UpdatePowerValueDisplay();
+        DisableSlidersTrigger(false);
+
         UpdateCurrentViewModeDisplay();
     }
 

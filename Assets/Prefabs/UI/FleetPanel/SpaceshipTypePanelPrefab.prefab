@@ -476,6 +476,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e6a602da6dc8648419ced9536a75ed70, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  costText: {fileID: 114696426250692390}
+  imagePanelParent: {fileID: 1075281202866122}
+  imagePanel: {fileID: 1819607100324688}
+  resourceImage: {fileID: 0}
+  resourceAmountAvailableColor: {r: 0, g: 1, b: 0, a: 1}
+  resourceAmountUnavailableColor: {r: 1, g: 0, b: 0, a: 1}
   resourceType:
     id: 0
     resourceName: 
@@ -484,13 +490,7 @@ MonoBehaviour:
     maxAmount: 0
     resourceIndicator: {fileID: 0}
     resourceImage: {fileID: 0}
-  costText: {fileID: 114696426250692390}
-  imagePanelParent: {fileID: 1075281202866122}
-  imagePanel: {fileID: 1819607100324688}
   costAmount: 0
-  resourceImage: {fileID: 0}
-  resourceAmountAvailableColor: {r: 0, g: 1, b: 0, a: 1}
-  resourceAmountUnavailableColor: {r: 1, g: 0, b: 0, a: 1}
   resourceAvailable: 0
 --- !u!114 &114023708632513340
 MonoBehaviour:
@@ -530,6 +530,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e6a602da6dc8648419ced9536a75ed70, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  costText: {fileID: 114787721082282208}
+  imagePanelParent: {fileID: 1813924517192126}
+  imagePanel: {fileID: 1414861074445012}
+  resourceImage: {fileID: 0}
+  resourceAmountAvailableColor: {r: 0, g: 1, b: 0, a: 1}
+  resourceAmountUnavailableColor: {r: 1, g: 0, b: 0, a: 1}
   resourceType:
     id: 0
     resourceName: 
@@ -538,13 +544,7 @@ MonoBehaviour:
     maxAmount: 0
     resourceIndicator: {fileID: 0}
     resourceImage: {fileID: 0}
-  costText: {fileID: 114787721082282208}
-  imagePanelParent: {fileID: 1813924517192126}
-  imagePanel: {fileID: 1414861074445012}
   costAmount: 0
-  resourceImage: {fileID: 0}
-  resourceAmountAvailableColor: {r: 0, g: 1, b: 0, a: 1}
-  resourceAmountUnavailableColor: {r: 1, g: 0, b: 0, a: 1}
   resourceAvailable: 0
 --- !u!114 &114036497024484354
 MonoBehaviour:
@@ -584,6 +584,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e6a602da6dc8648419ced9536a75ed70, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  costText: {fileID: 114056483763195304}
+  imagePanelParent: {fileID: 1453941442690828}
+  imagePanel: {fileID: 1139572533709180}
+  resourceImage: {fileID: 0}
+  resourceAmountAvailableColor: {r: 0, g: 1, b: 0, a: 1}
+  resourceAmountUnavailableColor: {r: 1, g: 0, b: 0, a: 1}
   resourceType:
     id: 0
     resourceName: 
@@ -592,13 +598,7 @@ MonoBehaviour:
     maxAmount: 0
     resourceIndicator: {fileID: 0}
     resourceImage: {fileID: 0}
-  costText: {fileID: 114056483763195304}
-  imagePanelParent: {fileID: 1453941442690828}
-  imagePanel: {fileID: 1139572533709180}
   costAmount: 0
-  resourceImage: {fileID: 0}
-  resourceAmountAvailableColor: {r: 0, g: 1, b: 0, a: 1}
-  resourceAmountUnavailableColor: {r: 1, g: 0, b: 0, a: 1}
   resourceAvailable: 0
 --- !u!114 &114051708378755350
 MonoBehaviour:
@@ -1257,6 +1257,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   spaceshipTypeNameText: {fileID: 114151003839593542}
+  spaceshipImage: {fileID: 114558822905543962}
   spaceshipCostLayout: {fileID: 1933238221108576}
   borderPanel: {fileID: 1025589688755242}
   fleetPointsNeededText: {fileID: 114330179061582050}
@@ -1265,12 +1266,15 @@ MonoBehaviour:
   spaceshipCostPrefab: {fileID: 1894258579430724, guid: 66a4421bdce699b42ba57e148f335326,
     type: 2}
   associatedSpaceshipType:
+    index: 0
     name: 
     prefab: {fileID: 0}
     resourceCosts: []
     isAlly: 0
     associatedSpaceshipShopItem: {fileID: 0}
     fleetPointsNeeded: 0
+    levelExperiencePointLimits: 
+    sprite: {fileID: 0}
   costPanels: []
 --- !u!114 &114558822905543962
 MonoBehaviour:
@@ -1707,6 +1711,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e6a602da6dc8648419ced9536a75ed70, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  costText: {fileID: 114664584313920090}
+  imagePanelParent: {fileID: 1394198844777760}
+  imagePanel: {fileID: 1425167173449492}
+  resourceImage: {fileID: 0}
+  resourceAmountAvailableColor: {r: 0, g: 1, b: 0, a: 1}
+  resourceAmountUnavailableColor: {r: 1, g: 0, b: 0, a: 1}
   resourceType:
     id: 0
     resourceName: 
@@ -1715,13 +1725,7 @@ MonoBehaviour:
     maxAmount: 0
     resourceIndicator: {fileID: 0}
     resourceImage: {fileID: 0}
-  costText: {fileID: 114664584313920090}
-  imagePanelParent: {fileID: 1394198844777760}
-  imagePanel: {fileID: 1425167173449492}
   costAmount: 0
-  resourceImage: {fileID: 0}
-  resourceAmountAvailableColor: {r: 0, g: 1, b: 0, a: 1}
-  resourceAmountUnavailableColor: {r: 1, g: 0, b: 0, a: 1}
   resourceAvailable: 0
 --- !u!114 &114781357431473842
 MonoBehaviour:

@@ -200,7 +200,7 @@ public class LevelManager : MonoBehaviour {
             ChangeNextLevelButtonColor(nextLevelButtonSecondaryColor);
             //nextLevelButton.SetActive(true);
             //remainingEnnemiesPanel.SetActive(false);
-            Debug.Log("All meteors have been destroyed !");
+            //Debug.Log("All meteors have been destroyed !");
             //GoToNextLevel();
 
             AllLevelMeteorsDestroyed();

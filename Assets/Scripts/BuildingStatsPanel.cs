@@ -20,7 +20,7 @@ public class BuildingStatsPanel : MonoBehaviour {
 
     public void BuildStatsInfo(GameObject building)
     {
-        Debug.Log("BuildStatsInfo of [" + building.GetComponent<Building>().buildingType.name + "] | Stats nb [" + building.GetComponent<Building>().buildingType.stats.Count + "]");
+        //Debug.Log("BuildStatsInfo of [" + building.GetComponent<Building>().buildingType.name + "] | Stats nb [" + building.GetComponent<Building>().buildingType.stats.Count + "]");
 
         CleanStatsLayout();
         foreach (Building.BuildingStat stat in building.GetComponent<Building>().buildingType.stats)

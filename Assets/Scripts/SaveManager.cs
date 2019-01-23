@@ -61,9 +61,10 @@ public class SaveManager : MonoBehaviour {
         ResourcesManager.ResourceData[] resourcesData = GatherResourcesData();
         BuildingManager.UnlockedBuildingData[] unlockedBuildingsData = GatherUnlockedBuildingsData();
         TechTreeManager.TechnologyData[] technologiesData = GatherTechnologiesData();
+        MegaStructureManager.MegaStructuresData megaStructuresData = GatherMegaStructuresData();
 
         // Build Game Save Data
-        GameSaveData gameSaveData = new GameSaveData(generalData, buildingDatas, spaceshipsData, reachedLevelData, resourcesData, unlockedBuildingsData, technologiesData);
+        GameSaveData gameSaveData = new GameSaveData(generalData, buildingDatas, spaceshipsData, reachedLevelData, resourcesData, unlockedBuildingsData, technologiesData, megaStructuresData);
         int currentLevelReached = LevelManager.instance.currentLevelNumber;
 
         // Binary Formatter + Stream
@@ -173,19 +174,27 @@ public class SaveManager : MonoBehaviour {
         int unlockedDisksNb = SurroundingAreasManager.instance.unlockedDisksNb;
         int score = ScoreManager.instance.score;
         int hits = InfoManager.instance.nbMeteorCollisions;
+        int planetLife = (int)ScoreManager.instance.planetLife;
         int experiencePoints = ScoreManager.instance.experiencePoints;
         int artifactsNb = ScoreManager.instance.artifactsNb;
         bool timerOptionEnabled = TimeManager.instance.isTimerEnabled;
+        bool hasGameOverOccured = ScoreManager.instance.gameOverHappened;
+        bool infiniteModeEnabled = GameManager.instance.IsInfiniteModeEnabled();
 
         //Debug.Log("Saving game variables | LevelReached [" + levelReached + "] | UnlockedDisksNb [" + unlockedDisksNb + "]");
 
-        GameManager.GeneralGameData gameSavedVariables = new GameManager.GeneralGameData(levelReached, unlockedDisksNb, score, hits, experiencePoints, artifactsNb, timerOptionEnabled);
+        GameManager.GeneralGameData gameSavedVariables = new GameManager.GeneralGameData(levelReached, unlockedDisksNb, score, hits, planetLife, experiencePoints, artifactsNb, timerOptionEnabled, hasGameOverOccured, infiniteModeEnabled);
         return gameSavedVariables;
     }
 
     public TechTreeManager.TechnologyData[] GatherTechnologiesData()
     {
         return TechTreeManager.instance.BuildTechnologyData();
+    }
+
+    public MegaStructureManager.MegaStructuresData GatherMegaStructuresData()
+    {
+        return MegaStructureManager.instance.BuildMegaStructuresData();
     }
 
     public SavedGeneralData GatherGeneralData()
@@ -355,8 +364,9 @@ public class SaveManager : MonoBehaviour {
         public ResourcesManager.ResourceData[] resourcesData;
         public BuildingManager.UnlockedBuildingData[] unlockedBuildingsData;
         public TechTreeManager.TechnologyData[] technologiesData;
+        public MegaStructureManager.MegaStructuresData megaStructuresData;
 
-        public GameSaveData(GameManager.GeneralGameData generalGameData, Building.BuildingData[] buildingsData, SpaceshipManager.SpaceshipData[] spaceshipsData, Level.LevelData reachedLevelData, ResourcesManager.ResourceData[] resourcesData, BuildingManager.UnlockedBuildingData[] unlockedBuildingsData, TechTreeManager.TechnologyData[] technologiesData)
+        public GameSaveData(GameManager.GeneralGameData generalGameData, Building.BuildingData[] buildingsData, SpaceshipManager.SpaceshipData[] spaceshipsData, Level.LevelData reachedLevelData, ResourcesManager.ResourceData[] resourcesData, BuildingManager.UnlockedBuildingData[] unlockedBuildingsData, TechTreeManager.TechnologyData[] technologiesData, MegaStructureManager.MegaStructuresData megaStructuresData)
         {
             this.generalGameData = generalGameData;
             this.buildingsData = buildingsData;
@@ -365,6 +375,7 @@ public class SaveManager : MonoBehaviour {
             this.resourcesData = resourcesData;
             this.unlockedBuildingsData = unlockedBuildingsData;
             this.technologiesData = technologiesData;
+            this.megaStructuresData = megaStructuresData;
         }
     }
 

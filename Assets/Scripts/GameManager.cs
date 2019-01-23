@@ -200,19 +200,25 @@ public class GameManager : MonoBehaviour {
         public int unlockedDisks;
         public int score;
         public int hits;
+        public int planetLife;
         public int experiencePoints;
         public int artifactsNb;
         public bool timerEnabled;
+        public bool hasGameOverOccured;
+        public bool infiniteModeEnabled;
 
-        public GeneralGameData(int currentLevelNb, int unlockedOrbits, int score, int hits, int experiencePoints, int artifactsNb, bool timerOptionEnabled)
+        public GeneralGameData(int currentLevelNb, int unlockedOrbits, int score, int hits, int planetLife, int experiencePoints, int artifactsNb, bool timerOptionEnabled, bool hasGameOverOccured, bool infiniteModeEnabled)
         {
             this.levelReached = currentLevelNb;
             this.unlockedDisks = unlockedOrbits;
             this.score = score;
             this.hits = hits;
+            this.planetLife = planetLife;
             this.experiencePoints = experiencePoints;
             this.artifactsNb = artifactsNb;
             this.timerEnabled = timerOptionEnabled;
+            this.hasGameOverOccured = hasGameOverOccured;
+            this.infiniteModeEnabled = infiniteModeEnabled;
         }
     }
 }

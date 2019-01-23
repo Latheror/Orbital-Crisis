@@ -8,6 +8,7 @@ public class SpaceshipTypeShopPanel : MonoBehaviour {
 
     [Header("UI")]
     public TextMeshProUGUI spaceshipTypeNameText;
+    public Image spaceshipImage;
     public GameObject spaceshipCostLayout;
     public GameObject borderPanel;
     public TextMeshProUGUI fleetPointsNeededText;
@@ -31,7 +32,8 @@ public class SpaceshipTypeShopPanel : MonoBehaviour {
     {
         if(associatedSpaceshipType != null)
         {
-            spaceshipTypeNameText.text = associatedSpaceshipType.name.ToString();
+            spaceshipTypeNameText.text = associatedSpaceshipType.typeName.ToString();
+            spaceshipImage.sprite = associatedSpaceshipType.sprite;
 
             // Fleet Points
             fleetPointsNeededText.text = associatedSpaceshipType.fleetPointsNeeded.ToString();
@@ -51,7 +53,7 @@ public class SpaceshipTypeShopPanel : MonoBehaviour {
 
     public void OnButton()
     {
-        Debug.Log("Button Clicked [" + associatedSpaceshipType.name + "]");
+        Debug.Log("Button Clicked [" + associatedSpaceshipType.typeName + "]");
         FleetPanel.instance.SelectSpaceshipOnShop(associatedSpaceshipType);
     }
 

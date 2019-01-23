@@ -67,6 +67,7 @@ public class GameSetupManager : MonoBehaviour {
         ResourcesManager.ResourceData[] resourcesData = gameSetupParameters.gameSaveData.resourcesData;
         BuildingManager.UnlockedBuildingData[] unlockedBuildingsData = gameSetupParameters.gameSaveData.unlockedBuildingsData;
         TechTreeManager.TechnologyData[] technologiesData = gameSetupParameters.gameSaveData.technologiesData;
+        MegaStructureManager.MegaStructuresData megaStructuresData = gameSetupParameters.gameSaveData.megaStructuresData;
 
         if(buildingsData != null){
             SetupSavedBuildings(buildingsData);
@@ -87,12 +88,6 @@ public class GameSetupManager : MonoBehaviour {
             SetupResourcesData(resourcesData);
         }
 
-        // Buildings are now unlocked when technologies are unlocked
-        /*if (unlockedBuildingsData != null)
-        {
-            SetupUnlockedBuildings(unlockedBuildingsData);
-        }*/
-
         if (technologiesData != null)
         {
             SetupTechnologies(technologiesData);
@@ -101,6 +96,11 @@ public class GameSetupManager : MonoBehaviour {
         if (spaceshipsData != null)
         {
             SetupSpaceships(spaceshipsData);
+        }
+
+        if (megaStructuresData != null)
+        {
+            SetupMegaStructures(megaStructuresData);
         }
     }
 
@@ -119,18 +119,24 @@ public class GameSetupManager : MonoBehaviour {
     {
         int score = generalGameData.score;
         int hits = generalGameData.hits;
+        int planetLife = generalGameData.planetLife;
         int unlockedDisksNb = generalGameData.unlockedDisks;
         int experiencePoints = generalGameData.experiencePoints;
         int artifactsNb = generalGameData.artifactsNb;
         bool timerEnabled = generalGameData.timerEnabled;
+        bool gameOverOccured = generalGameData.hasGameOverOccured;
+        bool infiniteModeEnabled = generalGameData.infiniteModeEnabled;
 
         //Debug.Log("SetupGeneralParameters | Score [" + score + "] | Hits [" + hits + "] | UnlockedDisks [" + unlockedDisksNb + "]");
 
         ScoreManager.instance.SetScore(score);
         ScoreManager.instance.SetExperiencePointsAndArtifactsNb(experiencePoints, artifactsNb);
+        ScoreManager.instance.SetPlanetLife(planetLife);
         InfoManager.instance.SetMeteorCollisionsValue(hits);
         SurroundingAreasManager.instance.SetUnlockedDisksNb(unlockedDisksNb);
         TimeManager.instance.SetTimerEnabled(timerEnabled);
+        GameManager.instance.SetInfiniteMode(infiniteModeEnabled);
+        ScoreManager.instance.SetGameOverHappened(gameOverOccured);
     }
 
     public void SetupReachedLevelParameters(Level.LevelData reachedLevelData)
@@ -163,6 +169,12 @@ public class GameSetupManager : MonoBehaviour {
     {
         Debug.Log("SetupTechnologies | TechnologiesNb [" + technologiesData.Length + "]");
         TechTreeManager.instance.SetupSavedTechnologies(technologiesData);
+    }
+
+    public void SetupMegaStructures(MegaStructureManager.MegaStructuresData megaStructuresData)
+    {
+        Debug.Log("SetupMegaStructures");
+        MegaStructureManager.instance.SetupSavedMegaStructuresData(megaStructuresData);
     }
 
     public class GameSetupParameters

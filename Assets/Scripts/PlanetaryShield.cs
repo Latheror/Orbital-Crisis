@@ -40,7 +40,7 @@ public class PlanetaryShield : MonoBehaviour {
 
     public void ReceiveSettings(float shieldRadiusSetting, float shieldPowerSetting, ViewMode viewMode)
     {
-        Debug.Log("Planetary Shield | ReceiveSettings | ShieldRadius: [" + shieldRadiusSetting + "]");
+        Debug.Log("Planetary Shield | ReceiveSettings | ShieldRadius [" + shieldRadiusSetting + "] | ShieldPower [" + shieldPowerSetting + "]");
         SetRadius(shieldRadiusSetting);
         SetPower(shieldPowerSetting);
         SetViewMode(viewMode);
@@ -63,6 +63,14 @@ public class PlanetaryShield : MonoBehaviour {
 
     public void SetPower(float powerSetting)
     {
+        damagePower = powerSetting;
+        CalculateEnergyConsumption();
+    }
+
+    public void Configure(float radiusSetting, float powerSetting)
+    {
+        Debug.Log("PlanetaryShield | Configure | Radius [" + radiusSetting + "] | Power [" + powerSetting + "]");
+        radius = radiusSetting;
         damagePower = powerSetting;
         CalculateEnergyConsumption();
     }

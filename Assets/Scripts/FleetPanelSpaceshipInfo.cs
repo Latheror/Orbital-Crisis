@@ -16,6 +16,8 @@ public class FleetPanelSpaceshipInfo : MonoBehaviour {
     public TextMeshProUGUI nextLevelexperiencePointsText;
     public TextMeshProUGUI fleetPointsUsedText;
 
+    public Image spaceshipImage;
+
     public GameObject healthBarBackground;
     public GameObject healthBar;
 
@@ -41,12 +43,15 @@ public class FleetPanelSpaceshipInfo : MonoBehaviour {
         {
             AllySpaceship alliedSpaceship = spaceship.GetComponent<AllySpaceship>();
 
-            spaceshipTypeText.text = spaceship.GetComponent<AllySpaceship>().spaceshipType.name.ToString();
+            spaceshipTypeText.text = spaceship.GetComponent<AllySpaceship>().spaceshipType.typeName.ToString();
             healthPointsText.text = alliedSpaceship.healthPoints.ToString();
             maxHealthPointsText.text = alliedSpaceship.maxHealthPoints.ToString();
             shieldPointsText.text = alliedSpaceship.shieldPoints.ToString();
             maxShieldPointsText.text = alliedSpaceship.maxShieldPoints.ToString();
             experiencePointsText.text = alliedSpaceship.experiencePoints.ToString();
+
+            spaceshipImage.sprite = alliedSpaceship.spaceshipType.sprite;
+
             nextLevelexperiencePointsText.text = (alliedSpaceship.level < 3 /* USE A VARIABLE HERE */) ? (alliedSpaceship.spaceshipType.levelExperiencePointLimits[alliedSpaceship.level - 1].ToString()) : " - ";
             fleetPointsUsedText.text = alliedSpaceship.spaceshipType.fleetPointsNeeded.ToString();
 

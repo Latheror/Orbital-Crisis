@@ -40,10 +40,10 @@ public class ResourcesManager : MonoBehaviour {
     public void InitializeResources()
     {
         availableResources.Add(new ResourceType(1, "steel", steelColor, "steel", 600, 7500));
-        availableResources.Add(new ResourceType(2, "copper", copperColor, "copper", 400, 5000));
+        availableResources.Add(new ResourceType(2, "copper", copperColor, "copper", 400, 6000));
         availableResources.Add(new ResourceType(3, "carbon", carbonColor, "carbon", 200, 3500));
-        availableResources.Add(new ResourceType(4, "composite", compositeColor, "composite", 150, 2000));
-        availableResources.Add(new ResourceType(5, "electronics", electronicsColor, "electronics", 100, 1000));
+        availableResources.Add(new ResourceType(4, "composite", compositeColor, "composite", 150, 2400));
+        availableResources.Add(new ResourceType(5, "electronics", electronicsColor, "electronics", 100, 2000));
     }
 
     // Set starting resource amounts

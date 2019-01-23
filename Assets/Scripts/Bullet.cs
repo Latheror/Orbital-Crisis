@@ -30,8 +30,9 @@ public class Bullet : MonoBehaviour {
                 RotateTowardsTarget();
 
                 // Prevent missiles from being stuck
-                if (Vector3.Distance(transform.position, target.transform.position) < .1f)
+                if (Vector3.Distance(transform.position, target.transform.position) < .01f)
                 {
+                    ActOnTarget(target);
                     DestroyBullet();
                 }
             }
@@ -51,17 +52,22 @@ public class Bullet : MonoBehaviour {
 
     void OnTriggerEnter(Collider other)
     {
-        if(other.gameObject.tag == "meteor")
+        ActOnTarget(other.gameObject);
+    }
+
+    public void ActOnTarget(GameObject targetGO)
+    {
+        if (targetGO.tag == "meteor")
         {
             //Debug.Log("Bullet hit a meteor !");
-            other.gameObject.GetComponent<Meteor>().TakeDamage(power);
+            targetGO.GetComponent<Meteor>().TakeDamage(power);
             DestroyBullet();
         }
-        else if (other.gameObject.tag == "enemy")
+        else if (targetGO.tag == "enemy")
         {
-            if(other.gameObject.GetComponent<EnemySpaceship>() != null)
+            if (targetGO.GetComponent<EnemySpaceship>() != null)
             {
-                other.gameObject.GetComponent<EnemySpaceship>().TakeDamage(power);
+                targetGO.GetComponent<EnemySpaceship>().TakeDamage(power);
                 DestroyBullet();
             }
         }

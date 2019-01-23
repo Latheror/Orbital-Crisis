@@ -791,7 +791,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_text: 5000
+  m_text: 10000
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 808aa8f1ab804104aa7d0c337a6c1481, type: 2}
   m_sharedMaterial: {fileID: 2100000, guid: 808aa8f1ab804104aa7d0c337a6c1481, type: 2}
@@ -859,7 +859,7 @@ MonoBehaviour:
   m_margin: {x: 0, y: 3.544779, z: 0, w: 3.55747}
   m_textInfo:
     textComponent: {fileID: 114226868906634026}
-    characterCount: 4
+    characterCount: 5
     spriteCount: 0
     spaceCount: 0
     wordCount: 1
@@ -1652,7 +1652,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_text: 5000
+  m_text: 0
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 808aa8f1ab804104aa7d0c337a6c1481, type: 2}
   m_sharedMaterial: {fileID: 2100000, guid: 808aa8f1ab804104aa7d0c337a6c1481, type: 2}
@@ -1720,7 +1720,7 @@ MonoBehaviour:
   m_margin: {x: 0, y: 0, z: 0, w: 0}
   m_textInfo:
     textComponent: {fileID: 114687930732235256}
-    characterCount: 4
+    characterCount: 1
     spriteCount: 0
     spaceCount: 0
     wordCount: 1
@@ -1792,6 +1792,7 @@ MonoBehaviour:
   experiencePointsText: {fileID: 114687930732235256}
   nextLevelexperiencePointsText: {fileID: 114226868906634026}
   fleetPointsUsedText: {fileID: 114253841982923214}
+  spaceshipImage: {fileID: 114294006856846502}
   healthBarBackground: {fileID: 1019755373178830}
   healthBar: {fileID: 1339855064138164}
   shieldBarBackground: {fileID: 1569711860285328}
@@ -2838,10 +2839,10 @@ RectTransform:
   m_Father: {fileID: 224719491481517518}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.36631346, y: 0.16746627}
-  m_AnchorMax: {x: 0.5846866, y: 0.79300004}
-  m_AnchoredPosition: {x: -0.4442501, y: 0.50001526}
-  m_SizeDelta: {x: 0.69900036, y: -1}
+  m_AnchorMin: {x: 0.38531345, y: 0.16746627}
+  m_AnchorMax: {x: 0.61, y: 0.79300004}
+  m_AnchoredPosition: {x: 0.38059998, y: 0.5}
+  m_SizeDelta: {x: -0.30099964, y: -1}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!224 &224387298046523752
 RectTransform:
@@ -2898,10 +2899,10 @@ RectTransform:
   m_Father: {fileID: 224719491481517518}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.080000006, y: 0.25672424}
-  m_AnchorMax: {x: 0.38525376, y: 0.79300004}
-  m_AnchoredPosition: {x: -0.41999817, y: -1.4713697}
-  m_SizeDelta: {x: 0.23999977, y: -1.3499999}
+  m_AnchorMin: {x: 0.02266254, y: 0.22700001}
+  m_AnchorMax: {x: 0.45462692, y: 0.79300004}
+  m_AnchoredPosition: {x: -0.23000002, y: -0.97136974}
+  m_SizeDelta: {x: -0.32999992, y: -2.35}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!224 &224508613261044204
 RectTransform:
@@ -3201,10 +3202,10 @@ RectTransform:
   m_Father: {fileID: 224719491481517518}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5846866, y: 0}
-  m_AnchorMax: {x: 0.9086531, y: 1}
-  m_AnchoredPosition: {x: -0.18999863, y: -0.45999908}
-  m_SizeDelta: {x: -0.15999985, y: -0.92}
+  m_AnchorMin: {x: 0.5466269, y: 0}
+  m_AnchorMax: {x: 0.961, y: 1}
+  m_AnchoredPosition: {x: -0.34000015, y: -0.45999908}
+  m_SizeDelta: {x: 0.5, y: -0.9200001}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!224 &224909524201513876
 RectTransform:

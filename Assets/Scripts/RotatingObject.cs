@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class RotatingObject : MonoBehaviour {
 
+
     public GameObject rotationCenter;
     public float rotationSpeed = 10f;
     public Vector3 axe = Vector3.up;

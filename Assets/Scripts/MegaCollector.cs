@@ -46,7 +46,7 @@ public class MegaCollector : MonoBehaviour {
         // TEMP
         BuildCollectionPoints();
 
-        Initialize();
+        //Initialize();
 
         InvokeRepeating("UpdateCollectTargets", 0f, 0.5f);
 
@@ -120,14 +120,14 @@ public class MegaCollector : MonoBehaviour {
 
     public void Configure(float collectionSpeed, int collectionPointNb)
     {
+        Debug.Log("MegaCollector - Configure | CollectionSpeed [" + collectionSpeed + "] | CollectionPointNb [" + collectionPointNb + "]");
         if (collectionSpeed <= maxCollectionSpeed && collectionPointNb <= maxCollectionPointNb)
         {
-            Debug.Log("MegaCollider - Configure | CollectionSpeed [" + collectionSpeed + "] | CollectionPointNb [" + collectionPointNb + "]");
-
             currentCollectionSpeed = collectionSpeed;
             currentCollectionPointNb = collectionPointNb;
             ActivateCollectionPoints();
             CalculateEnergyConsumption();
+
             UpdateControlPanel();
         }
         else

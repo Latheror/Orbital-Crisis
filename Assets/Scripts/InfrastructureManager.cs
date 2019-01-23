@@ -20,7 +20,7 @@ public class InfrastructureManager : MonoBehaviour {
     public void BuildingTouched(GameObject building)
     {
         selectedBuilding = building;
-        Debug.Log(selectedBuilding.GetComponent<Building>().buildingType.name + " selected.");
+        //Debug.Log(selectedBuilding.GetComponent<Building>().buildingType.name + " selected.");
 
         GameManager.instance.ChangeSelectionState(GameManager.SelectionState.BuildingSelected);
 
@@ -100,7 +100,7 @@ public class InfrastructureManager : MonoBehaviour {
 
     public void BuildingTagsActions(GameObject building)
     {
-        Debug.Log("BuildingTagsActions");
+        //Debug.Log("BuildingTagsActions");
         if(building.GetComponent<Building>().HasTag("spaceport"))
         {
             Debug.Log("Spaceport Touched !");

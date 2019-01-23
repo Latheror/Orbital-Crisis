@@ -12,7 +12,7 @@ public class GroundPowerPlant : PowerPlant {
 
     public override void ApplyCurrentTierSettings()
     {
-        Debug.Log("ApplyCurrentTierSettings | GROUND POWER PLANT | CurrentTier: " + currentTier);
+        //Debug.Log("ApplyCurrentTierSettings | GROUND POWER PLANT | CurrentTier: " + currentTier);
         switch (currentTier)
         {
             case 2:

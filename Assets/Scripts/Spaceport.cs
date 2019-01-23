@@ -65,7 +65,7 @@ public class Spaceport : Building
                 energyConsumption = energyConsumption_tier_2;
                 // Fleet points
                 fleetPoints = fleetPoints_tier_2;
-                SpaceshipManager.instance.currentMaxFleetPoints = fleetPoints;
+                SpaceshipManager.instance.SetCurrentMaxFleetPoints(fleetPoints);
                 break;
             }
             case 3:
@@ -74,7 +74,7 @@ public class Spaceport : Building
                 energyConsumption = energyConsumption_tier_3;
                 // Fleet points
                 fleetPoints = fleetPoints_tier_3;
-                SpaceshipManager.instance.currentMaxFleetPoints = fleetPoints;
+                SpaceshipManager.instance.SetCurrentMaxFleetPoints(fleetPoints);
                 break;
             }
         }
@@ -104,7 +104,7 @@ public class Spaceport : Building
     // Deprecated
     public void SpawnSpaceshipOfType(SpaceshipManager.SpaceshipType spaceshipType)
     {
-        Debug.Log("SpawnSpaceshipOfType [" + spaceshipType.name + "]");
+        Debug.Log("SpawnSpaceshipOfType [" + spaceshipType.typeName + "]");
 
         Vector2 randomCirclePos = Random.insideUnitCircle.normalized;
         Vector3 pos = transform.position + new Vector3(randomCirclePos.x * spawnRadius, randomCirclePos.y * spawnRadius, 0f);

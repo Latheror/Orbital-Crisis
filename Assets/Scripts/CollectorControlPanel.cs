@@ -26,6 +26,8 @@ public class CollectorControlPanel : MonoBehaviour {
     public float collectionSpeed = 10f;
     public float energyConsumption = 0f;
 
+    public bool disableSlidersTrigger = false;
+
 
     public void DisplayPanel(bool display)
     {
@@ -34,16 +36,29 @@ public class CollectorControlPanel : MonoBehaviour {
 
     public void SubmitCollectionPointNbSliderSetting()
     {
-        collectionPointNb = (int)collectionPointNbSlider.value;
-        SendSettings();
-        UpdateCollectionPointNbDisplay();
+        if(!disableSlidersTrigger)
+        {
+            Debug.Log("SubmitCollectionPointNbSliderSetting");
+            collectionPointNb = (int)collectionPointNbSlider.value;
+            SendSettings();
+            UpdateCollectionPointNbDisplay();
+        }
     }
 
     public void SubmitPowerSliderSetting()
     {
-        collectionSpeed = collectionSpeedSlider.value;
-        SendSettings();
-        UpdateCollectionSpeedValueDisplay();
+        if (!disableSlidersTrigger)
+        {
+            Debug.Log("SubmitPowerSliderSetting");
+            collectionSpeed = collectionSpeedSlider.value;
+            SendSettings();
+            UpdateCollectionSpeedValueDisplay();
+        }
+    }
+
+    public void DisableSlidersTrigger(bool disable)
+    {
+        disableSlidersTrigger = disable;
     }
 
     public void SendSettings()
@@ -54,11 +69,13 @@ public class CollectorControlPanel : MonoBehaviour {
     public void UpdateCollectionPointNbDisplay()
     {
         collectionPointNbText.text = collectionPointNb.ToString();
+        collectionPointNbSlider.value = collectionPointNb;
     }
 
     public void UpdateCollectionSpeedValueDisplay()
     {
         collectionSpeedText.text = collectionSpeed.ToString();
+        collectionSpeedSlider.value = collectionSpeed;
     }
 
     public void UpdateEnergyConsumptionValueDisplay()
@@ -68,6 +85,7 @@ public class CollectorControlPanel : MonoBehaviour {
 
     public void ReceiveSettings(float collectionSpeedSetting, int collectionPointNbSetting, float energyConsumptionSetting)
     {
+        Debug.Log("Collector Control Panel | ReceiveSettings | CollectionSpeed [" + collectionSpeedSetting + "] | CollectionPointsNb [" + collectionPointNbSetting + "] | EnergyConsumption [" + energyConsumptionSetting + "]");
         collectionSpeed = collectionSpeedSetting;
         collectionPointNb = collectionPointNbSetting;
         energyConsumption = energyConsumptionSetting;
@@ -76,8 +94,11 @@ public class CollectorControlPanel : MonoBehaviour {
 
     public void UpdatePanel()
     {
+        DisableSlidersTrigger(true);
         UpdateCollectionPointNbDisplay();
         UpdateCollectionSpeedValueDisplay();
+        DisableSlidersTrigger(false);
+
         UpdateEnergyConsumptionValueDisplay();
     }
 

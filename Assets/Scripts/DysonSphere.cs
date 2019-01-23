@@ -162,6 +162,16 @@ public class DysonSphere : MonoBehaviour {
         Debug.Log("AdaptLaserToPlanetMovement | LaserPos [" + planetPos + "]");
     }
 
+    public void Configure(float structurePointsSetting, bool autoRepairSetting)
+    {
+        currentStructurePoints = structurePointsSetting;
+        currentAutoRepairState = autoRepairSetting;
+
+        CalculateEnergyProduction();
+
+        SendSettingsToControlPanel();
+    }
+
     public class DysonSphereSettings
     {
         public float energyProduction;

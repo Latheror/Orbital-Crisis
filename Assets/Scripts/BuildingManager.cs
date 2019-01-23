@@ -53,6 +53,7 @@ public class BuildingManager : MonoBehaviour {
                 new List<ResourcesManager.UpgradeCost>(){
                     new ResourcesManager.UpgradeCost(2, new List<ResourcesManager.ResourceAmount>(){
                         new ResourcesManager.ResourceAmount("steel", 120),
+                        new ResourcesManager.ResourceAmount("copper", 120),
                         new ResourcesManager.ResourceAmount("carbon", 50)
 
                     }),
@@ -73,12 +74,12 @@ public class BuildingManager : MonoBehaviour {
 
         availableBuildings.Add(new BuildingType(2, "Missile Turret", bulletTurretPrefab, 20f, new List<ResourcesManager.ResourceAmount>(){
                 new ResourcesManager.ResourceAmount("steel", 50),
-                new ResourcesManager.ResourceAmount("copper", 80)},
+                new ResourcesManager.ResourceAmount("copper", 100)},
                 BuildingType.BuildingLocationType.Planet, "bullet_turret", 3, 1,
                 "Shoots missiles at incoming ennemies.",
                 new List<ResourcesManager.UpgradeCost>() {
                     new ResourcesManager.UpgradeCost(2, new List<ResourcesManager.ResourceAmount>(){
-                        new ResourcesManager.ResourceAmount("steel", 120),
+                        new ResourcesManager.ResourceAmount("steel", 150),
                         new ResourcesManager.ResourceAmount("carbon", 50)
 
                     }),
@@ -98,14 +99,15 @@ public class BuildingManager : MonoBehaviour {
 
         availableBuildings.Add(new BuildingType(3, "Freezing Turret", freezingTurretPrefab, 10f,
                 new List<ResourcesManager.ResourceAmount>(){
-                    new ResourcesManager.ResourceAmount("steel", 40),
-                    new ResourcesManager.ResourceAmount("copper", 60)
+                    new ResourcesManager.ResourceAmount("steel", 200),
+                    new ResourcesManager.ResourceAmount("copper", 280)
                 },
                 BuildingType.BuildingLocationType.Planet, "freezing_turret", 3, 2,
                 "Freezes nearby ennemies and slow them down.",
                 new List<ResourcesManager.UpgradeCost>() {
                     new ResourcesManager.UpgradeCost(2, new List<ResourcesManager.ResourceAmount>(){
-                        new ResourcesManager.ResourceAmount("steel", 120),
+                        new ResourcesManager.ResourceAmount("steel", 400),
+                        new ResourcesManager.ResourceAmount("copper", 475),
                         new ResourcesManager.ResourceAmount("carbon", 50)
 
                     }),
@@ -137,8 +139,9 @@ public class BuildingManager : MonoBehaviour {
 
                     }),
                     new ResourcesManager.UpgradeCost(3, new List<ResourcesManager.ResourceAmount>(){
-                       new ResourcesManager.ResourceAmount("composite", 50),
-                       new ResourcesManager.ResourceAmount("electronics", 50)
+                        new ResourcesManager.ResourceAmount("copper", 200),
+                        new ResourcesManager.ResourceAmount("composite", 50),
+                        new ResourcesManager.ResourceAmount("electronics", 50)
                     })                },
                 false, true,
                 new List<Building.BuildingStat>()
@@ -156,8 +159,8 @@ public class BuildingManager : MonoBehaviour {
                 "Gather resources needed to build infrastructures.",
                 new List<ResourcesManager.UpgradeCost>() {
                     new ResourcesManager.UpgradeCost(2, new List<ResourcesManager.ResourceAmount>(){
-                        new ResourcesManager.ResourceAmount("steel", 50),
-                        new ResourcesManager.ResourceAmount("copper", 50),
+                        new ResourcesManager.ResourceAmount("steel", 120),
+                        new ResourcesManager.ResourceAmount("copper", 80),
                         new ResourcesManager.ResourceAmount("carbon", 50)
 
                     }),
@@ -176,14 +179,14 @@ public class BuildingManager : MonoBehaviour {
 
         availableBuildings.Add(new BuildingType(6, "Shock Satellite", shockSatellitePrefab, 10f,
                 new List<ResourcesManager.ResourceAmount>(){
-                    new ResourcesManager.ResourceAmount("steel", 60),
+                    new ResourcesManager.ResourceAmount("steel", 120),
                     new ResourcesManager.ResourceAmount("copper", 80)
                 },
                 BuildingType.BuildingLocationType.Disks, "shock_satellite", 3, 3,
                 "Satellite building dealing damage salves in a circle around it.",
                 new List<ResourcesManager.UpgradeCost>() {
                     new ResourcesManager.UpgradeCost(2, new List<ResourcesManager.ResourceAmount>(){
-                        new ResourcesManager.ResourceAmount("steel", 200),
+                        new ResourcesManager.ResourceAmount("steel", 300),
                         new ResourcesManager.ResourceAmount("carbon", 100)
 
                     }),
@@ -210,13 +213,14 @@ public class BuildingManager : MonoBehaviour {
                 "Satellite base of recycling shuttles, able to recycle meteor debris and ennemy spaceship wrecks.",
                 new List<ResourcesManager.UpgradeCost>() {
                     new ResourcesManager.UpgradeCost(2, new List<ResourcesManager.ResourceAmount>(){
-                        new ResourcesManager.ResourceAmount("steel", 120),
-                        new ResourcesManager.ResourceAmount("copper", 160),
+                        new ResourcesManager.ResourceAmount("steel", 240),
+                        new ResourcesManager.ResourceAmount("copper", 180),
                         new ResourcesManager.ResourceAmount("carbon", 50)
 
                     }),
                     new ResourcesManager.UpgradeCost(3, new List<ResourcesManager.ResourceAmount>(){
-                       new ResourcesManager.ResourceAmount("composite", 100),
+                       new ResourcesManager.ResourceAmount("copper", 900),
+                       new ResourcesManager.ResourceAmount("composite", 150),
                        new ResourcesManager.ResourceAmount("electronics", 50)
                     })                },
                 true, false,
@@ -237,8 +241,8 @@ public class BuildingManager : MonoBehaviour {
                 "A satellite covered by solar panels, providing energy to your infrastructures.",
                 new List<ResourcesManager.UpgradeCost>() {
                     new ResourcesManager.UpgradeCost(2, new List<ResourcesManager.ResourceAmount>(){
-                        new ResourcesManager.ResourceAmount("steel", 100),
-                        new ResourcesManager.ResourceAmount("copper", 100),
+                        new ResourcesManager.ResourceAmount("steel", 200),
+                        new ResourcesManager.ResourceAmount("copper", 350),
                         new ResourcesManager.ResourceAmount("carbon", 70)
 
                     }),
@@ -256,20 +260,20 @@ public class BuildingManager : MonoBehaviour {
 
         availableBuildings.Add(new BuildingType(9, "Healing Turret", healingTurretPrefab, 15f,
                 new List<ResourcesManager.ResourceAmount>(){
-                    new ResourcesManager.ResourceAmount("steel", 60),
-                    new ResourcesManager.ResourceAmount("steel", 40)
+                    new ResourcesManager.ResourceAmount("steel", 400),
+                    new ResourcesManager.ResourceAmount("copper", 350)
                 },
                 BuildingType.BuildingLocationType.Planet, "healing_turret", 3, 6,
                 "Turret able to restore your spaceships health.",
                 new List<ResourcesManager.UpgradeCost>() {
                     new ResourcesManager.UpgradeCost(2, new List<ResourcesManager.ResourceAmount>(){
-                        new ResourcesManager.ResourceAmount("steel", 120),
+                        new ResourcesManager.ResourceAmount("steel", 600),
                         new ResourcesManager.ResourceAmount("carbon", 80)
 
                     }),
                     new ResourcesManager.UpgradeCost(3, new List<ResourcesManager.ResourceAmount>(){
-                               new ResourcesManager.ResourceAmount("composite", 80),
-                               new ResourcesManager.ResourceAmount("electronics", 40)
+                               new ResourcesManager.ResourceAmount("composite", 250),
+                               new ResourcesManager.ResourceAmount("electronics", 200)
                     })                },
                 true, false,
                 new List<Building.BuildingStat>()
@@ -284,19 +288,22 @@ public class BuildingManager : MonoBehaviour {
 
         availableBuildings.Add(new BuildingType(10, "Spaceport", spaceportPrefab, 15f,
                 new List<ResourcesManager.ResourceAmount>(){
-                    new ResourcesManager.ResourceAmount("steel", 300),
-                    new ResourcesManager.ResourceAmount("copper", 200)
+                    new ResourcesManager.ResourceAmount("steel", 800),
+                    new ResourcesManager.ResourceAmount("copper", 700),
+                    new ResourcesManager.ResourceAmount("carbon", 250)
                 },
                 BuildingType.BuildingLocationType.Disks, "spaceport", 3, 7,
                 "Build new spaceships and recruit pilots in the spaceport.",
                 new List<ResourcesManager.UpgradeCost>() {
                             new ResourcesManager.UpgradeCost(2, new List<ResourcesManager.ResourceAmount>(){
-                                new ResourcesManager.ResourceAmount("steel", 400),
-                                new ResourcesManager.ResourceAmount("carbon", 300)
+                                new ResourcesManager.ResourceAmount("steel", 1200),
+                                new ResourcesManager.ResourceAmount("copper", 1000),
+                                new ResourcesManager.ResourceAmount("composite", 500)
                             }),
                             new ResourcesManager.UpgradeCost(3, new List<ResourcesManager.ResourceAmount>(){
-                               new ResourcesManager.ResourceAmount("composite", 800),
-                               new ResourcesManager.ResourceAmount("electronics", 400)
+                                new ResourcesManager.ResourceAmount("steel", 3200),
+                                new ResourcesManager.ResourceAmount("copper", 2800),
+                                new ResourcesManager.ResourceAmount("electronics", 600)
                             })        },
                 false, false,
                 new List<Building.BuildingStat>()
@@ -308,19 +315,19 @@ public class BuildingManager : MonoBehaviour {
 
         availableBuildings.Add(new BuildingType(11, "Storm Satellite", stormSatellitePrefab, 30f,
                 new List<ResourcesManager.ResourceAmount>(){
-                    new ResourcesManager.ResourceAmount("steel", 40),
+                    new ResourcesManager.ResourceAmount("steel", 80),
                     new ResourcesManager.ResourceAmount("carbon", 20)
                 },
                 BuildingType.BuildingLocationType.Disks, "Satellites/storm_satellite_t", 3, 8,
                 "A satellite able to transfer damages between nearby ennemies.",
                 new List<ResourcesManager.UpgradeCost>() {
                             new ResourcesManager.UpgradeCost(2, new List<ResourcesManager.ResourceAmount>(){
-                                new ResourcesManager.ResourceAmount("steel", 120),
-                                new ResourcesManager.ResourceAmount("carbon", 50)
+                                new ResourcesManager.ResourceAmount("copper", 400),
+                                new ResourcesManager.ResourceAmount("carbon", 120)
                             }),
                             new ResourcesManager.UpgradeCost(3, new List<ResourcesManager.ResourceAmount>(){
-                                new ResourcesManager.ResourceAmount("composite", 50),
-                                new ResourcesManager.ResourceAmount("electronics", 50)
+                                new ResourcesManager.ResourceAmount("composite", 200),
+                                new ResourcesManager.ResourceAmount("electronics", 200)
                             })        },
                 true, false,
                 new List<Building.BuildingStat>()
@@ -334,20 +341,20 @@ public class BuildingManager : MonoBehaviour {
 
         availableBuildings.Add(new BuildingType(12, "Meteor Crusher", meteorCrusherPrefab, 30f,
                 new List<ResourcesManager.ResourceAmount>(){
-                    new ResourcesManager.ResourceAmount("steel", 400),
-                    new ResourcesManager.ResourceAmount("copper", 120),
+                    new ResourcesManager.ResourceAmount("steel", 650),
+                    new ResourcesManager.ResourceAmount("copper", 500),
                     new ResourcesManager.ResourceAmount("carbon", 60)
                 },
                 BuildingType.BuildingLocationType.Planet, "Turrets/meteor_crusher", 3, 9,
                 "A turret targeting the biggest meteors and crushing them into each other.",
                 new List<ResourcesManager.UpgradeCost>() {
                             new ResourcesManager.UpgradeCost(2, new List<ResourcesManager.ResourceAmount>(){
-                                new ResourcesManager.ResourceAmount("steel", 200),
-                                new ResourcesManager.ResourceAmount("carbon", 80)
+                                new ResourcesManager.ResourceAmount("steel", 750),
+                                new ResourcesManager.ResourceAmount("carbon", 120)
                             }),
                             new ResourcesManager.UpgradeCost(3, new List<ResourcesManager.ResourceAmount>(){
-                                new ResourcesManager.ResourceAmount("composite", 50),
-                                new ResourcesManager.ResourceAmount("electronics", 80)
+                                new ResourcesManager.ResourceAmount("composite", 300),
+                                new ResourcesManager.ResourceAmount("electronics", 350)
                             })
                 },
                 true, false,
@@ -497,25 +504,28 @@ public class BuildingManager : MonoBehaviour {
         // Chose Building Spot
         chosenBuildingSlot = SelectBuildingSpot();
 
-        // Preview
-        DisplayBuildingPreview();
-
-        if (buildingState == BuildingState.BuildingSelected)
+        if(chosenBuildingSlot != null)
         {
-            buildingState = BuildingState.BuildingAndLocationSelected;
-        }
-        else
-        {
-            //Debug.Log("Building State error...");
-        }
+            // Preview
+            DisplayBuildingPreview();
 
-        //DebugManager.instance.DisplayBuildingState();
-        if ((chosenBuildingSlot != null && ResourcesManager.instance.CanPayConstruction(selectedBuilding)))
-        {
-            ShopPanel.instance.ShowBuildButton();
-        }
-        else { Debug.LogError("SelectBuildingLocation | Couldn't get chosenBuildingSlot..."); }
+            if (buildingState == BuildingState.BuildingSelected)
+            {
+                buildingState = BuildingState.BuildingAndLocationSelected;
+            }
+            else
+            {
+                //Debug.Log("Building State error...");
+            }
 
+            //DebugManager.instance.DisplayBuildingState();
+            if ((ResourcesManager.instance.CanPayConstruction(selectedBuilding)))
+            {
+                ShopPanel.instance.ShowBuildButton();
+            }
+            
+        }
+        else { Debug.Log("SelectBuildingLocation | chosenBuildingSlot null"); }
     }
 
     public GameObject SelectBuildingSpot()
@@ -667,11 +677,11 @@ public class BuildingManager : MonoBehaviour {
         EnergyPanel.instance.UpdateEnergyProductionAndConsumption();
 
         // Special needs for some buildings
-        if (selectedBuilding.name == "Recycling Station")
+        if (b.buildingType.name == "Recycling Station")
         {
             InfrastructureManager.instance.recyclingStationsList.Add(instantiatedBuilding);
         }
-        else if (selectedBuilding.name == "Spaceport")
+        else if (b.buildingType.name == "Spaceport")
         {
             InfrastructureManager.instance.SetSpaceport(instantiatedBuilding);
         }
@@ -778,7 +788,7 @@ public class BuildingManager : MonoBehaviour {
             {
                 if (upgradeCost.tierIndex == tierNb) // Matching tier nb
                 {
-                    Debug.Log("Found matching UpgradeCostList");
+                    //Debug.Log("Found matching UpgradeCostList");
                     costs = upgradeCost.resourceCosts;
                     break;
                 }
