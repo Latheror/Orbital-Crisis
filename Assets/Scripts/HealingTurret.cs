@@ -6,10 +6,12 @@ public class HealingTurret : Turret {
 
     [Header("Tier 2")]
     public float healingPower_tier_2;
+    public float energyConsumption_tier_2;
     public float range_tier_2;
 
     [Header("Tier 3")]
     public float healingPower_tier_3;
+    public float energyConsumption_tier_3;
     public float range_tier_3;
 
     // Use this for initialization
@@ -70,6 +72,7 @@ public class HealingTurret : Turret {
             {
                 healingPower = healingPower_tier_2;
                 range = range_tier_2;
+                energyConsumption = energyConsumption_tier_2;
                 break;
 
             }
@@ -77,6 +80,7 @@ public class HealingTurret : Turret {
             {
                 healingPower = healingPower_tier_3;
                 range = range_tier_3;
+                energyConsumption = energyConsumption_tier_3;
                 break;
             }
         }

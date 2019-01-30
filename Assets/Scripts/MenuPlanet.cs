@@ -138,7 +138,7 @@ public class MenuPlanet : MonoBehaviour {
                 group.translatingObject.transform.position = Vector3.MoveTowards(group.translatingObject.transform.position, group.pathEnd.transform.position, step);
 
                 // Check if we reached end
-                if (Vector3.Distance(group.translatingObject.transform.position, group.pathEnd.transform.position) <=  reachedPointDelta)
+                if ((group.translatingObject.transform.position - group.pathEnd.transform.position).sqrMagnitude <=  reachedPointDelta*reachedPointDelta)
                 {
                     group.goesToward = false;
                     // We look at the path end
@@ -151,7 +151,7 @@ public class MenuPlanet : MonoBehaviour {
                 group.translatingObject.transform.position = Vector3.MoveTowards(group.translatingObject.transform.position, group.pathStart.transform.position, step);
 
                 // Check if we reached start
-                if (Vector3.Distance(group.translatingObject.transform.position, group.pathStart.transform.position) <= reachedPointDelta)
+                if ((group.translatingObject.transform.position - group.pathStart.transform.position).sqrMagnitude <= reachedPointDelta*reachedPointDelta)
                 {
                     group.goesToward = true;
                     // We look at the path start

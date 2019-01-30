@@ -240,7 +240,7 @@ public class SpaceshipManager : MonoBehaviour {
         GameObject otherAlly = null;
         foreach (GameObject otherAlliedSpaceship in allySpaceships)
         {
-            if ((otherAlliedSpaceship != referenceAlliedSpaceship) && Vector3.Distance(referenceAlliedSpaceship.transform.position, otherAlliedSpaceship.transform.position) < avoidOtherAlliesDistance)
+            if ((otherAlliedSpaceship != referenceAlliedSpaceship) && (referenceAlliedSpaceship.transform.position - otherAlliedSpaceship.transform.position).sqrMagnitude < avoidOtherAlliesDistance*avoidOtherAlliesDistance)
             {
                 otherAlly = otherAlliedSpaceship;
                 break;
@@ -294,6 +294,15 @@ public class SpaceshipManager : MonoBehaviour {
     {
         currentMaxFleetPoints = fPoints;
         UpdateFleetPointsInfo();
+    }
+
+    public void NewWaveActions()
+    {
+        if(allySpaceships.Count < 1)
+        {
+            SpawnSpaceshipOfType(GetSpaceshipTypeByIndex(1));
+            EventsManager.instance.StartFreeSpaceshipPanelAnimation();
+        }
     }
 
     [Serializable]

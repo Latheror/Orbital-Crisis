@@ -5,9 +5,11 @@ using UnityEngine;
 public class EnemySpaceship : Spaceship {
 
     public float artifactLootProbability = .5f;
+    public bool isBeingCollected = false;
+    public bool isBeingTargetedByCollector = false;
 
-	// Use this for initialization
-	void Start () {
+    // Use this for initialization
+    void Start () {
         isAlly = false;
         isActivated = true;
         target = null;
@@ -34,10 +36,10 @@ public class EnemySpaceship : Spaceship {
 
             foreach (GameObject alliedSpaceship in SpaceshipManager.instance.allySpaceships)
             {
-                float dist = Vector3.Distance(transform.position, alliedSpaceship.transform.position);
-                if ((dist < minDist) && (alliedSpaceship.GetComponent<Spaceship>().isActivated))
+                float dist_squared = (transform.position - alliedSpaceship.transform.position).sqrMagnitude;
+                if ((dist_squared < minDist) && (alliedSpaceship.GetComponent<Spaceship>().isActivated))
                 {
-                    minDist = dist;
+                    minDist = dist_squared;
                     closestTarget = alliedSpaceship;
                 }
             }
@@ -144,7 +146,9 @@ public class EnemySpaceship : Spaceship {
             // Add artifacts points
             RewardArtifacts();
 
+            //Debug.Log("EnemySpaceship | Remove wreck from list");
             EnemiesManager.instance.enemyWrecks.Remove(gameObject);
+            //Debug.Log("EnemySpaceship | Destroy");
             Destroy(gameObject);
         }
         else

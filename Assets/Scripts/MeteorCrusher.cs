@@ -240,9 +240,9 @@ public class MeteorCrusher : Turret
             target_1.transform.position = Vector3.MoveTowards(target_1.transform.position, target_2.transform.position, step);
             target_2.transform.position = Vector3.MoveTowards(target_2.transform.position, target_1.transform.position, step);
 
-            float distance = Vector3.Distance(target_1.transform.position, target_2.transform.position);
+            float distance_squared = (target_1.transform.position - target_2.transform.position).sqrMagnitude;
             //Debug.Log("Distance: " + distance);
-            if (distance < 10f)
+            if (distance_squared < 100f)
             {
                 target_1.GetComponent<Meteor>().TakeDamage(200);
                 target_2.GetComponent<Meteor>().TakeDamage(200);

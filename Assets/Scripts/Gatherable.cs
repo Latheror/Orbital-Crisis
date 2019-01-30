@@ -19,7 +19,7 @@ public class Gatherable : MonoBehaviour {
 
     public void Remove()
     {
-        Destroy(this.gameObject);
+        Destroy(gameObject);
     }
 
     public void ActOnSpaceship(Spaceship spaceship)

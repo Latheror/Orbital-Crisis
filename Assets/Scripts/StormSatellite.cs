@@ -104,11 +104,11 @@ public class StormSatellite : Building {
 
         foreach (GameObject meteor in MeteorsManager.instance.meteorsList)
         {
-            float dist = Vector3.Distance(reference.transform.position, meteor.transform.position);
-            if (dist < minDist && dist < range && !IsTargetAlreadyPresentInList(meteor))
+            float dist_squared = (reference.transform.position - meteor.transform.position).sqrMagnitude;
+            if (dist_squared < minDist && dist_squared < range*range && !IsTargetAlreadyPresentInList(meteor))
             {
                 closestTarget = meteor;
-                minDist = dist;
+                minDist = dist_squared;
             }
         }
 

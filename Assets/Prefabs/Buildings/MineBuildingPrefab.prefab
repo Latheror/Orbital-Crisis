@@ -141,7 +141,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4960678855071394}
-  - component: {fileID: 95095980007834470}
   m_Layer: 0
   m_Name: mine_1
   m_TagString: Untagged
@@ -186,7 +185,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1979131619262976}
   m_LocalRotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: -0, y: -0.2085852, z: 0.000000009117548}
+  m_LocalPosition: {x: 0, y: -1.74, z: 0.000000009117548}
   m_LocalScale: {x: 1, y: 1, z: 1.2602012}
   m_Children: []
   m_Father: {fileID: 4960678855071394}
@@ -199,7 +198,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1895668203335350}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -46.706795, y: -31.714993, z: 163.4}
+  m_LocalPosition: {x: 0, y: 31, z: -87}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4960678855071394}
@@ -252,7 +251,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1861870819095986}
   m_LocalRotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: 0.07055456, y: 2.9151585, z: 1.3749354}
+  m_LocalPosition: {x: 0.07055456, y: 2.9151585, z: 1.374935}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4960678855071394}
@@ -652,24 +651,6 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 31.128342, y: 20, z: 20}
   m_Center: {x: 11.128338, y: 0, z: 0}
---- !u!95 &95095980007834470
-Animator:
-  serializedVersion: 3
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1956039060072384}
-  m_Enabled: 1
-  m_Avatar: {fileID: 9000000, guid: 16eab4571b87da546a2bb95937b9ee9c, type: 3}
-  m_Controller: {fileID: 9100000, guid: 6232b733b48cd0c40ac8732fdbdc089d, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!95 &95883597264301672
 Animator:
   serializedVersion: 3
@@ -714,27 +695,28 @@ MonoBehaviour:
     upgradeCosts: []
     hasRange: 0
     producesEnergy: 0
+    isUnique: 0
   buildingName: 
   buildingColor: {r: 0, g: 0, b: 0, a: 0}
   buildingPrefab: {fileID: 0}
   buildingPrice: []
-  alocatedEnergy: 0
-  hasEnoughEnergy: 0
+  tags: []
+  buildingSpot: {fileID: 0}
   buildingSpotAngleDeg: 0
   buildingSpotAngleRad: 0
-  currentTier: 0
-  rangeCircle: {fileID: 0}
-  rangeIndicator: {fileID: 0}
-  rangeIndicatorStart: {fileID: 0}
   range: 0
   hasAngleRange: 0
   angleRange: 0
   rangeIndicatorNbPoints: 0
+  rangeCircle: {fileID: 0}
+  rangeIndicator: {fileID: 0}
+  rangeIndicatorStart: {fileID: 0}
   energyConsumption: 15
-  buildingSpot: {fileID: 0}
-  tags: []
-  maxUpgradeLevelReached: 0
   powerOn: 1
+  alocatedEnergy: 0
+  hasEnoughEnergy: 0
+  currentTier: 0
+  maxUpgradeLevelReached: 0
   buildingLocationType: 0
   production: []
   productionDelay: 2

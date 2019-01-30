@@ -11,6 +11,7 @@ public class Debris : MonoBehaviour {
     public int resourcesToGatherPerUnitOfSize = 10;
     public int resourcesToGather = 0;
     public bool isBeingCollected = false;
+    public bool isBeingTargetedByCollector = false;
 
 	// Use this for initialization
 	void Start () {

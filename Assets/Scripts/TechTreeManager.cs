@@ -99,8 +99,8 @@ public class TechTreeManager : MonoBehaviour
         Technology missileTurretTechno = new Technology(1, "Missile Turret", 300, true, false, new List<Technology>(), "", missileTurretTechnoItem, 2, 0, 0, false, 0, false, 0, null, 0);
         Technology freezingTurretTechno = new Technology(2, "Freezing Turret", 1000, false, false, new List<Technology>(), "", freezingTurretTechnoItem, 3, 0, 0, false, 0, false, 0, null, 0);
         Technology healingTurretTechno = new Technology(3, "Healing Turret", 2500, false, false, new List<Technology>(), "", healingTurretTechnoItem, 9, 0, 0, false, 0, false, 0, null, 0);
-        Technology shockSatelliteTechno = new Technology(4, "Shock Satellite", 400, true, false, new List<Technology>(), "", shockSatelliteTechnoItem, 6, 0, 0, false, 0, false, 0, null, 0);
-        Technology stormSatelliteTechno = new Technology(5, "Storm Satellite", 1200, false, false, new List<Technology>(), "", stormSatelliteTechnoItem, 11, 0, 0, false, 0, false, 0, null, 0);
+        Technology shockSatelliteTechno = new Technology(4, "Shock Satellite", 600, true, false, new List<Technology>(), "", shockSatelliteTechnoItem, 6, 0, 0, false, 0, false, 0, null, 0);
+        Technology stormSatelliteTechno = new Technology(5, "Storm Satellite", 2400, false, false, new List<Technology>(), "", stormSatelliteTechnoItem, 11, 0, 0, false, 0, false, 0, null, 0);
         Technology meteorCrusherTechno = new Technology(6, "Meteor Crusher", 4000, false, false, new List<Technology>(), "", meteorCrusherTechnoItem, 12, 0, 0, false, 0, false, 0, null, 0);
         Technology solarStationTechno = new Technology(7, "Solar Station", 1000, false, false, new List<Technology>(), "", solarStationTechnoItem, 8, 0, 0, false, 0, false, 0, null, 0);
         Technology spaceportTechno = new Technology(8, "Spaceport", 3500, false, false, new List<Technology>(), "", spaceportTechnoItem, 10, 0, 0, false, 0, false, 0, null, 0);

@@ -150,6 +150,7 @@ public class LevelManager : MonoBehaviour {
 
             LaunchNewWave();
             GatherablesManager.instance.NewWaveActions(currentLevelNumber);
+            SpaceshipManager.instance.NewWaveActions(); // Spawns a free spaceship if we got none
 
             if (OptionsManager.instance.IsTimerOptionEnabled())
             {

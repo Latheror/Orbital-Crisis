@@ -9,6 +9,8 @@ public class MegaCollector : MonoBehaviour {
     {
         if (instance != null) { Debug.LogError("More than one MegaCollector in scene !"); return; }
         instance = this;
+
+        InvokeRepeating("UpdateCollectTargets", 0f, 0.5f);
     }
 
     [Header("Settings")]
@@ -36,23 +38,17 @@ public class MegaCollector : MonoBehaviour {
     public float power;
     public float energyConsumption;
     public bool hasEnoughEnergy;
-    public bool isActivated;
+    //public bool isActivated;
 
     public int currentCollectionPointNb = 1;
     public float currentCollectionSpeed = 1;
 
     void Start()
     {
-        // TEMP
-        BuildCollectionPoints();
-
-        //Initialize();
-
-        InvokeRepeating("UpdateCollectTargets", 0f, 0.5f);
 
     }
 
-    private void FixedUpdate()
+    private void Update()
     {
         Collect();
     }
@@ -61,6 +57,8 @@ public class MegaCollector : MonoBehaviour {
     {
         currentCollectionPointNb = startCollectionPointNb;
         currentCollectionSpeed = startCollectionSpeed;
+
+        BuildCollectionPoints();
 
         ActivateCollectionPoints();
         CalculateEnergyConsumption();
@@ -71,25 +69,40 @@ public class MegaCollector : MonoBehaviour {
 
     public void BuildCollectionPoints()
     {
-        float stepAngle = (2 * Mathf.PI / collectionStructuresNb);
-        //Debug.Log("BuildCollectionPoints | Nb [" + collectionStructuresNb + "] | StepAngle [" + stepAngle + "]");
-        for (int i = 0; i < collectionStructuresNb; i++)
+        if(! collectionPointsBuilt)
         {
-            float angle = stepAngle * i;
-            float angleDeg = angle * 180 / Mathf.PI;
-            Vector3 pos = transform.position + new Vector3(collectionPointsDistance * Mathf.Cos(angle), collectionPointsDistance * Mathf.Sin(angle), 0f);
-            GameObject instantiatedCollectionPoint = Instantiate(collectionPointPrefab, pos, Quaternion.Euler(0f, 0f, angleDeg));
-            instantiatedCollectionPoint.GetComponent<CollectionPoint>().collectionPointIndex = (i + 1);
-            instantiatedCollectionPoint.transform.SetParent(transform);
-            collectionPoints.Add(instantiatedCollectionPoint);
-        }
+            //DestroyCollectionPoints();
 
-        collectionPointsBuilt = true;
+            float stepAngle = (2 * Mathf.PI / collectionStructuresNb);
+            //Debug.Log("BuildCollectionPoints | Nb [" + collectionStructuresNb + "] | StepAngle [" + stepAngle + "]");
+            for (int i = 0; i < collectionStructuresNb; i++)
+            {
+                float angle = stepAngle * i;
+                float angleDeg = angle * 180 / Mathf.PI;
+                Vector3 pos = transform.position + new Vector3(collectionPointsDistance * Mathf.Cos(angle), collectionPointsDistance * Mathf.Sin(angle), 0f);
+                GameObject instantiatedCollectionPoint = Instantiate(collectionPointPrefab, pos, Quaternion.Euler(0f, 0f, angleDeg));
+                instantiatedCollectionPoint.GetComponent<CollectionPoint>().collectionPointIndex = (i + 1);
+                instantiatedCollectionPoint.transform.SetParent(transform);
+                collectionPoints.Add(instantiatedCollectionPoint);
+            }
+
+            collectionPointsBuilt = true;
+            Debug.Log("MegaCollector | CollectionPointsBuilt | Number [" + collectionPoints.Count + "]");
+        }
+    }
+
+    public void DestroyCollectionPoints()
+    {
+        foreach (GameObject collectionPoint in collectionPoints)
+        {
+            Destroy(collectionPoint);
+            collectionPoints = new List<GameObject>();
+        }
     }
 
     public void UpdateCollectTargets()
     {
-        if(isActivated && hasEnoughEnergy)
+        if(isUnlocked && hasEnoughEnergy)
         {
             //Debug.Log("UpdateCollectTargets");
             foreach (GameObject collectionPoint in collectionPoints)
@@ -102,7 +115,8 @@ public class MegaCollector : MonoBehaviour {
 
     public void Collect()
     {
-        if(isActivated && hasEnoughEnergy)
+        //Debug.Log("MegaCollector | Collect");
+        if(isUnlocked && hasEnoughEnergy)
         {
             foreach (GameObject collectionPoint in collectionPoints)
             {
@@ -125,10 +139,12 @@ public class MegaCollector : MonoBehaviour {
         {
             currentCollectionSpeed = collectionSpeed;
             currentCollectionPointNb = collectionPointNb;
-            ActivateCollectionPoints();
+
             CalculateEnergyConsumption();
 
             UpdateControlPanel();
+
+            ActivateCollectionPoints();
         }
         else
         {
@@ -150,7 +166,8 @@ public class MegaCollector : MonoBehaviour {
     public void ActivateCollectionPoints()
     {
         int collectionPointsToActivate = currentCollectionPointNb;
-        for(int i = 0; i < collectionPoints.Count; i++)
+        Debug.Log("ActivateCollectionPoints | CollectionPointsToActivate [" + collectionPointsToActivate + "] | CollectionPoints Count [" + collectionPoints.Count + "]");
+        for (int i = 0; i < collectionPoints.Count; i++)
         {
             if(i < collectionPointsToActivate)
             {
@@ -163,6 +180,22 @@ public class MegaCollector : MonoBehaviour {
         }
     }
 
+    public void SetHasEnoughEnergy(bool enough)
+    {
+        hasEnoughEnergy = enough;
+        if(!hasEnoughEnergy)
+        {
+            ReleaseAllTargets();
+        }
+    }
+
+    public void ReleaseAllTargets()
+    {
+        foreach (GameObject cPoint in collectionPoints)
+        {
+            cPoint.GetComponent<CollectionPoint>().ReleaseTarget();
+        }
+    }
 
 
 }

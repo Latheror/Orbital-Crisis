@@ -56,7 +56,6 @@ public class Cruiser : AllySpaceship
         }
     }
 
-
     IEnumerator StartMissileCoolDown(float cooldown)
     {
         while(cooldown > 0f)
@@ -66,5 +65,4 @@ public class Cruiser : AllySpaceship
         }
         missileCooldownReached = true;
     }
-
 }

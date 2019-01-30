@@ -31,7 +31,7 @@ public class AllySpaceship : Spaceship {
     }
 
     // Update is called once per frame
-    void FixedUpdate () {
+    void Update () {
         if (GameManager.instance.gameState == GameManager.GameState.Default)
         {
             UpdateTarget();
@@ -64,11 +64,11 @@ public class AllySpaceship : Spaceship {
                     maxPriorityFound = priority;
                     foreach (GameObject meteor in meteors)      
                     {
-                        float distanceToEnemy = Vector3.Distance(transform.position, meteor.transform.position);
+                        float distanceToEnemy_squared = (transform.position - meteor.transform.position).sqrMagnitude;
                         //Debug.Log("Meteor found - Distance is : " + distanceToEnemy);
-                        if (distanceToEnemy < shortestDistance)
+                        if (distanceToEnemy_squared < shortestDistance)
                         {
-                            shortestDistance = distanceToEnemy;
+                            shortestDistance = distanceToEnemy_squared;
                             nearestEnemy = meteor;
                         }
                     }
@@ -86,10 +86,10 @@ public class AllySpaceship : Spaceship {
                     nearestEnemy = null;
                     foreach (GameObject enemy in enemies)       
                     {
-                        float distanceToEnemy = Vector3.Distance(transform.position, enemy.transform.position);
-                        if (distanceToEnemy < shortestDistance /* Temporary */ && enemy.GetComponent<Spaceship>().isActivated)
+                        float distanceToEnemy_squared = (transform.position - enemy.transform.position).sqrMagnitude;
+                        if (distanceToEnemy_squared < shortestDistance /* Temporary */ && enemy.GetComponent<Spaceship>().isActivated)
                         {
-                            shortestDistance = distanceToEnemy;
+                            shortestDistance = distanceToEnemy_squared;
                             nearestEnemy = enemy;
                         }
                     }

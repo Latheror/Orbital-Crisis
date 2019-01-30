@@ -163,7 +163,8 @@ public class MegaStructureManager : MonoBehaviour {
 
     public void UnlockMegaStructureActions(int megaStructureIndex)
     {
-        if(megaStructureIndex == 16)
+        //Debug.Log("UnlockMegaStructureActions | Index [" + megaStructureIndex + "]");
+        if (megaStructureIndex == 16)
         {
             // Enable Shield itself
             planetaryShield.SetActive(true);
@@ -205,7 +206,7 @@ public class MegaStructureManager : MonoBehaviour {
         else
         if (megaStructureIndex == 24)
         {
-            // Enable MegaCollector itself
+            // Enable Dyson Sphere itself
             dysonSphere.SetActive(true);
             DysonSphere.instance.isUnlocked = true;
 
@@ -240,16 +241,27 @@ public class MegaStructureManager : MonoBehaviour {
         Debug.Log("SetupSavedMegaStructuresData | PlanetaryShield unlocked [" + ps.isUnlocked + "] | MegaCollector unlocked [" + mc.isUnlocked + "] | DysonSphere unlocked [" + ds.isUnlocked + "]");
 
         ps.isUnlocked = megaStructuresData.shieldUnlocked;
-        if(ps.isUnlocked)
+        if (ps.isUnlocked)
+        {
+            //ps.Initialize();
             ps.ReceiveSettings(megaStructuresData.shieldRadius, megaStructuresData.shieldPower, PlanetaryShield.ViewMode.Full);
+        }
 
         mc.isUnlocked = megaStructuresData.collectorUnlocked;
         if(mc.isUnlocked)
+        {
+            //mc.Initialize();
+            mc.BuildCollectionPoints();
             mc.Configure(megaStructuresData.collectionSpeed, megaStructuresData.collectionPointsNb);
+        }
+            
 
         ds.isUnlocked = megaStructuresData.dysonSphereUnlocked;
         if(ds.isUnlocked)
+        {
+            //ds.Initialize();
             ds.Configure(megaStructuresData.dysonSphereStructurePoints, megaStructuresData.dysonSphereAutoRepair);
+        }
     }
 
     [System.Serializable]

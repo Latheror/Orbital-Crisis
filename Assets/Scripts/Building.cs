@@ -40,6 +40,9 @@ public class Building : MonoBehaviour {
     public enum BuildingLocationType {Planet, Disks};
     public BuildingLocationType buildingLocationType;
 
+    [Header("UI")]
+    public GameObject powerMissingCanvas;
+
     public Building(){}
 
     private void Start()
@@ -287,6 +290,15 @@ public class Building : MonoBehaviour {
         Debug.Log("Switch power to: " + ((powerOn)?"On":"Off"));
         EnergyPanel.instance.UpdateEnergyProductionAndConsumption();
         BuildingInfoPanel.instance.SetInfo();
+    }
+
+    public virtual void SetHasEnoughEnergy(bool enough)
+    {
+        hasEnoughEnergy = enough;
+        if(powerMissingCanvas != null)
+        {
+            powerMissingCanvas.SetActive(! enough);
+        }
     }
 
     public class BuildingStat

@@ -454,29 +454,31 @@ MonoBehaviour:
     upgradeCosts: []
     hasRange: 0
     producesEnergy: 0
+    isUnique: 0
   buildingName: 
   buildingColor: {r: 0, g: 1, b: 0.049153566, a: 1}
   buildingPrefab: {fileID: 0}
   buildingPrice: []
-  alocatedEnergy: 0
-  hasEnoughEnergy: 0
+  tags: []
+  buildingSpot: {fileID: 0}
   buildingSpotAngleDeg: 0
   buildingSpotAngleRad: 0
-  currentTier: 0
-  rangeCircle: {fileID: 0}
-  rangeIndicator: {fileID: 1364764479461958}
-  rangeIndicatorStart: {fileID: 1046696309060104}
   range: 100
   hasAngleRange: 1
   angleRange: 3
   rangeIndicatorNbPoints: 10
+  rangeCircle: {fileID: 0}
+  rangeIndicator: {fileID: 1364764479461958}
+  rangeIndicatorStart: {fileID: 1046696309060104}
   energyConsumption: 15
-  buildingSpot: {fileID: 0}
-  tags: []
-  maxUpgradeLevelReached: 0
   powerOn: 1
+  alocatedEnergy: 0
+  hasEnoughEnergy: 0
+  currentTier: 0
+  maxUpgradeLevelReached: 0
   buildingLocationType: 0
   offensiveTurret: 0
+  targetStrategy: 1
   previousTarget: {fileID: 0}
   target: {fileID: 0}
   meteorTag: 
@@ -487,8 +489,10 @@ MonoBehaviour:
   turretHead: {fileID: 1960681482417088}
   shootingPoint: {fileID: 1088364696601230}
   healingPower_tier_2: 2
+  energyConsumption_tier_2: 30
   range_tier_2: 150
   healingPower_tier_3: 3
+  energyConsumption_tier_3: 60
   range_tier_3: 200
 --- !u!114 &114320166412634624
 MonoBehaviour:

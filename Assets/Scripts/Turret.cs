@@ -2,10 +2,14 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Turret : Building {
+public class Turret : Building
+{
+
+    public enum TargetStrategy { closest, lessHealth };
 
     [Header("General")]
     public bool offensiveTurret = true;
+    public TargetStrategy targetStrategy = TargetStrategy.closest;
 
     [Header("Target")]
     public GameObject previousTarget;
@@ -33,60 +37,56 @@ public class Turret : Building {
             target = null;
             if (hasEnoughEnergy)
             {
-                if (offensiveTurret) // Attack turret
+                //Debug.Log("Laser Turret | Update target");
+                GameObject chosenTarget = null;
+
+                switch (targetStrategy)
                 {
-                    //Debug.Log("Laser Turret | Update target");
-                    List<GameObject> meteors = MeteorsManager.instance.meteorsList;
-                    float shortestDistance = Mathf.Infinity;
-                    GameObject nearestEnemy = null;
-
-                    foreach (GameObject meteor in meteors)
+                    case TargetStrategy.closest:  // Meteors
                     {
-                        float distanceToEnemy = Vector3.Distance(transform.position, meteor.transform.position);
-                        //Debug.Log("Meteor found - Distance is : " + distanceToEnemy);
-                        if (distanceToEnemy < shortestDistance && CanReachTarget(meteor))
+                        float shortestDistance_squared = Mathf.Infinity;
+                        List<GameObject> meteors = MeteorsManager.instance.meteorsList;
+                        foreach (GameObject meteor in meteors)
                         {
-                            shortestDistance = distanceToEnemy;
-                            nearestEnemy = meteor;
+                            float distanceToEnemy_squared = (transform.position - meteor.transform.position).sqrMagnitude;
+                            //Debug.Log("Meteor found - Distance is : " + distanceToEnemy);
+                            if (distanceToEnemy_squared < shortestDistance_squared && CanReachTarget(meteor))
+                            {
+                                shortestDistance_squared = distanceToEnemy_squared;
+                                chosenTarget = meteor;
+                            }
                         }
+                        break;
                     }
-
-                    if (nearestEnemy != null)
+                    case TargetStrategy.lessHealth: // Spaceships
                     {
-                        target = nearestEnemy;
-
-                        if (previousTarget != null && target != previousTarget)
+                        float lowestHealth = Mathf.Infinity;
+                        foreach (GameObject allySpaceship in SpaceshipManager.instance.allySpaceships)
                         {
-                            previousTarget.GetComponent<Meteor>().ResetMeteorSettings();
-                            previousTarget = target;
+                            //float distanceToEnemy = Vector3.Distance(transform.position, allySpaceship.transform.position);
+                            float currentAllyHealth = allySpaceship.GetComponent<AllySpaceship>().healthPoints;
+                            //Debug.Log("Meteor found - Distance is : " + distanceToEnemy);
+                            if (currentAllyHealth < lowestHealth && CanReachTarget(allySpaceship))
+                            {
+                                lowestHealth = currentAllyHealth;
+                                chosenTarget = allySpaceship;
+                            }
                         }
-                        //Debug.Log("New meteor target set: " + target + " - Distance is: " + shortestDistance);
+                        break;
                     }
                 }
-                else    // Support turret (healing, ...)
+
+                if (chosenTarget != null)
                 {
-                    List<GameObject> allieds = SpaceshipManager.instance.allySpaceships;
-                    float shortestDistance = Mathf.Infinity;
-                    GameObject nearestAlly = null;
+                    target = chosenTarget;
 
-                    foreach (GameObject ally in allieds)
+                    if (previousTarget != null && target != previousTarget)
                     {
-                        float distanceToAlly = Vector3.Distance(transform.position, ally.transform.position);
-                        if (distanceToAlly < shortestDistance && CanReachTarget(ally))
+                        if(previousTarget.GetComponent<Meteor>() != null )
                         {
-                            shortestDistance = distanceToAlly;
-                            nearestAlly = ally;
+                            previousTarget.GetComponent<Meteor>().ResetMeteorSettings();
                         }
-                    }
-
-                    if (nearestAlly != null)
-                    {
-                        if (target != previousTarget)
-                        {
-                            previousTarget = target;
-                        }
-                        target = nearestAlly;
-                        //Debug.Log("New allied target set: " + target + " - Distance is: " + shortestDistance);
+                        previousTarget = target;
                     }
                 }
             }
@@ -144,7 +144,7 @@ public class Turret : Building {
     public void HealTarget()
     {
         Debug.Log("Healing ally.");
-        if(!offensiveTurret)
+        if (!offensiveTurret && target.GetComponent<Spaceship>() != null)
         {
             target.GetComponent<Spaceship>().Heal(healingPower);
         }
@@ -156,7 +156,7 @@ public class Turret : Building {
 
     protected void RotateCanonTowardsTarget()
     {
-        if(target != null)
+        if (target != null)
         {
             float canonX = turretHead.transform.position.x;
             float targetX = target.transform.position.x;

@@ -103,20 +103,20 @@ public class EnergyPanel : MonoBehaviour {
                 {
                     // We don't have enough energy to satisfy this building's needs
                     b.alocatedEnergy = totalEnergyToDistribute;
-                    b.hasEnoughEnergy = false;
+                    b.SetHasEnoughEnergy(false);
                     totalEnergyToDistribute = 0;
                 }
                 else
                 {
                     b.alocatedEnergy = b.energyConsumption;
-                    b.hasEnoughEnergy = true;
+                    b.SetHasEnoughEnergy(true);
                     totalEnergyToDistribute -= b.energyConsumption;
                 }
             }
             else
             {
                 b.alocatedEnergy = 0;
-                b.hasEnoughEnergy = false;
+                b.SetHasEnoughEnergy(false);
             }
         }
 
@@ -140,12 +140,12 @@ public class EnergyPanel : MonoBehaviour {
         {
             if (totalEnergyToDistribute > MegaCollector.instance.energyConsumption && (MegaCollector.instance.energyConsumption != 0))
             {
-                MegaCollector.instance.hasEnoughEnergy = true;
+                MegaCollector.instance.SetHasEnoughEnergy(true);
                 totalEnergyToDistribute -= MegaCollector.instance.energyConsumption;
             }
             else
             {
-                MegaCollector.instance.hasEnoughEnergy = false;
+                MegaCollector.instance.SetHasEnoughEnergy(false);
             }
         }
     }

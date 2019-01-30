@@ -82,14 +82,14 @@ public class Spaceship : MonoBehaviour {
         bool isInRange = false;
         if(target != null)
         {
-            isInRange = (Vector3.Distance(transform.position, target.transform.position) <= attackDistance);
+            isInRange = ((transform.position - target.transform.position).sqrMagnitude <= attackDistance * attackDistance);
         }
         return isInRange; 
     }
 
     public bool IsTargetInRangeWithDelta()
     {
-        return (Vector3.Distance(transform.position, target.transform.position) <= attackDistance * 2);
+        return ((transform.position - target.transform.position).sqrMagnitude <= attackDistance * attackDistance * 2);
     }
 
     public void RotateTowardsTarget()
@@ -358,7 +358,7 @@ public class Spaceship : MonoBehaviour {
 
     public bool IsCloseEnoughToDestination()
     {
-        return (Vector3.Distance(transform.position, manualDestination) < manualDestinationDelta);
+        return ((transform.position - manualDestination).sqrMagnitude < manualDestinationDelta * manualDestinationDelta);
     }
 
     public void InfoPanelCloseButtonActions()

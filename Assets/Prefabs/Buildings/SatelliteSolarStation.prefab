@@ -881,24 +881,24 @@ MonoBehaviour:
   buildingColor: {r: 0, g: 0, b: 0, a: 0}
   buildingPrefab: {fileID: 0}
   buildingPrice: []
-  alocatedEnergy: 0
-  hasEnoughEnergy: 0
+  tags: []
+  buildingSpot: {fileID: 0}
   buildingSpotAngleDeg: 0
   buildingSpotAngleRad: 0
-  currentTier: 0
-  rangeCircle: {fileID: 0}
-  rangeIndicator: {fileID: 0}
-  rangeIndicatorStart: {fileID: 0}
   range: 0
   hasAngleRange: 0
   angleRange: 0
   rangeIndicatorNbPoints: 0
+  rangeCircle: {fileID: 0}
+  rangeIndicator: {fileID: 0}
+  rangeIndicatorStart: {fileID: 0}
   energyConsumption: 0
-  buildingSpot: {fileID: 0}
-  tags: []
-  maxUpgradeLevelReached: 0
   powerOn: 1
+  alocatedEnergy: 0
+  hasEnoughEnergy: 0
+  currentTier: 0
+  maxUpgradeLevelReached: 0
   buildingLocationType: 1
   energyProduction: 75
   energyProduction_tier_2: 120
-  energyProduction_tier_3: 175
+  energyProduction_tier_3: 200

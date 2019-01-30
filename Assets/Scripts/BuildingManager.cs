@@ -41,6 +41,12 @@ public class BuildingManager : MonoBehaviour {
     public GameObject stormSatellitePrefab;
     public GameObject meteorCrusherPrefab;
 
+    [Header("Other Prefabs")]
+    public GameObject powerMissingIndicatorPrefab;
+
+    [Header("UI")]
+    public float powerMissingIndicatorPlacementDistance = 20f;
+
     public void SetAvailableBuildings()
     {
         availableBuildings.Add(new BuildingType(1, "Laser Turret", laserTurretPrefab, 25f,
@@ -247,8 +253,8 @@ public class BuildingManager : MonoBehaviour {
 
                     }),
                     new ResourcesManager.UpgradeCost(3, new List<ResourcesManager.ResourceAmount>(){
-                       new ResourcesManager.ResourceAmount("composite", 50),
-                       new ResourcesManager.ResourceAmount("electronics", 50)
+                       new ResourcesManager.ResourceAmount("composite", 100),
+                       new ResourcesManager.ResourceAmount("electronics", 100)
                     })                },
                 false, true,
                 new List<Building.BuildingStat>()
@@ -580,9 +586,6 @@ public class BuildingManager : MonoBehaviour {
             instantiatedBuilding.transform.SetParent(chosenBuildingSlot.transform);
             //Debug.Log("New building instantiated !");
 
-            // Distribute the available energy across all buildings
-            EnergyPanel.instance.UpdateEnergyProductionAndConsumption();
-
             // Building type lists
             if (selectedBuilding.name == "Recycling Station")
             {
@@ -592,7 +595,26 @@ public class BuildingManager : MonoBehaviour {
             {
                 InfrastructureManager.instance.SetSpaceport(instantiatedBuilding);
             }
+
+            // Add Info Canvas on building
+            AddInfoCanvasOnBuilding(instantiatedBuilding);
+
+            // Distribute the available energy across all buildings
+            EnergyPanel.instance.UpdateEnergyProductionAndConsumption();
         }
+    }
+
+    public void AddInfoCanvasOnBuilding(GameObject buildingGO)
+    {
+        Building b = buildingGO.GetComponent<Building>();
+        float constructionAngle = b.buildingSpotAngleRad/* + 45*/;
+        Debug.Log("AddInfoCanvasOnBuilding | ConstructionAngle [" + constructionAngle + "]");
+        Vector3 pos = buildingGO.transform.position + new Vector3(Mathf.Cos(constructionAngle) * powerMissingIndicatorPlacementDistance, Mathf.Sin(constructionAngle) * powerMissingIndicatorPlacementDistance, 0);
+
+        GameObject instantiatedInfoCanvas = Instantiate(powerMissingIndicatorPrefab, pos, Quaternion.identity);
+        instantiatedInfoCanvas.transform.SetParent(buildingGO.transform, true);
+
+        buildingGO.GetComponent<Building>().powerMissingCanvas = instantiatedInfoCanvas;
     }
 
     public void DeselectSelectedBuildingSlot()

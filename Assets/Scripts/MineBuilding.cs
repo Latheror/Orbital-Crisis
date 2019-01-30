@@ -72,7 +72,7 @@ public class MineBuilding : Building {
             }
             else
             {
-                Debug.Log("Mine can't produce, energy requirement isn't met !");
+                //Debug.Log("Mine can't produce, energy requirement isn't met !");
             }
         }
     }
@@ -87,6 +87,30 @@ public class MineBuilding : Building {
     public void SetCoolDownElapsed(bool elapsed)
     {
         productionCooldownElapsed = elapsed;
+    }
+
+    public override void SetHasEnoughEnergy(bool enough)
+    {
+        //Debug.Log("MiningFacility | SetHasEnoughEnergy [" + enough + "]");
+        hasEnoughEnergy = enough;
+        if (powerMissingCanvas != null)
+        {
+            powerMissingCanvas.SetActive(!enough);
+        }
+        StartStopMiningAnimation();
+    }
+
+    public void StartStopMiningAnimation()  // TODO: Include level state
+    {
+        Animator animator = GetComponent<Animator>();
+        if (hasEnoughEnergy && powerOn)
+        {
+            animator.SetTrigger("StartProduction");
+        }
+        else
+        {
+            animator.SetTrigger("StopProduction");
+        }
     }
 
     public override void ApplyCurrentTierSettings()

@@ -21,7 +21,6 @@ public class DebrisCollector : MonoBehaviour {
     // Use this for initialization
     void Start () {
         InvokeRepeating("UpdateTarget", 0f, 0.2f);
-        debrisIsBeingCollected = false;
         debrisTarget = null;
 	}
 
@@ -33,48 +32,89 @@ public class DebrisCollector : MonoBehaviour {
 
     public void UpdateTarget()
     {
-        if (GameManager.instance.gameState == GameManager.GameState.Default && !debrisIsBeingCollected && homeStation.GetComponent<DebrisCollectorStation>().hasEnoughEnergy)
+        if (GameManager.instance.gameState == GameManager.GameState.Default && homeStation != null && homeStation.GetComponent<DebrisCollectorStation>().hasEnoughEnergy)
         {
-            //Debug.Log("Debris collector | Update Target. No target. | A total of " + DebrisManager.instance.debrisList.Count + " meteors are available.");
-            if (DebrisManager.instance.debrisList.Count > 0 || EnemiesManager.instance.enemyWrecks.Count > 0)
+            if (!debrisIsBeingCollected)
             {
-                float minDistance = Mathf.Infinity;
-                GameObject closestDesbris = null;
-
-                if (DebrisManager.instance.debrisList.Count > 0)
+                bool needNewTarget = false;
+                if (debrisTarget == null)
                 {
-                    foreach (var debris in DebrisManager.instance.debrisList)
-                    {
-                        float distance = Vector3.Distance(transform.position, debris.transform.position);
-                        if (distance < minDistance && !IsTargetAlreadyTaken(debris))
-                        {
-                            minDistance = distance;
-                            closestDesbris = debris;
-                        }
-                    }
+                    needNewTarget = true;
                 }
-                if (EnemiesManager.instance.enemyWrecks.Count > 0)
+                else
                 {
-                    foreach (var wreck in EnemiesManager.instance.enemyWrecks)
+                    // We already have a target
+                    // Check if it's in range of the base
+                    float distToBase_squared = (debrisTarget.transform.position - homeStation.transform.position).sqrMagnitude;
+                    float baseStationRange_squared = Mathf.Pow((homeStation.GetComponent<DebrisCollectorStation>().range),2);
+                    needNewTarget = (distToBase_squared > baseStationRange_squared);
+                }
+
+                if(needNewTarget)    // Get a new target
+                {
+                    //Debug.Log("Debris collector | Update Target. No target. | A total of " + DebrisManager.instance.debrisList.Count + " meteors are available.");
+                    if (DebrisManager.instance.debrisList.Count > 0 || EnemiesManager.instance.enemyWrecks.Count > 0)
                     {
-                        if(wreck != null)
+                        float range = homeStation.GetComponent<DebrisCollectorStation>().range;
+                        float minDistance_squared = Mathf.Infinity;
+                        GameObject closestDesbris = null;
+
+                        if (DebrisManager.instance.debrisList.Count > 0)
                         {
-                            float distance = Vector3.Distance(transform.position, wreck.transform.position);
-                            if (distance < minDistance && !IsTargetAlreadyTaken(wreck))
+                            foreach (var debris in DebrisManager.instance.debrisList)
                             {
-                                minDistance = distance;
-                                closestDesbris = wreck;
+                                float distance_squared = (debris.transform.position - transform.position).sqrMagnitude;
+                                if (distance_squared < minDistance_squared && !IsTargetAlreadyTaken(debris))
+                                {
+                                    minDistance_squared = distance_squared;
+                                    closestDesbris = debris;
+                                }
                             }
                         }
+                        if (EnemiesManager.instance.enemyWrecks.Count > 0)
+                        {
+                            foreach (var wreck in EnemiesManager.instance.enemyWrecks)
+                            {
+                                if (wreck != null)
+                                {
+                                    float distance_squared = (wreck.transform.position - transform.position).sqrMagnitude;
+                                    if (distance_squared < minDistance_squared && !IsTargetAlreadyTaken(wreck))
+                                    {
+                                        minDistance_squared = distance_squared;
+                                        closestDesbris = wreck;
+                                    }
+                                }
+                            }
+                        }
+
+                        if(closestDesbris != null)
+                        {
+                            if (closestDesbris.GetComponent<Debris>() != null)
+                            {
+                                closestDesbris.GetComponent<Debris>().isBeingTargetedByCollector = true;
+                            }
+                            else if (closestDesbris.GetComponent<EnemySpaceship>() != null)
+                            {
+                                closestDesbris.GetComponent<EnemySpaceship>().isBeingTargetedByCollector = true;
+                            }
+
+                            debrisTarget = closestDesbris;
+                            //Debug.Log("New target chosen");
+                        }
+                    }
+                    else
+                    {
+                        //Debug.Log("No target found");
                     }
                 }
-
-                debrisTarget = closestDesbris;
-                //Debug.Log("New target chosen");
             }
             else
             {
-                //Debug.Log("No target found");
+                // Make sure we are not stuck in this state
+                if(debrisTarget == null)
+                {
+                    debrisIsBeingCollected = false;
+                }
             }
         }
     }
@@ -82,17 +122,15 @@ public class DebrisCollector : MonoBehaviour {
     public bool IsTargetAlreadyTaken(GameObject target)
     {
         bool alreadyTaken = false;
-        foreach (GameObject recyclingStation in InfrastructureManager.instance.recyclingStationsList)
+        if(target.GetComponent<Debris>() != null)
         {
-            foreach (GameObject collector in recyclingStation.GetComponent<DebrisCollectorStation>().debrisCollectorsList)
-            {
-                if ((collector != gameObject) && collector.GetComponent<DebrisCollector>().debrisTarget == target)
-                {
-                    alreadyTaken = true;
-                    break;
-                }
-            }
+            alreadyTaken = (target.GetComponent<Debris>().isBeingTargetedByCollector || target.GetComponent<Debris>().isBeingCollected);
         }
+        else if(target.GetComponent<EnemySpaceship>() != null)
+        {
+            alreadyTaken = (target.GetComponent<EnemySpaceship>().isBeingCollected || target.GetComponent<EnemySpaceship>().isBeingTargetedByCollector);
+        }
+
         return alreadyTaken;
     }
 
@@ -101,9 +139,10 @@ public class DebrisCollector : MonoBehaviour {
         if (!debrisIsBeingCollected)
         {
             LineRenderer lineRenderer = gameObject.GetComponent<LineRenderer>();
-            if ((debrisTarget != null) && (GetDistanceBetweenTargetAndHomeStation() < homeStation.GetComponent<DebrisCollectorStation>().range) && homeStation.GetComponent<DebrisCollectorStation>().hasEnoughEnergy)
+            float homeStationRange = homeStation.GetComponent<DebrisCollectorStation>().range;
+            if ((debrisTarget != null) && (GetDistanceSquaredBetweenTargetAndHomeStation() < homeStationRange* homeStationRange) && homeStation.GetComponent<DebrisCollectorStation>().hasEnoughEnergy)
             {
-                if (DistanceToTarget() > operationDistance)
+                if (DistanceSquaredToTarget() > operationDistance*operationDistance)
                 {
                     transform.position = Vector3.MoveTowards(transform.position, debrisTarget.transform.position, Time.deltaTime * movementSpeed);
                     RotateTowardsTarget();
@@ -124,7 +163,8 @@ public class DebrisCollector : MonoBehaviour {
             }
         }
     }
-
+    
+    // -- Use DistanceSquaredToTarget() instead
     public float DistanceToTarget()
     {
         if(debrisTarget != null)
@@ -134,6 +174,19 @@ public class DebrisCollector : MonoBehaviour {
         else
         {
             Debug.Log("Using DistanceToTarget without target...");
+            return 0;
+        }
+    }
+
+    public float DistanceSquaredToTarget()
+    {
+        if (debrisTarget != null)
+        {
+            return (debrisTarget.transform.position - transform.position).sqrMagnitude;
+        }
+        else
+        {
+            Debug.Log("Using DistanceSquaredToTarget without target...");
             return 0;
         }
     }
@@ -181,7 +234,8 @@ public class DebrisCollector : MonoBehaviour {
 
     public void ComeBackAroundStationAndRotate()
     {
-        if(Vector3.Distance(transform.position, transform.parent.transform.position) > operationDistance)
+        // Check if close enough from home station 
+        if((transform.position - homeStation.transform.position).sqrMagnitude > operationDistance * operationDistance)
         {
             ComeBackAroundStation();
             RotateTowardsStation();
@@ -192,6 +246,7 @@ public class DebrisCollector : MonoBehaviour {
         }
     }
 
+    // Use GetDistanceSquaredBetweenTargetAndHomeStation instead
     public float GetDistanceBetweenTargetAndHomeStation()
     {
         float distance = Mathf.Infinity;
@@ -205,6 +260,21 @@ public class DebrisCollector : MonoBehaviour {
         }
 
         return distance;  
+    }
+
+    public float GetDistanceSquaredBetweenTargetAndHomeStation()
+    {
+        float distance = Mathf.Infinity;
+        if (debrisTarget != null && homeStation != null)
+        {
+            distance = (debrisTarget.transform.position - homeStation.transform.position).sqrMagnitude;
+        }
+        else
+        {
+            Debug.Log("Error: Unable to get distance between home station and target, as some of them are not set.");
+        }
+
+        return distance;
     }
 
     public void RotateTowardsTarget()

@@ -66,6 +66,7 @@ public class ScoreManager : MonoBehaviour {
     public void SetPlanetLife(int pLife)
     {
         planetLife = pLife;
+        UpdatePlanetLifeDisplay();
     }
 
     public void IncreaseScore(int delta)

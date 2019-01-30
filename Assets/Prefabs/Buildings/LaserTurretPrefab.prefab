@@ -452,23 +452,23 @@ MonoBehaviour:
   buildingColor: {r: 1, g: 0.49694997, b: 0, a: 1}
   buildingPrefab: {fileID: 0}
   buildingPrice: []
-  alocatedEnergy: 0
-  hasEnoughEnergy: 0
+  tags: []
+  buildingSpot: {fileID: 0}
   buildingSpotAngleDeg: 0
   buildingSpotAngleRad: 0
-  currentTier: 1
-  rangeCircle: {fileID: 0}
-  rangeIndicator: {fileID: 1535285690523978}
-  rangeIndicatorStart: {fileID: 1815979397014920}
-  range: 80
+  range: 100
   hasAngleRange: 1
   angleRange: 3
   rangeIndicatorNbPoints: 20
+  rangeCircle: {fileID: 0}
+  rangeIndicator: {fileID: 1535285690523978}
+  rangeIndicatorStart: {fileID: 1815979397014920}
   energyConsumption: 15
-  buildingSpot: {fileID: 0}
-  tags: []
-  maxUpgradeLevelReached: 0
   powerOn: 1
+  alocatedEnergy: 0
+  hasEnoughEnergy: 0
+  currentTier: 1
+  maxUpgradeLevelReached: 0
   buildingLocationType: 0
   offensiveTurret: 1
   previousTarget: {fileID: 0}
@@ -481,10 +481,10 @@ MonoBehaviour:
   turretHead: {fileID: 1170484623087142}
   shootingPoint: {fileID: 1632271507654466}
   power_tier_2: 3
-  range_tier_2: 100
+  range_tier_2: 120
   energyConsumption_tier_2: 20
   power_tier_3: 5
-  range_tier_3: 120
+  range_tier_3: 140
   energyConsumption_tier_3: 30
 --- !u!114 &114368917767193182
 MonoBehaviour:

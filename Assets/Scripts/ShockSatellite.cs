@@ -45,7 +45,7 @@ public class ShockSatellite : Building {
 
         foreach (var meteor in meteors)
         {
-            if(Vector3.Distance(transform.position, meteor.transform.position) <= range)
+            if((transform.position - meteor.transform.position).sqrMagnitude <= range*range)
             {
                 inRangeMeteors.Add(meteor);
             }
