@@ -189,7 +189,7 @@ public class GeometryManager : MonoBehaviour {
 
     public bool AreObjectsInRange(GameObject obj1, GameObject obj2, float range)
     {
-        return (Vector3.Distance(obj1.transform.position, obj2.transform.position) <= range);
+        return ((obj1.transform.position - obj2.transform.position).sqrMagnitude <= range*range);
     }
 
     public bool SegmentIntersectWithPlanet(Vector3 pos1, Vector3 pos2)
@@ -264,7 +264,7 @@ public class GeometryManager : MonoBehaviour {
 
     public static bool PosWithinPlanetArea(Vector3 pos)
     {
-        return (Vector3.Distance(instance.mainPlanet.transform.position, pos) < instance.planetRadius);
+        return ((instance.mainPlanet.transform.position - pos).sqrMagnitude < instance.planetRadius*instance.planetRadius);
     }
     
     public static bool PosAtSameAngleWithDelta(Vector3 pos1, Vector3 pos2, float delta)

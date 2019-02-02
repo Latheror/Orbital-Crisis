@@ -47,7 +47,14 @@ public class DebrisCollector : MonoBehaviour {
                     // Check if it's in range of the base
                     float distToBase_squared = (debrisTarget.transform.position - homeStation.transform.position).sqrMagnitude;
                     float baseStationRange_squared = Mathf.Pow((homeStation.GetComponent<DebrisCollectorStation>().range),2);
-                    needNewTarget = (distToBase_squared > baseStationRange_squared);
+
+                    bool isInBaseRange = (distToBase_squared <= baseStationRange_squared);
+                   
+                    if(! isInBaseRange)
+                    {
+                        needNewTarget = true;
+                        FreeTargetDebris();
+                    }
                 }
 
                 if(needNewTarget)    // Get a new target
@@ -264,17 +271,17 @@ public class DebrisCollector : MonoBehaviour {
 
     public float GetDistanceSquaredBetweenTargetAndHomeStation()
     {
-        float distance = Mathf.Infinity;
+        float distance_squared = Mathf.Infinity;
         if (debrisTarget != null && homeStation != null)
         {
-            distance = (debrisTarget.transform.position - homeStation.transform.position).sqrMagnitude;
+            distance_squared = (debrisTarget.transform.position - homeStation.transform.position).sqrMagnitude;
         }
         else
         {
             Debug.Log("Error: Unable to get distance between home station and target, as some of them are not set.");
         }
 
-        return distance;
+        return distance_squared;
     }
 
     public void RotateTowardsTarget()
@@ -296,6 +303,24 @@ public class DebrisCollector : MonoBehaviour {
             float rotationStep = rotationSpeed * Time.deltaTime;
             Vector3 newDir = Vector3.RotateTowards(transform.forward, stationDir, rotationStep, 0.0f);
             transform.rotation = Quaternion.LookRotation(newDir);
+        }
+    }
+
+    public void FreeTargetDebris()
+    {
+        if (debrisTarget != null)
+        {
+            if (debrisTarget.GetComponent<Debris>() != null)
+            {
+                debrisTarget.GetComponent<Debris>().isBeingCollected = false;
+                debrisTarget.GetComponent<Debris>().isBeingTargetedByCollector = false;
+            }
+            else if (debrisTarget.GetComponent<EnemySpaceship>() != null)
+            {
+                debrisTarget.GetComponent<EnemySpaceship>().isBeingCollected = false;
+                debrisTarget.GetComponent<EnemySpaceship>().isBeingTargetedByCollector = false;
+            }
+            debrisTarget = null;
         }
     }
 }

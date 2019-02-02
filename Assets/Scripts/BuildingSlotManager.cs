@@ -85,11 +85,11 @@ public class BuildingSlotManager : MonoBehaviour {
 
         foreach (GameObject buildingSlot in groundBuildingSlots)
         {
-            float dist = Vector3.Distance(pos, buildingSlot.transform.position);
+            float dist_squared = (pos - buildingSlot.transform.position).sqrMagnitude;
 
-            if (dist < minDist && !buildingSlot.GetComponent<BuildingSlot>().hasBuilding)
+            if (dist_squared < minDist && !buildingSlot.GetComponent<BuildingSlot>().hasBuilding)
             {
-                minDist = dist;
+                minDist = dist_squared;
                 closestSlot = buildingSlot;
             }
         }

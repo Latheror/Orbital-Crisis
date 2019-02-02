@@ -102,11 +102,11 @@ public class SurroundingAreasManager : MonoBehaviour {
 
         foreach (GameObject buildingSlot in disk.diskBuildingSlots)
         {
-            float dist = Vector3.Distance(pos, buildingSlot.transform.position);
+            float dist_squared = (pos - buildingSlot.transform.position).sqrMagnitude;
 
-            if(dist < minDist && !buildingSlot.GetComponent<BuildingSlot>().hasBuilding)
+            if(dist_squared < minDist && !buildingSlot.GetComponent<BuildingSlot>().hasBuilding)
             {
-                minDist = dist;
+                minDist = dist_squared;
                 closestSlot = buildingSlot;
             }
         }
@@ -123,11 +123,15 @@ public class SurroundingAreasManager : MonoBehaviour {
 
         for (int i = 0; i < unlockedDisksNb; i++)
         {
-            GameObject closestSpotFromDisk = FindClosestDiskBuildingSlot(pos, i);
-            if(closestSpotFromDisk != null && (Vector3.Distance(pos, closestSpotFromDisk.transform.position)) < minDist)
+            GameObject closestSpotFromDisk = FindClosestDiskBuildingSlot(pos, i);         
+            if (closestSpotFromDisk != null)
             {
-                minDist = (Vector3.Distance(pos, closestSpotFromDisk.transform.position));
-                closestSlot = closestSpotFromDisk;
+                float dist_squared = (pos - closestSpotFromDisk.transform.position).sqrMagnitude;
+                if (dist_squared < minDist)
+                {
+                    minDist = dist_squared;
+                    closestSlot = closestSpotFromDisk;
+                }
             }
         }
 

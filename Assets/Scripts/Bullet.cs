@@ -30,7 +30,7 @@ public class Bullet : MonoBehaviour {
                 RotateTowardsTarget();
 
                 // Prevent missiles from being stuck
-                if ((transform.position - target.transform.position).sqrMagnitude < .01f)
+                if ((transform.position - target.transform.position).sqrMagnitude < .1f)
                 {
                     ActOnTarget(target);
                     DestroyBullet();
