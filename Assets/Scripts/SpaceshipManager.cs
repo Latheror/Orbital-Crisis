@@ -57,13 +57,13 @@ public class SpaceshipManager : MonoBehaviour {
                                                                              new ResourcesManager.ResourceAmount("copper", 1200),
                                                                              new ResourcesManager.ResourceAmount("composite", 1000),
                                                                              new ResourcesManager.ResourceAmount("electronics", 800)
-                                                                        }, true, 1, new int[] { 3000, 8000, 19999}));
+                                                                        }, true, 1, new int[] { 3000, 8000, 19999}, 1.25f));
         spaceshipTypes.Add(new SpaceshipType(2, "Cruiser", cruiserPrefab, "cruiser", new List<ResourcesManager.ResourceAmount>(){
                                                                              new ResourcesManager.ResourceAmount("steel", 2500),
                                                                              new ResourcesManager.ResourceAmount("copper", 2000),
                                                                              new ResourcesManager.ResourceAmount("composite", 1200),
                                                                              new ResourcesManager.ResourceAmount("electronics", 1200)
-                                                                        }, true, 3, new int[] { 6000, 16000, 29999 }));
+                                                                        }, true, 3, new int[] { 6000, 16000, 29999 }, 1.25f));
     }
 
     public SpaceshipType GetSpaceshipTypeByName(string name)
@@ -339,8 +339,9 @@ public class SpaceshipManager : MonoBehaviour {
         public int fleetPointsNeeded;
         public int[] levelExperiencePointLimits;
         public Sprite sprite;
+        public float levelUpStatIncreaseFactor;
 
-        public SpaceshipType(int index, string name, GameObject prefab, string imageName, List<ResourcesManager.ResourceAmount> resourceCosts, bool isAlly, int fleetPointsNeeded, int[] levelExperiencePointLimits)
+        public SpaceshipType(int index, string name, GameObject prefab, string imageName, List<ResourcesManager.ResourceAmount> resourceCosts, bool isAlly, int fleetPointsNeeded, int[] levelExperiencePointLimits, float levelUpStatIncreaseFactor)
         {
             this.index = index;
             this.typeName = name;
@@ -350,6 +351,7 @@ public class SpaceshipManager : MonoBehaviour {
             this.fleetPointsNeeded = fleetPointsNeeded;
             this.levelExperiencePointLimits = levelExperiencePointLimits;
             this.sprite = Resources.Load<Sprite>("Images/Spaceships/" + imageName);
+            this.levelUpStatIncreaseFactor = levelUpStatIncreaseFactor;
         }
 
         public void SetAssociatedSpaceshipShopItem(GameObject item)

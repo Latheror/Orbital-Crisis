@@ -143,32 +143,35 @@ public class DebrisCollector : MonoBehaviour {
 
     public void FollowTargetOrRotateAroundStation()
     {
-        if (!debrisIsBeingCollected)
+        if (GameManager.instance.gameState == GameManager.GameState.Default)
         {
-            LineRenderer lineRenderer = gameObject.GetComponent<LineRenderer>();
-            float homeStationRange = homeStation.GetComponent<DebrisCollectorStation>().range;
-            if ((debrisTarget != null) && (GetDistanceSquaredBetweenTargetAndHomeStation() < homeStationRange* homeStationRange) && homeStation.GetComponent<DebrisCollectorStation>().hasEnoughEnergy)
+            if (!debrisIsBeingCollected)
             {
-                if (DistanceSquaredToTarget() > operationDistance*operationDistance)
+                LineRenderer lineRenderer = gameObject.GetComponent<LineRenderer>();
+                float homeStationRange = homeStation.GetComponent<DebrisCollectorStation>().range;
+                if ((debrisTarget != null) && (GetDistanceSquaredBetweenTargetAndHomeStation() < homeStationRange * homeStationRange) && homeStation.GetComponent<DebrisCollectorStation>().hasEnoughEnergy)
                 {
-                    transform.position = Vector3.MoveTowards(transform.position, debrisTarget.transform.position, Time.deltaTime * movementSpeed);
-                    RotateTowardsTarget();
+                    if (DistanceSquaredToTarget() > operationDistance * operationDistance)
+                    {
+                        transform.position = Vector3.MoveTowards(transform.position, debrisTarget.transform.position, Time.deltaTime * movementSpeed);
+                        RotateTowardsTarget();
+                    }
+                    else
+                    {
+                        lineRenderer.enabled = true;
+                        lineRenderer.SetPosition(0, shootingPoint.transform.position);
+                        lineRenderer.SetPosition(1, debrisTarget.transform.position);
+
+                        StartCoroutine("CollectDebris");
+                    }
                 }
                 else
                 {
-                    lineRenderer.enabled = true;
-                    lineRenderer.SetPosition(0, shootingPoint.transform.position);
-                    lineRenderer.SetPosition(1, debrisTarget.transform.position);
-
-                    StartCoroutine("CollectDebris");
+                    lineRenderer.enabled = false;
+                    ComeBackAroundStationAndRotate();
                 }
             }
-            else
-            {
-                lineRenderer.enabled = false;
-                ComeBackAroundStationAndRotate();
-            }
-        }
+        }       
     }
     
     // -- Use DistanceSquaredToTarget() instead

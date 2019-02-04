@@ -285,7 +285,24 @@ public class AllySpaceship : Spaceship {
     public void IncreaseLevel()
     {
         level++;
+        ApplyLevelUpStatsModifications();
+        RetrieveFullStats();
         SetStarImage();
+    }
+
+    public void ApplyLevelUpStatsModifications()
+    {
+        float bonusFactor = spaceshipType.levelUpStatIncreaseFactor;
+
+        damagePower *= bonusFactor;
+        maxHealthPoints *= bonusFactor;
+        maxShieldPoints *= bonusFactor;
+    }
+
+    public void RetrieveFullStats()
+    {
+        healthPoints = maxHealthPoints;
+        shieldPoints = maxShieldPoints;
     }
 
     public void RewardExperiencePointsFromMeteor(Meteor meteor)

@@ -13,6 +13,7 @@ public class MeteorsManager : MonoBehaviour {
     public GameObject meteorPrefab;
     public GameObject meteorTest;
     public List<GameObject> meteorPrefabsList;
+    public List<GameObject> hardMeteorPrefabsList;
 
     [Header("Settings")]
     public float rotationSpeed = 20f;
@@ -45,10 +46,8 @@ public class MeteorsManager : MonoBehaviour {
         //Debug.Log("healthSizeFactor: " + healthSizeFactor);
     }
 
-    public void SpawnNewMeteor(float hardnessFactor)
+    public void SpawnNewMeteor(GameObject prefabToSpawn, float hardnessFactor)
     {
-        GameObject meteorModel = meteorPrefabsList[(Random.Range(0, meteorPrefabsList.Count))];
-
         Vector2 randomCirclePos = Random.insideUnitCircle.normalized;
         Vector3 pos = new Vector3(randomCirclePos.x * circleFactor, randomCirclePos.y * circleFactor, GameManager.instance.objectsDepthOffset);
 
@@ -60,7 +59,7 @@ public class MeteorsManager : MonoBehaviour {
         //Debug.Log("SpawnNewMeteor | SizeFactor [" + currentSpawnSizeFactor + "] | Size [" + meteorSize + "] | Health [" + meteorHealth + "] | Hardness [" + hardnessFactor + "]");
 
         // Instantiate Meteor Prefab
-        GameObject instantiatedMeteor = Instantiate(meteorModel, pos, Quaternion.Euler(Random.Range(0f,360f),Random.Range(0f,360f),Random.Range(0f,360f)));
+        GameObject instantiatedMeteor = Instantiate(prefabToSpawn, pos, Quaternion.Euler(Random.Range(0f,360f),Random.Range(0f,360f),Random.Range(0f,360f)));
         instantiatedMeteor.transform.SetParent(transform);
         instantiatedMeteor.transform.localScale = new Vector3(meteorSize, meteorSize, meteorSize);
 
@@ -81,11 +80,57 @@ public class MeteorsManager : MonoBehaviour {
         instantiatedMeteor.GetComponent<Meteor>().TestMeteorFunction();
     }
 
-    public void SpawnNewMeteors(int nb, float hardness = 1f){
-        while(nb > 0){
-            SpawnNewMeteor(hardness);
-            nb--;
-        }         
+    public void SpawnNewMeteors(int nb, float hardMeteorsProportion = 0f){
+
+        //Debug.Log("SpawnNewMeteors | Nb [" + nb + "] | hardMeteorsProportion [" + hardMeteorsProportion + "]");
+        if (hardMeteorsProportion >= 0f && hardMeteorsProportion <= 1)
+        {
+            int hardMeteorsNb = Mathf.FloorToInt(nb * hardMeteorsProportion);
+            int regularMeteorsNb = nb - hardMeteorsNb;
+            GameObject meteorModel = null;
+            bool spawnHardMeteor = false;
+            float hardnessFactor = 1f;
+
+            while ((regularMeteorsNb > 0 || hardMeteorsNb > 0) && (regularMeteorsNb >= 0 && hardMeteorsNb >= 0)) // While we still have meteors to spawn
+            {
+                if(regularMeteorsNb > 0)
+                {
+                    if(hardMeteorsNb > 0)
+                    {
+                        float r = Random.Range(0f, 1f);
+                        Debug.Log("Random Number [" + r + "]");
+                        if (r <= hardMeteorsProportion)
+                        {
+                            spawnHardMeteor = true;
+                        }
+                    }
+                }
+                else
+                {
+                    spawnHardMeteor = true;
+                }
+
+                if(spawnHardMeteor)
+                {
+                    hardnessFactor = 2f;
+                    meteorModel = hardMeteorPrefabsList[(Random.Range(0, hardMeteorPrefabsList.Count))];
+                    hardMeteorsNb--;
+                }
+                else
+                {
+                    hardnessFactor = 1f;
+                    meteorModel = meteorPrefabsList[(Random.Range(0, meteorPrefabsList.Count))];
+                    regularMeteorsNb--;
+                }
+
+                SpawnNewMeteor(meteorModel, hardnessFactor);
+                Debug.Log("Spawned a meteor [" + ((spawnHardMeteor) ? "Hard" : "Regular") + "] | RegularMeteorNumberLeft [" + regularMeteorsNb + "] | HardMeteorsNbLeft [" + hardMeteorsNb + "]");
+            }
+        }
+        else
+        {
+            Debug.LogError("SpawnNewMeteors | MeteorProportion invalid [" + hardMeteorsProportion + "]");
+        }      
     }
 
     public void DeleteMeteor(GameObject meteorToDelete)

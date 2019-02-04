@@ -102,6 +102,7 @@ public class MineBuilding : Building {
 
     public void StartStopMiningAnimation()  // TODO: Include level state
     {
+        Debug.Log("StartStopMiningAnimation | HasEnoughEnery [" + hasEnoughEnergy + "] | PowerOn [" + powerOn + "]");
         Animator animator = GetComponent<Animator>();
         if (hasEnoughEnergy && powerOn)
         {

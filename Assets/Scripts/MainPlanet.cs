@@ -30,13 +30,21 @@ public class MainPlanet : MonoBehaviour {
         {
             //Debug.Log("Planet hit by a meteor.");
             InfoManager.instance.IncrementMeteorCollisionsValue();
-
             other.GetComponent<Meteor>().InstantiateImpactEffect(2);
 
-            ScoreManager.instance.PlanetHitByMeteor(other.GetComponent<Meteor>());
+            PlanetHitByMeteor(other.GetComponent<Meteor>());
 
             MeteorsManager.instance.DeleteMeteor(other.gameObject);
         }
+    }
+
+    public void PlanetHitByMeteor(Meteor meteor)
+    {
+        // Score Manager
+        ScoreManager.instance.PlanetHitByMeteor(meteor);
+
+        // Population Manager
+        PopulationManager.instance.PlanetHitByMeteor(meteor);
     }
 
     void OnTriggerStay(Collider other)

@@ -19,4 +19,9 @@ public class MathManager : MonoBehaviour {
     {
         return Mathf.Exp(-LevelManager.instance.alpha * levelId);
     }
+
+    public float GetLevelHardMeteorsProportion(int levelId)
+    {
+        return 1-Mathf.Exp(-LevelManager.instance.hardMeteorsProportionAlpha* levelId);
+    }
 }

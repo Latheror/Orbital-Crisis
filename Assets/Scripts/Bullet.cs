@@ -9,6 +9,7 @@ public class Bullet : MonoBehaviour {
     public float speed = 50f;
     public float power = 10f;
     public float rotationSpeed = 10f;
+    public bool activated = false;
 
     void Update()
     {
@@ -22,7 +23,7 @@ public class Bullet : MonoBehaviour {
 
     public void ChaseTarget()
     {
-        if(GameManager.instance.gameState == GameManager.GameState.Default)
+        if(GameManager.instance.gameState == GameManager.GameState.Default && activated)
         {
             if (target != null)
             {
@@ -30,15 +31,16 @@ public class Bullet : MonoBehaviour {
                 RotateTowardsTarget();
 
                 // Prevent missiles from being stuck
-                if ((transform.position - target.transform.position).sqrMagnitude < .1f)
+                if ((transform.position - target.transform.position).sqrMagnitude < .01f)
                 {
-                    ActOnTarget(target);
-                    DestroyBullet();
+                    Debug.Log("Bullet too close to target...");
+                    ActOnTarget(target);                  
                 }
             }
             else
             {
                 // The target has already been destroyed
+                Debug.Log("Destroying Bullet because target is null...");
                 DestroyBullet();
             }
         }

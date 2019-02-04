@@ -16,6 +16,7 @@ public class Level {
     public List<GameObject> enemies;
     public float meteorSpawnSizeFactor;
     public float countdownTime;
+    public float hardMeteorsProportion = 0; // Between 0 and 1
 
     [Header("Operation")]
     public int destroyedMeteorsNb = 0;
@@ -29,7 +30,7 @@ public class Level {
         allLevelMeteorsDestroyed = false;
     }
 	
-    public Level(int number, string name, int meteorsNb, int meteorSerieNb, float meteorSpawnSizeFactor, float timeBetweenSpawns, List<GameObject> enemies, float countdownTime)
+    public Level(int number, string name, int meteorsNb, int meteorSerieNb, float meteorSpawnSizeFactor, float timeBetweenSpawns, List<GameObject> enemies, float countdownTime, float hardMeteorsProportion)
     {
         this.levelNb = number;
         this.levelName = name;
@@ -39,6 +40,7 @@ public class Level {
         this.timeBetweenSpawns = timeBetweenSpawns;
         this.enemies = enemies;
         this.countdownTime = countdownTime;
+        this.hardMeteorsProportion = hardMeteorsProportion;
     }
 
     // Returns true if level is completed
