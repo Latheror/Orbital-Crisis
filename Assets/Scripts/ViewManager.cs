@@ -22,6 +22,7 @@ public class ViewManager : MonoBehaviour {
     [Header("Settings")]
     public float zoomOrthographicSize;
     public float dezoomOrthographicSize;
+    public Vector2 centerPosition;
 
     [Header("Operation")]
     public ViewState currentViewState;
@@ -45,18 +46,21 @@ public class ViewManager : MonoBehaviour {
 
     public void ApplyViewState()
     {
-        switch(currentViewState)
+        mainCamera.transform.position = new Vector3(centerPosition.x, centerPosition.y, mainCamera.transform.position.z);
+        switch (currentViewState)
         {
             case ViewState.Dezoom:
             {
                 dezoomButton.SetActive(false);
                 mainCamera.orthographicSize = dezoomOrthographicSize;
+                PlanetCanvasManager.instance.DisplayZoomInfoPanel(false);
                 break;
             }
             case ViewState.Zoom:
             {
                 dezoomButton.SetActive(true);
                 mainCamera.orthographicSize = zoomOrthographicSize;
+                PlanetCanvasManager.instance.DisplayZoomInfoPanel(true);
                 break;
             }
         }
