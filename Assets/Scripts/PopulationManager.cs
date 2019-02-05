@@ -23,11 +23,11 @@ public class PopulationManager : MonoBehaviour {
     public float populationLossPerMeteorUnitOfSize = 1f;
 
     [Header("Operation")]
-    public int globalPopulationAmount = 20;
+    public float globalPopulationAmount = 20f;
 
     public void SetInfo()
     {
-        globalPopulationAmountText.text = globalPopulationAmount.ToString();
+        globalPopulationAmountText.text = Mathf.RoundToInt(globalPopulationAmount).ToString();
     }
 
 
@@ -35,7 +35,7 @@ public class PopulationManager : MonoBehaviour {
     public void PlanetHitByMeteor(Meteor meteor)
     {
         Debug.Log("PlanetHitByMeteor");
-        globalPopulationAmount = Mathf.Max(0, Mathf.FloorToInt(meteor.size * populationLossPerMeteorUnitOfSize));
+        globalPopulationAmount = Mathf.Max(0, globalPopulationAmount - (meteor.size * populationLossPerMeteorUnitOfSize));
         SetInfo();
 
         PlayPopulationHurtAnimation();
