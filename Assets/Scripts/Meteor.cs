@@ -20,6 +20,7 @@ public class Meteor : MonoBehaviour {
     public bool isMovingTowardsPlanet;
     public bool willLetDebris = false;
     public float hardnessFactor = 1f;   // Damage taken reduced by hardnessFactor
+    public int belongsToLevelIndex = 1;
 
     [Header("Prefabs")]
     public GameObject brownImpactEffect;

@@ -44,27 +44,22 @@ public class Level {
     }
 
     // Returns true if level is completed
-    public bool IncrementDestroyedMeteorsNb(int nb)
+    public void IncrementDestroyedMeteorsNb(int nb)
     {
-        //Debug.Log("IncrementDestroyedMeteorsNb | Destroyed: " + destroyedMeteorsNb + " | Total: " + levelMeteorsNb);
-
         destroyedMeteorsNb += nb;
+        Debug.Log("IncrementDestroyedMeteorsNb | LevelIndex [" + levelNb + "] | Destroyed [" + destroyedMeteorsNb + "] | Total [" + levelMeteorsNb + "]");
 
-        if(destroyedMeteorsNb >= (levelMeteorsNb / 2))
+        if(LevelManager.instance.currentLevelNumber == levelNb)
         {
-            LevelManager.instance.HalfLevelMeteorsDestroyed();
+            if (destroyedMeteorsNb >= (levelMeteorsNb / 2))
+            {
+                LevelManager.instance.HalfCurrentLevelMeteorsDestroyed();
+            }
+            if (destroyedMeteorsNb >= levelMeteorsNb)
+            {
+                allLevelMeteorsDestroyed = true;
+            }
         }
-
-        if(destroyedMeteorsNb >= levelMeteorsNb)
-        {
-            allLevelMeteorsDestroyed = true;
-        }
-        else
-        {
-            // System Changed - Now displayed remaining ennemies to spawn.
-            //LevelManager.instance.UpdateRemainingEnnemiesIndicator();
-        }
-        return allLevelMeteorsDestroyed;
     }
 
     public class EnemyWave

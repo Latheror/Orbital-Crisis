@@ -186,6 +186,21 @@ public class LevelManager : MonoBehaviour {
         return newLevel;
     }
 
+    public Level GetLevelFromIndex(int levelIndex)
+    {
+        Level levelFound = levelsList[0];
+        foreach (Level l in levelsList)
+        {
+            if(l.levelNb == levelIndex)
+            {
+                levelFound = l;
+                break;
+            }
+        }
+        return levelFound;
+
+    }
+
     // To remove
     public void ResumeNewLevelActionsAfterNewBuildingInfoDisplay()
     {
@@ -193,7 +208,7 @@ public class LevelManager : MonoBehaviour {
         GatherablesManager.instance.NewWaveActions(currentLevelNumber);
     }
 
-    public void IncrementCurrentLevelDestroyedMeteorsNb(int nb)
+    /*public void IncrementCurrentLevelDestroyedMeteorsNb(int nb)
     {
         // All meteors destroyed
         if(currentLevel.IncrementDestroyedMeteorsNb(nb))
@@ -207,7 +222,7 @@ public class LevelManager : MonoBehaviour {
 
             AllLevelMeteorsDestroyed();
         }
-    }
+    }*/
 
     public void NextLevelRequest()
     {
@@ -271,7 +286,7 @@ public class LevelManager : MonoBehaviour {
         while (totalNb > 0)
         {
             Debug.Log("Meteor Spawn Coroutine | SerieNb [" + serieNb + "] | HardMeteorsProportion [" + hardMeteorsProportion + "]");
-            MeteorsManager.instance.SpawnNewMeteors(serieNb, hardMeteorsProportion);
+            MeteorsManager.instance.SpawnNewMeteors(level.levelNb, serieNb, hardMeteorsProportion);
             IncrementSpawnedMeteorsNb(serieNb);
             totalNb -= serieNb;
             yield return new WaitForSeconds(level.timeBetweenSpawns);
@@ -354,10 +369,12 @@ public class LevelManager : MonoBehaviour {
         return reachedLevelData;
     }
 
-    public void HalfLevelMeteorsDestroyed()
+    public void HalfCurrentLevelMeteorsDestroyed()
     {
         //Debug.Log("HalfLevelMeteorsDestroyed");
         nextLevelButton.SetActive(true);
+
+        ChangeNextLevelButtonColor(nextLevelButtonSecondaryColor);
     }
 
 

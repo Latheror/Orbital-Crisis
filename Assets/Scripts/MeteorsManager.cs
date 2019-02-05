@@ -46,7 +46,7 @@ public class MeteorsManager : MonoBehaviour {
         //Debug.Log("healthSizeFactor: " + healthSizeFactor);
     }
 
-    public void SpawnNewMeteor(GameObject prefabToSpawn, float hardnessFactor)
+    public void SpawnNewMeteor(int levelIndex, GameObject prefabToSpawn, float hardnessFactor)
     {
         Vector2 randomCirclePos = Random.insideUnitCircle.normalized;
         Vector3 pos = new Vector3(randomCirclePos.x * circleFactor, randomCirclePos.y * circleFactor, GameManager.instance.objectsDepthOffset);
@@ -66,6 +66,7 @@ public class MeteorsManager : MonoBehaviour {
         //Debug.Log("Spawning a meteor with size: " + meteorSize + " and health: " + meteorHealth);
 
         Meteor meteor = instantiatedMeteor.GetComponent<Meteor>();
+        meteor.belongsToLevelIndex = levelIndex;
         meteor.SetRandomSpeeds();
         meteor.originalSize = meteorSize;
         meteor.size = meteorSize;
@@ -80,7 +81,7 @@ public class MeteorsManager : MonoBehaviour {
         instantiatedMeteor.GetComponent<Meteor>().TestMeteorFunction();
     }
 
-    public void SpawnNewMeteors(int nb, float hardMeteorsProportion = 0f){
+    public void SpawnNewMeteors(int levelIndex, int nb, float hardMeteorsProportion = 0f){
 
         //Debug.Log("SpawnNewMeteors | Nb [" + nb + "] | hardMeteorsProportion [" + hardMeteorsProportion + "]");
         if (hardMeteorsProportion >= 0f && hardMeteorsProportion <= 1)
@@ -123,7 +124,7 @@ public class MeteorsManager : MonoBehaviour {
                     regularMeteorsNb--;
                 }
 
-                SpawnNewMeteor(meteorModel, hardnessFactor);
+                SpawnNewMeteor(levelIndex, meteorModel, hardnessFactor);
                 Debug.Log("Spawned a meteor [" + ((spawnHardMeteor) ? "Hard" : "Regular") + "] | RegularMeteorNumberLeft [" + regularMeteorsNb + "] | HardMeteorsNbLeft [" + hardMeteorsNb + "]");
             }
         }
@@ -138,8 +139,9 @@ public class MeteorsManager : MonoBehaviour {
         if(meteorsList.Contains(meteorToDelete))
         {
             meteorsList.Remove(meteorToDelete);
+            Meteor m = meteorToDelete.GetComponent<Meteor>();
+            LevelManager.instance.GetLevelFromIndex(m.belongsToLevelIndex).IncrementDestroyedMeteorsNb(1);
             Destroy(meteorToDelete);
-            LevelManager.instance.IncrementCurrentLevelDestroyedMeteorsNb(1); 
         }
         else
         {
