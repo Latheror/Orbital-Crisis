@@ -13,30 +13,43 @@ public class PopulationManager : MonoBehaviour {
         instance = this;
     }
 
-    public enum PopulationType { Attack, Defense, Production}
+    public enum PopulationAffectationType { Attack, Defense, Production}
 
     [Header("UI")]
-    public TextMeshProUGUI globalPopulationAmountText;
+    public TextMeshProUGUI totalPopulationAmountText;
     public GameObject populationPanel;
 
     [Header("Settings")]
     public float populationLossPerMeteorUnitOfSize = 1f;
 
     [Header("Operation")]
-    public float globalPopulationAmount = 20f;
+    public float totalPopulationAmount = 20f;
+    public int populationAttackPercentage = 30;
+    public int populationDefensePercentage = 30;
+    public int populationProductionPercentage = 40;
 
-    public void SetInfo()
+
+    private void Start()
     {
-        globalPopulationAmountText.text = Mathf.RoundToInt(globalPopulationAmount).ToString();
+        Initialize();
     }
 
+    public void Initialize()
+    {
+        DisplayInfo();
+    }
 
+    public void DisplayInfo()
+    {
+        PlanetCanvasManager.instance.SetTotalPopulationAmount(Mathf.FloorToInt(totalPopulationAmount));
+        PlanetCanvasManager.instance.SetPopulationPercentages(populationAttackPercentage, populationDefensePercentage, populationProductionPercentage);
+    }    
 
     public void PlanetHitByMeteor(Meteor meteor)
     {
         Debug.Log("PlanetHitByMeteor");
-        globalPopulationAmount = Mathf.Max(0, globalPopulationAmount - (meteor.size * populationLossPerMeteorUnitOfSize));
-        SetInfo();
+        totalPopulationAmount = Mathf.Max(0, totalPopulationAmount - (meteor.size * populationLossPerMeteorUnitOfSize));
+        DisplayInfo();
 
         PlayPopulationHurtAnimation();
     }
@@ -46,5 +59,156 @@ public class PopulationManager : MonoBehaviour {
         Debug.Log("PlayPopulationHurtAnimation");
         Animation anim = populationPanel.GetComponent<Animation>();
         anim.Play();
+    }
+
+    public void IncreaseDecreaseAssignedPopulation(int populationAffectationTypeIndex, bool increase)
+    {
+        Debug.Log("IncreaseDecreaseAssignedPopulation | Index [" + populationAffectationTypeIndex + "] | Increase [" + increase + "]");
+        switch (populationAffectationTypeIndex) // Attack: 0, Defense: 1, Production: 2
+        {
+            case (int)PopulationAffectationType.Attack:
+            {
+                if(increase)
+                {
+                    int willIncreaseAttackOf = Mathf.Min(10, 100 - populationAttackPercentage);
+                    Debug.Log("Increasing Attack Percentage of [" + willIncreaseAttackOf + "]");
+                    populationAttackPercentage += willIncreaseAttackOf;
+
+                    if(populationDefensePercentage <= populationProductionPercentage)
+                    {
+                        int willDecreaseDefenseOf = Mathf.Min(populationDefensePercentage, willIncreaseAttackOf / 2);
+                        populationDefensePercentage -= willDecreaseDefenseOf;
+
+                        populationProductionPercentage -= (willIncreaseAttackOf - willDecreaseDefenseOf);
+                    }
+                    else
+                    {
+                        int willDecreaseProductionOf = Mathf.Min(populationProductionPercentage, willIncreaseAttackOf / 2);
+                        populationProductionPercentage -= willDecreaseProductionOf;
+
+                        populationDefensePercentage -= (willIncreaseAttackOf - willDecreaseProductionOf);
+                    }
+                }
+                else
+                {
+                    int willDecreaseAttackOf = Mathf.Min(10, populationAttackPercentage);
+                    Debug.Log("Decreasing Attack Percentage of [" + willDecreaseAttackOf + "]");
+                    populationAttackPercentage -= willDecreaseAttackOf;
+
+                    if (populationDefensePercentage >= populationProductionPercentage)
+                    {
+                        int willIncreaseDefenseOf = Mathf.Min(100 - populationDefensePercentage, willDecreaseAttackOf / 2);
+                        populationDefensePercentage += willIncreaseDefenseOf;
+
+                        populationProductionPercentage += (willDecreaseAttackOf - willIncreaseDefenseOf);
+                    }
+                    else
+                    {
+                        int willIncreaseProductionOf = Mathf.Min(100 - populationProductionPercentage, willDecreaseAttackOf / 2);
+                        populationProductionPercentage += willIncreaseProductionOf;
+
+                        populationDefensePercentage += (willDecreaseAttackOf - willIncreaseProductionOf);
+                    }
+
+                }
+                break;
+            }
+            case (int)PopulationAffectationType.Defense:
+            {
+                if (increase)
+                {
+                    int willIncreaseDefenseOf = Mathf.Min(10, 100 - populationDefensePercentage);
+                    Debug.Log("Increasing Defense Percentage of [" + willIncreaseDefenseOf + "]");
+                    populationDefensePercentage += willIncreaseDefenseOf;
+
+                    if (populationProductionPercentage <= populationAttackPercentage)
+                    {
+                        int willDecreaseProductionOf = Mathf.Min(populationProductionPercentage, willIncreaseDefenseOf / 2);
+                        populationProductionPercentage -= willDecreaseProductionOf;
+
+                        populationAttackPercentage -= (willIncreaseDefenseOf - willDecreaseProductionOf);
+                    }
+                    else
+                    {
+                        int willDecreaseAttackOf = Mathf.Min(populationAttackPercentage, willIncreaseDefenseOf / 2);
+                        populationAttackPercentage -= willDecreaseAttackOf;
+
+                        populationProductionPercentage -= (willIncreaseDefenseOf - willDecreaseAttackOf);
+                    }
+                }
+                else
+                {
+                    int willDecreaseDefenseOf = Mathf.Min(10, populationDefensePercentage);
+                    Debug.Log("Decreasing Defense Percentage of [" + willDecreaseDefenseOf + "]");
+                    populationDefensePercentage -= willDecreaseDefenseOf;
+
+                    if (populationProductionPercentage >= populationAttackPercentage)
+                    {
+                        int willIncreaseProductionOf = Mathf.Min(100 - populationProductionPercentage, willDecreaseDefenseOf / 2);
+                        populationProductionPercentage += willIncreaseProductionOf;
+
+                        populationAttackPercentage += (willDecreaseDefenseOf - willIncreaseProductionOf);
+                    }
+                    else
+                    {
+                        int willIncreaseAttackOf = Mathf.Min(100 - populationAttackPercentage, willDecreaseDefenseOf / 2);
+                        populationAttackPercentage += willIncreaseAttackOf;
+
+                        populationProductionPercentage += (willDecreaseDefenseOf - willIncreaseAttackOf);
+                    }
+
+                }
+                break;
+            }
+            case (int)PopulationAffectationType.Production:
+            {
+                if (increase)
+                {
+                    int willIncreaseProductionOf = Mathf.Min(10, 100 - populationProductionPercentage);
+                    Debug.Log("Increasing Production Percentage of [" + willIncreaseProductionOf + "]");
+                    populationProductionPercentage += willIncreaseProductionOf;
+
+                    if (populationAttackPercentage <= populationDefensePercentage)
+                    {
+                        int willDecreaseAttackOf = Mathf.Min(populationAttackPercentage, willIncreaseProductionOf / 2);
+                        populationAttackPercentage -= willDecreaseAttackOf;
+
+                        populationDefensePercentage -= (willIncreaseProductionOf - willDecreaseAttackOf);
+                    }
+                    else
+                    {
+                        int willDecreaseDefenseOf = Mathf.Min(populationDefensePercentage, willIncreaseProductionOf / 2);
+                        populationDefensePercentage -= willDecreaseDefenseOf;
+
+                        populationAttackPercentage -= (willIncreaseProductionOf - willDecreaseDefenseOf);
+                    }
+                }
+                else
+                {
+                    int willDecreaseProductionOf = Mathf.Min(10, populationProductionPercentage);
+                    Debug.Log("Decreasing Production Percentage of [" + willDecreaseProductionOf + "]");
+                    populationProductionPercentage -= willDecreaseProductionOf;
+
+                    if (populationAttackPercentage >= populationDefensePercentage)
+                    {
+                        int willIncreaseAttackOf = Mathf.Min(100 - populationAttackPercentage, willDecreaseProductionOf / 2);
+                        populationAttackPercentage += willIncreaseAttackOf;
+
+                        populationDefensePercentage += (willDecreaseProductionOf - willIncreaseAttackOf);
+                    }
+                    else
+                    {
+                        int willIncreaseDefenseOf = Mathf.Min(100 - populationDefensePercentage, willDecreaseProductionOf / 2);
+                        populationDefensePercentage += willIncreaseDefenseOf;
+
+                        populationAttackPercentage += (willDecreaseProductionOf - willIncreaseDefenseOf);
+                    }
+
+                }
+                break;
+            }
+        }
+
+        PlanetCanvasManager.instance.SetPopulationPercentages(populationAttackPercentage, populationDefensePercentage, populationProductionPercentage);
     }
 }

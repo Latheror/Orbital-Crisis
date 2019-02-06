@@ -150,7 +150,8 @@ public class TouchManager : MonoBehaviour
                                 // Move screen verticaly / horizontaly
                                 Vector2 touchDeltaPosition = Input.GetTouch(0).deltaPosition;
 
-                                Camera.main.transform.Translate(-touchDeltaPosition.x * moveCameraSpeed, -touchDeltaPosition.y * moveCameraSpeed, 0f);
+                                // Temp: Disabled
+                                //Camera.main.transform.Translate(-touchDeltaPosition.x * moveCameraSpeed, -touchDeltaPosition.y * moveCameraSpeed, 0f);
 
                                 if(DysonSphere.instance != null && DysonSphere.instance.isActivated)
                                 {

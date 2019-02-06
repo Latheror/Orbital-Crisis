@@ -53,6 +53,7 @@ public class EnergyPanel : MonoBehaviour {
         energyProductionText.text = Mathf.RoundToInt(energyProduction).ToString();
         EnergyConsumptionColorIndication();
         energyBar.GetComponent<EnergyBar>().UpdateEnergyBar();
+        PlanetCanvasManager.instance.SetEnergyDifferentialAmount(Mathf.FloorToInt(energyProduction - energyConsumption));
     }
 
     public void UpdateEnergyConsumptionDisplay()
@@ -60,6 +61,7 @@ public class EnergyPanel : MonoBehaviour {
         energyConsumptionText.text = Mathf.RoundToInt(energyConsumption).ToString();
         EnergyConsumptionColorIndication();
         energyBar.GetComponent<EnergyBar>().UpdateEnergyBar();
+        PlanetCanvasManager.instance.SetEnergyDifferentialAmount(Mathf.FloorToInt(energyProduction - energyConsumption));
     }
 
     public void UpdateEnergyLevels()
