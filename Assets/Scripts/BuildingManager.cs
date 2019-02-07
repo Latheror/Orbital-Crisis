@@ -601,6 +601,9 @@ public class BuildingManager : MonoBehaviour {
 
             // Distribute the available energy across all buildings
             EnergyPanel.instance.UpdateEnergyProductionAndConsumption();
+
+            // Refresh population effects
+            PopulationManager.instance.ApplyPopulationEffects();
         }
     }
 

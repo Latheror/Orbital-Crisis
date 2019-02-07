@@ -142,7 +142,7 @@ public class BuildingInfoPanel : MonoBehaviour {
 
     public void UpgradeButtonClicked()
     {
-        Debug.Log("UpgradeButtonClicked");
+        //Debug.Log("UpgradeButtonClicked");
         InfrastructureManager.instance.UpgradeBuildingRequest(selectedBuilding.gameObject);
     }
 

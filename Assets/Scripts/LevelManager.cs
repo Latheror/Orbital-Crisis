@@ -282,11 +282,11 @@ public class LevelManager : MonoBehaviour {
         int serieNb = level.meteorSerieNb;
         float hardMeteorsProportion = level.hardMeteorsProportion;
         MeteorsManager.instance.currentSpawnSizeFactor = level.meteorSpawnSizeFactor;
-        Debug.Log("MeteorSpawnCouroutine | TotalNb [" + levelTotalMeteorNb + "] | SerieNb [" + serieNb + "]");
+        //Debug.Log("MeteorSpawnCouroutine | TotalNb [" + levelTotalMeteorNb + "] | SerieNb [" + serieNb + "]");
 
         while (level.spawnedMeteorsNb < levelTotalMeteorNb) // While there is still meteors to spawn
         {
-            Debug.Log("Meteor Spawn Coroutine | SerieNb [" + serieNb + "] | HardMeteorsProportion [" + hardMeteorsProportion + "] | MeteorsLeftToSpawn [" + (levelTotalMeteorNb - level.spawnedMeteorsNb) + "]");
+            //Debug.Log("Meteor Spawn Coroutine | SerieNb [" + serieNb + "] | HardMeteorsProportion [" + hardMeteorsProportion + "] | MeteorsLeftToSpawn [" + (levelTotalMeteorNb - level.spawnedMeteorsNb) + "]");
             int nbToSpawn = (int)Mathf.Min(levelTotalMeteorNb - level.spawnedMeteorsNb, serieNb);
             MeteorsManager.instance.SpawnNewMeteors(level.levelNb, nbToSpawn, hardMeteorsProportion);
             IncrementSpawnedMeteorsNb(serieNb);

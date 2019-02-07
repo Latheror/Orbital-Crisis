@@ -22,12 +22,20 @@ public class PopulationManager : MonoBehaviour {
     [Header("Settings")]
     public float populationLossPerMeteorUnitOfSize = 1f;
 
+    public float attackBonusPerUnitOfPopulation = 0.01f;
+    public float defenseBonusPerUnitOfPopulation = 0.01f;
+    public float productionBonusPerUnitOfPopulation = 0.01f;
+
     [Header("Operation")]
     public float totalPopulationAmount = 20f;
+    // Population percentages
     public int populationAttackPercentage = 30;
     public int populationDefensePercentage = 30;
     public int populationProductionPercentage = 40;
-
+    // Population numbers
+    public int populationAttackAmount = 1;
+    public int populationDefenseAmount = 1;
+    public int populationProductionAmount = 1;
 
     private void Start()
     {
@@ -36,6 +44,7 @@ public class PopulationManager : MonoBehaviour {
 
     public void Initialize()
     {
+        CalculatePopulationAttribution();
         DisplayInfo();
     }
 
@@ -210,5 +219,49 @@ public class PopulationManager : MonoBehaviour {
         }
 
         PlanetCanvasManager.instance.SetPopulationPercentages(populationAttackPercentage, populationDefensePercentage, populationProductionPercentage);
+
+        CalculatePopulationAttribution();
     }
+
+    public void CalculatePopulationAttribution()
+    {
+        populationAttackAmount = (int)totalPopulationAmount * populationAttackPercentage / 100;
+        populationDefenseAmount = (int)totalPopulationAmount * populationDefensePercentage / 100;
+        populationProductionAmount = (int)totalPopulationAmount - populationAttackAmount - populationDefenseAmount;
+
+        Debug.Log("CalculatePopulationAttribution | Attack [" + populationAttackAmount + "] | Defense [" + populationDefenseAmount + "] | [" + populationProductionAmount + "]");
+
+        ApplyPopulationEffects();
+    }
+
+    public void ApplyPopulationEffects()
+    {
+        ApplyPopulationAttackEffects();
+        ApplyPopulationDefenseEffects();
+        ApplyPopulationProductionEffects();
+    }
+
+    public void ApplyPopulationAttackEffects()
+    {
+        Debug.Log("ApplyPopulationAttackEffects");
+        foreach (GameObject b in BuildingManager.instance.buildingList)
+        {
+            if(b.GetComponent<Turret>() != null && (b.GetComponent<Turret>().offensiveTurret))
+            {
+                Debug.Log("Apply to offensive turret | Bonus [" + attackBonusPerUnitOfPopulation * populationAttackAmount + "]");
+                b.GetComponent<Turret>().populationAttackBonus = attackBonusPerUnitOfPopulation * populationAttackAmount;
+            }
+        }
+    }
+
+    public void ApplyPopulationDefenseEffects()
+    {
+        Debug.Log("ApplyPopulationDefenseEffects");
+    }
+
+    public void ApplyPopulationProductionEffects()
+    {
+        Debug.Log("ApplyPopulationProductionEffects");
+    }
+
 }

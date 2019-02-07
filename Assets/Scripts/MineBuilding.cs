@@ -102,7 +102,7 @@ public class MineBuilding : Building {
 
     public void StartStopMiningAnimation()  // TODO: Include level state
     {
-        Debug.Log("StartStopMiningAnimation | HasEnoughEnery [" + hasEnoughEnergy + "] | PowerOn [" + powerOn + "]");
+        //Debug.Log("StartStopMiningAnimation | HasEnoughEnery [" + hasEnoughEnergy + "] | PowerOn [" + powerOn + "]");
         Animator animator = GetComponent<Animator>();
         if (hasEnoughEnergy && powerOn)
         {
@@ -116,7 +116,7 @@ public class MineBuilding : Building {
 
     public override void ApplyCurrentTierSettings()
     {
-        Debug.Log("ApplyCurrentTierSettings | MINE | CurrentTier: " + currentTier);
+        //Debug.Log("ApplyCurrentTierSettings | MINE | CurrentTier: " + currentTier);
         switch (currentTier)
         {
             case 2:
