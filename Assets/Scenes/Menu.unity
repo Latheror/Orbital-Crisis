@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.07100699, g: 0.026705079, b: 0.03854056, a: 1}
+  m_IndirectSpecularColor: {r: 0.1541147, g: 0.07676927, b: 0.09466448, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -1412,15 +1412,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9df1099255c59454b9fd9006b3074836, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  loadPanelGameSaveElementPrefab: {fileID: 1581613043830934, guid: f1a7b377bfad7f14497e358d6d7d487c,
-    type: 2}
   loadPanelGameSavesElementLayout: {fileID: 115569061}
-  loadPanelGameSaveElements: []
   loadGamePanel: {fileID: 8921020}
   optionsPanel: {fileID: 1027299712}
-  leftPanelDisplayMode: 0
   highScorePanel: {fileID: 2146816970}
   highScoreText: {fileID: 2014535657}
+  loadPanelGameSaveElementPrefab: {fileID: 1581613043830934, guid: f1a7b377bfad7f14497e358d6d7d487c,
+    type: 2}
+  loadPanelGameSaveElements: []
+  leftPanelDisplayMode: 0
 --- !u!1 &314704941
 GameObject:
   m_ObjectHideFlags: 0
@@ -2025,6 +2025,7 @@ RectTransform:
   m_Children:
   - {fileID: 1908197371}
   - {fileID: 2079421901}
+  - {fileID: 2014398868}
   m_Father: {fileID: 1100344397}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -2079,7 +2080,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &443717504
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2095,7 +2096,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.105351284, y: 0.18537486}
   m_AnchorMax: {x: 0.29385194, y: 0.80482745}
-  m_AnchoredPosition: {x: 0.23432428, y: 0.056200188}
+  m_AnchoredPosition: {x: 0.23432446, y: 0.056200266}
   m_SizeDelta: {x: 1.4445739, y: 1.9837565}
   m_Pivot: {x: 0, y: 0.5}
 --- !u!114 &443717505
@@ -2220,10 +2221,10 @@ RectTransform:
   m_Father: {fileID: 1100344397}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0.7198072}
+  m_AnchorMin: {x: 0, y: 0.5623246}
   m_AnchorMax: {x: 1, y: 0.93281114}
-  m_AnchoredPosition: {x: 0, y: -0.14172012}
-  m_SizeDelta: {x: 0, y: 0.01703018}
+  m_AnchoredPosition: {x: -0.00000018966, y: -0.14172012}
+  m_SizeDelta: {x: 0, y: 0.24045086}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!114 &559313579
 MonoBehaviour:
@@ -2237,16 +2238,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.41509432, g: 0.14684941, b: 0.3681862, a: 0.30980393}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_Sprite: {fileID: 0}
-  m_Type: 1
-  m_PreserveAspect: 0
+  m_Sprite: {fileID: 21300000, guid: 9a04dde9ecab49645a50e85249081a0a, type: 3}
+  m_Type: 0
+  m_PreserveAspect: 1
   m_FillCenter: 1
   m_FillMethod: 4
   m_FillAmount: 1
@@ -2925,6 +2926,7 @@ MonoBehaviour:
   isMovingTowardsPlanet: 0
   willLetDebris: 0
   hardnessFactor: 1
+  belongsToLevelIndex: 1
   brownImpactEffect: {fileID: 0}
   yellowImpactEffect: {fileID: 0}
   defaultMeteorMaterial: {fileID: 2100000, guid: 14ddf8072dbcec54fb25ebb10d07d100,
@@ -4422,9 +4424,12 @@ MonoBehaviour:
       unlockedDisks: 0
       score: 0
       hits: 0
+      planetLife: 0
       experiencePoints: 0
       artifactsNb: 0
       timerEnabled: 0
+      hasGameOverOccured: 0
+      infiniteModeEnabled: 0
     buildingsData: []
     spaceshipsData: []
     reachedLevelData:
@@ -4432,14 +4437,27 @@ MonoBehaviour:
     resourcesData: []
     unlockedBuildingsData: []
     technologiesData: []
+    megaStructuresData:
+      shieldUnlocked: 0
+      shieldRadius: 0
+      shieldPower: 0
+      collectorUnlocked: 0
+      collectionPointsNb: 0
+      collectionSpeed: 0
+      dysonSphereUnlocked: 0
+      dysonSphereStructurePoints: 0
+      dysonSphereAutoRepair: 0
   - generalGameData:
       levelReached: 0
       unlockedDisks: 0
       score: 0
       hits: 0
+      planetLife: 0
       experiencePoints: 0
       artifactsNb: 0
       timerEnabled: 0
+      hasGameOverOccured: 0
+      infiniteModeEnabled: 0
     buildingsData: []
     spaceshipsData: []
     reachedLevelData:
@@ -4447,14 +4465,27 @@ MonoBehaviour:
     resourcesData: []
     unlockedBuildingsData: []
     technologiesData: []
+    megaStructuresData:
+      shieldUnlocked: 0
+      shieldRadius: 0
+      shieldPower: 0
+      collectorUnlocked: 0
+      collectionPointsNb: 0
+      collectionSpeed: 0
+      dysonSphereUnlocked: 0
+      dysonSphereStructurePoints: 0
+      dysonSphereAutoRepair: 0
   - generalGameData:
       levelReached: 0
       unlockedDisks: 0
       score: 0
       hits: 0
+      planetLife: 0
       experiencePoints: 0
       artifactsNb: 0
       timerEnabled: 0
+      hasGameOverOccured: 0
+      infiniteModeEnabled: 0
     buildingsData: []
     spaceshipsData: []
     reachedLevelData:
@@ -4462,14 +4493,27 @@ MonoBehaviour:
     resourcesData: []
     unlockedBuildingsData: []
     technologiesData: []
+    megaStructuresData:
+      shieldUnlocked: 0
+      shieldRadius: 0
+      shieldPower: 0
+      collectorUnlocked: 0
+      collectionPointsNb: 0
+      collectionSpeed: 0
+      dysonSphereUnlocked: 0
+      dysonSphereStructurePoints: 0
+      dysonSphereAutoRepair: 0
   - generalGameData:
       levelReached: 0
       unlockedDisks: 0
       score: 0
       hits: 0
+      planetLife: 0
       experiencePoints: 0
       artifactsNb: 0
       timerEnabled: 0
+      hasGameOverOccured: 0
+      infiniteModeEnabled: 0
     buildingsData: []
     spaceshipsData: []
     reachedLevelData:
@@ -4477,14 +4521,27 @@ MonoBehaviour:
     resourcesData: []
     unlockedBuildingsData: []
     technologiesData: []
+    megaStructuresData:
+      shieldUnlocked: 0
+      shieldRadius: 0
+      shieldPower: 0
+      collectorUnlocked: 0
+      collectionPointsNb: 0
+      collectionSpeed: 0
+      dysonSphereUnlocked: 0
+      dysonSphereStructurePoints: 0
+      dysonSphereAutoRepair: 0
   - generalGameData:
       levelReached: 0
       unlockedDisks: 0
       score: 0
       hits: 0
+      planetLife: 0
       experiencePoints: 0
       artifactsNb: 0
       timerEnabled: 0
+      hasGameOverOccured: 0
+      infiniteModeEnabled: 0
     buildingsData: []
     spaceshipsData: []
     reachedLevelData:
@@ -4492,15 +4549,28 @@ MonoBehaviour:
     resourcesData: []
     unlockedBuildingsData: []
     technologiesData: []
+    megaStructuresData:
+      shieldUnlocked: 0
+      shieldRadius: 0
+      shieldPower: 0
+      collectorUnlocked: 0
+      collectionPointsNb: 0
+      collectionSpeed: 0
+      dysonSphereUnlocked: 0
+      dysonSphereStructurePoints: 0
+      dysonSphereAutoRepair: 0
   gameSaveToLoad:
     generalGameData:
       levelReached: 0
       unlockedDisks: 0
       score: 0
       hits: 0
+      planetLife: 0
       experiencePoints: 0
       artifactsNb: 0
       timerEnabled: 0
+      hasGameOverOccured: 0
+      infiniteModeEnabled: 0
     buildingsData: []
     spaceshipsData: []
     reachedLevelData:
@@ -4508,6 +4578,16 @@ MonoBehaviour:
     resourcesData: []
     unlockedBuildingsData: []
     technologiesData: []
+    megaStructuresData:
+      shieldUnlocked: 0
+      shieldRadius: 0
+      shieldPower: 0
+      collectorUnlocked: 0
+      collectionPointsNb: 0
+      collectionSpeed: 0
+      dysonSphereUnlocked: 0
+      dysonSphereStructurePoints: 0
+      dysonSphereAutoRepair: 0
   savedGeneralData:
     highScore: 0
   highScore: 0
@@ -5134,7 +5214,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.053405214, g: 0, b: 0.18867922, a: 0}
+  m_Color: {r: 0, g: 0.030640889, b: 0.19215687, a: 0.44313726}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -5466,7 +5546,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1268386516
 RectTransform:
   m_ObjectHideFlags: 0
@@ -5856,7 +5936,7 @@ MonoBehaviour:
     lineCount: 1
     pageCount: 1
     materialCount: 1
-  m_havePropertiesChanged: 0
+  m_havePropertiesChanged: 1
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_spriteAnimator: {fileID: 0}
@@ -6427,7 +6507,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1387011898
 RectTransform:
   m_ObjectHideFlags: 0
@@ -6443,7 +6523,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.23825547, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0.017902464, y: 0}
+  m_AnchoredPosition: {x: 0.017902374, y: 0}
   m_SizeDelta: {x: -0.035804927, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1387011899
@@ -7281,10 +7361,10 @@ RectTransform:
   m_Father: {fileID: 1100344397}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.031648584, y: 0.027}
-  m_AnchorMax: {x: 0.28311217, y: 0.20268679}
-  m_AnchoredPosition: {x: -0.16866302, y: 0.19771194}
-  m_SizeDelta: {x: 0.058268774, y: -0.57457966}
+  m_AnchorMin: {x: 0.031648584, y: 0.033191845}
+  m_AnchorMax: {x: 0.18935819, y: 0.20268679}
+  m_AnchoredPosition: {x: -0.04745481, y: -0.019349605}
+  m_SizeDelta: {x: 0.30509144, y: -0.13587683}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1616525034
 MonoBehaviour:
@@ -7298,16 +7378,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 0.4627451}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_Sprite: {fileID: 21300000, guid: 6cb3b5c3f05225b499176874a3908e5e, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 3644b9592aafa96419bcd4048dc33d78, type: 3}
   m_Type: 0
-  m_PreserveAspect: 0
+  m_PreserveAspect: 1
   m_FillCenter: 1
   m_FillMethod: 4
   m_FillAmount: 1
@@ -7531,10 +7611,10 @@ RectTransform:
   m_Father: {fileID: 1100344397}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 32.428}
-  m_AnchorMin: {x: 0, y: 0.5}
-  m_AnchorMax: {x: 0.34731165, y: 1}
-  m_AnchoredPosition: {x: -0.7592132, y: 2.2392178}
-  m_SizeDelta: {x: 3.9049244, y: -21.71972}
+  m_AnchorMin: {x: 0.19621861, y: 0.6497738}
+  m_AnchorMax: {x: 0.46281573, y: 1}
+  m_AnchoredPosition: {x: 0.73955, y: 2.6099}
+  m_SizeDelta: {x: 1.4790983, y: -14.811502}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1703359840
 MonoBehaviour:
@@ -7564,8 +7644,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4278254591
-  m_fontColor: {r: 1, g: 0.9864793, b: 0, a: 1}
+    rgba: 4294967295
+  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
   m_enableVertexGradient: 0
   m_fontColorGradient:
     topLeft: {r: 1, g: 1, b: 1, a: 1}
@@ -7582,8 +7662,8 @@ MonoBehaviour:
   m_outlineColor:
     serializedVersion: 2
     rgba: 4278190080
-  m_fontSize: 10
-  m_fontSizeBase: 10
+  m_fontSize: 8
+  m_fontSizeBase: 8
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 1
@@ -8152,7 +8232,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1800359338
 RectTransform:
   m_ObjectHideFlags: 0
@@ -8266,7 +8346,7 @@ MonoBehaviour:
     lineCount: 1
     pageCount: 1
     materialCount: 1
-  m_havePropertiesChanged: 0
+  m_havePropertiesChanged: 1
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_spriteAnimator: {fileID: 0}
@@ -8495,10 +8575,10 @@ RectTransform:
   m_Father: {fileID: 439482335}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 1, y: 0.36100003}
-  m_AnchorMax: {x: 1, y: 0.5124872}
-  m_AnchoredPosition: {x: -33.02, y: 1.52}
-  m_SizeDelta: {x: 45.92, y: 2.73}
+  m_AnchorMin: {x: 0, y: 0.13387203}
+  m_AnchorMax: {x: 1, y: 0.4752032}
+  m_AnchoredPosition: {x: -0.000000085682, y: 0.21461338}
+  m_SizeDelta: {x: -103.30266, y: -0.21339431}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1908197372
 MonoBehaviour:
@@ -8564,16 +8644,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_Sprite: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
-  m_Type: 1
-  m_PreserveAspect: 0
+  m_Sprite: {fileID: 21300000, guid: 96ef38ac7af471146a8beab416eb786a, type: 3}
+  m_Type: 0
+  m_PreserveAspect: 1
   m_FillCenter: 1
   m_FillMethod: 4
   m_FillAmount: 1
@@ -8602,7 +8682,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1911730636
 RectTransform:
   m_ObjectHideFlags: 0
@@ -8716,7 +8796,7 @@ MonoBehaviour:
     lineCount: 1
     pageCount: 1
     materialCount: 1
-  m_havePropertiesChanged: 0
+  m_havePropertiesChanged: 1
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_spriteAnimator: {fileID: 0}
@@ -9171,6 +9251,117 @@ CanvasRenderer:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1972170682}
   m_CullTransparentMesh: 0
+--- !u!1 &2014398867
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2014398868}
+  - component: {fileID: 2014398871}
+  - component: {fileID: 2014398870}
+  - component: {fileID: 2014398869}
+  m_Layer: 5
+  m_Name: options
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &2014398868
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 2014398867}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 439482335}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.855, y: 0.027}
+  m_AnchorMax: {x: 0.93361837, y: 0.19666088}
+  m_AnchoredPosition: {x: 0.06613483, y: 0.09454374}
+  m_SizeDelta: {x: 0.006829999, y: -0.1883772}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &2014398869
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 2014398867}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 1392445389, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Navigation:
+    m_Mode: 3
+    m_SelectOnUp: {fileID: 0}
+    m_SelectOnDown: {fileID: 0}
+    m_SelectOnLeft: {fileID: 0}
+    m_SelectOnRight: {fileID: 0}
+  m_Transition: 1
+  m_Colors:
+    m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
+    m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
+    m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
+    m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
+    m_ColorMultiplier: 1
+    m_FadeDuration: 0.1
+  m_SpriteState:
+    m_HighlightedSprite: {fileID: 0}
+    m_PressedSprite: {fileID: 0}
+    m_DisabledSprite: {fileID: 0}
+  m_AnimationTriggers:
+    m_NormalTrigger: Normal
+    m_HighlightedTrigger: Highlighted
+    m_PressedTrigger: Pressed
+    m_DisabledTrigger: Disabled
+  m_Interactable: 1
+  m_TargetGraphic: {fileID: 2014398870}
+  m_OnClick:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
+      Culture=neutral, PublicKeyToken=null
+--- !u!114 &2014398870
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 2014398867}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -765806418, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
+      Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+  m_Sprite: {fileID: 21300000, guid: 988437571e548074cb1f8f8aeca40a82, type: 3}
+  m_Type: 0
+  m_PreserveAspect: 1
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+--- !u!222 &2014398871
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 2014398867}
+  m_CullTransparentMesh: 0
 --- !u!1 &2014535655
 GameObject:
   m_ObjectHideFlags: 0
@@ -9340,11 +9531,11 @@ Prefab:
     m_Modifications:
     - target: {fileID: 4249034957635004, guid: 3f1f251626715784c988bc6d83d249b5, type: 2}
       propertyPath: m_LocalPosition.x
-      value: 76
+      value: 52.3
       objectReference: {fileID: 0}
     - target: {fileID: 4249034957635004, guid: 3f1f251626715784c988bc6d83d249b5, type: 2}
       propertyPath: m_LocalPosition.y
-      value: -8.6
+      value: -37.3
       objectReference: {fileID: 0}
     - target: {fileID: 4249034957635004, guid: 3f1f251626715784c988bc6d83d249b5, type: 2}
       propertyPath: m_LocalPosition.z
@@ -9352,19 +9543,19 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4249034957635004, guid: 3f1f251626715784c988bc6d83d249b5, type: 2}
       propertyPath: m_LocalRotation.x
-      value: 0.34087184
+      value: 0.32617873
       objectReference: {fileID: 0}
     - target: {fileID: 4249034957635004, guid: 3f1f251626715784c988bc6d83d249b5, type: 2}
       propertyPath: m_LocalRotation.y
-      value: -0
+      value: -0.09900091
       objectReference: {fileID: 0}
     - target: {fileID: 4249034957635004, guid: 3f1f251626715784c988bc6d83d249b5, type: 2}
       propertyPath: m_LocalRotation.z
-      value: -0
+      value: -0.2730403
       objectReference: {fileID: 0}
     - target: {fileID: 4249034957635004, guid: 3f1f251626715784c988bc6d83d249b5, type: 2}
       propertyPath: m_LocalRotation.w
-      value: 0.9401098
+      value: 0.89958626
       objectReference: {fileID: 0}
     - target: {fileID: 4249034957635004, guid: 3f1f251626715784c988bc6d83d249b5, type: 2}
       propertyPath: m_RootOrder
@@ -9372,7 +9563,15 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4249034957635004, guid: 3f1f251626715784c988bc6d83d249b5, type: 2}
       propertyPath: m_LocalEulerAnglesHint.x
-      value: 39.86
+      value: 32.194
+      objectReference: {fileID: 0}
+    - target: {fileID: 4249034957635004, guid: 3f1f251626715784c988bc6d83d249b5, type: 2}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: -24.895
+      objectReference: {fileID: 0}
+    - target: {fileID: 4249034957635004, guid: 3f1f251626715784c988bc6d83d249b5, type: 2}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: -41.058002
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 114139425813242624, guid: 3f1f251626715784c988bc6d83d249b5, type: 2}
@@ -9641,7 +9840,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &2079421901
 RectTransform:
   m_ObjectHideFlags: 0
@@ -10008,8 +10207,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 60d0ed7dbd9bcf54fa3e774dac12ce17, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rotationSpeed: 5
   reachedPointDelta: 2
+  rotationSpeed: 5
   shootingPointAndMeteorList:
   - shootingPoint: {fileID: 1588455208}
     meteors:
