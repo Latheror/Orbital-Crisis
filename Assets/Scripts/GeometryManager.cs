@@ -128,7 +128,7 @@ public class GeometryManager : MonoBehaviour {
         }
 
         //Debug.Log("GetLocationFromTouchPointOnPlanetPlane | IntersectPointPos: " + intersectPointPos);
-        intersectPointPos.z = 160;
+        intersectPointPos.z = 0;
 
         return intersectPointPos;
     }

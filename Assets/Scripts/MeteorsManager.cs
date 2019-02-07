@@ -89,17 +89,18 @@ public class MeteorsManager : MonoBehaviour {
             int hardMeteorsNb = Mathf.FloorToInt(nb * hardMeteorsProportion);
             int regularMeteorsNb = nb - hardMeteorsNb;
             GameObject meteorModel = null;
-            bool spawnHardMeteor = false;
             float hardnessFactor = 1f;
 
             while ((regularMeteorsNb > 0 || hardMeteorsNb > 0) && (regularMeteorsNb >= 0 && hardMeteorsNb >= 0)) // While we still have meteors to spawn
             {
-                if(regularMeteorsNb > 0)
+                //Debug.Log("We still have meteors to spawn | Regular [" + regularMeteorsNb + "] | Hard [" + hardMeteorsNb + "]");
+                bool spawnHardMeteor = false;
+                if (regularMeteorsNb > 0)
                 {
                     if(hardMeteorsNb > 0)
                     {
                         float r = Random.Range(0f, 1f);
-                        Debug.Log("Random Number [" + r + "]");
+                        //Debug.Log("Random Number [" + r + "]");
                         if (r <= hardMeteorsProportion)
                         {
                             spawnHardMeteor = true;
@@ -125,7 +126,7 @@ public class MeteorsManager : MonoBehaviour {
                 }
 
                 SpawnNewMeteor(levelIndex, meteorModel, hardnessFactor);
-                Debug.Log("Spawned a meteor [" + ((spawnHardMeteor) ? "Hard" : "Regular") + "] | RegularMeteorNumberLeft [" + regularMeteorsNb + "] | HardMeteorsNbLeft [" + hardMeteorsNb + "]");
+                //Debug.Log("Spawned a meteor [" + ((spawnHardMeteor) ? "Hard" : "Regular") + "] | RegularMeteorNumberLeft [" + regularMeteorsNb + "] | HardMeteorsNbLeft [" + hardMeteorsNb + "]");
             }
         }
         else

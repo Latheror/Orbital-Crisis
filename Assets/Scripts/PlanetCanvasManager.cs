@@ -75,9 +75,9 @@ public class PlanetCanvasManager : MonoBehaviour {
 
     public void DisplayPopulationPercentages()
     {
-        productionAssignedPopulationAmountText.text = populationProductionPercentage.ToString();
-        attackAssignedPopulationAmountText.text = populationAttackPercentage.ToString();
-        defenseAssignedPopulationAmountText.text = populationDefensePercentage.ToString();
+        productionAssignedPopulationAmountText.text = populationProductionPercentage.ToString() + " %";
+        attackAssignedPopulationAmountText.text = populationAttackPercentage.ToString() + " %";
+        defenseAssignedPopulationAmountText.text = populationDefensePercentage.ToString() + " %";
 
         attackUpButton.SetActive(populationAttackPercentage != 100);
         attackDownButton.SetActive(populationAttackPercentage != 0);

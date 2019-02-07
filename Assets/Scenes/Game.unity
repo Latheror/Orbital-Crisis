@@ -25290,6 +25290,7 @@ MonoBehaviour:
     meteorSpawnSizeFactor: 0
     countdownTime: 0
     hardMeteorsProportion: 0
+    spawnedMeteorsNb: 0
     destroyedMeteorsNb: 0
     levelCompleted: 0
     allLevelMeteorsDestroyed: 0
@@ -25302,6 +25303,7 @@ MonoBehaviour:
     meteorSpawnSizeFactor: 0
     countdownTime: 0
     hardMeteorsProportion: 0
+    spawnedMeteorsNb: 0
     destroyedMeteorsNb: 0
     levelCompleted: 0
     allLevelMeteorsDestroyed: 0
@@ -25314,6 +25316,7 @@ MonoBehaviour:
     meteorSpawnSizeFactor: 0
     countdownTime: 0
     hardMeteorsProportion: 0
+    spawnedMeteorsNb: 0
     destroyedMeteorsNb: 0
     levelCompleted: 0
     allLevelMeteorsDestroyed: 0
@@ -25326,6 +25329,7 @@ MonoBehaviour:
     meteorSpawnSizeFactor: 0
     countdownTime: 0
     hardMeteorsProportion: 0
+    spawnedMeteorsNb: 0
     destroyedMeteorsNb: 0
     levelCompleted: 0
     allLevelMeteorsDestroyed: 0
@@ -25338,6 +25342,7 @@ MonoBehaviour:
     meteorSpawnSizeFactor: 0
     countdownTime: 0
     hardMeteorsProportion: 0
+    spawnedMeteorsNb: 0
     destroyedMeteorsNb: 0
     levelCompleted: 0
     allLevelMeteorsDestroyed: 0
@@ -25352,6 +25357,7 @@ MonoBehaviour:
     meteorSpawnSizeFactor: 0
     countdownTime: 0
     hardMeteorsProportion: 0
+    spawnedMeteorsNb: 0
     destroyedMeteorsNb: 0
     levelCompleted: 0
     allLevelMeteorsDestroyed: 0
@@ -44494,7 +44500,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1367097139}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -106.4, y: 29.1, z: 156.1}
+  m_LocalPosition: {x: -106.4, y: 29.1, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1802927979}

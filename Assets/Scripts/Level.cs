@@ -19,6 +19,7 @@ public class Level {
     public float hardMeteorsProportion = 0; // Between 0 and 1
 
     [Header("Operation")]
+    public int spawnedMeteorsNb = 0;
     public int destroyedMeteorsNb = 0;
     public bool levelCompleted = false;
     public bool allLevelMeteorsDestroyed = false;
@@ -41,13 +42,17 @@ public class Level {
         this.enemies = enemies;
         this.countdownTime = countdownTime;
         this.hardMeteorsProportion = hardMeteorsProportion;
+
+        this.spawnedMeteorsNb = 0;
+        this.destroyedMeteorsNb = 0;
+        this.allLevelMeteorsDestroyed = false;
     }
 
     // Returns true if level is completed
     public void IncrementDestroyedMeteorsNb(int nb)
     {
         destroyedMeteorsNb += nb;
-        Debug.Log("IncrementDestroyedMeteorsNb | LevelIndex [" + levelNb + "] | Destroyed [" + destroyedMeteorsNb + "] | Total [" + levelMeteorsNb + "]");
+        //Debug.Log("IncrementDestroyedMeteorsNb | LevelIndex [" + levelNb + "] | Destroyed [" + destroyedMeteorsNb + "] | Total [" + levelMeteorsNb + "]");
 
         if(LevelManager.instance.currentLevelNumber == levelNb)
         {
