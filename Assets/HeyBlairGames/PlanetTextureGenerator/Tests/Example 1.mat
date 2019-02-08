@@ -27,7 +27,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _CloudMap:
-        m_Texture: {fileID: 2800000, guid: 5dd9f26c83341374ba7c5e86a0203c14, type: 3}
+        m_Texture: {fileID: 2800000, guid: a7b1553c2553ab643a4c00f6cefc984c, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _CloudNormalMap:
@@ -35,7 +35,7 @@ Material:
         m_Scale: {x: 0, y: 0}
         m_Offset: {x: 0, y: 0}
     - _GroundMap:
-        m_Texture: {fileID: 2800000, guid: c874d1c37ad8a9a42a9a536d6f88b0fe, type: 3}
+        m_Texture: {fileID: 2800000, guid: bd2b645b6a3773a44984a4e3469ec37a, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _IllumMap:
@@ -56,12 +56,12 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Floats:
     - _Alpha: 1
-    - _CityEmissionStrength: 1
-    - _CloudAlpha: 0.33
+    - _CityEmissionStrength: 0.1
+    - _CloudAlpha: 0.5
     - _EmissionStr: 0.8214286
     - _Parallax: 0.005
     - _Shininess: 1000
     m_Colors:
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _EmissionColour: {r: 1, g: 0.8039216, b: 0.3764706, a: 1}
-    - _SpecularColour: {r: 0, g: 0, b: 0, a: 0}
+    - _SpecularColour: {r: 1, g: 1, b: 1, a: 0}
