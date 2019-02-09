@@ -237,6 +237,8 @@ public class PopulationManager : MonoBehaviour {
     public void ApplyPopulationEffects()
     {
         ApplyPopulationEffectsToBuildings();
+        
+        // TODO: effects on other things (megastructures, ...)
     }
 
     public void ApplyPopulationEffectsToBuildings()
@@ -277,6 +279,44 @@ public class PopulationManager : MonoBehaviour {
         EnergyPanel.instance.UpdateEnergyProductionAndConsumption();
     }
 
+    public PopulationData BuildPopulationData()
+    {
+        return new PopulationData(totalPopulationAmount, populationAttackPercentage, populationDefensePercentage, populationProductionPercentage);
+    }
 
+    public void SetupSavedPopulationData(PopulationData populationData)
+    {
+        Debug.Log("SetupSavedPopulationData");
+        SetPopulationParameters(populationData.totalPopulationAmount, populationData.attackPercentage, populationData.defensePercentage, populationData.productionPercentage);
+        PlanetCanvasManager.instance.SetPopulationPercentages(populationAttackPercentage, populationDefensePercentage, populationProductionPercentage);
+    }
+
+    public void SetPopulationParameters(float totalPop, int attackP, int defenseP, int productionP)
+    {
+        totalPopulationAmount = totalPop;
+        populationAttackPercentage = attackP;
+        populationDefensePercentage = defenseP;
+        populationProductionPercentage = productionP;
+
+        CalculatePopulationAttribution();
+    }
+
+    [System.Serializable]
+    public class PopulationData
+    {
+        public float totalPopulationAmount;
+
+        public int attackPercentage;
+        public int defensePercentage;
+        public int productionPercentage;
+
+        public PopulationData(float totalPopulationAmount, int attackPercentage, int defensePercentage, int productionPercentage)
+        {
+            this.totalPopulationAmount = totalPopulationAmount;
+            this.attackPercentage = attackPercentage;
+            this.defensePercentage = defensePercentage;
+            this.productionPercentage = productionPercentage;
+        }
+    }
 
 }

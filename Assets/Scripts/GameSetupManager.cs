@@ -68,6 +68,7 @@ public class GameSetupManager : MonoBehaviour {
         BuildingManager.UnlockedBuildingData[] unlockedBuildingsData = gameSetupParameters.gameSaveData.unlockedBuildingsData;
         TechTreeManager.TechnologyData[] technologiesData = gameSetupParameters.gameSaveData.technologiesData;
         MegaStructureManager.MegaStructuresData megaStructuresData = gameSetupParameters.gameSaveData.megaStructuresData;
+        PopulationManager.PopulationData populationData = gameSetupParameters.gameSaveData.populationData;
 
         if(buildingsData != null){
             SetupSavedBuildings(buildingsData);
@@ -101,6 +102,11 @@ public class GameSetupManager : MonoBehaviour {
         if (megaStructuresData != null)
         {
             SetupMegaStructures(megaStructuresData);
+        }
+
+        if (populationData != null)
+        {
+            SetupPopulationData(populationData);
         }
     }
 
@@ -175,6 +181,12 @@ public class GameSetupManager : MonoBehaviour {
     {
         Debug.Log("SetupMegaStructures");
         MegaStructureManager.instance.SetupSavedMegaStructuresData(megaStructuresData);
+    }
+
+    public void SetupPopulationData(PopulationManager.PopulationData populationData)
+    {
+        Debug.Log("SetupPopulationData");
+        PopulationManager.instance.SetupSavedPopulationData(populationData);
     }
 
     public class GameSetupParameters
