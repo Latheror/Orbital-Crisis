@@ -12,18 +12,20 @@ public class SatelliteSolarStation : PowerPlant {
 
     public override void ApplyCurrentTierSettings()
     {
-        Debug.Log("ApplyCurrentTierSettings | SATELLITE SOLAR STATION | CurrentTier: " + currentTier);
+        //Debug.Log("ApplyCurrentTierSettings | SATELLITE SOLAR STATION | CurrentTier: " + currentTier);
         switch (currentTier)
         {
             case 2:
             {
-                energyProduction = energyProduction_tier_2;
+                baseEnergyProduction = energyProduction_tier_2;
+                effectiveEnergyProduction = baseEnergyProduction;
                 break;
 
             }
             case 3:
             {
-                energyProduction = energyProduction_tier_3;
+                baseEnergyProduction = energyProduction_tier_3;
+                effectiveEnergyProduction = baseEnergyProduction;
                 break;
             }
         }

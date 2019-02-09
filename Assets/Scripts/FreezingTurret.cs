@@ -67,7 +67,7 @@ public class FreezingTurret : Turret {
 
     public void SlowDownTarget()
     {
-        target.GetComponent<Meteor>().Freeze(freezingFactor);
+        target.GetComponent<Meteor>().Freeze(freezingFactor * (1 + populationBonus));
     }
 
     public void SetFreezingMaterial()

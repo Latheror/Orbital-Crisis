@@ -163,7 +163,7 @@ public class EnergyPanel : MonoBehaviour {
             {
                 if (building.GetComponent<Building>().buildingType.producesEnergy)   // Produces energy
                 {
-                    totalEnergyProduction += building.GetComponent<PowerPlant>().energyProduction;
+                    totalEnergyProduction += building.GetComponent<PowerPlant>().effectiveEnergyProduction;
                 }
                 else    // Consumes energy
                 {

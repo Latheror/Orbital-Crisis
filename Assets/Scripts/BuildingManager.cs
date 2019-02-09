@@ -12,6 +12,7 @@ public class BuildingManager : MonoBehaviour {
     }
 
     public enum BuildingState { Default, BuildingSelected, LocationSelected, BuildingAndLocationSelected, Building }
+    public enum BuildingCategory { Attack, Defense, Production }
 
     [Header("World")]
     public GameObject mainPlanet;
@@ -49,7 +50,7 @@ public class BuildingManager : MonoBehaviour {
 
     public void SetAvailableBuildings()
     {
-        availableBuildings.Add(new BuildingType(1, "Laser Turret", laserTurretPrefab, 25f,
+        availableBuildings.Add(new BuildingType(1, "Laser Turret", laserTurretPrefab, BuildingCategory.Attack, 25f,
                 new List<ResourcesManager.ResourceAmount>(){
                     new ResourcesManager.ResourceAmount("steel", 75),
                     new ResourcesManager.ResourceAmount("copper", 50)
@@ -78,7 +79,7 @@ public class BuildingManager : MonoBehaviour {
                 false
                 ));
 
-        availableBuildings.Add(new BuildingType(2, "Missile Turret", bulletTurretPrefab, 20f, new List<ResourcesManager.ResourceAmount>(){
+        availableBuildings.Add(new BuildingType(2, "Missile Turret", bulletTurretPrefab, BuildingCategory.Attack, 20f, new List<ResourcesManager.ResourceAmount>(){
                 new ResourcesManager.ResourceAmount("steel", 50),
                 new ResourcesManager.ResourceAmount("copper", 100)},
                 BuildingType.BuildingLocationType.Planet, "bullet_turret", 3, 1,
@@ -103,7 +104,7 @@ public class BuildingManager : MonoBehaviour {
                 false
                 ));
 
-        availableBuildings.Add(new BuildingType(3, "Freezing Turret", freezingTurretPrefab, 10f,
+        availableBuildings.Add(new BuildingType(3, "Freezing Turret", freezingTurretPrefab, BuildingCategory.Defense, 10f,
                 new List<ResourcesManager.ResourceAmount>(){
                     new ResourcesManager.ResourceAmount("steel", 200),
                     new ResourcesManager.ResourceAmount("copper", 280)
@@ -131,7 +132,7 @@ public class BuildingManager : MonoBehaviour {
                 false
                 ));
 
-        availableBuildings.Add(new BuildingType(4, "Power Plant", powerPlantPrefab, 0f,
+        availableBuildings.Add(new BuildingType(4, "Power Plant", powerPlantPrefab, BuildingCategory.Production, 0f,
                 new List<ResourcesManager.ResourceAmount>(){
                     new ResourcesManager.ResourceAmount("steel", 80),
                     new ResourcesManager.ResourceAmount("copper", 70)
@@ -157,7 +158,7 @@ public class BuildingManager : MonoBehaviour {
                 false
                 ));
 
-        availableBuildings.Add(new BuildingType(5, "Mining Facility", mineBuildingPrefab, 10f,
+        availableBuildings.Add(new BuildingType(5, "Mining Facility", mineBuildingPrefab, BuildingCategory.Production, 10f,
                 new List<ResourcesManager.ResourceAmount>(){
                     new ResourcesManager.ResourceAmount("steel", 40)
                 },
@@ -183,7 +184,7 @@ public class BuildingManager : MonoBehaviour {
                 false
                 ));
 
-        availableBuildings.Add(new BuildingType(6, "Shock Satellite", shockSatellitePrefab, 10f,
+        availableBuildings.Add(new BuildingType(6, "Shock Satellite", shockSatellitePrefab, BuildingCategory.Attack, 10f,
                 new List<ResourcesManager.ResourceAmount>(){
                     new ResourcesManager.ResourceAmount("steel", 120),
                     new ResourcesManager.ResourceAmount("copper", 80)
@@ -210,7 +211,7 @@ public class BuildingManager : MonoBehaviour {
                 false
                 ));
 
-        availableBuildings.Add(new BuildingType(7, "Recycling Station", debrisCollectorStationPrefab, 10f,
+        availableBuildings.Add(new BuildingType(7, "Recycling Station", debrisCollectorStationPrefab, BuildingCategory.Production, 10f,
                 new List<ResourcesManager.ResourceAmount>(){
                     new ResourcesManager.ResourceAmount("steel", 40),
                     new ResourcesManager.ResourceAmount("copper", 20)
@@ -238,7 +239,7 @@ public class BuildingManager : MonoBehaviour {
                 false
         ));
 
-        availableBuildings.Add(new BuildingType(8, "Solar Station", satelliteSolarStationPrefab, 0f,
+        availableBuildings.Add(new BuildingType(8, "Solar Station", satelliteSolarStationPrefab, BuildingCategory.Production, 0f,
                 new List<ResourcesManager.ResourceAmount>(){
                     new ResourcesManager.ResourceAmount("steel", 40),
                     new ResourcesManager.ResourceAmount("copper", 80)
@@ -264,7 +265,7 @@ public class BuildingManager : MonoBehaviour {
                 false
                 ));
 
-        availableBuildings.Add(new BuildingType(9, "Healing Turret", healingTurretPrefab, 15f,
+        availableBuildings.Add(new BuildingType(9, "Healing Turret", healingTurretPrefab, BuildingCategory.Defense, 15f,
                 new List<ResourcesManager.ResourceAmount>(){
                     new ResourcesManager.ResourceAmount("steel", 400),
                     new ResourcesManager.ResourceAmount("copper", 350)
@@ -292,7 +293,7 @@ public class BuildingManager : MonoBehaviour {
                 false
                 ));
 
-        availableBuildings.Add(new BuildingType(10, "Spaceport", spaceportPrefab, 15f,
+        availableBuildings.Add(new BuildingType(10, "Spaceport", spaceportPrefab, BuildingCategory.Defense, 15f,
                 new List<ResourcesManager.ResourceAmount>(){
                     new ResourcesManager.ResourceAmount("steel", 800),
                     new ResourcesManager.ResourceAmount("copper", 700),
@@ -319,7 +320,7 @@ public class BuildingManager : MonoBehaviour {
                 true
         ));
 
-        availableBuildings.Add(new BuildingType(11, "Storm Satellite", stormSatellitePrefab, 30f,
+        availableBuildings.Add(new BuildingType(11, "Storm Satellite", stormSatellitePrefab, BuildingCategory.Attack, 30f,
                 new List<ResourcesManager.ResourceAmount>(){
                     new ResourcesManager.ResourceAmount("steel", 80),
                     new ResourcesManager.ResourceAmount("carbon", 20)
@@ -345,7 +346,7 @@ public class BuildingManager : MonoBehaviour {
                 false
         ));
 
-        availableBuildings.Add(new BuildingType(12, "Meteor Crusher", meteorCrusherPrefab, 30f,
+        availableBuildings.Add(new BuildingType(12, "Meteor Crusher", meteorCrusherPrefab, BuildingCategory.Attack, 30f,
                 new List<ResourcesManager.ResourceAmount>(){
                     new ResourcesManager.ResourceAmount("steel", 650),
                     new ResourcesManager.ResourceAmount("copper", 500),
@@ -785,8 +786,9 @@ public class BuildingManager : MonoBehaviour {
         public bool producesEnergy;
         public List<Building.BuildingStat> stats;
         public bool isUnique;
+        public BuildingCategory buildingCategory;
 
-        public BuildingType(int id, string name, GameObject prefab, float energyConsumption, List<ResourcesManager.ResourceAmount> cost, BuildingLocationType buildingLocationType, string imageName, int maxTier, int unlockedAtLevelNb, string description, List<ResourcesManager.UpgradeCost> upgradeCosts, bool hasRange, bool producesEnergy, List<Building.BuildingStat> stats, bool isUnique)
+        public BuildingType(int id, string name, GameObject prefab, BuildingCategory buildingCategory, float energyConsumption, List<ResourcesManager.ResourceAmount> cost, BuildingLocationType buildingLocationType, string imageName, int maxTier, int unlockedAtLevelNb, string description, List<ResourcesManager.UpgradeCost> upgradeCosts, bool hasRange, bool producesEnergy, List<Building.BuildingStat> stats, bool isUnique)
         {
             this.id = id;
             this.name = name;
@@ -804,6 +806,7 @@ public class BuildingManager : MonoBehaviour {
             this.producesEnergy = producesEnergy;
             this.stats = stats;
             this.isUnique = isUnique;
+            this.buildingCategory = buildingCategory;
         }
 
         public List<ResourcesManager.ResourceAmount> GetUpgradeCostsForTierNb(int tierNb)

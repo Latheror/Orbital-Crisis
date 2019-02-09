@@ -72,7 +72,7 @@ public class PopulationManager : MonoBehaviour {
 
     public void IncreaseDecreaseAssignedPopulation(int populationAffectationTypeIndex, bool increase)
     {
-        Debug.Log("IncreaseDecreaseAssignedPopulation | Index [" + populationAffectationTypeIndex + "] | Increase [" + increase + "]");
+        //Debug.Log("IncreaseDecreaseAssignedPopulation | Index [" + populationAffectationTypeIndex + "] | Increase [" + increase + "]");
         switch (populationAffectationTypeIndex) // Attack: 0, Defense: 1, Production: 2
         {
             case (int)PopulationAffectationType.Attack:
@@ -80,7 +80,7 @@ public class PopulationManager : MonoBehaviour {
                 if(increase)
                 {
                     int willIncreaseAttackOf = Mathf.Min(10, 100 - populationAttackPercentage);
-                    Debug.Log("Increasing Attack Percentage of [" + willIncreaseAttackOf + "]");
+                    //Debug.Log("Increasing Attack Percentage of [" + willIncreaseAttackOf + "]");
                     populationAttackPercentage += willIncreaseAttackOf;
 
                     if(populationDefensePercentage <= populationProductionPercentage)
@@ -101,7 +101,7 @@ public class PopulationManager : MonoBehaviour {
                 else
                 {
                     int willDecreaseAttackOf = Mathf.Min(10, populationAttackPercentage);
-                    Debug.Log("Decreasing Attack Percentage of [" + willDecreaseAttackOf + "]");
+                    //Debug.Log("Decreasing Attack Percentage of [" + willDecreaseAttackOf + "]");
                     populationAttackPercentage -= willDecreaseAttackOf;
 
                     if (populationDefensePercentage >= populationProductionPercentage)
@@ -127,7 +127,7 @@ public class PopulationManager : MonoBehaviour {
                 if (increase)
                 {
                     int willIncreaseDefenseOf = Mathf.Min(10, 100 - populationDefensePercentage);
-                    Debug.Log("Increasing Defense Percentage of [" + willIncreaseDefenseOf + "]");
+                    //Debug.Log("Increasing Defense Percentage of [" + willIncreaseDefenseOf + "]");
                     populationDefensePercentage += willIncreaseDefenseOf;
 
                     if (populationProductionPercentage <= populationAttackPercentage)
@@ -148,7 +148,7 @@ public class PopulationManager : MonoBehaviour {
                 else
                 {
                     int willDecreaseDefenseOf = Mathf.Min(10, populationDefensePercentage);
-                    Debug.Log("Decreasing Defense Percentage of [" + willDecreaseDefenseOf + "]");
+                    //Debug.Log("Decreasing Defense Percentage of [" + willDecreaseDefenseOf + "]");
                     populationDefensePercentage -= willDecreaseDefenseOf;
 
                     if (populationProductionPercentage >= populationAttackPercentage)
@@ -174,7 +174,7 @@ public class PopulationManager : MonoBehaviour {
                 if (increase)
                 {
                     int willIncreaseProductionOf = Mathf.Min(10, 100 - populationProductionPercentage);
-                    Debug.Log("Increasing Production Percentage of [" + willIncreaseProductionOf + "]");
+                    //Debug.Log("Increasing Production Percentage of [" + willIncreaseProductionOf + "]");
                     populationProductionPercentage += willIncreaseProductionOf;
 
                     if (populationAttackPercentage <= populationDefensePercentage)
@@ -195,7 +195,7 @@ public class PopulationManager : MonoBehaviour {
                 else
                 {
                     int willDecreaseProductionOf = Mathf.Min(10, populationProductionPercentage);
-                    Debug.Log("Decreasing Production Percentage of [" + willDecreaseProductionOf + "]");
+                    //Debug.Log("Decreasing Production Percentage of [" + willDecreaseProductionOf + "]");
                     populationProductionPercentage -= willDecreaseProductionOf;
 
                     if (populationAttackPercentage >= populationDefensePercentage)
@@ -229,39 +229,54 @@ public class PopulationManager : MonoBehaviour {
         populationDefenseAmount = (int)totalPopulationAmount * populationDefensePercentage / 100;
         populationProductionAmount = (int)totalPopulationAmount - populationAttackAmount - populationDefenseAmount;
 
-        Debug.Log("CalculatePopulationAttribution | Attack [" + populationAttackAmount + "] | Defense [" + populationDefenseAmount + "] | [" + populationProductionAmount + "]");
+        //Debug.Log("CalculatePopulationAttribution | Attack [" + populationAttackAmount + "] | Defense [" + populationDefenseAmount + "] | Production [" + populationProductionAmount + "]");
 
         ApplyPopulationEffects();
     }
 
     public void ApplyPopulationEffects()
     {
-        ApplyPopulationAttackEffects();
-        ApplyPopulationDefenseEffects();
-        ApplyPopulationProductionEffects();
+        ApplyPopulationEffectsToBuildings();
     }
 
-    public void ApplyPopulationAttackEffects()
+    public void ApplyPopulationEffectsToBuildings()
     {
-        Debug.Log("ApplyPopulationAttackEffects");
+        float attackBonus = attackBonusPerUnitOfPopulation * populationAttackAmount;
+        float defenseBonus = defenseBonusPerUnitOfPopulation * populationDefenseAmount;
+        float productionBonus = productionBonusPerUnitOfPopulation * populationProductionAmount;
+        Debug.Log("ApplyPopulationEffectsToBuildings | Attack [" + attackBonus + "] | Defense [" + defenseBonus + "] | Production [" + productionBonus + "]");
+
         foreach (GameObject b in BuildingManager.instance.buildingList)
         {
-            if(b.GetComponent<Turret>() != null && (b.GetComponent<Turret>().offensiveTurret))
+            Building building = b.GetComponent<Building>();
+            switch(building.buildingType.buildingCategory)
             {
-                Debug.Log("Apply to offensive turret | Bonus [" + attackBonusPerUnitOfPopulation * populationAttackAmount + "]");
-                b.GetComponent<Turret>().populationAttackBonus = attackBonusPerUnitOfPopulation * populationAttackAmount;
+                case (BuildingManager.BuildingCategory.Attack):
+                {
+                    building.populationBonus = attackBonus;
+                    break;
+                }
+                case (BuildingManager.BuildingCategory.Defense):
+                {
+                    building.populationBonus = defenseBonus;
+                    break;
+                }
+                case (BuildingManager.BuildingCategory.Production):
+                {
+                    building.populationBonus = productionBonus;
+                    if(b.GetComponent<PowerPlant>() != null)
+                    {
+                        b.GetComponent<PowerPlant>().UpdatePopulationBonusEffectsOnProduction();
+                    }
+                    break;
+                }
             }
+            
         }
+
+        EnergyPanel.instance.UpdateEnergyProductionAndConsumption();
     }
 
-    public void ApplyPopulationDefenseEffects()
-    {
-        Debug.Log("ApplyPopulationDefenseEffects");
-    }
 
-    public void ApplyPopulationProductionEffects()
-    {
-        Debug.Log("ApplyPopulationProductionEffects");
-    }
 
 }

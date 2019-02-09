@@ -82,7 +82,7 @@ public class ShockSatellite : Building {
     {
         foreach (var meteor in inRangeMeteors)
         {
-            meteor.GetComponent<Meteor>().TakeDamage(damagePower);
+            meteor.GetComponent<Meteor>().TakeDamage(damagePower * (1 + populationBonus));
         }
     }
 

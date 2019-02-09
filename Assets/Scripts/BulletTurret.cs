@@ -52,7 +52,7 @@ public class BulletTurret : Turret {
                     Bullet bulletScript = instantiatedBullet.GetComponent<Bullet>();
                     bulletScript.SetTarget(target);
                     bulletScript.speed = bulletSpeed;
-                    bulletScript.power = bulletPower;
+                    bulletScript.power = bulletPower * (1 + populationBonus);
                     bulletScript.activated = true;
 
                     // bulletPrefab.GetComponent<Renderer>().material.color = Color.red;

@@ -236,7 +236,7 @@ public class MeteorCrusher : Turret
     {
         if (powerOn && target_1 != null && target_2 != null)
         {
-            float step = meteorApproachSpeed * Time.deltaTime;
+            float step = (meteorApproachSpeed * (1 + populationBonus)) * Time.deltaTime;
             target_1.transform.position = Vector3.MoveTowards(target_1.transform.position, target_2.transform.position, step);
             target_2.transform.position = Vector3.MoveTowards(target_2.transform.position, target_1.transform.position, step);
 

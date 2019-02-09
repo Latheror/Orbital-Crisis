@@ -24,9 +24,6 @@ public class Turret : Building
     public GameObject turretHead;
     public GameObject shootingPoint;
 
-    [Header("Bonus")]
-    public float populationAttackBonus = 0f;
-
     void Start()
     {
         InvokeRepeating("UpdateTarget", 0f, 0.5f);
@@ -141,7 +138,7 @@ public class Turret : Building
     public void DealDamageToMeteorTarget()
     {
         //Debug.Log("Dealing damage to meteor");
-        target.GetComponent<Meteor>().TakeDamage(power * (1 + populationAttackBonus));
+        target.GetComponent<Meteor>().TakeDamage(power * (1 + populationBonus));
     }
 
     public void HealTarget()
@@ -149,7 +146,7 @@ public class Turret : Building
         Debug.Log("Healing ally.");
         if (!offensiveTurret && target.GetComponent<Spaceship>() != null)
         {
-            target.GetComponent<Spaceship>().Heal(healingPower);
+            target.GetComponent<Spaceship>().Heal(healingPower * (1 + populationBonus));
         }
         else
         {

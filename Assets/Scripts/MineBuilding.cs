@@ -80,7 +80,7 @@ public class MineBuilding : Building {
     IEnumerator StartProductionCoolDown(MineBuilding mineBuilding)
     {
         mineBuilding.SetCoolDownElapsed(false);
-        yield return new WaitForSeconds(mineBuilding.productionDelay);
+        yield return new WaitForSeconds(mineBuilding.productionDelay * (1 - populationBonus));
         mineBuilding.SetCoolDownElapsed(true);
     }
 

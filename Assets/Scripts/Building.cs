@@ -10,7 +10,7 @@ public class Building : MonoBehaviour {
     public string buildingName;
     public Color buildingColor;
     public GameObject buildingPrefab;
-	public List<ResourcesManager.ResourceAmount> buildingPrice;
+    public List<ResourcesManager.ResourceAmount> buildingPrice;
     public List<string> tags;
 
     [Header("Building Spot")]
@@ -36,6 +36,9 @@ public class Building : MonoBehaviour {
     [Header("Level")]
     public int currentTier = 1;
     public bool maxUpgradeLevelReached = false;
+
+    [Header("Bonuses")]
+    public float populationBonus = 0f;
 
     public enum BuildingLocationType {Planet, Disks};
     public BuildingLocationType buildingLocationType;
@@ -158,11 +161,6 @@ public class Building : MonoBehaviour {
             currentTier++;
             ApplyCurrentTierSettings();
 
-            if(buildingType.name == "Spaceport")
-            {
-                SpaceportInfoPanel.instance.ImportInfo();
-            }
-
             // Refresh info panels, range indicator...
             DisplayRangeIndicator(true);
 
@@ -171,6 +169,11 @@ public class Building : MonoBehaviour {
             BuildingInfoPanel.instance.SetInfo();
 
             EnergyPanel.instance.UpdateEnergyProductionAndConsumption();
+
+            if (buildingType.name == "Spaceport")
+            {
+                SpaceportInfoPanel.instance.ImportInfo();
+            }
         }
         else
         {
@@ -251,7 +254,7 @@ public class Building : MonoBehaviour {
             {
                 if (gameObject.GetComponent<PowerPlant>() != null)
                 {
-                    statValue = gameObject.GetComponent<PowerPlant>().energyProduction;
+                    statValue = gameObject.GetComponent<PowerPlant>().effectiveEnergyProduction;    // Changed from base to effectiveEnergyProduction, to take population bonus into account
                 }
                 break;
             }

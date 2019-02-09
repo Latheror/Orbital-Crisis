@@ -17,13 +17,15 @@ public class GroundPowerPlant : PowerPlant {
         {
             case 2:
             {
-                energyProduction = energyProduction_tier_2;
+                baseEnergyProduction = energyProduction_tier_2;
+                effectiveEnergyProduction = baseEnergyProduction;
                 break;
 
             }
             case 3:
             {
-                energyProduction = energyProduction_tier_3;
+                baseEnergyProduction = energyProduction_tier_3;
+                effectiveEnergyProduction = baseEnergyProduction;
                 break;
             }
         }

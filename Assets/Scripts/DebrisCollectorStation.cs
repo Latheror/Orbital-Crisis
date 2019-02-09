@@ -44,7 +44,7 @@ public class DebrisCollectorStation : Building {
                 GameObject instantiatedDebrisCollector = Instantiate(debrisCollectorPrefab, instantiationPos, Quaternion.identity);
                 DebrisCollector debrisC = instantiatedDebrisCollector.GetComponent<DebrisCollector>();
                 debrisC.homeStation = gameObject;
-                debrisC.collectionTime = collectionTime;
+                debrisC.collectionTime = (collectionTime * (1 - populationBonus));
                 debrisCollectorsList.Add(instantiatedDebrisCollector);
                 instantiatedDebrisCollector.transform.SetParent(transform);
             }
