@@ -226,7 +226,7 @@ public class Building : MonoBehaviour {
         {
             case BuildingStat.StatType.energyConsumption:
             {
-                statValue = energyConsumption;
+                statValue = (int)energyConsumption;
                 break;
             }
             case BuildingStat.StatType.damagePower:
@@ -247,14 +247,14 @@ public class Building : MonoBehaviour {
             }
             case BuildingStat.StatType.range:
             {
-                statValue = range;
+                statValue = (int)range;
                 break;
             }
             case BuildingStat.StatType.energyProduction:
             {
                 if (gameObject.GetComponent<PowerPlant>() != null)
                 {
-                    statValue = gameObject.GetComponent<PowerPlant>().effectiveEnergyProduction;    // Changed from base to effectiveEnergyProduction, to take population bonus into account
+                    statValue = (int)gameObject.GetComponent<PowerPlant>().effectiveEnergyProduction;    // Changed from base to effectiveEnergyProduction, to take population bonus into account
                 }
                 break;
             }

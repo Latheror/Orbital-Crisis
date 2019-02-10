@@ -306,6 +306,7 @@ MonoBehaviour:
       resourceName: 
       color: {r: 0, g: 0, b: 0, a: 0}
       startAmount: 0
+      maxAmount: 0
       resourceIndicator: {fileID: 0}
       resourceImage: {fileID: 0}
     amount: 0
@@ -434,10 +435,10 @@ MonoBehaviour:
   m_IgnoreLayout: 0
   m_MinWidth: -1
   m_MinHeight: -1
-  m_PreferredWidth: 200
-  m_PreferredHeight: 90
-  m_FlexibleWidth: -1
-  m_FlexibleHeight: -1
+  m_PreferredWidth: -1
+  m_PreferredHeight: -1
+  m_FlexibleWidth: 1
+  m_FlexibleHeight: 1
   m_LayoutPriority: 1
 --- !u!114 &114854148826646872
 MonoBehaviour:
@@ -485,7 +486,7 @@ MonoBehaviour:
   m_outlineColor:
     serializedVersion: 2
     rgba: 4278190080
-  m_fontSize: 42.35
+  m_fontSize: 37.65
   m_fontSizeBase: 1
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -783,6 +784,6 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.05, y: 0.16666667}
   m_AnchorMax: {x: 0.425, y: 0.9333334}
-  m_AnchoredPosition: {x: 0.5, y: -0.10000038}
+  m_AnchoredPosition: {x: 0.5, y: -0.10000229}
   m_SizeDelta: {x: -0.12000084, y: -0.3600006}
   m_Pivot: {x: 0, y: 0.5}

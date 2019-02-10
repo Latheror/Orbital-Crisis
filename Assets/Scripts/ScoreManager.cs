@@ -30,7 +30,7 @@ public class ScoreManager : MonoBehaviour {
     public GameObject scoreValueIndicator;
     public GameObject experienceValueText;
     public GameObject artifactsNbText;
-    public TextMeshProUGUI planetLifeText;
+    //public TextMeshProUGUI planetLifeText;    // Text removed from UI
 
 
     void Start()
@@ -90,7 +90,7 @@ public class ScoreManager : MonoBehaviour {
 
     public void UpdatePlanetLifeDisplay()
     {
-        planetLifeText.text = Mathf.FloorToInt(planetLife).ToString();
+        //planetLifeText.text = Mathf.FloorToInt(planetLife).ToString();        // Text removed from UI
     }
 
     public void SetExperiencePointsAndArtifactsNb(int exp, int artifactsNb)
