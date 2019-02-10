@@ -48,7 +48,7 @@ public class MenuManager : MonoBehaviour
         RenderSettings.skybox.SetFloat("_Rotation", Time.time * skyBoxRotationSpeed);
     }
 
-    public void PlayButton()
+    public void OnPlayButtonClick()
     {
         SwitchViewFromMainToSaveCanvas();
     }
@@ -84,16 +84,21 @@ public class MenuManager : MonoBehaviour
 
     public void MoveCameraFromMainToSaveCanvas()
     {
-        StartCoroutine("CameraMainToPlayMovement");
+        Debug.Log("MoveCameraFromMainToSaveCanvas | Setting Forward Trigger");
+        cameraPivotPoint.GetComponent<Animator>().SetTrigger("ForwardTrigger");
+        //StartCoroutine("CameraMainToPlayMovement"); // Obsolete
     }
 
     public void MoveCameraFromSaveToMainCanvas()
     {
-        StartCoroutine("CameraPlayToMainMovement");
+        Debug.Log("MoveCameraFromSaveToMainCanvas | Setting Backward Trigger");
+        cameraPivotPoint.GetComponent<Animator>().SetTrigger("BackwardTrigger");
+        //StartCoroutine("CameraPlayToMainMovement"); // Obsolete
     }
 
     public void OnRateMeButton()
     {
+        Debug.Log("OnRateMeButton");
         Application.OpenURL("https://play.google.com/store/apps/details?id=com.LathGames.OrbitalCrisis");
     }
 
