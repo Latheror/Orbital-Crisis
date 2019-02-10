@@ -19,6 +19,7 @@ public class MegaStructureShortcutsPanel : MonoBehaviour {
 
     [Header("Operation")]
     public List<TechnoShortcutItem> shortcutItems = new List<TechnoShortcutItem>();
+    public bool panelOpen = false;
 
     private void Start()
     {
@@ -32,6 +33,9 @@ public class MegaStructureShortcutsPanel : MonoBehaviour {
         shortcutItems.Add(new TechnoShortcutItem(planetaryShieldShortcut, 16));
         shortcutItems.Add(new TechnoShortcutItem(megaCollectorShortcut, 20));
         shortcutItems.Add(new TechnoShortcutItem(dysonSphereShortcut, 24));
+
+        panelOpen = true;
+        OnOpenClosePanelButtonClick();
     }
 
     public void HideAllShortcuts()
@@ -96,7 +100,21 @@ public class MegaStructureShortcutsPanel : MonoBehaviour {
         }
     }
 
-
+    public void OnOpenClosePanelButtonClick()
+    {
+        Debug.Log("OnOpenClosePanelButtonClick");
+        Animator animator = GetComponent<Animator>();
+        if(panelOpen)
+        {
+            animator.SetTrigger("CloseTrigger");
+            panelOpen = false;
+        }
+        else
+        {
+            animator.SetTrigger("OpenTrigger");
+            panelOpen = true;
+        }
+    }
 
     public class TechnoShortcutItem
     {
