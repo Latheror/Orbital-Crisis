@@ -17,6 +17,8 @@ public class MenuManager : MonoBehaviour
     public GameObject playCameraPosition;
     public Vector3 playCameraRotation;
 
+    public GameObject settingsPanel;
+
     public GameObject cameraPivotPoint;
 
     public Camera mainCam;
@@ -28,7 +30,7 @@ public class MenuManager : MonoBehaviour
     void Start()
     {
         Screen.orientation = ScreenOrientation.AutoRotation;
-        Init();
+        Initialize();
     }
 
     // Update is called once per frame
@@ -37,10 +39,11 @@ public class MenuManager : MonoBehaviour
         RotateSkyBox();
     }
 
-    public void Init()
+    public void Initialize()
     {
         mainCanvas.SetActive(true);
         saveCanvas.SetActive(true);
+        settingsPanel.SetActive(false);
     }
 
     public void RotateSkyBox()
@@ -122,6 +125,23 @@ public class MenuManager : MonoBehaviour
             yield return null;
         }
         yield return null;
+    }
+
+    public void OnSettingsButtonClick()
+    {
+        Debug.Log("OnSettingsButtonClick");
+        DisplaySettingsPanel(true);
+    }
+
+    public void DisplaySettingsPanel(bool display)
+    {
+        settingsPanel.SetActive(display);
+    }
+
+    public void OnSettingsBackButtonClick()
+    {
+        Debug.Log("OnSettingsBackButtonClick");
+        DisplaySettingsPanel(false);
     }
 
 }
