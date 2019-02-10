@@ -48,6 +48,7 @@ public class ScenesManager : MonoBehaviour {
 
     public void LaunchNewGame()
     {
+        Debug.Log("Launch new game");
         GameSetupManager.instance.SetGameSetupParameters(new GameSetupManager.GameSetupParameters(true, null));
         StartCoroutine("ChangeFromMenuToGameScene");
     }

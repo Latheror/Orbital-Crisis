@@ -13,8 +13,10 @@ public class SaveManager : MonoBehaviour {
         if (instance == null) {
             instance = this;
             DontDestroyOnLoad(gameObject);
-            ImportGameSaves();
-            ImportSavedGeneralData();
+
+            ImportGameSaves();  // Read files decribing saved games
+            ImportSavedGeneralData();   // Read file containing info relative to save files
+
             MenuLoadGamePanel.instance.BuildLoadGameSaveElements();
             MenuLoadGamePanel.instance.DisplayHighScore();
         }

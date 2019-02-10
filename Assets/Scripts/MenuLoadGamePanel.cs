@@ -16,10 +16,10 @@ public class MenuLoadGamePanel : MonoBehaviour {
         //DontDestroyOnLoad(gameObject);
     }
 
-    public enum LeftPanelDisplayMode { Options, LoadGame };
+    public enum PanelDisplayMode { Default, Options };
 
     [Header("UI")]
-    public GameObject loadPanelGameSavesElementLayout;
+    public GameObject newGameButtonsLayout;
     public GameObject loadGamePanel;
     public GameObject optionsPanel;
 
@@ -28,11 +28,11 @@ public class MenuLoadGamePanel : MonoBehaviour {
     public TextMeshProUGUI highScoreText;
 
     [Header("Prefabs")]
-    public GameObject loadPanelGameSaveElementPrefab;
+    public GameObject newGameButtonPrefab;
 
     [Header("Operation")]
-    public List<GameObject> loadPanelGameSaveElements;
-    public LeftPanelDisplayMode leftPanelDisplayMode;
+    public List<GameObject> newGameButtonsList;
+    public PanelDisplayMode leftPanelDisplayMode;
 
     // Use this for initialization
     void Start () {
@@ -49,27 +49,32 @@ public class MenuLoadGamePanel : MonoBehaviour {
         ScenesManager.instance.LaunchNewGame();
     }
 
+    // Instantiate and display information on "NewGame/LoadGame" buttons
     public void BuildLoadGameSaveElements()
     {
         Debug.Log("BuildLoadGameSaveElements");
         for (int i=0; i<SaveManager.instance.savedGameFilesNb; i++)
         {
-            GameObject instantiatedLoadGameSaveElement = Instantiate(loadPanelGameSaveElementPrefab, loadPanelGameSaveElementPrefab.transform.position, Quaternion.identity);
+            // Instantiate NewGame button
+            GameObject instantiatedNewGameButton = Instantiate(newGameButtonPrefab, Vector3.zero, Quaternion.identity);
+            // Set its parent to the layout
+            instantiatedNewGameButton.transform.SetParent(newGameButtonsLayout.transform, false);
 
-            instantiatedLoadGameSaveElement.transform.SetParent(loadPanelGameSavesElementLayout.transform, false);
+            // Set parameters within
+            NewGameButton ngb = instantiatedNewGameButton.GetComponent<NewGameButton>();
+            ngb.SetInfo(i + 1, SaveManager.instance.globalSavedGameInfoData.saveFilesInfo[i], SaveManager.instance.globalGameSaveData[i]);
 
-            instantiatedLoadGameSaveElement.GetComponent<LoadGameSaveElement>().SetInfo(i + 1, SaveManager.instance.globalSavedGameInfoData.saveFilesInfo[i], SaveManager.instance.globalGameSaveData[i]);
-
-            loadPanelGameSaveElements.Add(instantiatedLoadGameSaveElement);
+            // Add it to the list
+            newGameButtonsList.Add(instantiatedNewGameButton);
         }
     }
 
     public void UpdateLoadGameSavePanel()
     {
         Debug.Log("UpdateLoadGameSavePanel");
-        foreach (GameObject loadPanelGameSaveElement in loadPanelGameSaveElements)
+        foreach (GameObject newGameButton in newGameButtonsList)
         {
-            UpdateLoadGameSaveElement(loadPanelGameSaveElement);
+            UpdateNewGameButton(newGameButton);
         }
     }
 
@@ -95,15 +100,15 @@ public class MenuLoadGamePanel : MonoBehaviour {
     }
 
 
-    public void UpdateLoadGameSaveElement(GameObject loadGameSaveElement)
+    public void UpdateNewGameButton(GameObject loadGameSaveElement)
     {
-        int saveIndex = loadGameSaveElement.GetComponent<LoadGameSaveElement>().saveIndex;
+        int saveIndex = loadGameSaveElement.GetComponent<NewGameButton>().saveIndex;
         Debug.Log("UpdateLoadGameSaveElement [" + saveIndex + "]");
 
         SaveManager.GameSaveData gameSaveData = SaveManager.instance.globalGameSaveData[saveIndex - 1];
         SaveManager.SavedGameFilesInfoData.SaveFileInfo saveFileInfo = SaveManager.instance.globalSavedGameInfoData.saveFilesInfo[saveIndex - 1];
 
-        loadGameSaveElement.GetComponent<LoadGameSaveElement>().SetInfo(saveIndex, saveFileInfo, gameSaveData);
+        loadGameSaveElement.GetComponent<NewGameButton>().SetInfo(saveIndex, saveFileInfo, gameSaveData);
     }
 
     public void DeleteGameSaveButtonClicked(int gameSaveIndex)
@@ -132,6 +137,14 @@ public class MenuLoadGamePanel : MonoBehaviour {
     {
         optionsPanel.SetActive(false);
         loadGamePanel.SetActive(true);
+    }
+
+    public void NewGameRequest(int saveSlotIndex = 1)
+    {
+        Debug.Log("NewGameRequest | Slot [" + saveSlotIndex + "]");
+        ScenesManager.instance.LaunchNewGame();
+
+        // Nothing is done with saveSlotIndex for now
     }
 
 }
