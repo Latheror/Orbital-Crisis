@@ -45,11 +45,11 @@ public class CollectorControlPanel : MonoBehaviour {
         }
     }
 
-    public void SubmitPowerSliderSetting()
+    public void SubmitCollectionSpeedSetting()
     {
         if (!disableSlidersTrigger)
         {
-            Debug.Log("SubmitPowerSliderSetting");
+            Debug.Log("SubmitCollectionSpeedSetting");
             collectionSpeed = collectionSpeedSlider.value;
             SendSettings();
             UpdateCollectionSpeedValueDisplay();

@@ -116,6 +116,7 @@ public class MegaStructureManager : MonoBehaviour {
     {
         PlanetaryShieldControlPanel.instance.DisplayPanel(false);
         CollectorControlPanel.instance.DisplayPanel(false);
+        DysonSphereControlPanel.instance.DisplayPanel(false);
     }
 
 
