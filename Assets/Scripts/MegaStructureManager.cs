@@ -165,7 +165,7 @@ public class MegaStructureManager : MonoBehaviour {
     public void UnlockMegaStructureActions(int megaStructureIndex)
     {
         //Debug.Log("UnlockMegaStructureActions | Index [" + megaStructureIndex + "]");
-        if (megaStructureIndex == 16)
+        if (megaStructureIndex == 1)
         {
             // Enable Shield itself
             planetaryShield.SetActive(true);
@@ -186,7 +186,7 @@ public class MegaStructureManager : MonoBehaviour {
             //planetaryShieldActivationAnimationGoParticleSystem.GetComponent<ParticleSystem>().startSize = planetaryShieldTechnoItem.GetComponent<RectTransform>().rect.width / 3;
         }
         else
-        if (megaStructureIndex == 20)
+        if (megaStructureIndex == 2)
         {
             // Enable MegaCollector itself
             megaCollector.SetActive(true);
@@ -205,7 +205,7 @@ public class MegaStructureManager : MonoBehaviour {
             megaCollector_logo.GetComponent<Image>().color = megaCollectorUnlockedColor;
         }
         else
-        if (megaStructureIndex == 24)
+        if (megaStructureIndex == 3)
         {
             // Enable Dyson Sphere itself
             dysonSphere.SetActive(true);
@@ -262,6 +262,37 @@ public class MegaStructureManager : MonoBehaviour {
         {
             //ds.Initialize();
             ds.Configure(megaStructuresData.dysonSphereStructurePoints, megaStructuresData.dysonSphereAutoRepair);
+        }
+    }
+
+    public void RenderMegaStructureItemAvailability(int megastructureIndex)
+    {
+        if (MegaStructuresPanel.instance != null)
+        {
+
+            switch (megastructureIndex)
+            {
+                case 1:    // Shield
+                {
+                    MegaStructuresPanel.instance.activateShieldTextGo.SetActive(true);
+                    planetaryShieldTechnoItem.GetComponent<Image>().color = MegaStructuresPanel.instance.finalMegaStructureAvailableColor;
+                    break;
+                }
+                case 2:    // Mega Collector
+                {
+                    MegaStructuresPanel.instance.activateCollectorTextGo.SetActive(true);
+                    collectorTechnoItem.GetComponent<Image>().color = MegaStructuresPanel.instance.finalMegaStructureAvailableColor;
+                    break;
+                }
+                case 3:    // Dyson Swarm
+                {
+                    MegaStructuresPanel.instance.activateDysonSphereTextGo.SetActive(true);
+                    dysonSphereTechnoItem.GetComponent<Image>().color = MegaStructuresPanel.instance.finalMegaStructureAvailableColor;
+                    break;
+                }
+                default:
+                    break;
+            }
         }
     }
 

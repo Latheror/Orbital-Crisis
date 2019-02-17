@@ -30,9 +30,9 @@ public class MegaStructureShortcutsPanel : MonoBehaviour {
     public void Init()
     {
         shortcutItems = new List<TechnoShortcutItem>();
-        shortcutItems.Add(new TechnoShortcutItem(planetaryShieldShortcut, 16));
-        shortcutItems.Add(new TechnoShortcutItem(megaCollectorShortcut, 20));
-        shortcutItems.Add(new TechnoShortcutItem(dysonSphereShortcut, 24));
+        shortcutItems.Add(new TechnoShortcutItem(planetaryShieldShortcut, 1));
+        shortcutItems.Add(new TechnoShortcutItem(megaCollectorShortcut, 2));
+        shortcutItems.Add(new TechnoShortcutItem(dysonSphereShortcut, 3));
 
         panelOpen = true;
         OnOpenClosePanelButtonClick();

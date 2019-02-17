@@ -26,8 +26,12 @@ public class PopulationManager : MonoBehaviour {
     public float defenseBonusPerUnitOfPopulation = 0.01f;
     public float productionBonusPerUnitOfPopulation = 0.01f;
 
+    public float startTotalPopulationAmount = 20f;
+    public float startMaxPopulationAmount = 20f;
+
     [Header("Operation")]
     public float totalPopulationAmount = 20f;
+    public float maxPopulationAmount = 20f;
     // Population percentages
     public int populationAttackPercentage = 30;
     public int populationDefensePercentage = 30;
@@ -44,13 +48,15 @@ public class PopulationManager : MonoBehaviour {
 
     public void Initialize()
     {
+        maxPopulationAmount = startMaxPopulationAmount;
+        totalPopulationAmount = startTotalPopulationAmount;
         CalculatePopulationAttribution();
         DisplayInfo();
     }
 
     public void DisplayInfo()
     {
-        PlanetCanvasManager.instance.SetTotalPopulationAmount(Mathf.FloorToInt(totalPopulationAmount));
+        PlanetCanvasManager.instance.SetTotalPopulationAmount(Mathf.FloorToInt(totalPopulationAmount), Mathf.FloorToInt(maxPopulationAmount));
         PlanetCanvasManager.instance.SetPopulationPercentages(populationAttackPercentage, populationDefensePercentage, populationProductionPercentage);
     }    
 
@@ -58,9 +64,15 @@ public class PopulationManager : MonoBehaviour {
     {
         Debug.Log("PlanetHitByMeteor");
         totalPopulationAmount = Mathf.Max(0, totalPopulationAmount - (meteor.size * populationLossPerMeteorUnitOfSize));
+        
         DisplayInfo();
 
         PlayPopulationHurtAnimation();
+
+        if(totalPopulationAmount <= 0)
+        {
+            ScoreManager.instance.TriggerGameOver();
+        }
     }
 
     public void PlayPopulationHurtAnimation()
@@ -299,6 +311,23 @@ public class PopulationManager : MonoBehaviour {
         populationProductionPercentage = productionP;
 
         CalculatePopulationAttribution();
+    }
+
+    public void NewWaveStarted(int waveIndex)
+    {
+        Debug.Log("PopulationManager | NewWaveStarted");
+        NewWaveActions(waveIndex);
+    }
+
+    public void NewWaveActions(int waveIndex)
+    {
+        RetrievePopulation(1);
+    }
+
+    public void RetrievePopulation(int ampunt)
+    {
+        totalPopulationAmount = Mathf.Min(totalPopulationAmount + 1, maxPopulationAmount);
+        DisplayInfo();
     }
 
     [System.Serializable]

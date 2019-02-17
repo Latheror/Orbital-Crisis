@@ -24,8 +24,12 @@ public class PlanetCanvasManager : MonoBehaviour {
     public GameObject productionUpButton;
     public GameObject productionDownButton;
 
+    public Color defaultPopulationAmountColor;
+    public Color lowPopulationAmountColor;
+
     // Dezoom Canvas
     public TextMeshProUGUI populationAmountText;
+    public TextMeshProUGUI maxPopulationAmountText;
     public TextMeshProUGUI energyAmountText;
 
     // Zoom Canvas
@@ -35,6 +39,7 @@ public class PlanetCanvasManager : MonoBehaviour {
 
     [Header("Operation")]
     public int currentPopulationAmount;
+    public int maxPopulationAmount;
     public int currentEnergyDifferentialAmount;
 
     public int populationAttackPercentage;
@@ -49,9 +54,10 @@ public class PlanetCanvasManager : MonoBehaviour {
     }
 
     // Dezoom Panel ------- //
-    public void SetTotalPopulationAmount(int totalPopulationAmount)
+    public void SetTotalPopulationAmount(int totalPopulationAmount, int maxPop)
     {
         currentPopulationAmount = totalPopulationAmount;
+        maxPopulationAmount = maxPop;
         DisplayDezoomPanelInfo();
     }
     //
@@ -90,6 +96,8 @@ public class PlanetCanvasManager : MonoBehaviour {
     public void DisplayDezoomPanelInfo()
     {
         populationAmountText.text = currentPopulationAmount.ToString();
+        populationAmountText.color = (currentPopulationAmount > PopulationManager.instance.maxPopulationAmount * 0.25) ? defaultPopulationAmountColor : lowPopulationAmountColor;
+        maxPopulationAmountText.text = maxPopulationAmount.ToString();
         energyAmountText.text = currentEnergyDifferentialAmount.ToString();
     }
 

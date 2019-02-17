@@ -159,6 +159,8 @@ public class LevelManager : MonoBehaviour {
             }
 
             currentLevelFinished = false;
+
+            PopulationManager.instance.NewWaveStarted(currentLevelNumber);
         }
         else
         {

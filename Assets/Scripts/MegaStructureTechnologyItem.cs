@@ -60,6 +60,7 @@ public class MegaStructureTechnologyItem : MonoBehaviour {
 
     public void UpdatePanelDisplay()
     {
+        Debug.Log("MegaStructureTechnology | UpdatePanelDisplay [" + associatedTechnology.name + "]");
         bool outputConnectionEnabled = false;
 
         if (!associatedTechnology.isFinalMegaStructureTechnology)
@@ -88,45 +89,15 @@ public class MegaStructureTechnologyItem : MonoBehaviour {
             // Artifact cost background
             artifactCostCenterPanel.GetComponent<Image>().color = (TechTreeManager.instance.CanPayArtifactCost(associatedTechnology)) ? MegaStructureManager.instance.canPayColor : MegaStructureManager.instance.cantPayColor;
         }
-        else
+        else  // Final Mega Structure Techno
         {
-            /*if (associatedTechnology.unlocked)
+            if(associatedTechnology.available)
             {
-
+                if(!associatedTechnology.unlocked)
+                {
+                    MegaStructureManager.instance.RenderMegaStructureItemAvailability(associatedTechnology.megaStructureIndex);
+                }
             }
-            else
-            {
-                if (associatedTechnology.available)
-                {
-                    GetComponent<Image>().color = MegaStructuresPanel.instance.finalMegaStructureAvailableColor;
-                    switch (associatedTechnology.id)
-                    {
-                        case 16:
-                        {
-                            Debug.Log("Planetary shield available !");
-                            if (MegaStructuresPanel.instance != null)
-                            {
-                                //MegaStructuresPanel.instance.activateShieldTextGo.SetActive(true);
-                            }
-                                break;
-                        }
-                        case 20:
-                        {
-                            if (MegaStructuresPanel.instance != null)
-                            {
-                                //MegaStructuresPanel.instance.activateCollectorTextGo.SetActive(true);
-                            }
-                            break;
-                        }
-                        default:
-                            break;
-                    }
-                }
-                else
-                {
-
-                }
-            }*/
         }
 
         if (outputConnectionEnabled)

@@ -33,6 +33,7 @@ public class MenuLoadGamePanel : MonoBehaviour {
     [Header("Operation")]
     public List<GameObject> newGameButtonsList;
     public PanelDisplayMode leftPanelDisplayMode;
+    public bool newGameButtonsAvailable = true;
 
     // Use this for initialization
     void Start () {
@@ -43,6 +44,7 @@ public class MenuLoadGamePanel : MonoBehaviour {
     {
         loadGamePanel.SetActive(true);
         optionsPanel.SetActive(false);
+        newGameButtonsAvailable = true;
     }
 
     public void PlayCanvas_NewGameButton(){
@@ -145,6 +147,11 @@ public class MenuLoadGamePanel : MonoBehaviour {
         ScenesManager.instance.LaunchNewGame();
 
         // Nothing is done with saveSlotIndex for now
+    }
+
+    public void NewGameButtonClicked()
+    {
+        newGameButtonsAvailable = false;
     }
 
 }

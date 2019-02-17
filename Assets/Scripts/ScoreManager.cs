@@ -149,7 +149,8 @@ public class ScoreManager : MonoBehaviour {
         IncreaseExperiencePoints((int)(meteor.originalSize * experiencePointsPerMeteorUnitOfSize));
     }
 
-    public void DecreasePlanetLife(float amount)
+    // Obsolete
+    /*public void DecreasePlanetLife(float amount)
     {
         planetLife -= amount;
         //Debug.Log("DecreasePlanetLife [" + planetLife + "]");
@@ -159,11 +160,11 @@ public class ScoreManager : MonoBehaviour {
             TriggerGameOver();
         }
         UpdatePlanetLifeDisplay();
-    }
+    }*/
 
     public void PlanetHitByMeteor(Meteor meteor)
     {
-        DecreasePlanetLife(meteor.size * planetLifeLossPerMeteorSizeUnit);
+        //DecreasePlanetLife(meteor.size * planetLifeLossPerMeteorSizeUnit); // Not used anymore
     }
 
     public void TriggerGameOver()

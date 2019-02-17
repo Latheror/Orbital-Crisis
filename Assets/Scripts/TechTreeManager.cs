@@ -116,7 +116,7 @@ public class TechTreeManager : MonoBehaviour
         Technology shield_stabiliserTechno = new Technology(14, "Stabiliser", 5000/*2000*/, false, false, new List<Technology>(), "", shield_stabiliserTechnoItem, 0, 0, 0, true, 8/*8*/, false, 16, null, 0);
         Technology shield_deflectorTechno = new Technology(15, "Deflector", 3500/*2500*/, false, false, new List<Technology>(), "", shield_deflectorTechnoItem, 0, 0, 0, true, 10/*12*/, false, 16, null, 0);
             // Final step
-        Technology theShield_Techno = new Technology(16, "Deflector", 0/*300*/, false, false, new List<Technology>(), "", theShield_TechnoItem, 0, 0, 1, true, 0, true, 0, new int[]{ 13, 14, 15 }, 1);
+        Technology theShield_Techno = new Technology(16, "Planetary Shield", 0/*300*/, false, false, new List<Technology>(), "", theShield_TechnoItem, 0, 0, 1, true, 0, true, 0, new int[]{ 13, 14, 15 }, 1);
 
         // Mega Collector
         Technology megaCollector_tractorBeamTechno = new Technology(17, "Tractor Beam", 4000/*150*/, false, false, new List<Technology>(), "", megaCollector_tractorBeamTechnoItem, 0, 0, 0, true, 5/*5*/, false, 20, null, 0);
@@ -298,6 +298,7 @@ public class TechTreeManager : MonoBehaviour
 
                 if(isCompletelyUnlocked)
                 {
+                    Debug.Log("Technology is completely unlocked [" + GetTechnologyByID(techno.partiallyUnlockingTechnologyIndex).name + "]");
                     GetTechnologyByID(techno.partiallyUnlockingTechnologyIndex).available = true;
                     UpdateTechnologyItemDisplay(GetTechnologyByID(techno.partiallyUnlockingTechnologyIndex));
                 }
@@ -323,9 +324,9 @@ public class TechTreeManager : MonoBehaviour
         // MegaStructure Techno shortcut
         if(techno.isMegaStructureTechnology && techno.isFinalMegaStructureTechnology)
         {
-            MegaStructureShortcutsPanel.instance.EnableTechnoShortcutItem(techno.id);
+            MegaStructureShortcutsPanel.instance.EnableTechnoShortcutItem(techno.megaStructureIndex);
 
-            MegaStructureManager.instance.UnlockMegaStructureActions(techno.id);
+            MegaStructureManager.instance.UnlockMegaStructureActions(techno.megaStructureIndex);
         }
     }
 
