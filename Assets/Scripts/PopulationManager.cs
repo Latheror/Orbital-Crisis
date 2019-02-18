@@ -25,6 +25,7 @@ public class PopulationManager : MonoBehaviour {
     public float attackBonusPerUnitOfPopulation = 0.01f;
     public float defenseBonusPerUnitOfPopulation = 0.01f;
     public float productionBonusPerUnitOfPopulation = 0.01f;
+    public float resistanceBonusPerUnitOfPopulation = 0.01f;
 
     public float startTotalPopulationAmount = 20f;
     public float startMaxPopulationAmount = 20f;
@@ -40,6 +41,8 @@ public class PopulationManager : MonoBehaviour {
     public int populationAttackAmount = 1;
     public int populationDefenseAmount = 1;
     public int populationProductionAmount = 1;
+
+    public float populationResistanceBonus = 0f;
 
     private void Start()
     {
@@ -62,8 +65,9 @@ public class PopulationManager : MonoBehaviour {
 
     public void PlanetHitByMeteor(Meteor meteor)
     {
-        Debug.Log("PlanetHitByMeteor");
-        totalPopulationAmount = Mathf.Max(0, totalPopulationAmount - (meteor.size * populationLossPerMeteorUnitOfSize));
+        float populationResistanceFactor = Mathf.Max(0.1f, (1 - populationResistanceBonus));
+        Debug.Log("PlanetHitByMeteor | PopulationResistanceBonus [" + populationResistanceFactor + "]");
+        totalPopulationAmount = Mathf.Max(0, totalPopulationAmount - (meteor.size * populationLossPerMeteorUnitOfSize) * populationResistanceFactor);
         
         DisplayInfo();
 
@@ -249,8 +253,8 @@ public class PopulationManager : MonoBehaviour {
     public void ApplyPopulationEffects()
     {
         ApplyPopulationEffectsToBuildings();
-        
-        // TODO: effects on other things (megastructures, ...)
+
+        populationResistanceBonus = populationDefenseAmount * resistanceBonusPerUnitOfPopulation;
     }
 
     public void ApplyPopulationEffectsToBuildings()
@@ -321,12 +325,24 @@ public class PopulationManager : MonoBehaviour {
 
     public void NewWaveActions(int waveIndex)
     {
+        if (waveIndex % 5 == 0)  // Every 5 waves
+        {
+            IncreaseMaxPopulation(2);
+            RetrievePopulation(1);
+        }
+
         RetrievePopulation(1);
     }
 
     public void RetrievePopulation(int ampunt)
     {
         totalPopulationAmount = Mathf.Min(totalPopulationAmount + 1, maxPopulationAmount);
+        DisplayInfo();
+    }
+
+    public void IncreaseMaxPopulation(int amount)
+    {
+        maxPopulationAmount += amount;
         DisplayInfo();
     }
 

@@ -55,6 +55,13 @@ public class GameSetupManager : MonoBehaviour {
             TutorialManager.instance.HideIndicators();
             SetupSavedData();
         }
+
+        GameSetupFinished();
+    }
+
+    public void GameSetupFinished()
+    {
+        EventsManager.instance.GameSetupFinished();
     }
 
     public void SetupSavedData()

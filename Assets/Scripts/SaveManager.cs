@@ -22,7 +22,7 @@ public class SaveManager : MonoBehaviour {
         }
     }
 
-    public int savedGameFilesNb = 5;
+    public int savedGameFilesNb = 3;
     public SavedGameFilesInfoData globalSavedGameInfoData;
 
     public string gameSaveFileName = ("save");  // Add save index after (1-5)
