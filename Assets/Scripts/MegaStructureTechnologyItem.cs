@@ -44,7 +44,7 @@ public class MegaStructureTechnologyItem : MonoBehaviour {
 
     public void ButtonClicked()
     {
-        //Debug.Log("MegaStructureTechnologyItem | ButtonClicked [" + associatedTechnology.name + "]");
+        Debug.Log("MegaStructureTechnologyItem | ButtonClicked [" + associatedTechnology.name + "]");
         if(TechTreeManager.instance.CanPayTechnology(associatedTechnology) && !associatedTechnology.unlocked)
         {
             TechTreeManager.instance.PayTechnology(associatedTechnology);
@@ -60,7 +60,7 @@ public class MegaStructureTechnologyItem : MonoBehaviour {
 
     public void UpdatePanelDisplay()
     {
-        //Debug.Log("MegaStructureTechnology | UpdatePanelDisplay [" + associatedTechnology.name + "]");
+        Debug.Log("MegaStructureTechnology | UpdatePanelDisplay [" + associatedTechnology.name + "]");
         bool outputConnectionEnabled = false;
 
         if (!associatedTechnology.isFinalMegaStructureTechnology)

@@ -68,9 +68,7 @@ public class PopulationManager : MonoBehaviour {
         float populationResistanceFactor = Mathf.Max(0.1f, (1 - populationResistanceBonus));
         Debug.Log("PlanetHitByMeteor | PopulationResistanceBonus [" + populationResistanceFactor + "]");
         totalPopulationAmount = Mathf.Max(0, totalPopulationAmount - (meteor.size * populationLossPerMeteorUnitOfSize) * populationResistanceFactor);
-
-        CalculatePopulationAttribution();
-
+        
         DisplayInfo();
 
         PlayPopulationHurtAnimation();
@@ -247,7 +245,7 @@ public class PopulationManager : MonoBehaviour {
         populationDefenseAmount = (int)totalPopulationAmount * populationDefensePercentage / 100;
         populationProductionAmount = (int)totalPopulationAmount - populationAttackAmount - populationDefenseAmount;
 
-        Debug.Log("CalculatePopulationAttribution | Attack [" + populationAttackAmount + "] | Defense [" + populationDefenseAmount + "] | Production [" + populationProductionAmount + "]");
+        //Debug.Log("CalculatePopulationAttribution | Attack [" + populationAttackAmount + "] | Defense [" + populationDefenseAmount + "] | Production [" + populationProductionAmount + "]");
 
         ApplyPopulationEffects();
     }
@@ -339,14 +337,12 @@ public class PopulationManager : MonoBehaviour {
     public void RetrievePopulation(int ampunt)
     {
         totalPopulationAmount = Mathf.Min(totalPopulationAmount + 1, maxPopulationAmount);
-        CalculatePopulationAttribution();
         DisplayInfo();
     }
 
     public void IncreaseMaxPopulation(int amount)
     {
         maxPopulationAmount += amount;
-        CalculatePopulationAttribution();
         DisplayInfo();
     }
 
