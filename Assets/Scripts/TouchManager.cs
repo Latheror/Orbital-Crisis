@@ -22,6 +22,8 @@ public class TouchManager : MonoBehaviour
     [Header("UI")]
     public GameObject topPanel;
     public GameObject bottomPanel;
+    public GameObject leftPanel;
+    public GameObject rightPanel;
 
     [Header("Operation")]
     public Vector3 lastTouch;
@@ -145,19 +147,19 @@ public class TouchManager : MonoBehaviour
                         }
                         else if(GameManager.instance.gameState == GameManager.GameState.Default)
                         {
-                            if(IsTouchWithinGameArea(Input.GetTouch(0).position))
+                            // Temp: Disabled
+                            /*if (IsTouchWithinGameArea(Input.GetTouch(0).position))
                             {
                                 // Move screen verticaly / horizontaly
                                 Vector2 touchDeltaPosition = Input.GetTouch(0).deltaPosition;
-
-                                // Temp: Disabled
-                                //Camera.main.transform.Translate(-touchDeltaPosition.x * moveCameraSpeed, -touchDeltaPosition.y * moveCameraSpeed, 0f);
+                               
+                                Camera.main.transform.Translate(-touchDeltaPosition.x * moveCameraSpeed, -touchDeltaPosition.y * moveCameraSpeed, 0f);
 
                                 if(DysonSphere.instance != null && DysonSphere.instance.isActivated)
                                 {
                                     DysonSphere.instance.AdaptLaserToPlanetMovement();
                                 }
-                            }
+                            }*/
                         }
                     }
                 }
@@ -206,6 +208,7 @@ public class TouchManager : MonoBehaviour
     {
         bool betweenTopAndBottomPanels = false;
         bool avoidsRightPanel = false;
+        bool avoidsLeftPanel = false;
 
         //Debug.Log("Touchpos Y: " + touchPos.y);
         //Debug.Log("TopPanel Height: " + topPanel.GetComponent<RectTransform>().sizeDelta.y);
@@ -215,13 +218,16 @@ public class TouchManager : MonoBehaviour
         //Debug.Log("IsTouchWithinGameArea | Top/Bottom | touchPos.y [" + touchPos.y + "] | BottomPanelY [" + (bottomPanel.GetComponent<RectTransform>().rect.height) + "] | TopPanelY [" + (topPanel.GetComponent<RectTransform>().rect.height));
         betweenTopAndBottomPanels = (((touchPos.y) >= .4f *bottomPanel.GetComponent<RectTransform>().rect.height )) && ((touchPos.y) <= (Screen.height - .4f*topPanel.GetComponent<RectTransform>().rect.height));
 
-        avoidsRightPanel = ((touchPos.x) <= (Screen.width - (.4f * InfoPanel.instance.GetComponent<RectTransform>().rect.width)));
+        avoidsRightPanel = ((touchPos.x) <= (Screen.width - (.3f * rightPanel.GetComponent<RectTransform>().rect.width)));
+
+        avoidsLeftPanel = ((touchPos.x) >= (.3f * leftPanel.GetComponent<RectTransform>().rect.width));
 
         //Debug.Log("xTouch: " + touchPos.x + " | Screen width: " + Screen.width + " | InfoPanel deltaX: " + InfoPanel.instance.GetComponent<RectTransform>().rect.width);
 
-        //Debug.Log("TouchPosition valid: " + (betweenTopAndBottomPanels && avoidsRightPanel) + " | Vertical: " + betweenTopAndBottomPanels + " | Horizontal: " + avoidsRightPanel);
+        Debug.Log("TouchPos X [" + touchPos.x + "] | LeftWidth [" + leftPanel.GetComponent<RectTransform>().rect.width + "] | RightWidth [" + rightPanel.GetComponent<RectTransform>().rect.width + "]");
+        Debug.Log("TouchPosition valid: " + (betweenTopAndBottomPanels && avoidsRightPanel) + " | Vertical: " + betweenTopAndBottomPanels + " | Left: " + avoidsLeftPanel + " | Right: " + avoidsRightPanel);
 
-        return (betweenTopAndBottomPanels && avoidsRightPanel);
+        return (betweenTopAndBottomPanels && avoidsRightPanel && avoidsLeftPanel);
     }
 
 
