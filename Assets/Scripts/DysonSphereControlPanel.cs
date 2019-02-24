@@ -34,7 +34,7 @@ public class DysonSphereControlPanel : MonoBehaviour {
         // Energy / Structure points
         currentEnergyProductionText.text = Mathf.RoundToInt(dysonSphereSettings.energyProduction).ToString();
         currentStructurePointsText.text = Mathf.RoundToInt(dysonSphereSettings.currentStructurePoints).ToString();
-        maxStructurePointsText.text = "/ " + Mathf.RoundToInt(dysonSphereSettings.maxStructurePoint).ToString();
+        maxStructurePointsText.text = Mathf.RoundToInt(dysonSphereSettings.maxStructurePoint).ToString();
 
         // Auto Repair State
         SetAutoRepairSwitch(dysonSphereSettings.currentAutoRepairState);

@@ -18,4 +18,9 @@ public class PausePanel : MonoBehaviour {
     {
         SaveManager.instance.LoadButtonClicked();
     }
+
+    public void OnPostScoreButtonClicked()
+    {
+        PGSManager.instance.PostScore();
+    }
 }

@@ -27,6 +27,7 @@ public class MeteorsManager : MonoBehaviour {
     public float healthSizeFactor = 1f;
     public int valuePerSizeUnit = 10;
     public float currentSpawnSizeFactor = 1f;
+    public float hardmeteorsHardnessFactor = 5f;
 
     [Header("Operation")]
     public List<GameObject> meteorsList;
@@ -114,7 +115,7 @@ public class MeteorsManager : MonoBehaviour {
 
                 if(spawnHardMeteor)
                 {
-                    hardnessFactor = 2f;
+                    hardnessFactor = hardmeteorsHardnessFactor;
                     meteorModel = hardMeteorPrefabsList[(Random.Range(0, hardMeteorPrefabsList.Count))];
                     hardMeteorsNb--;
                 }

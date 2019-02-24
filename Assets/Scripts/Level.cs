@@ -63,6 +63,7 @@ public class Level {
             if (destroyedMeteorsNb >= levelMeteorsNb)
             {
                 allLevelMeteorsDestroyed = true;
+                LevelManager.instance.AllLevelMeteorsDestroyed(levelNb);
             }
         }
     }

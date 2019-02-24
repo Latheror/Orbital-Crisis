@@ -29,8 +29,8 @@ public class LevelManager : MonoBehaviour {
     public GameObject nextLevelButton;
     public Color nextLevelButtonBaseColor;
     public Color nextLevelButtonSecondaryColor;
-    public GameObject remainingEnnemiesPanel;
-    public TextMeshProUGUI remainingEnnemiesText;
+    //public GameObject remainingEnemiesPanel; // RECENTLY REMOVED
+    public TextMeshProUGUI remainingEnemiesText;
     public GameObject pressStartPanel;
     public GameObject waveInfoPanel;
 
@@ -54,10 +54,6 @@ public class LevelManager : MonoBehaviour {
         {
             levelsList = new List<Level>();
             levelsList.Add(new Level(1, "first level", 10, 1, 1, 1f, new List<GameObject> { EnemiesManager.instance.enemySpaceship_1 }, 15, 0));
-            //levelsList.Add(new Level(2, "second level", 20, 2, 1.1f, 1.1f, new List<GameObject> { EnemiesManager.instance.enemySpaceship_1 }));
-            //levelsList.Add(new Level(3, "third level", 30, 3, 1.2f, 1.2f, new List<GameObject> { EnemiesManager.instance.enemySpaceship_1 }));
-            //levelsList.Add(new Level(4, "fourth level", 40, 4, 1.3f, 1.3f, new List<GameObject> { EnemiesManager.instance.enemySpaceship_1, EnemiesManager.instance.enemySpaceship_1 }));
-            //levelsList.Add(new Level(5, "fifth level", 50, 5, 1.4f, 1.4f, new List<GameObject> { EnemiesManager.instance.enemySpaceship_1, EnemiesManager.instance.enemySpaceship_1 }));
         }
     }
 
@@ -71,7 +67,8 @@ public class LevelManager : MonoBehaviour {
         UpdateRemainingEnnemiesIndicator(); // Useless because hidden
         ChangeNextLevelButtonColor(nextLevelButtonBaseColor);
         nextLevelButton.SetActive(true);
-        remainingEnnemiesPanel.SetActive(false);
+
+        //remainingEnemiesPanel.SetActive(false); // RECENTLY REMOVED
     }
 
     public void NewGameSetup()
@@ -99,7 +96,7 @@ public class LevelManager : MonoBehaviour {
         UpdateRemainingEnnemiesIndicator(); // Useless because hidden
         ChangeNextLevelButtonColor(nextLevelButtonBaseColor);
         nextLevelButton.SetActive(true);
-        remainingEnnemiesPanel.SetActive(false);
+        //remainingEnemiesPanel.SetActive(false); // RECENTLY REMOVED
     }
 
     public void TriggerLevelStart()
@@ -130,10 +127,13 @@ public class LevelManager : MonoBehaviour {
         waveNumberText.text = currentLevelNumber.ToString();
     }
 
-    private void AllLevelMeteorsDestroyed()
+    public void AllLevelMeteorsDestroyed(int levelId)
     {
-        //Debug.Log("AllLevelMeteorsDestroyed");
-        currentLevelFinished = true;
+        Debug.Log("AllLevelMeteorsDestroyed");
+        //currentLevelFinished = true;
+
+        // Tell it to PGSManager to handle achievements
+        PGSManager.instance.WaveCompleted(levelId);
     }
 
     private void GoToNextLevel()
@@ -147,7 +147,7 @@ public class LevelManager : MonoBehaviour {
             UpdateRemainingEnnemiesIndicator();
             ChangeNextLevelButtonColor(nextLevelButtonBaseColor);
             nextLevelButton.SetActive(false);
-            remainingEnnemiesPanel.SetActive(true);
+            //remainingEnemiesPanel.SetActive(true); // RECENTLY REMOVED
 
             LaunchNewWave();
             GatherablesManager.instance.NewWaveActions(currentLevelNumber);
@@ -304,11 +304,11 @@ public class LevelManager : MonoBehaviour {
     {
         if(currentLevel != null)
         {
-            remainingEnnemiesText.text = (currentLevel.levelMeteorsNb - currentLevelSpawnedMeteorsNb).ToString();
+            remainingEnemiesText.text = (currentLevel.levelMeteorsNb - currentLevelSpawnedMeteorsNb).ToString();
         }
         else
         {
-            remainingEnnemiesText.text = (" - ");
+            remainingEnemiesText.text = (" - ");
         }
     }
 
@@ -323,7 +323,7 @@ public class LevelManager : MonoBehaviour {
             currentLevelAllMeteorsSpawned = true;
             //currentLevel.levelCompleted = true;
             StopCurrentLevel();
-            remainingEnnemiesPanel.SetActive(false);
+            //remainingEnemiesPanel.SetActive(false); // RECENTLY REMOVED
             Debug.Log("All meteors have been spawned !");
 
             if (OptionsManager.instance.IsTimerOptionEnabled())
