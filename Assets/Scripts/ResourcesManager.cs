@@ -1,6 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+using TMPro;
 
 public class ResourcesManager : MonoBehaviour {
 
@@ -17,7 +19,7 @@ public class ResourcesManager : MonoBehaviour {
     public List<ResourceAmount> startResourceAmounts = new List<ResourceAmount>();
     
     public Color steelColor;
-    public Color copperColor;
+    //public Color copperColor;
     public Color carbonColor;
     public Color compositeColor;
     public Color electronicsColor;
@@ -31,19 +33,26 @@ public class ResourcesManager : MonoBehaviour {
     //public Dictionary<string, ResourceAmount> currentResourceAmountsDictionnary = new Dictionary<string, ResourceAmount>();
 
     [Header("UI")]
-    public GameObject resourceIndicatorLayout;
+    //public GameObject resourceIndicatorLayout;      // NOT USED ANYMORE //
+    public TextMeshProUGUI steelAmountText;
+    public TextMeshProUGUI carbonAmountText;
+    public TextMeshProUGUI compositeAmountText;
+    public TextMeshProUGUI electronicsAmountText;
+
 
     [Header("Prefabs")]
     public GameObject resourceIndicatorPrefab;
 
+    [Header("IDs")]
+    public const int steelID = 1, carbonID = 2, compositeID = 3, electronicsID = 4;
+
     // Types of resources and their info
     public void InitializeResources()
     {
-        availableResources.Add(new ResourceType(1, "steel", steelColor, "steel", 600, 7500));
-        availableResources.Add(new ResourceType(2, "copper", copperColor, "copper", 400, 6000));
-        availableResources.Add(new ResourceType(3, "carbon", carbonColor, "carbon", 200, 3500));
-        availableResources.Add(new ResourceType(4, "composite", compositeColor, "composite", 150, 2400));
-        availableResources.Add(new ResourceType(5, "electronics", electronicsColor, "electronics", 100, 2000));
+        availableResources.Add(new ResourceType(steelID, "steel", steelColor, "steel", 600, 7500, steelAmountText));
+        availableResources.Add(new ResourceType(carbonID, "carbon", carbonColor, "carbon", 200, 3500, carbonAmountText));
+        availableResources.Add(new ResourceType(compositeID, "composite", compositeColor, "composite", 150, 2400, compositeAmountText));
+        availableResources.Add(new ResourceType(electronicsID, "electronics", electronicsColor, "electronics", 100, 2000, electronicsAmountText));
     }
 
     // Set starting resource amounts
@@ -85,17 +94,24 @@ public class ResourcesManager : MonoBehaviour {
         return ra;
     }
 
-    // Build resource indicators
+    // Build resource indicators                        
     public void InitializeResourceIndicators()
     {
-        foreach (ResourceType resource in availableResources)
+        // NOT USED ANYMORE //
+        /*foreach (ResourceType resource in availableResources)
         {
-            GameObject instantiatedResourceIndicator = Instantiate(resourceIndicatorPrefab, new Vector3(0f, 0f, 0f)/*resourceIndicatorLayout.transform.position*/, Quaternion.identity);
+            GameObject instantiatedResourceIndicator = Instantiate(resourceIndicatorPrefab, new Vector3(0f, 0f, 0f), Quaternion.identity);
             instantiatedResourceIndicator.transform.SetParent(resourceIndicatorLayout.transform, false);
             instantiatedResourceIndicator.GetComponent<ResourceIndicator>().SetParameters(resource);
 
             resource.resourceIndicator = instantiatedResourceIndicator;
             instantiatedResourceIndicator.GetComponent<ResourceIndicator>().resourceAmount = GetResourceFromCurrentList(resource);
+        }*/
+
+        foreach (ResourceType resource in availableResources)
+        {
+            ResourceAmount r = GetResourceFromCurrentList(resource);
+            r.resourceType.resourceAmountText.text = r.amount.ToString();
         }
     }
 
@@ -103,13 +119,13 @@ public class ResourcesManager : MonoBehaviour {
     public void ProduceResource(ResourceType rType, int amount)
     {
         //Debug.Log("Producing resource: " + rType.resourceName + " in quantity: " + amount);
-        foreach (var resourceAmount in currentResourceAmounts)
+        foreach (ResourceAmount resourceAmount in currentResourceAmounts)
         {
             if(resourceAmount.resourceType.Equals(rType))
             {
                 // We found the right resource
                 resourceAmount.amount = Mathf.Min(resourceAmount.amount + amount, resourceAmount.resourceType.maxAmount);
-                resourceAmount.resourceType.resourceIndicator.GetComponent<ResourceIndicator>().UpdateIndicator();
+                UpdateResourceAmountText(resourceAmount);
                 break;
             }
         }
@@ -118,18 +134,32 @@ public class ResourcesManager : MonoBehaviour {
         BuildingInfoPanel.instance.UpdateInfo();
     }
 
+    public void UpdateResourceAmountText(ResourceAmount rAmount)
+    {
+        rAmount.resourceType.resourceAmountText.text = rAmount.amount.ToString();
+    }
+
     public void SetResourceAmount(int resourceId, int amount)
     {
+        ResourceAmount rAmount = GetCurrentResourceAmountByID(resourceId);
+        if(rAmount != null)
+        {
+            rAmount.amount = amount;
+            UpdateResourceAmountText(rAmount);
+        }
+    }
+
+    public ResourceAmount GetCurrentResourceAmountByID(int rID)
+    {
+        ResourceAmount rAmount = null;
         foreach (var resourceAmount in currentResourceAmounts)
         {
-            if (resourceAmount.resourceType.id.Equals(resourceId))
+            if (resourceAmount.resourceType.id.Equals(rID))
             {
-                // We found the right resource
-                resourceAmount.amount = amount;
-                resourceAmount.resourceType.resourceIndicator.GetComponent<ResourceIndicator>().UpdateIndicator();
-                break;
+                rAmount = resourceAmount;
             }
         }
+        return rAmount;
     }
 
     public void PayResource(ResourceType resourceType, int amount)
@@ -156,7 +186,7 @@ public class ResourcesManager : MonoBehaviour {
     public void DecreaseResource(ResourceType resourceType, int amount)
     {
         GetResourceFromCurrentList(resourceType).amount -= amount;
-        resourceType.resourceIndicator.GetComponent<ResourceIndicator>().UpdateIndicator();
+        resourceType.resourceAmountText.GetComponent<ResourceIndicator>().UpdateIndicator();
     }
 
     // Check if we have enough resources to build a building
@@ -320,10 +350,10 @@ public class ResourcesManager : MonoBehaviour {
         public Color color;
         public int startAmount;
         public int maxAmount;
-        public GameObject resourceIndicator;
+        public TextMeshProUGUI resourceAmountText;
         public Sprite resourceImage;
 
-        public ResourceType(int id, string name, Color color, string imageName, int startAmount, int maxAmount)
+        public ResourceType(int id, string name, Color color, string imageName, int startAmount, int maxAmount, TextMeshProUGUI resourceAmountText)
         {
             this.id = id;
             this.resourceName = name;
@@ -331,6 +361,7 @@ public class ResourcesManager : MonoBehaviour {
             this.resourceImage = Resources.Load<Sprite>("Images/Resources/" + imageName);
             this.startAmount = startAmount;
             this.maxAmount = maxAmount;
+            this.resourceAmountText = resourceAmountText;
         }
 
         public bool Equals(ResourceType rt)

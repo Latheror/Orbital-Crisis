@@ -38,8 +38,8 @@ public class DysonSphere : MonoBehaviour {
 
         resourceCostPerStructurePointRepair = new List<ResourcesManager.ResourceAmount>();
         resourceCostPerStructurePointRepair.Add(new ResourcesManager.ResourceAmount("steel", 5));
-        resourceCostPerStructurePointRepair.Add(new ResourcesManager.ResourceAmount("copper", 4));
-        resourceCostPerStructurePointRepair.Add(new ResourcesManager.ResourceAmount("carbon", 1));
+        resourceCostPerStructurePointRepair.Add(new ResourcesManager.ResourceAmount("carbon", 4));
+        resourceCostPerStructurePointRepair.Add(new ResourcesManager.ResourceAmount("composite", 1));
     }
 
     public void Initialize()

@@ -12444,7 +12444,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.6966597, y: 0.080000006}
   m_AnchorMax: {x: 0.9813822, y: 0.91400003}
-  m_AnchoredPosition: {x: -0.7999878, y: -1.2000122}
+  m_AnchoredPosition: {x: -0.7999878, y: -1.2000113}
   m_SizeDelta: {x: 1.199997, y: 0.5}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &399054963
@@ -17957,6 +17957,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 140475723}
     m_Modifications:
+    - target: {fileID: 1172143723414808, guid: 5e85257f523c7bf40bc2b9606daa188f, type: 3}
+      propertyPath: m_Name
+      value: Main Camera (Orthographic)
+      objectReference: {fileID: 0}
+    - target: {fileID: 1172143723414808, guid: 5e85257f523c7bf40bc2b9606daa188f, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 20931230059158664, guid: 5e85257f523c7bf40bc2b9606daa188f,
         type: 3}
       propertyPath: orthographic
@@ -17991,14 +17999,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_OcclusionCulling
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1172143723414808, guid: 5e85257f523c7bf40bc2b9606daa188f, type: 3}
-      propertyPath: m_Name
-      value: Main Camera (Orthographic)
-      objectReference: {fileID: 0}
-    - target: {fileID: 1172143723414808, guid: 5e85257f523c7bf40bc2b9606daa188f, type: 3}
-      propertyPath: m_IsActive
-      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4749851374533528, guid: 5e85257f523c7bf40bc2b9606daa188f, type: 3}
       propertyPath: m_LocalPosition.x
@@ -19473,7 +19473,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -94.00103, y: -56.100006}
+  m_AnchoredPosition: {x: -94.00102, y: -56.100006}
   m_SizeDelta: {x: -188, y: -112.3}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &580235851
@@ -28609,12 +28609,12 @@ GameObject:
   - component: {fileID: 723932257}
   - component: {fileID: 723932256}
   m_Layer: 5
-  m_Name: ResourcesPanel
+  m_Name: resourcesPanel [OLD]
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &723932255
 RectTransform:
   m_ObjectHideFlags: 0
@@ -30201,7 +30201,7 @@ MonoBehaviour:
   m_outlineColor:
     serializedVersion: 2
     rgba: 4278190080
-  m_fontSize: 61.7
+  m_fontSize: 72
   m_fontSizeBase: 20
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -35386,7 +35386,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.095000006, y: 0.7102234}
   m_AnchorMax: {x: 0.83500004, y: 1}
-  m_AnchoredPosition: {x: -16.23098, y: -0.7260132}
+  m_AnchoredPosition: {x: -16.230978, y: -0.7260132}
   m_SizeDelta: {x: 23.726364, y: -1.451294}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &959171622
@@ -37702,7 +37702,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1034564853
 RectTransform:
   m_ObjectHideFlags: 0
@@ -47117,7 +47117,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.091000006, y: 0.062000003}
   m_AnchorMax: {x: 0.93231, y: 0.97663856}
-  m_AnchoredPosition: {x: 0.29138184, y: -1.7999268}
+  m_AnchoredPosition: {x: 0.29138184, y: -1.799942}
   m_SizeDelta: {x: 8.3, y: 1.4000015}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1273965242
@@ -50762,7 +50762,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.8077592, y: 0.65300006}
   m_AnchorMax: {x: 1, y: 0.8363385}
-  m_AnchoredPosition: {x: 71.54999, y: -396.71}
+  m_AnchoredPosition: {x: 71.54999, y: -396.71002}
   m_SizeDelta: {x: 143.09998, y: 2.7000122}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &1391334671
@@ -67654,7 +67654,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.5}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0.0029907227, y: 1.900013}
+  m_AnchoredPosition: {x: 0.0029907227, y: 1.9000111}
   m_SizeDelta: {x: 0.11000061, y: -3.8000002}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1792895194
@@ -70208,7 +70208,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0.00003624}
+  m_AnchoredPosition: {x: 0, y: 0.000038146973}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1859843852
@@ -83015,11 +83015,11 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 18
       objectReference: {fileID: 0}
-    - target: {fileID: 100004, guid: a8287a6979483a147a51d2c5d048cd09, type: 3}
+    - target: {fileID: 100006, guid: a8287a6979483a147a51d2c5d048cd09, type: 3}
       propertyPath: m_Layer
       value: 18
       objectReference: {fileID: 0}
-    - target: {fileID: 100006, guid: a8287a6979483a147a51d2c5d048cd09, type: 3}
+    - target: {fileID: 100004, guid: a8287a6979483a147a51d2c5d048cd09, type: 3}
       propertyPath: m_Layer
       value: 18
       objectReference: {fileID: 0}
@@ -85367,7 +85367,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.82168645, y: 0.84929615}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 3.1000366, y: 3.694336}
+  m_AnchoredPosition: {x: 3.1000443, y: 3.694336}
   m_SizeDelta: {x: 8, y: 6.831192}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2038621000
@@ -85785,7 +85785,6 @@ MonoBehaviour:
   availableResources: []
   startResourceAmounts: []
   steelColor: {r: 0.6415094, g: 0.6415094, b: 0.6415094, a: 0.5882353}
-  copperColor: {r: 0.49056602, g: 0.29311153, b: 0.09024564, a: 0.5882353}
   carbonColor: {r: 0.9245283, g: 0.9245283, b: 0.9245283, a: 0.5882353}
   compositeColor: {r: 0.9622642, g: 0.94679165, b: 0.13163051, a: 0.5882353}
   electronicsColor: {r: 0.32894266, g: 0.6631504, b: 0.9056604, a: 0.5882353}
@@ -85793,7 +85792,10 @@ MonoBehaviour:
   maxResourceAmountNotReachedColor: {r: 1, g: 1, b: 1, a: 1}
   maxResourcesMargin: 0.2
   currentResourceAmounts: []
-  resourceIndicatorLayout: {fileID: 1034564852}
+  steelAmountText: {fileID: 1457030218}
+  carbonAmountText: {fileID: 522240753}
+  compositeAmountText: {fileID: 788849593}
+  electronicsAmountText: {fileID: 1687422733}
   resourceIndicatorPrefab: {fileID: 1251736927370308, guid: ca9aa6ef0ed1021488d9d4281aefe75c,
     type: 3}
 --- !u!1 &2043792124

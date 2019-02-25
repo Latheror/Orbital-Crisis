@@ -30,7 +30,6 @@ public class MineBuilding : Building {
     void Start()
     {
         production.Add(new ResourcesManager.ResourceAmount(ResourcesManager.instance.GetResourceTypeByName("steel"), 2));
-        production.Add(new ResourcesManager.ResourceAmount(ResourcesManager.instance.GetResourceTypeByName("copper"), 2));
         production.Add(new ResourcesManager.ResourceAmount(ResourcesManager.instance.GetResourceTypeByName("carbon"), 2));
         //production.Add(new ResourcesManager.ResourceAmount(ResourcesManager.instance.GetResourceTypeByName("composite"), 1));     // Gathered from ennemy spaceships
         //production.Add(new ResourcesManager.ResourceAmount(ResourcesManager.instance.GetResourceTypeByName("electronics"), 1));

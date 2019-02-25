@@ -54,13 +54,13 @@ public class SpaceshipManager : MonoBehaviour {
     {
         spaceshipTypes.Add(new SpaceshipType(1, "Corvette", corvettePrefab, "corvette", new List<ResourcesManager.ResourceAmount>(){
                                                                              new ResourcesManager.ResourceAmount("steel", 1400),
-                                                                             new ResourcesManager.ResourceAmount("copper", 1200),
+                                                                             new ResourcesManager.ResourceAmount("carbon", 1200),
                                                                              new ResourcesManager.ResourceAmount("composite", 1000),
                                                                              new ResourcesManager.ResourceAmount("electronics", 800)
                                                                         }, true, 1, new int[] { 3000, 8000, 19999}, 1.25f));
         spaceshipTypes.Add(new SpaceshipType(2, "Cruiser", cruiserPrefab, "cruiser", new List<ResourcesManager.ResourceAmount>(){
                                                                              new ResourcesManager.ResourceAmount("steel", 2500),
-                                                                             new ResourcesManager.ResourceAmount("copper", 2000),
+                                                                             new ResourcesManager.ResourceAmount("carbon", 2000),
                                                                              new ResourcesManager.ResourceAmount("composite", 1200),
                                                                              new ResourcesManager.ResourceAmount("electronics", 1200)
                                                                         }, true, 3, new int[] { 6000, 16000, 29999 }, 1.25f));
