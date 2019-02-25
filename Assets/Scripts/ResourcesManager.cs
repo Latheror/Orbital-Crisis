@@ -139,6 +139,11 @@ public class ResourcesManager : MonoBehaviour {
         rAmount.resourceType.resourceAmountText.text = rAmount.amount.ToString();
     }
 
+    public void UpdateResourceAmountText(ResourceType resourceType)
+    {
+        UpdateResourceAmountText(GetCurrentResourceAmountByID(resourceType.id));
+    }
+
     public void SetResourceAmount(int resourceId, int amount)
     {
         ResourceAmount rAmount = GetCurrentResourceAmountByID(resourceId);
@@ -186,7 +191,8 @@ public class ResourcesManager : MonoBehaviour {
     public void DecreaseResource(ResourceType resourceType, int amount)
     {
         GetResourceFromCurrentList(resourceType).amount -= amount;
-        resourceType.resourceAmountText.GetComponent<ResourceIndicator>().UpdateIndicator();
+        //resourceType.resourceAmountText.GetComponent<ResourceIndicator>().UpdateIndicator();
+        UpdateResourceAmountText(resourceType);
     }
 
     // Check if we have enough resources to build a building

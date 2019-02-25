@@ -17,6 +17,7 @@ public class PopulationManager : MonoBehaviour {
 
     [Header("UI")]
     public TextMeshProUGUI totalPopulationAmountText;
+    public TextMeshProUGUI totalPopulationAmountTopText;
     public GameObject populationPanel;
 
     [Header("Settings")]
@@ -59,9 +60,15 @@ public class PopulationManager : MonoBehaviour {
 
     public void DisplayInfo()
     {
+        DisplayPopulationInfo();
         PlanetCanvasManager.instance.SetTotalPopulationAmount(Mathf.FloorToInt(totalPopulationAmount), Mathf.FloorToInt(maxPopulationAmount));
         PlanetCanvasManager.instance.SetPopulationPercentages(populationAttackPercentage, populationDefensePercentage, populationProductionPercentage);
-    }    
+    }
+
+    public void DisplayPopulationInfo()
+    {
+        totalPopulationAmountTopText.text = totalPopulationAmount.ToString();
+    }
 
     public void PlanetHitByMeteor(Meteor meteor)
     {
@@ -247,7 +254,7 @@ public class PopulationManager : MonoBehaviour {
         populationDefenseAmount = (int)totalPopulationAmount * populationDefensePercentage / 100;
         populationProductionAmount = (int)totalPopulationAmount - populationAttackAmount - populationDefenseAmount;
 
-        Debug.Log("CalculatePopulationAttribution | Attack [" + populationAttackAmount + "] | Defense [" + populationDefenseAmount + "] | Production [" + populationProductionAmount + "]");
+        //Debug.Log("CalculatePopulationAttribution | Attack [" + populationAttackAmount + "] | Defense [" + populationDefenseAmount + "] | Production [" + populationProductionAmount + "]");
 
         ApplyPopulationEffects();
     }
@@ -264,7 +271,7 @@ public class PopulationManager : MonoBehaviour {
         float attackBonus = attackBonusPerUnitOfPopulation * populationAttackAmount;
         float defenseBonus = defenseBonusPerUnitOfPopulation * populationDefenseAmount;
         float productionBonus = productionBonusPerUnitOfPopulation * populationProductionAmount;
-        Debug.Log("ApplyPopulationEffectsToBuildings | Attack [" + attackBonus + "] | Defense [" + defenseBonus + "] | Production [" + productionBonus + "]");
+        //Debug.Log("ApplyPopulationEffectsToBuildings | Attack [" + attackBonus + "] | Defense [" + defenseBonus + "] | Production [" + productionBonus + "]");
 
         foreach (GameObject b in BuildingManager.instance.buildingList)
         {
@@ -304,7 +311,7 @@ public class PopulationManager : MonoBehaviour {
 
     public void SetupSavedPopulationData(PopulationData populationData)
     {
-        Debug.Log("SetupSavedPopulationData");
+        //Debug.Log("SetupSavedPopulationData");
         SetPopulationParameters(populationData.totalPopulationAmount, populationData.attackPercentage, populationData.defensePercentage, populationData.productionPercentage);
         PlanetCanvasManager.instance.SetPopulationPercentages(populationAttackPercentage, populationDefensePercentage, populationProductionPercentage);
     }
@@ -321,7 +328,7 @@ public class PopulationManager : MonoBehaviour {
 
     public void NewWaveStarted(int waveIndex)
     {
-        Debug.Log("PopulationManager | NewWaveStarted");
+        //Debug.Log("PopulationManager | NewWaveStarted");
         NewWaveActions(waveIndex);
     }
 

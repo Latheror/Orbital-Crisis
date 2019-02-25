@@ -14593,6 +14593,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   totalPopulationAmountText: {fileID: 0}
+  totalPopulationAmountTopText: {fileID: 750979282}
   populationPanel: {fileID: 78333990}
   populationLossPerMeteorUnitOfSize: 0.1
   attackBonusPerUnitOfPopulation: 0.01
@@ -30667,7 +30668,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: -0.020999908}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0}
 --- !u!114 &789050629
 MonoBehaviour:
@@ -66176,7 +66177,10 @@ MonoBehaviour:
   energyConsumption: 0
   energyProductionText: {fileID: 1000977099}
   energyConsumptionText: {fileID: 1348409427}
+  energyExcessText: {fileID: 972314685}
   energyBar: {fileID: 1964542687}
+  enoughEnergyColor: {r: 1, g: 1, b: 1, a: 1}
+  notEnoughEnergyColor: {r: 0.81960785, g: 0.061560564, b: 0, a: 1}
 --- !u!1 &1759113080
 GameObject:
   m_ObjectHideFlags: 0

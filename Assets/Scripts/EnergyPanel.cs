@@ -17,7 +17,11 @@ public class EnergyPanel : MonoBehaviour {
     [Header("UI")]
     public TextMeshProUGUI energyProductionText;
     public TextMeshProUGUI energyConsumptionText;
+    public TextMeshProUGUI energyExcessText;
     public GameObject energyBar;
+
+    public Color enoughEnergyColor;
+    public Color notEnoughEnergyColor;
 
 	// Use this for initialization
 	void Start () {
@@ -27,25 +31,25 @@ public class EnergyPanel : MonoBehaviour {
     public void SetEnergyProduction(float production)
     {
         energyProduction = production;
-        UpdateEnergyProductionDisplay();
+        UpdateEnergyLevels();
     }
 
     public void SetEnergyConsumption(float consumptioon)
     {
         energyConsumption = consumptioon;
-        UpdateEnergyConsumptionDisplay();
+        UpdateEnergyLevels();
     }
 
     public void IncreaseEnergyProduction(float deltaProd)
     {
         energyProduction += deltaProd;
-        UpdateEnergyProductionDisplay();
+        UpdateEnergyLevels();
     }
 
     public void IncreaseEnergyConsumption(float deltaProd)
     {
         energyConsumption += deltaProd;
-        UpdateEnergyConsumptionDisplay();
+        UpdateEnergyLevels();
     }
 
     public void UpdateEnergyProductionDisplay()
@@ -64,10 +68,18 @@ public class EnergyPanel : MonoBehaviour {
         PlanetCanvasManager.instance.SetEnergyDifferentialAmount(Mathf.FloorToInt(energyProduction - energyConsumption));
     }
 
+    public void UpdateEnergyExcessDisplay()
+    {
+        int energyExcess = Mathf.RoundToInt(energyProduction - energyConsumption);
+        energyExcessText.text = energyExcess.ToString();
+        energyExcessText.color = (energyExcess >= 0) ? enoughEnergyColor : notEnoughEnergyColor;
+    }
+
     public void UpdateEnergyLevels()
     {
         UpdateEnergyProductionDisplay();
         UpdateEnergyConsumptionDisplay();
+        UpdateEnergyExcessDisplay();
     }
 
     public void InitializeEnergyLevels()
