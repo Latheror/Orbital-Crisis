@@ -189,6 +189,8 @@ public class TouchManager : MonoBehaviour
 
                     // Make sure the orthographic size never drops below zero.
                     camera.orthographicSize = Mathf.Clamp(camera.orthographicSize, minOrthographicSize, maxOrthographicSize);
+
+                    ViewManager.instance.OnZoomLevelUpdate();
                 }
                 // If the camera is in perspective
                 else
@@ -237,15 +239,15 @@ public class TouchManager : MonoBehaviour
         
         //Debug.Log("xTouch: " + touchPos.x + " | Screen width: " + Screen.width + " | InfoPanel deltaX: " + InfoPanel.instance.GetComponent<RectTransform>().rect.width);
 
-        Debug.Log("TouchPos X [" + touchPos.x + "] | Y [" + touchPos.y + "]");
-        Debug.Log("TouchPosition valid | Top [" + avoidsTopPanel + "] | Bottom [" + avoidsRightPanel + "] | Left [" + avoidsLeftPanel + "] | Right [" + avoidsRightPanel + "]");
+        //Debug.Log("TouchPos X [" + touchPos.x + "] | Y [" + touchPos.y + "]");
+        //Debug.Log("TouchPosition valid | Top [" + avoidsTopPanel + "] | Bottom [" + avoidsRightPanel + "] | Left [" + avoidsLeftPanel + "] | Right [" + avoidsRightPanel + "]");
 
         containedByTopPanel = topPanel.GetComponent<RectTransform>().rect.Contains(touchPos);
         containedByBottomPanel = bottomPanel.GetComponent<RectTransform>().rect.Contains(touchPos);
         containedByLeftPanel = leftPanel.GetComponent<RectTransform>().rect.Contains(touchPos);
         containedByRightPanel = rightPanel.GetComponent<RectTransform>().rect.Contains(touchPos);
 
-        Debug.Log("TouchPos contained in TopPanel [" + containedByTopPanel + "] | BottomPanel [" + containedByBottomPanel + "] | LeftPanel [" + containedByLeftPanel + "] | RightPanel [" + containedByRightPanel + "]");
+        //Debug.Log("TouchPos contained in TopPanel [" + containedByTopPanel + "] | BottomPanel [" + containedByBottomPanel + "] | LeftPanel [" + containedByLeftPanel + "] | RightPanel [" + containedByRightPanel + "]");
 
         //return (avoidsTopPanel && avoidsBottomPanel && avoidsRightPanel && avoidsLeftPanel);
         return (!(!avoidsTopPanel || containedByBottomPanel || containedByLeftPanel || !avoidsRightPanel));

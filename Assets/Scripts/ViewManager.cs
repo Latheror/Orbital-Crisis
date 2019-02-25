@@ -23,6 +23,8 @@ public class ViewManager : MonoBehaviour {
     public float zoomOrthographicSize;
     public float dezoomOrthographicSize;
     public Vector2 centerPosition;
+    public float triggerZoomPanelDisplayCameraDistance = 70f;
+    public float triggerDezoomPanelDisplayCameraDistance = 100f;
 
     [Header("Operation")]
     public ViewState currentViewState;
@@ -78,4 +80,17 @@ public class ViewManager : MonoBehaviour {
         SetCurrentViewState(ViewState.Dezoom);
     }
 
+    public void OnZoomLevelUpdate()
+    {
+        float camDistance = Camera.main.orthographicSize;
+        //Debug.Log("OnZoomLevelUpdate | CamDistance [" + camDistance + "]");
+        if (camDistance <= triggerZoomPanelDisplayCameraDistance)
+        {
+            PlanetCanvasManager.instance.DisplayZoomInfoPanel(true);
+        }
+        else if (camDistance >= triggerDezoomPanelDisplayCameraDistance)
+        {
+            PlanetCanvasManager.instance.DisplayZoomInfoPanel(false);
+        }
+    }
 }
