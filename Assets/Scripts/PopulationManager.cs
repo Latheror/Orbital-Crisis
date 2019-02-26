@@ -67,7 +67,7 @@ public class PopulationManager : MonoBehaviour {
 
     public void DisplayPopulationInfo()
     {
-        totalPopulationAmountTopText.text = totalPopulationAmount.ToString();
+        totalPopulationAmountTopText.text = Mathf.RoundToInt(totalPopulationAmount).ToString();
     }
 
     public void PlanetHitByMeteor(Meteor meteor)

@@ -18,6 +18,9 @@ public class PanelsManager : MonoBehaviour {
     public GameObject fleetPanel;
     public GameObject gameOverPanel;
 
+    // TEMPORARY
+    public GameObject energyAndScorePanel;
+
     // Use this for initialization
     void Start () {
         SwitchFromShopToControlsPanel();
