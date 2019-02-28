@@ -130,7 +130,6 @@ public class LevelManager : MonoBehaviour {
     public void AllLevelMeteorsDestroyed(int levelId)
     {
         Debug.Log("AllLevelMeteorsDestroyed");
-        //currentLevelFinished = true;
 
         // Tell it to PGSManager to handle achievements
         PGSManager.instance.WaveCompleted(levelId);
@@ -296,6 +295,8 @@ public class LevelManager : MonoBehaviour {
             level.spawnedMeteorsNb += serieNb;
             yield return new WaitForSeconds(level.timeBetweenSpawns);
         }
+
+        currentLevelFinished = true;
 
         SpawnEnemies();
     }
