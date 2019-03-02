@@ -399,7 +399,7 @@ public class BuildingManager : MonoBehaviour {
         {
             buildingState = BuildingState.Default;
 
-            ShopPanel.instance.ResetLastShopItemSelected();
+            //ShopPanel.instance.ResetLastShopItemSelected();       // TO REDO
             DeselectBuilding();
             ShopPanel.instance.HideBuildButton();
             BuildingSlotManager.instance.ResetAllBuildingSlotsColor();
@@ -426,7 +426,7 @@ public class BuildingManager : MonoBehaviour {
                     HideBuildButton();
                     BuildingSlotManager.instance.ResetAllBuildingSlotsColor();
                     SurroundingAreasManager.instance.ResetAllSatelliteBuildingSlotsColor();
-                    ShopPanel.instance.ResetLastShopItemSelected();
+                    //ShopPanel.instance.ResetLastShopItemSelected();               // TO REDO
                     //Debug.Log("Building Placed | Leaving Building State.");
 
                     // If building is Unique, disable corresponding ShopItem
@@ -481,29 +481,53 @@ public class BuildingManager : MonoBehaviour {
         return intersectPointPos;
     }
 
-    public void SelectBuildingLocation()
+    public void SelectBuildingLocation(BuildingSlot buildingSpot = null)
     {
         // Tutorial indicator //
         TutorialManager.instance.DisplayIndicator(3, false);
         TutorialManager.instance.DisplayIndicatorIfNotDisplayedYet(4);
         // ------------------ //
 
-
         // Chose Building Spot
-        chosenBuildingSlot = SelectBuildingSpot();
+        //chosenBuildingSlot = SelectBuildingSpotFromTouch(); // OLD
 
-        if(chosenBuildingSlot != null)
+        if (buildingSpot != null)
         {
+            chosenBuildingSlot = buildingSpot.gameObject;
+        }
+
+        if (chosenBuildingSlot != null)
+        {
+            BuildingSlotManager.instance.ResetAllBuildingSlotsColor();
+            SurroundingAreasManager.instance.ResetAllSatelliteBuildingSlotsColor();
+
             // Preview
             DisplayBuildingPreview();
 
-            if (buildingState == BuildingState.BuildingSelected)
+            switch(buildingState)
             {
-                buildingState = BuildingState.BuildingAndLocationSelected;
-            }
-            else
-            {
-                //Debug.Log("Building State error...");
+                case BuildingState.Default:
+                {
+                    buildingState = BuildingState.LocationSelected;
+                    break;
+                }
+                case BuildingState.BuildingSelected:
+                {
+                    buildingState = BuildingState.BuildingAndLocationSelected;
+                    break;
+                }
+                case BuildingState.LocationSelected:
+                {
+                    //
+                    break;
+                }
+                case BuildingState.BuildingAndLocationSelected:
+                {
+                    //
+                    break;
+                }
+                default:
+                    break;
             }
 
             //DebugManager.instance.DisplayBuildingState();
@@ -516,7 +540,7 @@ public class BuildingManager : MonoBehaviour {
         else { Debug.Log("SelectBuildingLocation | chosenBuildingSlot null"); }
     }
 
-    public GameObject SelectBuildingSpot()
+    public GameObject SelectBuildingSpotFromTouch()
     {
         GameObject buildingSpot = null;
         Vector3 touchPos = TouchManager.instance.lastTouch;
@@ -540,6 +564,13 @@ public class BuildingManager : MonoBehaviour {
         }
 
         return buildingSpot;
+    }
+
+    public void SelectBuildingSpot(BuildingSlot buildingSpot)
+    {
+        buildingSpot.GetComponent<BuildingSlot>().SetSelectionColor();
+
+        SelectBuildingLocation(buildingSpot);
     }
 
     public void BuildBuilding()
@@ -629,8 +660,7 @@ public class BuildingManager : MonoBehaviour {
     {
         if (!bType.isUnlocked)
         {
-            ShopPanel.instance.AddBuildingShopItem(bType);
-            BuildingShopManager.instance.AddBuildingShopItem(bType);    // NEW
+            ShopPanel.instance.AddBuildingShopItem(bType);  // OLD
             bType.isUnlocked = true;
             //Debug.Log("Building \"" + bType.name + "\" unlocked.");
         }
@@ -736,6 +766,34 @@ public class BuildingManager : MonoBehaviour {
         return isPlaced;
     }
 
+    public void BuildingSlotTouched(BuildingSlot buildingSlot)     // NEW
+    {
+        BuildingShopManager.instance.BuildAndShowPanelsBasedOnBuildingLocationType(buildingSlot.locationType);
+
+        SelectBuildingSpot(buildingSlot);
+    }
+
+    public void BuildingShopItemSelected(BuildingType buildingType)     // NEW
+    {
+        // Tutorial indicator //
+        TutorialManager.instance.DisplayIndicator(2, false);
+        TutorialManager.instance.DisplayIndicatorIfNotDisplayedYet(3);
+        // ------------------ //
+
+        //Debug.Log("Building Shop Item Clicked !");
+        //ShopPanel.instance.ResetLastShopItemSelected();           // TO REDO
+        SelectBuilding(buildingType);
+        ShopPanel.instance.shopItemPanelSelected = this.gameObject;
+
+        /*if (ResourcesManager.instance.CanPayConstruction(buildingType))
+        {
+            SetBackGroundColor(ShopPanel.instance.buildingShopItemSelectedCanPayBackgroundColor);
+        }
+        else
+        {
+            SetBackGroundColor(ShopPanel.instance.buildingShopItemSelectedCantPayBackgroundColor);
+        }*/
+    }
 
     // TODO : Only testing purpose
     public void TestBuildButton()

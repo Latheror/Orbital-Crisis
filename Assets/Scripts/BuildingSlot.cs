@@ -55,4 +55,10 @@ public class BuildingSlot : MonoBehaviour {
         hasBuilding = false;
     }
 
+    public void OnTouch()
+    {
+        //Debug.Log("BuildingSlot | OnTouch");
+        BuildingManager.instance.BuildingSlotTouched(this);
+    }
+
 }

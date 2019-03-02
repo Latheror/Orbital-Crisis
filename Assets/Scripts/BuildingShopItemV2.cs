@@ -70,4 +70,9 @@ public class BuildingShopItemV2 : MonoBehaviour
 
         }
     }
+
+    public void OnButtonTouch()
+    {
+        BuildingManager.instance.BuildingShopItemSelected(associatedBuildingType);
+    }
 }

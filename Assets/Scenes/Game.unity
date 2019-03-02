@@ -9658,6 +9658,8 @@ MonoBehaviour:
   defenseCircle: {fileID: 21300000, guid: 66b1ad0a55a631644a525ff8b2980ad4, type: 3}
   productionCircle: {fileID: 21300000, guid: 57b0e55fea69d8442b8bc93bb591307f, type: 3}
   buildingShopPanelsList: []
+  currentBuildingLocationType: 0
+  panelsCurrentlyOpen: 0
 --- !u!114 &314254974
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9774,17 +9776,6 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 650930863}
-        m_MethodName: SwitchFromControlsToShopPanel
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
       - m_Target: {fileID: 314254973}
         m_MethodName: OnShopButtonClick
         m_Mode: 1
@@ -10791,7 +10782,7 @@ PrefabInstance:
     - target: {fileID: 1998409807598113076, guid: 4fa6f375876f7b34ca2e44b2a42da849,
         type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 370
+      value: 240
       objectReference: {fileID: 0}
     - target: {fileID: 1998409807598113076, guid: 4fa6f375876f7b34ca2e44b2a42da849,
         type: 3}
@@ -12962,7 +12953,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &401841796
 RectTransform:
   m_ObjectHideFlags: 0
@@ -28145,11 +28136,11 @@ RectTransform:
   m_Father: {fileID: 1723007052}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -0.22705078, y: 87.99999}
-  m_SizeDelta: {x: -38.8, y: 152.66}
-  m_Pivot: {x: 0.5, y: 0.5}
+  m_AnchorMin: {x: 0.5, y: 1}
+  m_AnchorMax: {x: 0.5, y: 1}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 250, y: 150}
+  m_Pivot: {x: 0.5, y: 1}
 --- !u!114 &680374829
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -40916,7 +40907,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.6156774, y: 0.5196289}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 26.302765, y: 5.8809814}
+  m_AnchoredPosition: {x: 26.302734, y: 5.8809814}
   m_SizeDelta: {x: 58.3396, y: 11.292023}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1092443128
@@ -44497,11 +44488,11 @@ RectTransform:
   m_Father: {fileID: 1723007052}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.09762621, y: 0.065000005}
-  m_AnchorMax: {x: 0.90237385, y: 0.94141793}
-  m_AnchoredPosition: {x: -0.20458984, y: -0.010009766}
-  m_SizeDelta: {x: 1.1050034, y: 0.62999725}
-  m_Pivot: {x: 0.5, y: 0.5}
+  m_AnchorMin: {x: 0.5, y: 0}
+  m_AnchorMax: {x: 0.5, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 250, y: 150}
+  m_Pivot: {x: 0.5, y: 0}
 --- !u!114 &1164209260
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -47792,9 +47783,9 @@ RectTransform:
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.4316994, y: 0}
-  m_AnchorMax: {x: 0.84969944, y: 0.3591144}
-  m_AnchoredPosition: {x: -2.9299927, y: -1.2399902}
-  m_SizeDelta: {x: -1.5999756, y: -3.100006}
+  m_AnchorMax: {x: 0.4316994, y: 0.3591144}
+  m_AnchoredPosition: {x: 245, y: -1.2399902}
+  m_SizeDelta: {x: 490.40002, y: -3.100006}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1272073976
 MonoBehaviour:
@@ -47847,7 +47838,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Padding:
     m_Left: 50
-    m_Right: 15
+    m_Right: -50
     m_Top: 15
     m_Bottom: 15
   m_ChildAlignment: 3
@@ -53071,9 +53062,9 @@ RectTransform:
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.4316994, y: 0.33159044}
-  m_AnchorMax: {x: 0.84969944, y: 0.669896}
-  m_AnchoredPosition: {x: -3, y: 0.951004}
-  m_SizeDelta: {x: -1.6000004, y: 2.0979996}
+  m_AnchorMax: {x: 0.4316994, y: 0.669896}
+  m_AnchoredPosition: {x: 245, y: 0.951004}
+  m_SizeDelta: {x: 490.4, y: 2.0979996}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1433965778
 MonoBehaviour:
@@ -53126,7 +53117,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Padding:
     m_Left: 50
-    m_Right: 15
+    m_Right: -50
     m_Top: 15
     m_Bottom: 15
   m_ChildAlignment: 3
@@ -57607,7 +57598,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 0}
-  m_RaycastTarget: 1
+  m_RaycastTarget: 0
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -65657,7 +65648,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1723007052}
   m_Layer: 5
-  m_Name: RightButtons
+  m_Name: BuildCancelButtons
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -65681,8 +65672,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0.89000005, y: 1}
-  m_AnchoredPosition: {x: -1621.1001, y: 208}
-  m_SizeDelta: {x: -1621.13, y: 0}
+  m_AnchoredPosition: {x: -1621.1001, y: 301.7}
+  m_SizeDelta: {x: -1621.1, y: 187.5}
   m_Pivot: {x: 1, y: 0.5}
 --- !u!1 &1727801696
 GameObject:
@@ -71436,9 +71427,9 @@ RectTransform:
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.4316994, y: 0.669896}
-  m_AnchorMax: {x: 0.84969944, y: 1}
-  m_AnchoredPosition: {x: 0.8000488, y: 1}
-  m_SizeDelta: {x: -1.6000004, y: -2}
+  m_AnchorMax: {x: 0.4316994, y: 1}
+  m_AnchoredPosition: {x: 244.9, y: -1}
+  m_SizeDelta: {x: 494.2, y: -2}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1853676688
 MonoBehaviour:
@@ -71491,7 +71482,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Padding:
     m_Left: 50
-    m_Right: 15
+    m_Right: -50
     m_Top: 15
     m_Bottom: 15
   m_ChildAlignment: 3
@@ -88052,12 +88043,12 @@ GameObject:
   - component: {fileID: 2082764477}
   - component: {fileID: 2082764479}
   m_Layer: 5
-  m_Name: TopRightPanel
+  m_Name: TopRightPanel [OLD]
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &2082764476
 RectTransform:
   m_ObjectHideFlags: 0
@@ -88095,7 +88086,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 0.78431374}
-  m_RaycastTarget: 1
+  m_RaycastTarget: 0
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []

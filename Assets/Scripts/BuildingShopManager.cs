@@ -33,11 +33,15 @@ public class BuildingShopManager : MonoBehaviour
     public Sprite defenseCircle;
     public Sprite productionCircle;
 
+    [Header("Operation")]
     public List<BuildingShopPanel> buildingShopPanelsList;
+    public BuildingManager.BuildingType.BuildingLocationType currentBuildingLocationType = BuildingManager.BuildingType.BuildingLocationType.Planet;
+    public bool panelsCurrentlyOpen = false;
 
     public void Initialize()
     {
         InitializeBuildingShopPanels();
+        panelsCurrentlyOpen = false;
     }
 
     public void InitializeBuildingShopPanels()
@@ -66,6 +70,7 @@ public class BuildingShopManager : MonoBehaviour
     {
         Debug.Log("OpenClosePanel | PanelIndex [" + panelIndex + "] | Open [" + open + "] | BuildingsNb [" + buildingsNb + "]");
         BuildingShopPanel bsp = FindBuildingShopPanelByIndex(panelIndex);
+
         if(bsp != null && (buildingsNb <= bsp.maxSlots) && (!open || buildingsNb > 0))
         {
             Animator anim = bsp.panel.GetComponent<Animator>();
@@ -101,19 +106,65 @@ public class BuildingShopManager : MonoBehaviour
         {
             ClosePanel(i);
         }
+        panelsCurrentlyOpen = false;
     }
 
     public void ShowPanelsAllBuildings()
     {
-        foreach (BuildingShopPanel bsp in buildingShopPanelsList)
+        if(!panelsCurrentlyOpen)
         {
-            OpenPanel(bsp.buildingTypeIndex, bsp.currentUsedSlots);
+            bool atLeastOnePanelOpen = false;
+            foreach (BuildingShopPanel bsp in buildingShopPanelsList)
+            {
+                OpenPanel(bsp.buildingTypeIndex, bsp.currentUsedSlots);
+                if (bsp.currentUsedSlots > 0)
+                    atLeastOnePanelOpen = true;
+            }
+
+            if(atLeastOnePanelOpen)
+                panelsCurrentlyOpen = true;
         }
     }
 
     public void OnShopButtonClick()
     {
-        ShowPanelsAllBuildings();
+        Debug.Log("OnShopButtonClick | panelsCurrentlyOpen [" + panelsCurrentlyOpen + "]");
+        if (panelsCurrentlyOpen)
+        {
+            CloseAllPanels();
+        }
+        else
+        {
+            BuildShopPanels();
+            ShowPanelsAllBuildings();
+        }
+        
+    }
+
+    public void BuildShopPanels()
+    {
+        CleanShopPanels();
+
+        foreach (BuildingManager.BuildingType buildingType in BuildingManager.instance.availableBuildings)
+        {
+            if(buildingType.buildingLocationType == currentBuildingLocationType && buildingType.isUnlocked)
+                AddBuildingShopItem(buildingType);
+        }
+    }
+
+    public void CleanShopPanels()
+    {
+        foreach (BuildingShopPanel bsp in buildingShopPanelsList)
+        {
+            List<GameObject> bsiList = bsp.buildingShopItemsList;
+            while (bsiList.Count > 0)
+            {
+                GameObject bsi = bsiList[0];
+                bsiList.Remove(bsi);
+                Destroy(bsi.gameObject);
+            }
+            bsp.currentUsedSlots = 0;
+        }
     }
 
     public void AddBuildingShopItem(BuildingManager.BuildingType buildingType)
@@ -181,6 +232,20 @@ public class BuildingShopManager : MonoBehaviour
         }
     }
 
+    public void BuildAndShowPanelsBasedOnBuildingLocationType(BuildingManager.BuildingType.BuildingLocationType buildingLocationType)
+    {
+        Debug.Log("BuildAndShowPanelsBasedOnBuildingLocationType | LocationType [" + buildingLocationType + "]");
+        currentBuildingLocationType = buildingLocationType;
+
+        BuildShopPanels();
+        ShowPanelsAllBuildings();
+    }
+
+    // Used to build new unlocked building shop item
+    public void OnNewBuildingUnlocked(BuildingManager.BuildingType buildingType)
+    {
+        // Removed
+    }
 
     // ------------------------------ TEST ------------------------------- //
     public void OnTestButton1()
