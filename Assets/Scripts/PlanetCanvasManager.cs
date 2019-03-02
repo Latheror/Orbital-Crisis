@@ -37,11 +37,6 @@ public class PlanetCanvasManager : MonoBehaviour {
     public TextMeshProUGUI attackAssignedPopulationAmountText;
     public TextMeshProUGUI defenseAssignedPopulationAmountText;
 
-    [Header("Settings")]
-    public float triggerZoomPanelDisplayCameraDistance = 70f;
-    public float triggerDezoomPanelDisplayCameraDistance = 100f;
-
-
     [Header("Operation")]
     public int currentPopulationAmount;
     public int maxPopulationAmount;
@@ -114,18 +109,5 @@ public class PlanetCanvasManager : MonoBehaviour {
     public void OnPopulationDownButton(int affectationTypeIndex)
     {
         PopulationManager.instance.IncreaseDecreaseAssignedPopulation(affectationTypeIndex, false);
-    }
-
-    public void OnZoomLevelUpdate()
-    {
-        float camDistance = Camera.main.orthographicSize;
-        if(camDistance <= triggerZoomPanelDisplayCameraDistance)
-        {
-            DisplayZoomInfoPanel(true);
-        }
-        else if(camDistance >= triggerDezoomPanelDisplayCameraDistance)
-        {
-            DisplayDezoomPanelInfo();
-        }
     }
 }
