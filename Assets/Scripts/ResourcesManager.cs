@@ -17,12 +17,10 @@ public class ResourcesManager : MonoBehaviour {
     [Header("Settings")]
     public List<ResourceType> availableResources = new List<ResourceType>();
     public List<ResourceAmount> startResourceAmounts = new List<ResourceAmount>();
+
+    public Sprite steelImage, carbonImage, compositeImage, electronicsImage;
     
-    public Color steelColor;
-    //public Color copperColor;
-    public Color carbonColor;
-    public Color compositeColor;
-    public Color electronicsColor;
+    public Color steelColor, carbonColor, compositeColor, electronicsColor;
 
     public Color maxResourceAmountReachedColor;
     public Color maxResourceAmountNotReachedColor;
@@ -49,10 +47,10 @@ public class ResourcesManager : MonoBehaviour {
     // Types of resources and their info
     public void InitializeResources()
     {
-        availableResources.Add(new ResourceType(steelID, "steel", steelColor, "steel", 600, 7500, steelAmountText));
-        availableResources.Add(new ResourceType(carbonID, "carbon", carbonColor, "carbon", 200, 3500, carbonAmountText));
-        availableResources.Add(new ResourceType(compositeID, "composite", compositeColor, "composite", 150, 2400, compositeAmountText));
-        availableResources.Add(new ResourceType(electronicsID, "electronics", electronicsColor, "electronics", 100, 2000, electronicsAmountText));
+        availableResources.Add(new ResourceType(steelID, "steel", steelColor, steelImage, 600, 7500, steelAmountText));
+        availableResources.Add(new ResourceType(carbonID, "carbon", carbonColor, carbonImage, 200, 3500, carbonAmountText));
+        availableResources.Add(new ResourceType(compositeID, "composite", compositeColor, compositeImage, 150, 2400, compositeAmountText));
+        availableResources.Add(new ResourceType(electronicsID, "electronics", electronicsColor, electronicsImage, 100, 2000, electronicsAmountText));
     }
 
     // Set starting resource amounts
@@ -359,12 +357,12 @@ public class ResourcesManager : MonoBehaviour {
         public TextMeshProUGUI resourceAmountText;
         public Sprite resourceImage;
 
-        public ResourceType(int id, string name, Color color, string imageName, int startAmount, int maxAmount, TextMeshProUGUI resourceAmountText)
+        public ResourceType(int id, string name, Color color, Sprite resourceImage, int startAmount, int maxAmount, TextMeshProUGUI resourceAmountText)
         {
             this.id = id;
             this.resourceName = name;
             this.color = color;
-            this.resourceImage = Resources.Load<Sprite>("Images/Resources/" + imageName);
+            this.resourceImage = resourceImage;
             this.startAmount = startAmount;
             this.maxAmount = maxAmount;
             this.resourceAmountText = resourceAmountText;

@@ -13,6 +13,7 @@ public class InitializationManager : MonoBehaviour {
     public BuildingManager bm;
     public ResourcesManager rm;
     public ShopPanel sp;
+    public BuildingShopManager bsm;
 
 	// Use this for initialization              // TODO: Put this into GameSetupManager
 	void Start () {
@@ -25,8 +26,9 @@ public class InitializationManager : MonoBehaviour {
         bm.buildingState = BuildingManager.BuildingState.Default;
         bm.mainPlanet = GameManager.instance.mainPlanet;
 
-        sp.BuildStartBuildingShopItems();
-
+        sp.BuildStartBuildingShopItems();       // OLD
+        bsm.Initialize();
+        bsm.BuildStartBuildingShopItems();      // NEW
     }
-	
+
 }

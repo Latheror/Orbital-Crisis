@@ -630,6 +630,7 @@ public class BuildingManager : MonoBehaviour {
         if (!bType.isUnlocked)
         {
             ShopPanel.instance.AddBuildingShopItem(bType);
+            BuildingShopManager.instance.AddBuildingShopItem(bType);    // NEW
             bType.isUnlocked = true;
             //Debug.Log("Building \"" + bType.name + "\" unlocked.");
         }
