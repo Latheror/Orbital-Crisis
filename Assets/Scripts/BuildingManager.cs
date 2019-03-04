@@ -768,14 +768,14 @@ public class BuildingManager : MonoBehaviour {
 
     public void BuildingSlotTouched(BuildingSlot buildingSlot)     // NEW
     {
-        BuildingShopManager.instance.BuildAndShowPanelsBasedOnBuildingLocationType(buildingSlot.locationType);
+        BuildingShopManager.instance.BuildingSlotTouched(buildingSlot);
 
         SelectBuildingSpot(buildingSlot);
     }
 
     public void BuildingShopItemSelected(BuildingType buildingType)     // NEW
     {
-        // Tutorial indicator //
+        // Tutorial indicator //                              
         TutorialManager.instance.DisplayIndicator(2, false);
         TutorialManager.instance.DisplayIndicatorIfNotDisplayedYet(3);
         // ------------------ //

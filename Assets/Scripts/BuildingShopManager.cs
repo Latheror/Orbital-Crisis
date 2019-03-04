@@ -36,12 +36,10 @@ public class BuildingShopManager : MonoBehaviour
     [Header("Operation")]
     public List<BuildingShopPanel> buildingShopPanelsList;
     public BuildingManager.BuildingType.BuildingLocationType currentBuildingLocationType = BuildingManager.BuildingType.BuildingLocationType.Planet;
-    public bool panelsCurrentlyOpen = false;
 
     public void Initialize()
     {
         InitializeBuildingShopPanels();
-        panelsCurrentlyOpen = false;
     }
 
     public void InitializeBuildingShopPanels()
@@ -79,13 +77,15 @@ public class BuildingShopManager : MonoBehaviour
                 if(open)
                 {
                     anim.SetTrigger("Open" + buildingsNb);
-                    bsp.currentOpenNb = buildingsNb;
+                    anim.SetInteger("OpenLevel", buildingsNb);
                 }
                 else
                 {
                     anim.SetTrigger("Close");
-                    bsp.currentOpenNb = 0;
+                    anim.SetInteger("OpenLevel", 0);
                 }
+
+                bsp.currentlyOpen = open;
             }
         }
     }
@@ -102,52 +102,53 @@ public class BuildingShopManager : MonoBehaviour
 
     public void CloseAllPanels()
     {
-        for(int i = 1; i <= 3; i++)
+        foreach (BuildingShopPanel bsp in buildingShopPanelsList)
         {
-            ClosePanel(i);
+            if(bsp.currentlyOpen)
+            {
+                ClosePanel(bsp.buildingTypeIndex);
+            }
         }
-        panelsCurrentlyOpen = false;
     }
 
     public void ShowPanelsAllBuildings()
     {
-        if(!panelsCurrentlyOpen)
+        foreach (BuildingShopPanel bsp in buildingShopPanelsList)
         {
-            bool atLeastOnePanelOpen = false;
-            foreach (BuildingShopPanel bsp in buildingShopPanelsList)
+            int usedSlots = bsp.currentUsedSlots;
+
+            Debug.Log("UsedSlots [" + usedSlots + "]");
+
+            if (bsp.currentlyOpen)
+            {
+                if (bsp.currentUsedSlots > 0)
+                {
+                    OpenPanel(bsp.buildingTypeIndex, bsp.currentUsedSlots);
+                }
+                else
+                {
+                    ClosePanel(bsp.buildingTypeIndex);
+                }
+            }
+            else
             {
                 OpenPanel(bsp.buildingTypeIndex, bsp.currentUsedSlots);
-                if (bsp.currentUsedSlots > 0)
-                    atLeastOnePanelOpen = true;
             }
-
-            if(atLeastOnePanelOpen)
-                panelsCurrentlyOpen = true;
         }
     }
 
     public void OnShopButtonClick()
     {
-        Debug.Log("OnShopButtonClick | panelsCurrentlyOpen [" + panelsCurrentlyOpen + "]");
-        if (panelsCurrentlyOpen)
-        {
-            CloseAllPanels();
-        }
-        else
-        {
-            BuildShopPanels();
-            ShowPanelsAllBuildings();
-        }
-        
+        CloseAllPanels();
     }
 
-    public void BuildShopPanels()
+    public void BuildShopPanels(BuildingManager.BuildingType.BuildingLocationType buildingLocationType)
     {
         CleanShopPanels();
 
         foreach (BuildingManager.BuildingType buildingType in BuildingManager.instance.availableBuildings)
         {
-            if(buildingType.buildingLocationType == currentBuildingLocationType && buildingType.isUnlocked)
+            if(buildingType.buildingLocationType == buildingLocationType && buildingType.isUnlocked)
                 AddBuildingShopItem(buildingType);
         }
     }
@@ -235,10 +236,13 @@ public class BuildingShopManager : MonoBehaviour
     public void BuildAndShowPanelsBasedOnBuildingLocationType(BuildingManager.BuildingType.BuildingLocationType buildingLocationType)
     {
         Debug.Log("BuildAndShowPanelsBasedOnBuildingLocationType | LocationType [" + buildingLocationType + "]");
-        currentBuildingLocationType = buildingLocationType;
-
-        BuildShopPanels();
+        BuildShopPanels(buildingLocationType);
         ShowPanelsAllBuildings();
+    }
+
+    public void BuildingSlotTouched(BuildingSlot buildingSlot)
+    {
+        BuildAndShowPanelsBasedOnBuildingLocationType(buildingSlot.locationType);
     }
 
     // Used to build new unlocked building shop item
@@ -269,7 +273,7 @@ public class BuildingShopManager : MonoBehaviour
         public GameObject panel;
         public int maxSlots = 3;
         public int currentUsedSlots = 0;
-        public int currentOpenNb = 0;
+        public bool currentlyOpen = false;
         public List<GameObject> buildingShopItemsList;
 
         public BuildingShopPanel(int buildingTypeIndex, GameObject panel, int maxSlots)
@@ -277,7 +281,8 @@ public class BuildingShopManager : MonoBehaviour
             this.buildingTypeIndex = buildingTypeIndex;
             this.panel = panel;
             this.maxSlots = maxSlots;
-            this.currentOpenNb = 0;
+            this.currentlyOpen = false;
+            this.currentUsedSlots = 0;
             buildingShopItemsList = new List<GameObject>();
         }
     }
