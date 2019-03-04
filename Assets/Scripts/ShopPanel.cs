@@ -155,9 +155,9 @@ public class ShopPanel : MonoBehaviour {
         UpdateLayoutChangeButtons();
     }
 
-    public void ResetLastShopItemSelected()
+    public void ResetLastShopItemSelected()     // OLD : TO REDO
     {
-        if(shopItemPanelSelected != null)
+        /*if(shopItemPanelSelected != null)
         {
             if (shopItemPanelSelected.GetComponent<BuildingShopItem>().buildingType.isUnique)
             {
@@ -167,7 +167,7 @@ public class ShopPanel : MonoBehaviour {
             {
                 shopItemPanelSelected.GetComponent<BuildingShopItem>().SetBackGroundColor(ShopPanel.instance.buildingShopItemDefaultBackgroundColor);
             }
-        }
+        }*/
     }
 
     public void UpdateShopItems()

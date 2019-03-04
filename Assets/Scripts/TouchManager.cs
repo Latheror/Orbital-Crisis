@@ -61,7 +61,7 @@ public class TouchManager : MonoBehaviour
             {
                 lastTouch = touch1Pos;
 
-                if (BuildingManager.instance.buildingState == BuildingManager.BuildingState.BuildingSelected || BuildingManager.instance.buildingState == BuildingManager.BuildingState.LocationSelected
+                /*if (BuildingManager.instance.buildingState == BuildingManager.BuildingState.BuildingSelected || BuildingManager.instance.buildingState == BuildingManager.BuildingState.LocationSelected
                     || BuildingManager.instance.buildingState == BuildingManager.BuildingState.BuildingAndLocationSelected)
                 {
                     // The touch is not on the menu panels
@@ -71,9 +71,9 @@ public class TouchManager : MonoBehaviour
                         BuildingManager.instance.SelectBuildingLocation();
                         //BuildingManager.instance.DisplayBuildingPreview();
                     }
-                }
-                else if (BuildingManager.instance.buildingState == BuildingManager.BuildingState.Default)    // Touching while in default state
-                {
+                }*/
+                //else if (BuildingManager.instance.buildingState == BuildingManager.BuildingState.Default)    // Touching while in default state
+                //{
                     if (IsTouchWithinGameArea(lastTouch))
                     {
                         // Cast a ray
@@ -125,6 +125,14 @@ public class TouchManager : MonoBehaviour
                                         otherPriorityElementTouched = true;
                                         break;
                                     }
+                                    case ("buildingSlot"):
+                                    {
+                                        Debug.Log("Touched a buildingSlot !");
+                                        hit.collider.gameObject.GetComponent<BuildingSlot>().OnTouch();
+                                        break;
+                                    }
+                                    default:
+                                        break;
                                 }
                             }
                         }
@@ -162,7 +170,7 @@ public class TouchManager : MonoBehaviour
                             }*/
                         }
                     }
-                }
+                //}
             }
             else if (Input.touchCount == 2)        // Pinch to zoom
             {
