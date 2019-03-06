@@ -128,7 +128,7 @@ public class ResourcesManager : MonoBehaviour {
             }
         }
 
-        ShopPanel.instance.UpdateShopItems();
+        //ShopPanel.instance.UpdateShopItems();
         BuildingInfoPanel.instance.UpdateInfo();
     }
 
@@ -177,7 +177,7 @@ public class ResourcesManager : MonoBehaviour {
             DecreaseResource(resourceType, amount);
         }
 
-        ShopPanel.instance.UpdateShopItems();
+        //ShopPanel.instance.UpdateShopItems();
         BuildingInfoPanel.instance.UpdateInfo();
     }
 
@@ -217,7 +217,7 @@ public class ResourcesManager : MonoBehaviour {
             PayResource(GetResourceFromCurrentList(cost.resourceType).resourceType, cost.amount);
         }
 
-        ShopPanel.instance.UpdateShopItems();
+        //ShopPanel.instance.UpdateShopItems();
         BuildingInfoPanel.instance.UpdateInfo();
     }
 

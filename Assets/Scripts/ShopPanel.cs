@@ -23,8 +23,6 @@ public class ShopPanel : MonoBehaviour {
     public int[] buildingLayoutsItemNbs;
 
     [Header("UI")]
-    public GameObject cancelButton;
-    public GameObject buildButton;
     public List<GameObject> buildingsLayouts;
     public GameObject previousLayoutButton;
     public GameObject nextLayoutButton;
@@ -46,12 +44,11 @@ public class ShopPanel : MonoBehaviour {
     {
         //BuildStartBuildingShopItems();
         currentPanelDisplayedIndex = 0;
-
-        cancelButton.SetActive(false);
-        buildButton.SetActive(false);
     }
 
-    public void BuildStartBuildingShopItems()
+    ///// DEPRECATED CLASS //////
+
+    /*public void BuildStartBuildingShopItems()
     {
         foreach (BuildingManager.BuildingType buildingType in BuildingManager.instance.availableBuildings)
         {
@@ -62,15 +59,15 @@ public class ShopPanel : MonoBehaviour {
         }
 
         UpdateLayoutChangeButtons();
-    }
+    }*/
 
-    public void AddBuildingShopItem(BuildingManager.BuildingType buildingType)
+    /*public void AddBuildingShopItem(BuildingManager.BuildingType buildingType)
     {
         for(int i = 0; i< buildingsLayouts.Count; i++)
         {
             if(buildingLayoutsItemNbs[i] < nbBuildingShopItemsPerLayout) // There is some room in this layout
             {
-                GameObject instantiatedBuildingShopItem = Instantiate(buildingShopItemPrefab, /*buildingsLayouts[i].transform.position*/ new Vector3(0f, 0f, 0f), Quaternion.identity);
+                GameObject instantiatedBuildingShopItem = Instantiate(buildingShopItemPrefab, new Vector3(0f, 0f, 0f), Quaternion.identity);
                 instantiatedBuildingShopItem.transform.SetParent(buildingsLayouts[i].transform, false);
                 //instantiatedBuildingShopItem.transform.position = new Vector3(0f, 0f, 0f);
                 buildingLayoutsItemNbs[i] ++;
@@ -94,7 +91,7 @@ public class ShopPanel : MonoBehaviour {
                 break;
             }
         } 
-    }
+    }*/
 
     public void CancelButtonClicked()
     {
@@ -110,26 +107,6 @@ public class ShopPanel : MonoBehaviour {
 
         BuildingManager.instance.BuildButton();
     }
-
-    public void ShowCancelButton()
-    {
-        cancelButton.SetActive(true);
-    }
-
-    public void HideCancelButton()
-    {
-        cancelButton.SetActive(false);
-    }
-
-    public void ShowBuildButton()
-    {
-        buildButton.SetActive(true);
-    }
-
-    public void HideBuildButton()
-    {
-        buildButton.SetActive(false);
-    } 
 
     public void NextLayoutButton()
     {

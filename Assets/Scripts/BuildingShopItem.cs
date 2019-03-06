@@ -19,6 +19,7 @@ public class BuildingShopItem : MonoBehaviour {
     public BuildingManager.BuildingType buildingType;
     // public TextMeshProUGUI building
 
+    /*
     public void SetInfo()
     {
         ApplyBuildingNameText();
@@ -32,8 +33,9 @@ public class BuildingShopItem : MonoBehaviour {
             SetBackGroundColor(ShopPanel.instance.buildingShopItemDefaultBackgroundColor);
         }
         BuildCostsList();
-    }
-
+    }*/
+    
+    /*
     public void BuildingShopItemClicked()
     {
         // Tutorial indicator //
@@ -42,9 +44,9 @@ public class BuildingShopItem : MonoBehaviour {
         // ------------------ //
 
         //Debug.Log("Building Shop Item Clicked !");
-        ShopPanel.instance.ResetLastShopItemSelected();
+        //ShopPanel.instance.ResetLastShopItemSelected();
         BuildingManager.instance.SelectBuilding(buildingType);
-        ShopPanel.instance.shopItemPanelSelected = this.gameObject;
+        //ShopPanel.instance.shopItemPanelSelected = this.gameObject;
         if(ResourcesManager.instance.CanPayConstruction(buildingType))
         {
             SetBackGroundColor(ShopPanel.instance.buildingShopItemSelectedCanPayBackgroundColor);
@@ -53,7 +55,7 @@ public class BuildingShopItem : MonoBehaviour {
         {
             SetBackGroundColor(ShopPanel.instance.buildingShopItemSelectedCantPayBackgroundColor);
         }
-    }
+    }*/
 
     public void ApplyBuildingNameText()
     {
