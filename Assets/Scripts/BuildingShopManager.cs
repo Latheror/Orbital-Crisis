@@ -69,23 +69,28 @@ public class BuildingShopManager : MonoBehaviour
         Debug.Log("OpenClosePanel | PanelIndex [" + panelIndex + "] | Open [" + open + "] | BuildingsNb [" + buildingsNb + "]");
         BuildingShopPanel bsp = FindBuildingShopPanelByIndex(panelIndex);
 
-        if(bsp != null && (buildingsNb <= bsp.maxSlots) && (!open || buildingsNb > 0))
+        if(bsp != null && (buildingsNb <= bsp.maxSlots))
         {
-            Animator anim = bsp.panel.GetComponent<Animator>();
-            if(anim != null)
+            if (!open || buildingsNb > 0)
             {
-                if(open)
+                Animator anim = bsp.panel.GetComponent<Animator>();
+                if (anim != null)
                 {
-                    anim.SetTrigger("Open" + buildingsNb);
-                    anim.SetInteger("OpenLevel", buildingsNb);
-                }
-                else
-                {
-                    anim.SetTrigger("Close");
-                    anim.SetInteger("OpenLevel", 0);
-                }
+                    if (open)
+                    {
+                        anim.SetTrigger("Open" + buildingsNb);
+                        anim.SetInteger("OpenLevel", buildingsNb);
+                        bsp.currentOpenLevel = buildingsNb;
+                    }
+                    else
+                    {
+                        anim.SetTrigger("Close");
+                        anim.SetInteger("OpenLevel", 0);
+                        bsp.currentOpenLevel = 0;
+                    }
 
-                bsp.currentlyOpen = open;
+                    bsp.currentlyOpen = open;
+                }
             }
         }
     }
@@ -117,13 +122,16 @@ public class BuildingShopManager : MonoBehaviour
         {
             int usedSlots = bsp.currentUsedSlots;
 
-            Debug.Log("UsedSlots [" + usedSlots + "]");
+            Debug.Log("UsedSlots [" + usedSlots + "] | CurrentOpenLevel [" + bsp.currentOpenLevel + "]");
 
             if (bsp.currentlyOpen)
             {
-                if (bsp.currentUsedSlots > 0)
+                if (usedSlots > 0)
                 {
-                    OpenPanel(bsp.buildingTypeIndex, bsp.currentUsedSlots);
+                    if (bsp.currentOpenLevel != usedSlots)
+                    {
+                        OpenPanel(bsp.buildingTypeIndex, usedSlots);
+                    }
                 }
                 else
                 {
@@ -132,7 +140,7 @@ public class BuildingShopManager : MonoBehaviour
             }
             else
             {
-                OpenPanel(bsp.buildingTypeIndex, bsp.currentUsedSlots);
+                OpenPanel(bsp.buildingTypeIndex, usedSlots);
             }
         }
     }
@@ -275,6 +283,7 @@ public class BuildingShopManager : MonoBehaviour
         public int currentUsedSlots = 0;
         public bool currentlyOpen = false;
         public List<GameObject> buildingShopItemsList;
+        public int currentOpenLevel = 0;
 
         public BuildingShopPanel(int buildingTypeIndex, GameObject panel, int maxSlots)
         {
@@ -284,6 +293,7 @@ public class BuildingShopManager : MonoBehaviour
             this.currentlyOpen = false;
             this.currentUsedSlots = 0;
             buildingShopItemsList = new List<GameObject>();
+            currentOpenLevel = 0;
         }
     }
 }
