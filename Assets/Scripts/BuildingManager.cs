@@ -617,6 +617,9 @@ public class BuildingManager : MonoBehaviour {
 
             // Refresh population effects
             PopulationManager.instance.ApplyPopulationEffects();
+
+            // Transmit info to BuildingShopManager
+            BuildingShopManager.instance.OnBuildingBuilt();
         }
     }
 

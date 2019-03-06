@@ -40,8 +40,12 @@ public class BuildingSlot : MonoBehaviour {
 
     public void SetBuilding(Building building)
     {
-        hasBuilding = true;
-        attachedBuilding = building;
+        if(building != null)
+        {
+            hasBuilding = true;
+            attachedBuilding = building;
+            GetComponent<SphereCollider>().enabled = false;
+        }
     }
 
     public bool CanBuildHere()
@@ -53,6 +57,7 @@ public class BuildingSlot : MonoBehaviour {
     {
         attachedBuilding = null;
         hasBuilding = false;
+        GetComponent<SphereCollider>().enabled = true;
     }
 
     public void OnTouch()

@@ -253,6 +253,12 @@ public class BuildingShopManager : MonoBehaviour
         BuildAndShowPanelsBasedOnBuildingLocationType(buildingSlot.locationType);
     }
 
+    // Called by BuildingManager
+    public void OnBuildingBuilt()
+    {
+        CloseAllPanels();
+    }
+
     // Used to build new unlocked building shop item
     public void OnNewBuildingUnlocked(BuildingManager.BuildingType buildingType)
     {
