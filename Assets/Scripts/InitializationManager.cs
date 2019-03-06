@@ -26,7 +26,6 @@ public class InitializationManager : MonoBehaviour {
         bm.buildingState = BuildingManager.BuildingState.Default;
         bm.mainPlanet = GameManager.instance.mainPlanet;
 
-        sp.BuildStartBuildingShopItems();       // OLD
         bsm.Initialize();
         bsm.BuildStartBuildingShopItems();      // NEW
     }

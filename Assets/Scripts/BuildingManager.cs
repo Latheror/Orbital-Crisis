@@ -47,6 +47,8 @@ public class BuildingManager : MonoBehaviour {
 
     [Header("UI")]
     public float powerMissingIndicatorPlacementDistance = 20f;
+    public GameObject buildButton;
+    public GameObject cancelButton;
 
     public void SetAvailableBuildings()
     {
@@ -386,11 +388,11 @@ public class BuildingManager : MonoBehaviour {
                 }
                 if ((ResourcesManager.instance.CanPayConstruction(selectedBuilding)))
                 {
-                    ShopPanel.instance.ShowBuildButton();
+                    //ShopPanel.instance.ShowBuildButton();
                 }
             }
             //DebugManager.instance.DisplayBuildingState();
-            ShowCancelButton();
+            ShowCancelButton(true);
         }
     }
 
@@ -408,9 +410,9 @@ public class BuildingManager : MonoBehaviour {
 
             //ShopPanel.instance.ResetLastShopItemSelected();       // TO REDO
             DeselectBuilding();
-            ShopPanel.instance.HideBuildButton();
+            //ShopPanel.instance.HideBuildButton();
             BuildingSlotManager.instance.ResetAllBuildingSlotsColor();
-            HideCancelButton();
+            ShowCancelButton(false);
 
             //Debug.Log("Leaving Building State.");
         }
@@ -429,8 +431,8 @@ public class BuildingManager : MonoBehaviour {
                     BuildBuilding();
 
                     buildingState = BuildingState.Default;
-                    HideCancelButton();
-                    HideBuildButton();
+                    ShowCancelButton(false);
+                    ShowBuildButton(false);
                     BuildingSlotManager.instance.ResetAllBuildingSlotsColor();
                     SurroundingAreasManager.instance.ResetAllSatelliteBuildingSlotsColor();
                     //ShopPanel.instance.ResetLastShopItemSelected();               // TO REDO
@@ -439,7 +441,7 @@ public class BuildingManager : MonoBehaviour {
                     // If building is Unique, disable corresponding ShopItem
                     if(selectedBuilding.isUnique)
                     {
-                        ShopPanel.instance.GetShopItemAssociatedWithBuildingType(selectedBuilding).SetActive(false);
+                        //ShopPanel.instance.GetShopItemAssociatedWithBuildingType(selectedBuilding).SetActive(false);
                     }
                 }
             }
@@ -448,10 +450,8 @@ public class BuildingManager : MonoBehaviour {
         GameManager.instance.ChangeSelectionState(GameManager.SelectionState.Default);
     }
 
-    public void ShowCancelButton() { ShopPanel.instance.ShowCancelButton(); }
-    public void HideCancelButton() { ShopPanel.instance.HideCancelButton(); }
-    public void ShowBuildButton() { ShopPanel.instance.ShowBuildButton(); }
-    public void HideBuildButton() { ShopPanel.instance.HideBuildButton(); }
+    public void ShowCancelButton(bool display) { cancelButton.SetActive(display); }
+    public void ShowBuildButton(bool display) { buildButton.SetActive(display); }
 
     public void DisplayBuildingPreview() {
         chosenBuildingSlot.GetComponent<BuildingSlot>().SetSelectionColor();
@@ -540,7 +540,7 @@ public class BuildingManager : MonoBehaviour {
             //DebugManager.instance.DisplayBuildingState();
             if ((ResourcesManager.instance.CanPayConstruction(selectedBuilding)))
             {
-                ShopPanel.instance.ShowBuildButton();
+                //ShopPanel.instance.ShowBuildButton();
             }
             
         }
@@ -670,7 +670,7 @@ public class BuildingManager : MonoBehaviour {
     {
         if (!bType.isUnlocked)
         {
-            ShopPanel.instance.AddBuildingShopItem(bType);  // OLD
+            //ShopPanel.instance.AddBuildingShopItem(bType);  // OLD
             bType.isUnlocked = true;
             //Debug.Log("Building \"" + bType.name + "\" unlocked.");
         }
@@ -793,7 +793,7 @@ public class BuildingManager : MonoBehaviour {
         //Debug.Log("Building Shop Item Clicked !");
         //ShopPanel.instance.ResetLastShopItemSelected();           // TO REDO
         SelectBuilding(buildingType);
-        ShopPanel.instance.shopItemPanelSelected = this.gameObject;
+        //ShopPanel.instance.shopItemPanelSelected = this.gameObject;
 
         /*if (ResourcesManager.instance.CanPayConstruction(buildingType))
         {
