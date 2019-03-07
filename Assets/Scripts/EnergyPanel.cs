@@ -15,8 +15,8 @@ public class EnergyPanel : MonoBehaviour {
     public float energyConsumption;
 
     [Header("UI")]
-    public TextMeshProUGUI energyProductionText;
-    public TextMeshProUGUI energyConsumptionText;
+    //public TextMeshProUGUI energyProductionText;
+    //public TextMeshProUGUI energyConsumptionText;
     public TextMeshProUGUI energyExcessText;
     public GameObject energyBar;
 
@@ -54,7 +54,7 @@ public class EnergyPanel : MonoBehaviour {
 
     public void UpdateEnergyProductionDisplay()
     {
-        energyProductionText.text = Mathf.RoundToInt(energyProduction).ToString();
+        //energyProductionText.text = Mathf.RoundToInt(energyProduction).ToString();
         EnergyConsumptionColorIndication();
         energyBar.GetComponent<EnergyBar>().UpdateEnergyBar();
         PlanetCanvasManager.instance.SetEnergyDifferentialAmount(Mathf.FloorToInt(energyProduction - energyConsumption));
@@ -62,7 +62,7 @@ public class EnergyPanel : MonoBehaviour {
 
     public void UpdateEnergyConsumptionDisplay()
     {
-        energyConsumptionText.text = Mathf.RoundToInt(energyConsumption).ToString();
+        //energyConsumptionText.text = Mathf.RoundToInt(energyConsumption).ToString();
         EnergyConsumptionColorIndication();
         energyBar.GetComponent<EnergyBar>().UpdateEnergyBar();
         PlanetCanvasManager.instance.SetEnergyDifferentialAmount(Mathf.FloorToInt(energyProduction - energyConsumption));
@@ -93,11 +93,11 @@ public class EnergyPanel : MonoBehaviour {
         if(energyConsumption > energyProduction || energyProduction == 0)
         {
             // We don't have enough energy
-            energyConsumptionText.color = Color.red;
+            //energyConsumptionText.color = Color.red;  // TO REDO
         }
         else
         {
-            energyConsumptionText.color = Color.green;
+            //energyConsumptionText.color = Color.green; // TO REDO
         }
     }
 

@@ -29,10 +29,10 @@ public class LevelManager : MonoBehaviour {
     public GameObject nextLevelButton;
     public Color nextLevelButtonBaseColor;
     public Color nextLevelButtonSecondaryColor;
-    //public GameObject remainingEnemiesPanel; // RECENTLY REMOVED
+    //public GameObject remainingEnemiesPanel; // REMOVED
     public TextMeshProUGUI remainingEnemiesText;
     public GameObject pressStartPanel;
-    public GameObject waveInfoPanel;
+    //public GameObject waveInfoPanel; // REMOVED
 
     [Header("Maths")]
     public float alpha = 0.05f;
@@ -91,7 +91,6 @@ public class LevelManager : MonoBehaviour {
         currentLevelAllMeteorsSpawned = true;
         currentLevelFinished = true;
         DisplayPressStartIndication();
-        waveInfoPanel.SetActive(true);
         DisplayWaveNumber();
         UpdateRemainingEnnemiesIndicator(); // Useless because hidden
         ChangeNextLevelButtonColor(nextLevelButtonBaseColor);
@@ -246,7 +245,6 @@ public class LevelManager : MonoBehaviour {
             {
                 // Before level one
                 pressStartPanel.SetActive(false);
-                waveInfoPanel.SetActive(true);
                 GoToNextLevel();
             }
         }
@@ -337,12 +335,11 @@ public class LevelManager : MonoBehaviour {
     public void DisplayPressStartIndication()
     {
         pressStartPanel.SetActive(true);
-        waveInfoPanel.SetActive(false);
     }
 
     public void ChangeNextLevelButtonColor(Color color)
     {
-        nextLevelButton.GetComponent<Image>().color = color;
+        //nextLevelButton.GetComponent<Image>().color = color; // TO REDO ?
     }
 
     public void SpawnEnemies()
