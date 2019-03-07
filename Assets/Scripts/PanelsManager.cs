@@ -13,41 +13,15 @@ public class PanelsManager : MonoBehaviour {
 
     [Header("UI")]
     public GameObject controlsPanel;
-    public GameObject shopPanel;
     public GameObject defaultBottomPanel;
     public GameObject fleetPanel;
     public GameObject gameOverPanel;
-
-    // TEMPORARY
-    public GameObject energyAndScorePanel;
-
-    // Use this for initialization
-    void Start () {
-        SwitchFromShopToControlsPanel();
-    }
-    
-    public void SwitchFromControlsToShopPanel()
-    {
-        // Tutorial indicator //
-        TutorialManager.instance.DisplayIndicator(1, false);
-        TutorialManager.instance.DisplayIndicatorIfNotDisplayedYet(2);
-        // ------------------ //
-
-        defaultBottomPanel.SetActive(false);
-        shopPanel.SetActive(true);
-    }
 
     public void SwitchFromControlsToTechTreePanel()
     {
         GameManager.instance.Pause();
         defaultBottomPanel.SetActive(false);
         TechTreeManager.instance.DisplayPanel(true);
-    }
-
-    public void SwitchFromShopToControlsPanel()
-    {
-        shopPanel.SetActive(false);
-        defaultBottomPanel.SetActive(true);
     }
 
     public void SwitchFromControlToFleetPanel()
@@ -122,7 +96,6 @@ public class PanelsManager : MonoBehaviour {
 
     public void BackButtonClicked()
     {
-        SwitchFromShopToControlsPanel();
         BuildingManager.instance.buildingState = BuildingManager.BuildingState.Default;
         GameManager.instance.ChangeSelectionState(GameManager.SelectionState.Default);
     }

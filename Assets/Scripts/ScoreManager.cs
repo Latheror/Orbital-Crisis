@@ -27,7 +27,6 @@ public class ScoreManager : MonoBehaviour {
     public bool gameOverHappened;
 
     [Header("UI")]
-    public GameObject scoreValueIndicator;
     public GameObject experienceValueText;
     public GameObject artifactsNbText;
     //public TextMeshProUGUI planetLifeText;    // Text removed from UI
@@ -85,7 +84,7 @@ public class ScoreManager : MonoBehaviour {
     }
 
     public void UpdateScoreDisplay(){
-        scoreValueIndicator.GetComponent<TextMeshProUGUI>().text = score.ToString();
+        // REMOVED
     }
 
     public void UpdatePlanetLifeDisplay()

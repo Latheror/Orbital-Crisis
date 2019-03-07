@@ -16,9 +16,6 @@ public class ViewManager : MonoBehaviour {
     [Header("World")]
     public Camera mainCamera;
 
-    [Header("UI")]
-    public GameObject dezoomButton;
-
     [Header("Settings")]
     public float zoomOrthographicSize;
     public float dezoomOrthographicSize;
@@ -53,14 +50,12 @@ public class ViewManager : MonoBehaviour {
         {
             case ViewState.Dezoom:
             {
-                dezoomButton.SetActive(false);
                 mainCamera.orthographicSize = dezoomOrthographicSize;
                 PlanetCanvasManager.instance.DisplayZoomInfoPanel(false);
                 break;
             }
             case ViewState.Zoom:
             {
-                dezoomButton.SetActive(true);
                 mainCamera.orthographicSize = zoomOrthographicSize;
                 PlanetCanvasManager.instance.DisplayZoomInfoPanel(true);
                 break;

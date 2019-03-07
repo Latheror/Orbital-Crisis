@@ -415,7 +415,7 @@ public class BuildingManager : MonoBehaviour {
                     // If building is Unique, disable corresponding ShopItem
                     if(selectedBuilding.isUnique)
                     {
-                        ShopPanel.instance.GetShopItemAssociatedWithBuildingType(selectedBuilding).SetActive(false);
+                        //ShopPanel.instance.GetShopItemAssociatedWithBuildingType(selectedBuilding).SetActive(false);  // TO REDO
                     }
                 }
             }
