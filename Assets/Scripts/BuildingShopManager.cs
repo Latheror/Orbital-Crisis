@@ -121,8 +121,7 @@ public class BuildingShopManager : MonoBehaviour
         foreach (BuildingShopPanel bsp in buildingShopPanelsList)
         {
             int usedSlots = bsp.currentUsedSlots;
-
-            Debug.Log("UsedSlots [" + usedSlots + "] | CurrentOpenLevel [" + bsp.currentOpenLevel + "]");
+            //Debug.Log("UsedSlots [" + usedSlots + "] | CurrentOpenLevel [" + bsp.currentOpenLevel + "]");
 
             if (bsp.currentlyOpen)
             {

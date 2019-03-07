@@ -88,7 +88,7 @@ public class InfrastructureManager : MonoBehaviour {
         // Unique Buildings
         if (b.buildingType.isUnique)
         {
-            //ShopPanel.instance.DisplayBuildingShopItemBack(b.buildingType);
+            //ShopPanel.instance.DisplayBuildingShopItemBack(b.buildingType);       // TO REDO
         }
 
         EnergyPanel.instance.UpdateEnergyProductionAndConsumption();

@@ -19,7 +19,8 @@ public class BuildingShopItem : MonoBehaviour {
     public BuildingManager.BuildingType buildingType;
     // public TextMeshProUGUI building
 
-    /*public void SetInfo()
+    /*
+    public void SetInfo()
     {
         ApplyBuildingNameText();
         ApplyBuildingImage();
@@ -33,8 +34,9 @@ public class BuildingShopItem : MonoBehaviour {
         }
         BuildCostsList();
     }*/
-
-    /*public void BuildingShopItemClicked()
+    
+    /*
+    public void BuildingShopItemClicked()
     {
         // Tutorial indicator //
         TutorialManager.instance.DisplayIndicator(2, false);
