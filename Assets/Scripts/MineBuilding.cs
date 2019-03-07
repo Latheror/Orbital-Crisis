@@ -62,7 +62,7 @@ public class MineBuilding : Building {
 
                     StartCoroutine("StartProductionCoolDown", this);
 
-                    //ShopPanel.instance.UpdateShopItems();             // TO REDO
+                    //ShopPanel.instance.UpdateShopItems();
                 }
                 else
                 {

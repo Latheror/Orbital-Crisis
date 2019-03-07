@@ -47,10 +47,10 @@ public class ResourcesManager : MonoBehaviour {
     // Types of resources and their info
     public void InitializeResources()
     {
-        availableResources.Add(new ResourceType(steelID, "steel", steelColor, steelImage, 200, 7500, steelAmountText));
+        availableResources.Add(new ResourceType(steelID, "steel", steelColor, steelImage, 600, 7500, steelAmountText));
         availableResources.Add(new ResourceType(carbonID, "carbon", carbonColor, carbonImage, 200, 3500, carbonAmountText));
-        availableResources.Add(new ResourceType(compositeID, "composite", compositeColor, compositeImage, 20, 2400, compositeAmountText));
-        availableResources.Add(new ResourceType(electronicsID, "electronics", electronicsColor, electronicsImage, 20, 2000, electronicsAmountText));
+        availableResources.Add(new ResourceType(compositeID, "composite", compositeColor, compositeImage, 150, 2400, compositeAmountText));
+        availableResources.Add(new ResourceType(electronicsID, "electronics", electronicsColor, electronicsImage, 100, 2000, electronicsAmountText));
     }
 
     // Set starting resource amounts

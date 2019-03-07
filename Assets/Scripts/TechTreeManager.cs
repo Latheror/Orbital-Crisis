@@ -443,7 +443,7 @@ public class TechTreeManager : MonoBehaviour
             }
         }
 
-        //ShopPanel.instance.UpdateBuildingItemsAvailability();
+        //ShopPanel.instance.UpdateBuildingItemsAvailability();     // TO REDO
     }
 
     public Technology GetTechnologyByID(int id)
