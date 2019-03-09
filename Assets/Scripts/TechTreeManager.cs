@@ -192,7 +192,7 @@ public class TechTreeManager : MonoBehaviour
     {
         technologiesPanel.SetActive(false);
         HideTechnoInfoPanel();
-        PanelsManager.instance.GoBackToControlsPanel();        
+        PanelsManager.instance.DisplayDefaultView();        
     }
 
     public void HideTechnoInfoPanel()

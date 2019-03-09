@@ -13,32 +13,27 @@ public class PanelsManager : MonoBehaviour {
 
     [Header("UI")]
     public GameObject controlsPanel;
-    public GameObject defaultBottomPanel;
     public GameObject fleetPanel;
     public GameObject gameOverPanel;
 
-    public void SwitchFromControlsToTechTreePanel()
+    public void DisplayFleetPanel(bool display)
     {
         GameManager.instance.Pause();
-        defaultBottomPanel.SetActive(false);
-        TechTreeManager.instance.DisplayPanel(true);
+        if (display)
+        {
+            fleetPanel.GetComponent<FleetPanel>().BuildInfo();
+        }
+        TechTreeManager.instance.DisplayPanel(display);
     }
 
-    public void SwitchFromControlToFleetPanel()
+    public void DisplayTechTreePanel(bool display)
     {
         GameManager.instance.Pause();
-        defaultBottomPanel.SetActive(false);
-        fleetPanel.SetActive(true);
-        fleetPanel.GetComponent<FleetPanel>().BuildInfo();
+        TechTreeManager.instance.DisplayPanel(display);
     }
 
-    public void SwitchFromFleetToControlPanel()
-    {
-        GameManager.instance.UnPause();
-        defaultBottomPanel.SetActive(true);
-        fleetPanel.SetActive(false);
-    }
 
+    
     /*public void SwitchFromPanelToPanel(int panelFromId, int panelToId)
     {
         // FROM
@@ -94,16 +89,9 @@ public class PanelsManager : MonoBehaviour {
         }
     }*/
 
-    public void BackButtonClicked()
-    {
-        BuildingManager.instance.buildingState = BuildingManager.BuildingState.Default;
-        GameManager.instance.ChangeSelectionState(GameManager.SelectionState.Default);
-    }
-
-    public void GoBackToControlsPanel()
+    public void DisplayDefaultView()
     {
         GameManager.instance.UnPause();
-        defaultBottomPanel.SetActive(true);
     }
 
     public void DisplayGameOverPanel(bool display)
@@ -118,5 +106,15 @@ public class PanelsManager : MonoBehaviour {
             GameManager.instance.UnPause();
             gameOverPanel.SetActive(false);
         }
+    }
+
+    public void OnFleetButtonTouch()
+    {
+        DisplayFleetPanel(true);
+    }
+
+    public void OnTechTreeButtonTouch()
+    {
+        DisplayTechTreePanel(true);
     }
 }

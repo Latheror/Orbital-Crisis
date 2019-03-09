@@ -54,7 +54,7 @@ public class SpaceportInfoPanel : MonoBehaviour {
     public void OnOpenFleetPanelButton()
     {
         //Debug.Log("OnOpenFleetPanelButton");
-        PanelsManager.instance.SwitchFromControlToFleetPanel();
+        PanelsManager.instance.DisplayFleetPanel(true);
     }
 
     public void DisplayPanel(bool display)
