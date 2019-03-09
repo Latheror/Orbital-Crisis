@@ -23,7 +23,7 @@ public class PanelsManager : MonoBehaviour {
         {
             fleetPanel.GetComponent<FleetPanel>().BuildInfo();
         }
-        TechTreeManager.instance.DisplayPanel(display);
+        fleetPanel.SetActive(display);
     }
 
     public void DisplayTechTreePanel(bool display)
@@ -91,6 +91,8 @@ public class PanelsManager : MonoBehaviour {
 
     public void DisplayDefaultView()
     {
+        fleetPanel.SetActive(false);
+        TechTreeManager.instance.DisplayPanel(false);
         GameManager.instance.UnPause();
     }
 

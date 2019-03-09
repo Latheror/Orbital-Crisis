@@ -46,8 +46,8 @@ public class BuildingManager : MonoBehaviour {
     public GameObject powerMissingIndicatorPrefab;
 
     [Header("UI")]
-    public GameObject cancelButton;
     public GameObject buildButton;
+    //public GameObject cancelButton;
 
     [Header("Settings")]
     public float powerMissingIndicatorPlacementDistance = 20f;
@@ -59,7 +59,6 @@ public class BuildingManager : MonoBehaviour {
         mainPlanet = GameManager.instance.mainPlanet;
 
         ShowBuildButton(false);
-        ShowCancelButton(false);
     }
 
     public void SetAvailableBuildings()
@@ -378,7 +377,7 @@ public class BuildingManager : MonoBehaviour {
         {
             selectedBuilding = bType;
 
-            UpdateBuildingState(2, ResourcesManager.instance.CanPayConstruction(selectedBuilding));
+            UpdateBuildingState(2);
         }
     }
 
@@ -405,7 +404,6 @@ public class BuildingManager : MonoBehaviour {
                     BuildBuilding();
 
                     buildingState = BuildingState.Default;
-                    ShowCancelButton(false);
                     ShowBuildButton(false);
                     BuildingSlotManager.instance.ResetAllBuildingSlotsColor();
                     SurroundingAreasManager.instance.ResetAllSatelliteBuildingSlotsColor();
@@ -424,7 +422,7 @@ public class BuildingManager : MonoBehaviour {
         GameManager.instance.ChangeSelectionState(GameManager.SelectionState.Default);
     }
 
-    public void ShowCancelButton(bool display) { cancelButton.SetActive(display); }
+    //public void ShowCancelButton(bool display) { cancelButton.SetActive(display); }
     public void ShowBuildButton(bool display) { buildButton.SetActive(display); }
 
     public void DisplayBuildingPreview() {
@@ -482,18 +480,21 @@ public class BuildingManager : MonoBehaviour {
             BuildingSlotManager.instance.ResetAllBuildingSlotsColor();
             SurroundingAreasManager.instance.ResetAllSatelliteBuildingSlotsColor();
 
-            // Preview
-            DisplayBuildingPreview();
+            buildingSpot.SetSelectionColor();
 
             // Display Build button if we can pay for the building
-            UpdateBuildingState(1, ResourcesManager.instance.CanPayConstruction(selectedBuilding));            
+            UpdateBuildingState(1);            
         }
         else { Debug.Log("SelectBuildingLocation | chosenBuildingSlot null"); }
     }
 
-    public void UpdateBuildingState(int param, bool canPay = false)  // 1: Set location, 2: Set building, 3: Reset
+    public void UpdateBuildingState(int param)  // 1: Set location, 2: Set building, 3: Reset
     {
-        switch(param)
+        bool canPay = false;
+        if (selectedBuilding != null)
+            canPay = ResourcesManager.instance.CanPayConstruction(selectedBuilding);
+
+        switch (param)
         {
             case 1:     // Set building spot
             {
@@ -504,10 +505,10 @@ public class BuildingManager : MonoBehaviour {
                 else if (buildingState == BuildingState.BuildingSelected)
                 {
                     buildingState = BuildingState.BuildingAndLocationSelected;
-                    if(canPay)
+                    DisplayBuildingPreview();
+                    if (canPay)
                     {
                         ShowBuildButton(true);
-                        ShowCancelButton(true);
                     }
                 }
                 break;
@@ -521,10 +522,10 @@ public class BuildingManager : MonoBehaviour {
                 else if (buildingState == BuildingState.LocationSelected)
                 {
                     buildingState = BuildingState.BuildingAndLocationSelected;
+                    DisplayBuildingPreview();
                     if (canPay)
                     {
                         ShowBuildButton(true);
-                        ShowCancelButton(true);
                     }
                 }
                 break;
@@ -533,11 +534,10 @@ public class BuildingManager : MonoBehaviour {
             {
                 buildingState = BuildingState.Default;
                 //ShopPanel.instance.ResetLastShopItemSelected();       // TO REDO
+                BuildingShopManager.instance.CloseAllPanels();
                 DeselectBuilding();
                 BuildingSlotManager.instance.ResetAllBuildingSlotsColor();
                 ShowBuildButton(false);
-                ShowCancelButton(false);
-
                 break;
             }
             default:
@@ -575,8 +575,6 @@ public class BuildingManager : MonoBehaviour {
 
     public void SelectBuildingSpot(BuildingSlot buildingSpot)
     {
-        buildingSpot.GetComponent<BuildingSlot>().SetSelectionColor();
-
         SelectBuildingLocation(buildingSpot);
     }
 
@@ -802,6 +800,11 @@ public class BuildingManager : MonoBehaviour {
         {
             SetBackGroundColor(ShopPanel.instance.buildingShopItemSelectedCantPayBackgroundColor);
         }*/
+    }
+
+    public void ResetBuildingOperations()
+    {
+        UpdateBuildingState(3);
     }
 
     // TODO : Only testing purpose

@@ -81,6 +81,7 @@ public class TouchManager : MonoBehaviour
                         RaycastHit hit;
 
                         bool otherPriorityElementTouched = false;
+                        bool buildingSpotTouched = false;
 
                         //Debug.DrawRay(ray.origin, ray.direction * 300, Color.yellow, 100f);
                         if (Physics.Raycast(ray, out hit, 5000f, ~layersToIgnore))
@@ -129,6 +130,7 @@ public class TouchManager : MonoBehaviour
                                     {
                                         Debug.Log("Touched a buildingSlot !");
                                         hit.collider.gameObject.GetComponent<BuildingSlot>().OnTouch();
+                                        buildingSpotTouched = true;
                                         break;
                                     }
                                     default:
@@ -155,7 +157,7 @@ public class TouchManager : MonoBehaviour
                         }
                         else if(GameManager.instance.gameState == GameManager.GameState.Default)
                         {
-                            // Temp: Disabled
+                            // Temp: Vertical/Horizontal sliding disabled
                             /*if (IsTouchWithinGameArea(Input.GetTouch(0).position))
                             {
                                 // Move screen verticaly / horizontaly
@@ -168,6 +170,11 @@ public class TouchManager : MonoBehaviour
                                     DysonSphere.instance.AdaptLaserToPlanetMovement();
                                 }
                             }*/
+                        }
+
+                        if(! buildingSpotTouched)
+                        {
+                            BuildingManager.instance.ResetBuildingOperations();
                         }
                     }
                 //}
