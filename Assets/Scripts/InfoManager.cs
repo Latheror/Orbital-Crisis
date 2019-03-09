@@ -13,8 +13,8 @@ public class InfoManager : MonoBehaviour {
     [Header("Operation")]
     public int nbMeteorCollisions;
 
-    [Header("UI")]
-    public TextMeshProUGUI meteorCollisionsValue;
+    //[Header("UI")]
+    //public TextMeshProUGUI meteorCollisionsValue;
 
     void Start()
     {
@@ -30,7 +30,8 @@ public class InfoManager : MonoBehaviour {
 
     public void UpdateMeteorCollisionsValueDisplay()
     {
-        meteorCollisionsValue.text = nbMeteorCollisions.ToString();
+        // Removed
+        //meteorCollisionsValue.text = nbMeteorCollisions.ToString();
     }
 
     public void IncrementMeteorCollisionsValue()

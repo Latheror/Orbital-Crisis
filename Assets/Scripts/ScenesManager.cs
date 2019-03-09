@@ -40,6 +40,8 @@ public class ScenesManager : MonoBehaviour {
         // Wait until the asynchronous scene fully loads
         while (!asyncLoad.isDone)
         {
+            // Send loading status to menu panel
+            MenuLoadGamePanel.instance.UpdateGameSceneLoadingStatus(asyncLoad.progress);
             yield return null;
         }
 
@@ -50,12 +52,12 @@ public class ScenesManager : MonoBehaviour {
     {
         Debug.Log("Launch new game");
         GameSetupManager.instance.SetGameSetupParameters(new GameSetupManager.GameSetupParameters(true, null));
-        StartCoroutine("ChangeFromMenuToGameScene");
+        StartCoroutine(ChangeFromMenuToGameScene());
     }
 
     public void LaunchSavedGame(SaveManager.GameSaveData gameSaveData)
     {
         GameSetupManager.instance.SetGameSetupParameters(new GameSetupManager.GameSetupParameters(false, gameSaveData));
-        StartCoroutine("ChangeFromMenuToGameScene");
+        StartCoroutine(ChangeFromMenuToGameScene());
     }
 }

@@ -22,6 +22,8 @@ public class MenuLoadGamePanel : MonoBehaviour {
     public GameObject newGameButtonsLayout;
     public GameObject loadGamePanel;
     public GameObject optionsPanel;
+    public GameObject gameLoadingPanel;
+    public TextMeshProUGUI gameLoadingPercentageText;
 
     [Header("High Score UI")]
     public GameObject highScorePanel;
@@ -149,9 +151,35 @@ public class MenuLoadGamePanel : MonoBehaviour {
         // Nothing is done with saveSlotIndex for now
     }
 
-    public void NewGameButtonClicked()
+    public void NewGameButtonClicked(int saveIndex, bool isUsed)
     {
+        if (isUsed)
+        {
+            LoadGameSaveNumberRequest(saveIndex);
+        }
+        else
+        {
+            NewGameRequest(saveIndex);
+        }
+
         newGameButtonsAvailable = false;
+
+        DisplayGameLoadingPanel(true);
+    }
+
+    public void UpdateGameSceneLoadingStatus(float status)
+    {
+        UpdateLoadingPercentageDisplay((status / 0.9f) * 100);
+    }
+
+    public void DisplayGameLoadingPanel(bool display)
+    {
+        gameLoadingPanel.SetActive(display);
+    }
+
+    void UpdateLoadingPercentageDisplay(float percentage)
+    {
+        gameLoadingPercentageText.text = (Mathf.FloorToInt(percentage).ToString() + " %");
     }
 
 }

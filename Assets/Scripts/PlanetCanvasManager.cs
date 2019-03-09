@@ -95,10 +95,11 @@ public class PlanetCanvasManager : MonoBehaviour {
 
     public void DisplayDezoomPanelInfo()
     {
-        populationAmountText.text = currentPopulationAmount.ToString();
-        populationAmountText.color = (currentPopulationAmount > PopulationManager.instance.maxPopulationAmount * 0.25) ? defaultPopulationAmountColor : lowPopulationAmountColor;
-        maxPopulationAmountText.text = maxPopulationAmount.ToString();
-        energyAmountText.text = currentEnergyDifferentialAmount.ToString();
+        // REMOVED
+        //populationAmountText.text = currentPopulationAmount.ToString();
+        //populationAmountText.color = (currentPopulationAmount > PopulationManager.instance.maxPopulationAmount * 0.25) ? defaultPopulationAmountColor : lowPopulationAmountColor;
+        //maxPopulationAmountText.text = maxPopulationAmount.ToString();
+        //energyAmountText.text = currentEnergyDifferentialAmount.ToString();
     }
 
     public void OnPopulationUpButton(int affectationTypeIndex)

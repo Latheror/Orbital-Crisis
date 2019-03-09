@@ -78,16 +78,7 @@ public class NewGameButton : MonoBehaviour {
         Debug.Log("OnNewGameButtonClick [" + saveIndex + "] | IsUsed [" + isUsed + "]");
         if(MenuLoadGamePanel.instance.newGameButtonsAvailable)
         {
-            MenuLoadGamePanel.instance.NewGameButtonClicked();
-
-            if (isUsed)
-            {
-                MenuLoadGamePanel.instance.LoadGameSaveNumberRequest(saveIndex);
-            }
-            else
-            {
-                MenuLoadGamePanel.instance.NewGameRequest(saveIndex);
-            }
+            MenuLoadGamePanel.instance.NewGameButtonClicked(saveIndex, isUsed);
         }
     }
 
