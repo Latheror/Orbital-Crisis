@@ -25,11 +25,6 @@ public class HealingTurret : Turret {
         UpdateTarget();	
 	}
 
-    public HealingTurret()
-    {
-        //Debug.Log("Healing turret constructor");
-    }
-
     public void LockOnTarget()
     {
         if (GameManager.instance.gameState == GameManager.GameState.Default)

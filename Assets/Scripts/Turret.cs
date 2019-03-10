@@ -5,7 +5,7 @@ using UnityEngine;
 public class Turret : Building
 {
 
-    public enum TargetStrategy { closest, lessHealth };
+    public enum TargetStrategy { closest, lessHealth, closestNotFrozen };
 
     [Header("General")]
     public bool offensiveTurret = true;
@@ -74,6 +74,25 @@ public class Turret : Building
                         }
                         break;
                     }
+                    case TargetStrategy.closestNotFrozen: // Spaceships
+                    {
+                        float shortestDistance_squared = Mathf.Infinity;
+                        List<GameObject> meteors = MeteorsManager.instance.meteorsList;
+                        foreach (GameObject meteor in meteors)
+                        {
+                            if(meteor.GetComponent<Meteor>().freezingFactor <= 1)
+                            {
+                                float distanceToEnemy_squared = (transform.position - meteor.transform.position).sqrMagnitude;
+                                //Debug.Log("Meteor found - Distance is : " + distanceToEnemy);
+                                if (distanceToEnemy_squared < shortestDistance_squared && CanReachTarget(meteor))
+                                {
+                                    shortestDistance_squared = distanceToEnemy_squared;
+                                    chosenTarget = meteor;
+                                }
+                            }
+                        }
+                        break;
+                    }
                 }
 
                 if (chosenTarget != null)
@@ -115,8 +134,8 @@ public class Turret : Building
 
                 //Debug.Log("CanReachMeteor | meteorAngle: " + targetAngle + " | turretAngle: " + turretAngle);
 
-                float upperLimitAngle = GeometryManager.instance.NormalizeRadianAngle(turretAngle + angleRange / 2);
-                float lowerLimitAngle = GeometryManager.instance.NormalizeRadianAngle(turretAngle - angleRange / 2);
+                //float upperLimitAngle = GeometryManager.instance.NormalizeRadianAngle(turretAngle + angleRange / 2);
+                //float lowerLimitAngle = GeometryManager.instance.NormalizeRadianAngle(turretAngle - angleRange / 2);
 
                 //Debug.Log("CanReachMeteor | upperLimitAngle: " + upperLimitAngle + " | lowerLimitAngle: " + lowerLimitAngle);
 

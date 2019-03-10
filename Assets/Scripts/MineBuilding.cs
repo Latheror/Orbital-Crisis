@@ -30,7 +30,7 @@ public class MineBuilding : Building {
     void Start()
     {
         production.Add(new ResourcesManager.ResourceAmount(ResourcesManager.instance.GetResourceTypeByName("steel"), 2));
-        production.Add(new ResourcesManager.ResourceAmount(ResourcesManager.instance.GetResourceTypeByName("carbon"), 2));
+        production.Add(new ResourcesManager.ResourceAmount(ResourcesManager.instance.GetResourceTypeByName("carbon"), 1));
         //production.Add(new ResourcesManager.ResourceAmount(ResourcesManager.instance.GetResourceTypeByName("composite"), 1));     // Gathered from ennemy spaceships
         //production.Add(new ResourcesManager.ResourceAmount(ResourcesManager.instance.GetResourceTypeByName("electronics"), 1));
 
@@ -99,11 +99,11 @@ public class MineBuilding : Building {
         StartStopMiningAnimation();
     }
 
-    public void StartStopMiningAnimation()  // TODO: Include level state
+    public void StartStopMiningAnimation()
     {
-        //Debug.Log("StartStopMiningAnimation | HasEnoughEnery [" + hasEnoughEnergy + "] | PowerOn [" + powerOn + "]");
+        Debug.Log("StartStopMiningAnimation | HasEnoughEnery [" + hasEnoughEnergy + "] | PowerOn [" + powerOn + "] | CurrentLevelFinished [" + LevelManager.instance.currentLevelFinished + "]");
         Animator animator = GetComponent<Animator>();
-        if (hasEnoughEnergy && powerOn)
+        if (hasEnoughEnergy && powerOn && !LevelManager.instance.currentLevelFinished)
         {
             animator.SetTrigger("StartProduction");
         }

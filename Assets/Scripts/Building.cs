@@ -262,7 +262,7 @@ public class Building : MonoBehaviour {
             {
                 if (gameObject.GetComponent<FreezingTurret>() != null)
                 {
-                    statValue = gameObject.GetComponent<FreezingTurret>().freezingFactor;
+                    statValue = gameObject.GetComponent<FreezingTurret>().freezingSpeed;
                 }
                 break;
             }

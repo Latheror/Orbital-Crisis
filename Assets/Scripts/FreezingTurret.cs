@@ -5,15 +5,15 @@ using UnityEngine;
 public class FreezingTurret : Turret {
 
     [Header("Settings")]
-    public float freezingFactor = 0.8f; // Between 0 and 1
+    public float freezingSpeed = 1f;
 
     [Header("Tier 2")]
-    public float freezingFactor_tier_2 = 0.7f;
+    public float freezingSpeed_tier_2 = 2f;
     public float range_tier_2 = 200f;
     public float energyConsumption_tier_2 = 25;
 
     [Header("Tier 3")]
-    public float freezingFactor_tier_3 = 0.9f;
+    public float freezingSpeed_tier_3 = 3f;
     public float range_tier_3 = 300f;
     public float energyConsumption_tier_3 = 40;
 
@@ -39,19 +39,25 @@ public class FreezingTurret : Turret {
     {
         if (GameManager.instance.gameState == GameManager.GameState.Default)
         {
+            LineRenderer lineRenderer = gameObject.GetComponent<LineRenderer>();
             if (hasEnoughEnergy)
             {
                 RotateCanonTowardsTarget();
-
-                LineRenderer lineRenderer = gameObject.GetComponent<LineRenderer>();
-                if (target != null)
+                
+                if (target != null && target.GetComponent<Meteor>() != null)
                 {
-                    lineRenderer.enabled = true;
-                    GameObject chosenTarget = target;
-                    lineRenderer.SetPosition(0, shootingPoint.transform.position);
-                    lineRenderer.SetPosition(1, chosenTarget.transform.position);
-                    SlowDownTarget();
-                    SetFreezingMaterial();
+                    Meteor m = target.GetComponent<Meteor>();
+                    if(m.freezingFactor < 1)
+                    {
+                        GameObject chosenTarget = target;
+
+                        lineRenderer.SetPosition(0, shootingPoint.transform.position);
+                        lineRenderer.SetPosition(1, chosenTarget.transform.position);
+                        lineRenderer.enabled = true;
+
+                        SlowDownTarget();
+                        SetFreezingMaterial();
+                    }
                 }
                 else
                 {
@@ -61,13 +67,14 @@ public class FreezingTurret : Turret {
             else
             {
                 //Debug.Log("Turret doesn't have enough energy !");
+                lineRenderer.enabled = false;
             }
         }
     }
 
     public void SlowDownTarget()
     {
-        target.GetComponent<Meteor>().Freeze(freezingFactor * (1 + populationBonus));
+        target.GetComponent<Meteor>().Freeze(freezingSpeed * (1 + populationBonus));
     }
 
     public void SetFreezingMaterial()
@@ -82,14 +89,14 @@ public class FreezingTurret : Turret {
         {
             case 2:
             {
-                freezingFactor = freezingFactor_tier_2;
+                freezingSpeed = freezingSpeed_tier_2;
                 range = range_tier_2;
                 energyConsumption = energyConsumption_tier_2;
                 break;
             }
             case 3:
             {
-                freezingFactor = freezingFactor_tier_3;
+                freezingSpeed = freezingSpeed_tier_3;
                 range = range_tier_3;
                 energyConsumption = energyConsumption_tier_3;
                 break;

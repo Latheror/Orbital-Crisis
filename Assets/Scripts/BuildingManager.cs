@@ -58,6 +58,8 @@ public class BuildingManager : MonoBehaviour {
     [Header("Settings")]
     public float powerMissingIndicatorPlacementDistance = 20f;
 
+    const int mineFacilityIndex = 5;
+
 
     public void Initialize()
     {
@@ -171,7 +173,7 @@ public class BuildingManager : MonoBehaviour {
                 false
                 ));
 
-        availableBuildings.Add(new BuildingType(5, "Mining Facility", mineBuildingPrefab, BuildingCategory.Production, 10f,
+        availableBuildings.Add(new BuildingType(mineFacilityIndex, "Mining Facility", mineBuildingPrefab, BuildingCategory.Production, 10f,
                 new List<ResourcesManager.ResourceAmount>(){
                     new ResourcesManager.ResourceAmount("steel", 40)
                 },
@@ -816,6 +818,17 @@ public class BuildingManager : MonoBehaviour {
         buildButton.GetComponent<Image>().color = (canPay) ? canPayColor : cantPayColor;
         buildButtonForeground.GetComponent<Image>().sprite = (canPay) ? buildButtonCanPaySprite : buildButtonCantPaySprite;
         buildButtonText.text = (canPay) ? "Build" : "No resources !";
+    }
+
+    public void UpdateCurrentLevelFinished(bool finished)
+    {
+        foreach (GameObject building in buildingList)
+        {
+            if (building.GetComponent<Building>().buildingType.id == mineFacilityIndex)
+            {
+                building.GetComponent<MineBuilding>().StartStopMiningAnimation();
+            }
+        }
     }
 
     // TODO : Only testing purpose

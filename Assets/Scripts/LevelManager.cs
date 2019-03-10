@@ -61,7 +61,7 @@ public class LevelManager : MonoBehaviour {
     {
         currentLevelNumber = 0;
         currentLevel = null;
-        currentLevelFinished = true;
+        SetCurrentLevelFinished(true);
         DisplayPressStartIndication();
         //DisplayWaveNumber();
         UpdateRemainingEnnemiesIndicator(); // Useless because hidden
@@ -89,7 +89,7 @@ public class LevelManager : MonoBehaviour {
         currentLevel = GetLevelByIndex(levelIndex);
 
         currentLevelAllMeteorsSpawned = true;
-        currentLevelFinished = true;
+        SetCurrentLevelFinished(true);
         DisplayPressStartIndication();
         DisplayWaveNumber();
         UpdateRemainingEnnemiesIndicator(); // Useless because hidden
@@ -156,7 +156,7 @@ public class LevelManager : MonoBehaviour {
                 TimeManager.instance.DisplayTimeLeftPanel(false);
             }
 
-            currentLevelFinished = false;
+            SetCurrentLevelFinished(false);
 
             PopulationManager.instance.NewWaveStarted(currentLevelNumber);
             EventsManager.instance.WaveIndexStarted(currentLevelNumber);
@@ -294,7 +294,7 @@ public class LevelManager : MonoBehaviour {
             yield return new WaitForSeconds(level.timeBetweenSpawns);
         }
 
-        currentLevelFinished = true;
+        SetCurrentLevelFinished(true);
 
         SpawnEnemies();
     }
@@ -380,6 +380,9 @@ public class LevelManager : MonoBehaviour {
         ChangeNextLevelButtonColor(nextLevelButtonSecondaryColor);
     }
 
-
-
+    public void SetCurrentLevelFinished(bool finished)
+    {
+        currentLevelFinished = finished;
+        BuildingManager.instance.UpdateCurrentLevelFinished(currentLevelFinished);
+    }
 }

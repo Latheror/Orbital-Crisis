@@ -21,6 +21,7 @@ public class Meteor : MonoBehaviour {
     public bool willLetDebris = false;
     public float hardnessFactor = 1f;   // Damage taken reduced by hardnessFactor
     public int belongsToLevelIndex = 1;
+    public float speedFactorWhenCompletelyFrozen = .2f;
 
     [Header("Prefabs")]
     public GameObject brownImpactEffect;
@@ -32,6 +33,7 @@ public class Meteor : MonoBehaviour {
     public float currentApproachSpeed = 5f;
     public float healthPoints;
     public bool hasAlreadyBeenHitByPlanetaryShield = false;
+    public float freezingFactor = 0f;
 	
 	// Update is called once per frame
 	void FixedUpdate () {
@@ -136,12 +138,13 @@ public class Meteor : MonoBehaviour {
         transform.localScale = new Vector3(newSize, newSize, newSize);
     }
 
-    public void Freeze(float freezingFactor)
+    public void Freeze(float freezingSpeed)
     {
         if (freezingFactor >= 0f && freezingFactor <= 1f)
         {
-            currentApproachSpeed = baseApproachSpeed * (1 - freezingFactor);
-            currentRotationSpeed = baseRotationSpeed * (1 - freezingFactor);
+            freezingFactor += freezingSpeed;
+            currentApproachSpeed = baseApproachSpeed * (1 - (1 - speedFactorWhenCompletelyFrozen) * freezingFactor);
+            currentRotationSpeed = baseRotationSpeed * (1 - (1 - speedFactorWhenCompletelyFrozen) * freezingFactor);
         }
         else
         {
