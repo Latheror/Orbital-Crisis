@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using System;
+using TMPro;
 
 public class BuildingManager : MonoBehaviour {
 
@@ -47,7 +48,12 @@ public class BuildingManager : MonoBehaviour {
 
     [Header("UI")]
     public GameObject buildButton;
-    //public GameObject cancelButton;
+    public GameObject buildButtonForeground;
+    public Sprite buildButtonCanPaySprite;
+    public Sprite buildButtonCantPaySprite;
+    public TextMeshProUGUI buildButtonText;
+    public Color canPayColor;
+    public Color cantPayColor;
 
     [Header("Settings")]
     public float powerMissingIndicatorPlacementDistance = 20f;
@@ -506,10 +512,9 @@ public class BuildingManager : MonoBehaviour {
                 {
                     buildingState = BuildingState.BuildingAndLocationSelected;
                     DisplayBuildingPreview();
-                    if (canPay)
-                    {
-                        ShowBuildButton(true);
-                    }
+
+                    ShowBuildButton(true);
+                    AdaptBuildButton(canPay);
                 }
                 break;
             }
@@ -523,10 +528,9 @@ public class BuildingManager : MonoBehaviour {
                 {
                     buildingState = BuildingState.BuildingAndLocationSelected;
                     DisplayBuildingPreview();
-                    if (canPay)
-                    {
-                        ShowBuildButton(true);
-                    }
+
+                    ShowBuildButton(true);
+                    AdaptBuildButton(canPay);
                 }
                 break;
             }
@@ -805,6 +809,13 @@ public class BuildingManager : MonoBehaviour {
     public void ResetBuildingOperations()
     {
         UpdateBuildingState(3);
+    }
+
+    public void AdaptBuildButton(bool canPay)
+    {
+        buildButton.GetComponent<Image>().color = (canPay) ? canPayColor : cantPayColor;
+        buildButtonForeground.GetComponent<Image>().sprite = (canPay) ? buildButtonCanPaySprite : buildButtonCantPaySprite;
+        buildButtonText.text = (canPay) ? "Build" : "No resources !";
     }
 
     // TODO : Only testing purpose

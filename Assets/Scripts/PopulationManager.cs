@@ -91,8 +91,8 @@ public class PopulationManager : MonoBehaviour {
     public void PlayPopulationHurtAnimation()
     {
         Debug.Log("PlayPopulationHurtAnimation");
-        Animation anim = populationPanel.GetComponent<Animation>();
-        anim.Play();
+        Animator anim = totalPopulationAmountTopText.gameObject.GetComponent<Animator>();
+        anim.SetTrigger("startAnim");
     }
 
     public void IncreaseDecreaseAssignedPopulation(int populationAffectationTypeIndex, bool increase)

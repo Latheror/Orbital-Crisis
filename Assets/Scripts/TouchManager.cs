@@ -86,8 +86,8 @@ public class TouchManager : MonoBehaviour
                         //Debug.DrawRay(ray.origin, ray.direction * 300, Color.yellow, 100f);
                         if (Physics.Raycast(ray, out hit, 5000f, ~layersToIgnore))
                         {
-                            //Debug.Log(hit.transform.name);
-                            if (hit.collider != null)
+                            Debug.Log("TouchManger | Hiting [" + hit.transform.name + "]");
+                            if (hit.collider != null) 
                             {
                                 GameObject touchedObject = hit.transform.gameObject;
                                 //Debug.Log("Touched " + touchedObject.transform.name);

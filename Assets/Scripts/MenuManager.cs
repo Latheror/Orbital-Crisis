@@ -2,13 +2,21 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class MenuManager : MonoBehaviour
 {
+    public static MenuManager instance;
+    void Awake()
+    {
+        if (instance != null) { Debug.LogError("More than one MenuManager in scene !"); return; }
+        instance = this;
+    }
 
     [Header("Settings")]
     public float skyBoxRotationSpeed = 5f;
 
+    [Header("UI")]
     public GameObject mainCanvas;
     public GameObject mainCameraPosition;
     public Vector3 mainCameraRotation;
@@ -20,6 +28,12 @@ public class MenuManager : MonoBehaviour
     public GameObject settingsPanel;
 
     public GameObject cameraPivotPoint;
+
+    public GameObject signInButton;
+    public Image signInButtonImage;
+
+    public Sprite signInSuccessImage;
+    public Sprite signInFailImage;
 
     public Camera mainCam;
     public float cameraSpeed;
@@ -142,6 +156,11 @@ public class MenuManager : MonoBehaviour
     {
         Debug.Log("OnSettingsBackButtonClick");
         DisplaySettingsPanel(false);
+    }
+
+    public void SetSignButtonImage(bool success)
+    {
+        signInButtonImage.sprite = (success) ? signInSuccessImage : signInFailImage;
     }
 
 }

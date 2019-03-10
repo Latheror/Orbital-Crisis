@@ -28,7 +28,7 @@ public class ScoreManager : MonoBehaviour {
 
     [Header("UI")]
     public GameObject experienceValueText;
-    public GameObject artifactsNbText;
+    //public GameObject artifactsNbText;
     //public TextMeshProUGUI planetLifeText;    // Text removed from UI
 
 
@@ -133,7 +133,7 @@ public class ScoreManager : MonoBehaviour {
 
     public void UpdateArtifactsNbDisplay()
     {
-        artifactsNbText.GetComponent<TextMeshProUGUI>().text = artifactsNb.ToString();
+        //artifactsNbText.GetComponent<TextMeshProUGUI>().text = artifactsNb.ToString();
         TechTreeManager.instance.UpdateTechnologyCostIndicatorsDisplay();       // To complete
         TechTreeManager.instance.SetArtifactsNbDisplay(artifactsNb);
     }

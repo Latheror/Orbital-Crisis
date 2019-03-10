@@ -77,7 +77,16 @@ public class PGSManager : MonoBehaviour {
 
     public void OnAuthenticateButton()
     {
+        // Start rotating the button
+        StartStopSignInButtonRotation(true);
+
         Authentication();
+    }
+
+    public void StartStopSignInButtonRotation(bool start)   // true: start, false: stop
+    {
+        Animator anim = MenuManager.instance.signInButton.GetComponent<Animator>();
+        anim.SetTrigger((start)?"start":"stop");
     }
 
     public void OnLeaderboardButton()
@@ -102,6 +111,8 @@ public class PGSManager : MonoBehaviour {
     void AuthenticateCallback(bool success)
     {
         Debug.Log("AuthenticateCallback [" + success + "]");
+        StartStopSignInButtonRotation(false);
+        MenuManager.instance.SetSignButtonImage(success);
 
         authenticationResultText.text = success.ToString();
 
