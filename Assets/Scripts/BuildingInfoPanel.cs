@@ -31,8 +31,10 @@ public class BuildingInfoPanel : MonoBehaviour {
     public Sprite upgradeAvailableSprite;
     public Sprite upgradeNotAvailableSprite;
 
-    // Useful
-    public GameObject buildingInfoPanel;
+    // Useful / New
+    public GameObject firstTiersButtonsPanel;
+    public GameObject lastTiersButtonsPanel;
+    public TextMeshProUGUI energyConsumptionProductionText;
 
     [Header("Colors")]
     public Color upgradePossibleColor = Color.green;
@@ -47,6 +49,7 @@ public class BuildingInfoPanel : MonoBehaviour {
     [Header("Operation")]
     public GameObject selectedBuilding;
     public bool upgradeAvailable;
+    public bool isPanelOpen = false;
 	
 	public void SetImage()
     {
@@ -64,10 +67,10 @@ public class BuildingInfoPanel : MonoBehaviour {
     }
 
 
-    public void BuildUpgradeCostsLayout()
+    public void BuildUpgradesLayout()   // TO REDO
     {
         //Debug.Log("BuildUpgradeCostsLayout");
-        EmptyUpgradeCostPanelsList();
+        /*EmptyUpgradeCostPanelsList();
 
         List<ResourcesManager.ResourceAmount> resourceAmounts = selectedBuilding.GetComponent<Building>().GetUpgradeCostsForNextTier();
         //Debug.Log("Upgrade costs nb: " + resourceAmounts.Count);
@@ -76,16 +79,34 @@ public class BuildingInfoPanel : MonoBehaviour {
         {
             //Debug.Log("Adding resource indicator to Upgrade panel: " + resourceAmount.resourceType.resourceName);
 
-            GameObject instantiatedUpgradeCostPanel = Instantiate(upgradeCostPanelPrefab, new Vector3(0f,0f,0f) /*upgradeCostsLayout.transform.position*/, Quaternion.identity);
-            instantiatedUpgradeCostPanel.transform.SetParent(upgradeCostsLayout.transform, false);
+            //GameObject instantiatedUpgradeCostPanel = Instantiate(upgradeCostPanelPrefab, new Vector3(0f,0f,0f), Quaternion.identity);
+        //instantiatedUpgradeCostPanel.transform.SetParent(upgradeCostsLayout.transform, false);
 
-            // Customize CostPanel
-            instantiatedUpgradeCostPanel.GetComponent<ResourceCostPanel>().SetInfo(resourceAmount);
+        // Customize CostPanel
+        //instantiatedUpgradeCostPanel.GetComponent<ResourceCostPanel>().SetInfo(resourceAmount);
 
-            upgradeCostPanelsList.Add(instantiatedUpgradeCostPanel);
+        //upgradeCostPanelsList.Add(instantiatedUpgradeCostPanel);
+        /*}
+
+        UpdateInfo();*/
+
+        // --- NEW VERSION --- //
+        DisplayUpgradeButtonsBasedOnCurrentTier(selectedBuilding.GetComponent<Building>().currentTier);
+
+    }
+
+    public void DisplayUpgradeButtonsBasedOnCurrentTier(int currentTier)
+    {
+        if(currentTier < 3)
+        {
+            firstTiersButtonsPanel.SetActive(true);
+            lastTiersButtonsPanel.SetActive(false);
         }
-
-        UpdateInfo();
+        else
+        {
+            firstTiersButtonsPanel.SetActive(false);
+            lastTiersButtonsPanel.SetActive(true);
+        }
     }
 
     public void EmptyUpgradeCostPanelsList()
@@ -102,7 +123,7 @@ public class BuildingInfoPanel : MonoBehaviour {
         SetImage();
         SetName();
         SetTierText();
-        BuildUpgradeCostsLayout();
+        BuildUpgradesLayout();      // TO REDO
         SetBuildingStats();
         SetEnergyIndicators();
     }
@@ -112,9 +133,9 @@ public class BuildingInfoPanel : MonoBehaviour {
         selectedBuilding = building;
     }
 
-    public void SetBuildingStats()
+    public void SetBuildingStats()  // TO REDO
     {
-        BuildingStatsPanel.instance.BuildStatsInfo(selectedBuilding);
+        //BuildingStatsPanel.instance.BuildStatsInfo(selectedBuilding);
     }
 
     public void SetEnergyIndicators()
@@ -136,6 +157,8 @@ public class BuildingInfoPanel : MonoBehaviour {
         {
             enoughEnergyPanel.GetComponent<Image>().color = notEnoughEnergyColor;
         }
+
+        //energyConsumptionProductionText.text = selectedBuilding.GetComponent<Building>().energ
     }
 
     public void DisplayInfo(bool display)
@@ -204,12 +227,12 @@ public class BuildingInfoPanel : MonoBehaviour {
         UpdateResourceAvailabilityIndicators();
     }
 
-    public void UpgradeUpdateButtonColorAndText(bool upgradeAvailable)
+    public void UpgradeUpdateButtonColorAndText(bool upgradeAvailable)  // TO REDO
     {
-        upgradeButton.GetComponent<Image>().color = (upgradeAvailable) ? upgradePossibleColor : upgradeImpossibleColor;
-        upgradeButtonBorder.GetComponent<Image>().sprite = (GetMaxUpgradeLevelReached()) ? null : upgradeAvailableSprite;
-        upgradeButtonBorder.GetComponent<Image>().color = (GetMaxUpgradeLevelReached()) ? transparentColor : fullWhiteColor;
-        upgradeText.text = (GetMaxUpgradeLevelReached()) ? "Max level" : "Upgrade";
+        //upgradeButton.GetComponent<Image>().color = (upgradeAvailable) ? upgradePossibleColor : upgradeImpossibleColor;
+        //upgradeButtonBorder.GetComponent<Image>().sprite = (GetMaxUpgradeLevelReached()) ? null : upgradeAvailableSprite;
+        //upgradeButtonBorder.GetComponent<Image>().color = (GetMaxUpgradeLevelReached()) ? transparentColor : fullWhiteColor;
+        //upgradeText.text = (GetMaxUpgradeLevelReached()) ? "Max level" : "Upgrade";
     }
 
     public void DestroyButtonClicked()
@@ -233,7 +256,16 @@ public class BuildingInfoPanel : MonoBehaviour {
     public void OpenCloseBuildingInfoPanel(bool open)
     {
         Debug.Log("OpenCloseBuildingInfoPanel | Open [" + open + "]");
-        Animator anim = buildingInfoPanel.GetComponent<Animator>();
-        anim.SetTrigger((open)?"open":"close");
+        Animator anim = GetComponent<Animator>();
+        if(open && !isPanelOpen)
+        {
+            anim.SetTrigger("open");
+            isPanelOpen = true;
+        }
+        else if(!open && isPanelOpen)
+        {
+            anim.SetTrigger("close");
+            isPanelOpen = false;
+        }
     }
 }

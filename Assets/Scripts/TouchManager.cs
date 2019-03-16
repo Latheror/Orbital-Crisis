@@ -82,9 +82,10 @@ public class TouchManager : MonoBehaviour
 
                         bool otherPriorityElementTouched = false;
                         bool buildingSpotTouched = false;
+                        bool buildingTouched = false;
 
                         //Debug.DrawRay(ray.origin, ray.direction * 300, Color.yellow, 100f);
-                        if (Physics.Raycast(ray, out hit, 5000f, ~layersToIgnore))
+                    if (Physics.Raycast(ray, out hit, 5000f, ~layersToIgnore))
                         {
                             Debug.Log("TouchManger | Hiting [" + hit.transform.name + "]");
                             if (hit.collider != null) 
@@ -117,6 +118,7 @@ public class TouchManager : MonoBehaviour
                                         //Debug.Log("Touched a building !");
                                         InfrastructureManager.instance.BuildingTouched(hit.collider.gameObject);
                                         otherPriorityElementTouched = true;
+                                        buildingTouched = true;
                                         break;
                                     }
                                     case ("enemy"):
@@ -175,6 +177,11 @@ public class TouchManager : MonoBehaviour
                         if(! buildingSpotTouched)
                         {
                             BuildingManager.instance.ResetBuildingOperations();
+                        }
+
+                        if(! buildingTouched)
+                        {
+                            BuildingInfoPanel.instance.OpenCloseBuildingInfoPanel(false);
                         }
                     }
                 //}
