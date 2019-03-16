@@ -31,6 +31,9 @@ public class BuildingInfoPanel : MonoBehaviour {
     public Sprite upgradeAvailableSprite;
     public Sprite upgradeNotAvailableSprite;
 
+    // Useful
+    public GameObject buildingInfoPanel;
+
     [Header("Colors")]
     public Color upgradePossibleColor = Color.green;
     public Color upgradeImpossibleColor = Color.red;
@@ -151,6 +154,7 @@ public class BuildingInfoPanel : MonoBehaviour {
         DisplayInfo(true);
         SetSelectedBuilding(building);
         SetInfo();
+        OpenCloseBuildingInfoPanel(true);
     }
 
     public void Deselection()
@@ -217,11 +221,19 @@ public class BuildingInfoPanel : MonoBehaviour {
     public void CloseButtonClicked()
     {
         GameManager.instance.ChangeSelectionState(GameManager.SelectionState.Default);
+        OpenCloseBuildingInfoPanel(false);
     }
 
     public void PowerSwitchButtonClicked()
     {
         Debug.Log("PowerSwitchButtonClicked");
         selectedBuilding.GetComponent<Building>().PowerSwitch();
+    }
+
+    public void OpenCloseBuildingInfoPanel(bool open)
+    {
+        Debug.Log("OpenCloseBuildingInfoPanel | Open [" + open + "]");
+        Animator anim = buildingInfoPanel.GetComponent<Animator>();
+        anim.SetTrigger((open)?"open":"close");
     }
 }
