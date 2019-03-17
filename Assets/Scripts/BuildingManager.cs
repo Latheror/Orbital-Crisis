@@ -76,7 +76,7 @@ public class BuildingManager : MonoBehaviour {
                     new ResourcesManager.ResourceAmount("steel", 75),
                 },
                 BuildingType.BuildingLocationType.Planet, "laser_turret", 3, 0,
-                "Powerful turret firing a laser beam at incoming ennemies.",
+                "Powerful turret firing a laser beam at incoming enemies.",
                 new List<ResourcesManager.UpgradeCost>(){
                     new ResourcesManager.UpgradeCost(2, new List<ResourcesManager.ResourceAmount>(){
                         new ResourcesManager.ResourceAmount("steel", 120),

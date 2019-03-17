@@ -64,7 +64,7 @@ public class LevelManager : MonoBehaviour {
         SetCurrentLevelFinished(true);
         DisplayPressStartIndication();
         //DisplayWaveNumber();
-        UpdateRemainingEnnemiesIndicator(); // Useless because hidden
+        UpdateRemainingEnemiesIndicator(); // Useless because hidden
         ChangeNextLevelButtonColor(nextLevelButtonBaseColor);
         nextLevelButton.SetActive(true);
 
@@ -92,7 +92,7 @@ public class LevelManager : MonoBehaviour {
         SetCurrentLevelFinished(true);
         DisplayPressStartIndication();
         DisplayWaveNumber();
-        UpdateRemainingEnnemiesIndicator(); // Useless because hidden
+        UpdateRemainingEnemiesIndicator(); // Useless because hidden
         ChangeNextLevelButtonColor(nextLevelButtonBaseColor);
         nextLevelButton.SetActive(true);
         //remainingEnemiesPanel.SetActive(false); // RECENTLY REMOVED
@@ -142,7 +142,7 @@ public class LevelManager : MonoBehaviour {
             currentLevelNumber++;
             currentLevel = GetLevelFromNumber(currentLevelNumber);
             DisplayWaveNumber();
-            UpdateRemainingEnnemiesIndicator();
+            UpdateRemainingEnemiesIndicator();
             ChangeNextLevelButtonColor(nextLevelButtonBaseColor);
             nextLevelButton.SetActive(false);
             //remainingEnemiesPanel.SetActive(true); // RECENTLY REMOVED
@@ -164,7 +164,7 @@ public class LevelManager : MonoBehaviour {
         else
         {
             //Debug.Log("Last level reached !");
-            //levelsList.Add(new Level(currentLevelNumber + 1, "Level Nb " + (currentLevelNumber + 1), (currentLevelNumber + 1) * 10, (currentLevelNumber + 1), 1f, new List<GameObject> {EnemiesManager.instance.ennemySpaceship_1 }));
+            //levelsList.Add(new Level(currentLevelNumber + 1, "Level Nb " + (currentLevelNumber + 1), (currentLevelNumber + 1) * 10, (currentLevelNumber + 1), 1f, new List<GameObject> {EnemiesManager.instance.enemySpaceship_1 }));
             levelsList.Add(CreateNewLevelAtIndex(currentLevelNumber + 1));
             GoToNextLevel();
         }
@@ -217,7 +217,7 @@ public class LevelManager : MonoBehaviour {
             //StopCurrentLevel();
             ChangeNextLevelButtonColor(nextLevelButtonSecondaryColor);
             //nextLevelButton.SetActive(true);
-            //remainingEnnemiesPanel.SetActive(false);
+            //remainingEnemiesPanel.SetActive(false);
             //Debug.Log("All meteors have been destroyed !");
             //GoToNextLevel();
 
@@ -299,7 +299,7 @@ public class LevelManager : MonoBehaviour {
         SpawnEnemies();
     }
 
-    public void UpdateRemainingEnnemiesIndicator()
+    public void UpdateRemainingEnemiesIndicator()
     {
         if(currentLevel != null)
         {
@@ -314,7 +314,7 @@ public class LevelManager : MonoBehaviour {
     public void IncrementSpawnedMeteorsNb(int nb)
     {
         currentLevelSpawnedMeteorsNb += nb;
-        UpdateRemainingEnnemiesIndicator();
+        UpdateRemainingEnemiesIndicator();
 
         // Have all meteors been spawned ?
         if (currentLevelSpawnedMeteorsNb >= currentLevel.levelMeteorsNb)
