@@ -75,7 +75,7 @@ public class BuildingManager : MonoBehaviour {
                 new List<ResourcesManager.ResourceAmount>(){
                     new ResourcesManager.ResourceAmount("steel", 75),
                 },
-                BuildingType.BuildingLocationType.Planet, "laser_turret", 3, 0,
+                BuildingType.BuildingLocationType.Planet, "LaserTurret", 3, 0,
                 "Powerful turret firing a laser beam at incoming enemies.",
                 new List<ResourcesManager.UpgradeCost>(){
                     new ResourcesManager.UpgradeCost(2, new List<ResourcesManager.ResourceAmount>(){
@@ -105,7 +105,7 @@ public class BuildingManager : MonoBehaviour {
         availableBuildings.Add(new BuildingType(2, "Missile Turret", bulletTurretPrefab, BuildingCategory.Attack, 20f, new List<ResourcesManager.ResourceAmount>(){
                 new ResourcesManager.ResourceAmount("steel", 50),
                 },
-                BuildingType.BuildingLocationType.Planet, "bullet_turret", 3, 1,
+                BuildingType.BuildingLocationType.Planet, "MissileTurret", 3, 1,
                 "Shoots missiles at incoming enemies.",
                 new List<ResourcesManager.UpgradeCost>() {
                     new ResourcesManager.UpgradeCost(2, new List<ResourcesManager.ResourceAmount>(){
@@ -135,7 +135,7 @@ public class BuildingManager : MonoBehaviour {
                 new List<ResourcesManager.ResourceAmount>(){
                     new ResourcesManager.ResourceAmount("steel", 200),
                 },
-                BuildingType.BuildingLocationType.Planet, "freezing_turret", 3, 2,
+                BuildingType.BuildingLocationType.Planet, "FreezingTurret", 3, 2,
                 "Freezes nearby enemies and slow them down.",
                 new List<ResourcesManager.UpgradeCost>() {
                     new ResourcesManager.UpgradeCost(2, new List<ResourcesManager.ResourceAmount>(){
@@ -193,7 +193,7 @@ public class BuildingManager : MonoBehaviour {
                 new List<ResourcesManager.ResourceAmount>(){
                     new ResourcesManager.ResourceAmount("steel", 40)
                 },
-                BuildingType.BuildingLocationType.Planet, "production/mine", 3, 0,
+                BuildingType.BuildingLocationType.Planet, "MiningFacility", 3, 0,
                 "Gather resources needed to build infrastructures.",
                 new List<ResourcesManager.UpgradeCost>() {
                     new ResourcesManager.UpgradeCost(2, new List<ResourcesManager.ResourceAmount>(){
@@ -398,7 +398,7 @@ public class BuildingManager : MonoBehaviour {
                     new ResourcesManager.ResourceAmount("steel", 650),
                     new ResourcesManager.ResourceAmount("carbon", 60)
                 },
-                BuildingType.BuildingLocationType.Planet, "Turrets/meteor_crusher", 3, 9,
+                BuildingType.BuildingLocationType.Planet, "MeteorCrusher", 3, 9,
                 "A turret targeting the biggest meteors and crushing them into each other.",
                 new List<ResourcesManager.UpgradeCost>() {
                             new ResourcesManager.UpgradeCost(2, new List<ResourcesManager.ResourceAmount>(){
@@ -933,7 +933,7 @@ public class BuildingManager : MonoBehaviour {
             this.energyConsumption = energyConsumption;
             this.resourceCosts = cost;
             this.buildingLocationType = buildingLocationType;
-            this.buildingImage = Resources.Load<Sprite>("Images/Buildings/" + imageName);
+            this.buildingImage = Resources.Load<Sprite>("Images/Buildings/" + imageName);           // Place the building image with the correct name in this folder
             this.maxTier = maxTier;
             this.isUnlocked = (unlockedAtLevelNb == 0) ? true : false;
             this.unlockedAtLevelNb = unlockedAtLevelNb;
