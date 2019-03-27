@@ -38,7 +38,7 @@ public class MenuManager : MonoBehaviour
     public Camera mainCam;
     public float cameraSpeed;
 
-    float pathFactor = 0f;
+    readonly float pathFactor = 0f;
 
     // Use this for initialization
     void Start()

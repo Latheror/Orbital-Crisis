@@ -88,6 +88,10 @@ public class BuildingManager : MonoBehaviour {
                        new ResourcesManager.ResourceAmount("electronics", 50)
                     })
                 },
+                new List<SpecializedUpgrade>()
+                {
+
+                },
                 true, false,
                 new List<Building.BuildingStat>()
                 {
@@ -113,6 +117,10 @@ public class BuildingManager : MonoBehaviour {
                        new ResourcesManager.ResourceAmount("composite", 50),
                        new ResourcesManager.ResourceAmount("electronics", 50)
                     })},
+                new List<SpecializedUpgrade>()
+                {
+
+                },
                 true, false,
                 new List<Building.BuildingStat>()
                 {
@@ -139,6 +147,10 @@ public class BuildingManager : MonoBehaviour {
                        new ResourcesManager.ResourceAmount("composite", 50),
                        new ResourcesManager.ResourceAmount("electronics", 50)
                     })                },
+                new List<SpecializedUpgrade>()
+                {
+
+                },
                 true, false,
                 new List<Building.BuildingStat>()
                 {
@@ -165,6 +177,10 @@ public class BuildingManager : MonoBehaviour {
                         new ResourcesManager.ResourceAmount("composite", 50),
                         new ResourcesManager.ResourceAmount("electronics", 50)
                     })                },
+                new List<SpecializedUpgrade>()
+                {
+
+                },
                 false, true,
                 new List<Building.BuildingStat>()
                 {
@@ -189,6 +205,10 @@ public class BuildingManager : MonoBehaviour {
                        new ResourcesManager.ResourceAmount("composite", 50),
                        new ResourcesManager.ResourceAmount("electronics", 50)
                     })                },
+                new List<SpecializedUpgrade>()
+                {
+
+                },
                 false, false,
                 new List<Building.BuildingStat>()
                 {
@@ -214,6 +234,10 @@ public class BuildingManager : MonoBehaviour {
                        new ResourcesManager.ResourceAmount("composite", 300),
                        new ResourcesManager.ResourceAmount("electronics", 250)
                     })                },
+                new List<SpecializedUpgrade>()
+                {
+
+                },
                 true, false,
                 new List<Building.BuildingStat>()
                 {
@@ -240,6 +264,10 @@ public class BuildingManager : MonoBehaviour {
                        new ResourcesManager.ResourceAmount("composite", 150),
                        new ResourcesManager.ResourceAmount("electronics", 50)
                     })                },
+                new List<SpecializedUpgrade>()
+                {
+
+                },
                 true, false,
                 new List<Building.BuildingStat>()
                 {
@@ -265,6 +293,10 @@ public class BuildingManager : MonoBehaviour {
                        new ResourcesManager.ResourceAmount("composite", 100),
                        new ResourcesManager.ResourceAmount("electronics", 100)
                     })                },
+                new List<SpecializedUpgrade>()
+                {
+
+                },
                 false, true,
                 new List<Building.BuildingStat>()
                 {
@@ -289,6 +321,10 @@ public class BuildingManager : MonoBehaviour {
                                new ResourcesManager.ResourceAmount("composite", 250),
                                new ResourcesManager.ResourceAmount("electronics", 200)
                     })                },
+                new List<SpecializedUpgrade>()
+                {
+
+                },
                 true, false,
                 new List<Building.BuildingStat>()
                 {
@@ -316,6 +352,10 @@ public class BuildingManager : MonoBehaviour {
                                 new ResourcesManager.ResourceAmount("steel", 3200),
                                 new ResourcesManager.ResourceAmount("electronics", 600)
                             })        },
+                new List<SpecializedUpgrade>()
+                {
+
+                },
                 false, false,
                 new List<Building.BuildingStat>()
                 {
@@ -339,6 +379,10 @@ public class BuildingManager : MonoBehaviour {
                                 new ResourcesManager.ResourceAmount("composite", 200),
                                 new ResourcesManager.ResourceAmount("electronics", 200)
                             })        },
+                new List<SpecializedUpgrade>()
+                {
+
+                },
                 true, false,
                 new List<Building.BuildingStat>()
                 {
@@ -365,6 +409,10 @@ public class BuildingManager : MonoBehaviour {
                                 new ResourcesManager.ResourceAmount("composite", 300),
                                 new ResourcesManager.ResourceAmount("electronics", 350)
                             })
+                },
+                new List<SpecializedUpgrade>()
+                {
+
                 },
                 true, false,
                 new List<Building.BuildingStat>()
@@ -842,6 +890,18 @@ public class BuildingManager : MonoBehaviour {
         }
     }
 
+    public class SpecializedUpgrade
+    {
+        readonly Building.BuildingStat upgradedStat;
+        readonly List<ResourcesManager.ResourceAmount> upgradeCosts;
+
+        public SpecializedUpgrade(Building.BuildingStat upgradedStat, List<ResourcesManager.ResourceAmount> upgradeCosts)
+        {
+            this.upgradedStat = upgradedStat;
+            this.upgradeCosts = upgradeCosts;
+        }
+    }
+
     [System.Serializable]
     public class BuildingType {
 
@@ -858,13 +918,14 @@ public class BuildingManager : MonoBehaviour {
         public int unlockedAtLevelNb = 0;
         public string description;
         public List<ResourcesManager.UpgradeCost> upgradeCosts;
+        public List<SpecializedUpgrade> specializedUpgrades;
         public bool hasRange;
         public bool producesEnergy;
         public List<Building.BuildingStat> stats;
         public bool isUnique;
         public BuildingCategory buildingCategory;
 
-        public BuildingType(int id, string name, GameObject prefab, BuildingCategory buildingCategory, float energyConsumption, List<ResourcesManager.ResourceAmount> cost, BuildingLocationType buildingLocationType, string imageName, int maxTier, int unlockedAtLevelNb, string description, List<ResourcesManager.UpgradeCost> upgradeCosts, bool hasRange, bool producesEnergy, List<Building.BuildingStat> stats, bool isUnique)
+        public BuildingType(int id, string name, GameObject prefab, BuildingCategory buildingCategory, float energyConsumption, List<ResourcesManager.ResourceAmount> cost, BuildingLocationType buildingLocationType, string imageName, int maxTier, int unlockedAtLevelNb, string description, List<ResourcesManager.UpgradeCost> upgradeCosts, List<SpecializedUpgrade> specializedUpgrades, bool hasRange, bool producesEnergy, List<Building.BuildingStat> stats, bool isUnique)
         {
             this.id = id;
             this.name = name;
@@ -878,6 +939,7 @@ public class BuildingManager : MonoBehaviour {
             this.unlockedAtLevelNb = unlockedAtLevelNb;
             this.description = description;
             this.upgradeCosts = upgradeCosts;
+            this.specializedUpgrades = specializedUpgrades;
             this.hasRange = hasRange;
             this.producesEnergy = producesEnergy;
             this.stats = stats;
