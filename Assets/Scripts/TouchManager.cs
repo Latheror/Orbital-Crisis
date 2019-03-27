@@ -181,7 +181,7 @@ public class TouchManager : MonoBehaviour
 
                         if(! buildingTouched)
                         {
-                            BuildingInfoPanel.instance.OpenCloseBuildingInfoPanel(false);
+                            GameManager.instance.ChangeSelectionState(GameManager.SelectionState.Default);
                         }
                     }
                 //}

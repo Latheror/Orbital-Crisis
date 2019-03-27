@@ -168,7 +168,7 @@ public class BuildingInfoPanel : MonoBehaviour {
 
     public void UpgradeButtonClicked()
     {
-        //Debug.Log("UpgradeButtonClicked");
+        Debug.Log("UpgradeButtonClicked");
         InfrastructureManager.instance.UpgradeBuildingRequest(selectedBuilding.gameObject);
     }
 
@@ -180,14 +180,15 @@ public class BuildingInfoPanel : MonoBehaviour {
         OpenCloseBuildingInfoPanel(true);
     }
 
-    public void Deselection()
+    // Not used anymore
+    /*public void Deselection()
     {
         DisplayInfo(false);
         if(selectedBuilding != null)
         {
             selectedBuilding.GetComponent<Building>().BuildingDeselected();
         }
-    }
+    }*/
 
     public void UpdateResourceAvailabilityIndicators()
     {
@@ -241,11 +242,12 @@ public class BuildingInfoPanel : MonoBehaviour {
         DisplayInfo(false);
     }
 
-    public void CloseButtonClicked()
+    // Not used anymore
+    /*public void CloseButtonClicked()
     {
         GameManager.instance.ChangeSelectionState(GameManager.SelectionState.Default);
         OpenCloseBuildingInfoPanel(false);
-    }
+    }*/
 
     public void PowerSwitchButtonClicked()
     {

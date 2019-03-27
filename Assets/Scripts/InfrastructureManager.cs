@@ -113,6 +113,14 @@ public class InfrastructureManager : MonoBehaviour {
         }
     }
 
+    public void DeselectBuilding()
+    {
+        if (selectedBuilding != null)
+        {
+            selectedBuilding.GetComponent<Building>().BuildingDeselected();
+        }
+    }
+
     public void ClearBuildings()
     {
         foreach (GameObject building in BuildingManager.instance.buildingList.ToArray())

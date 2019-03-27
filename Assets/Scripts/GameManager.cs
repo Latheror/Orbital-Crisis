@@ -95,22 +95,24 @@ public class GameManager : MonoBehaviour {
                 case SelectionState.Default:
                 {
                     SpaceshipManager.instance.DeselectSpaceship();
-                    BuildingInfoPanel.instance.Deselection();
+                    BuildingInfoPanel.instance.OpenCloseBuildingInfoPanel(false);
                     SpaceportInfoPanel.instance.DisplayPanel(false);
                     EnemiesManager.instance.DeselectEnemy();
                     PlanetaryShieldControlPanel.instance.DisplayPanel(false);
                     CollectorControlPanel.instance.DisplayPanel(false);
                     DysonSphereControlPanel.instance.DisplayPanel(false);
+                    InfrastructureManager.instance.DeselectBuilding();
                     break;
                 }
                 case SelectionState.SpaceshipSelected:
                 {
-                    BuildingInfoPanel.instance.Deselection();
+                    BuildingInfoPanel.instance.OpenCloseBuildingInfoPanel(false);
                     SpaceportInfoPanel.instance.DisplayPanel(false);
                     EnemiesManager.instance.DeselectEnemy();
                     PlanetaryShieldControlPanel.instance.DisplayPanel(false);
                     CollectorControlPanel.instance.DisplayPanel(false);
                     DysonSphereControlPanel.instance.DisplayPanel(false);
+                    InfrastructureManager.instance.DeselectBuilding();
                     break;
                 }
                 case SelectionState.BuildingSelected:
@@ -126,52 +128,57 @@ public class GameManager : MonoBehaviour {
                 case SelectionState.ShopItemSelected:
                 {
                     SpaceshipManager.instance.DeselectSpaceship();
-                    BuildingInfoPanel.instance.Deselection();
+                    BuildingInfoPanel.instance.OpenCloseBuildingInfoPanel(false);
                     SpaceportInfoPanel.instance.DisplayPanel(false);
                     EnemiesManager.instance.DeselectEnemy();
                     PlanetaryShieldControlPanel.instance.DisplayPanel(false);
                     CollectorControlPanel.instance.DisplayPanel(false);
                     DysonSphereControlPanel.instance.DisplayPanel(false);
+                    InfrastructureManager.instance.DeselectBuilding();
                     break;
                 }
                 case SelectionState.EnemySelected:
                 {
                     SpaceshipManager.instance.DeselectSpaceship();
-                    BuildingInfoPanel.instance.Deselection();
+                    BuildingInfoPanel.instance.OpenCloseBuildingInfoPanel(false);
                     SpaceportInfoPanel.instance.DisplayPanel(false);
                     PlanetaryShieldControlPanel.instance.DisplayPanel(false);
                     CollectorControlPanel.instance.DisplayPanel(false);
                     DysonSphereControlPanel.instance.DisplayPanel(false);
+                    InfrastructureManager.instance.DeselectBuilding();
                     break;
                 }
                 case SelectionState.PlanetaryShieldSelected:
                 {
                     SpaceshipManager.instance.DeselectSpaceship();
-                    BuildingInfoPanel.instance.Deselection();
+                    BuildingInfoPanel.instance.OpenCloseBuildingInfoPanel(false);
                     SpaceportInfoPanel.instance.DisplayPanel(false);
                     EnemiesManager.instance.DeselectEnemy();
                     CollectorControlPanel.instance.DisplayPanel(false);
                     DysonSphereControlPanel.instance.DisplayPanel(false);
+                    InfrastructureManager.instance.DeselectBuilding();
                     break;
                 }
                 case SelectionState.CollectorSelected:
                 {
                     SpaceshipManager.instance.DeselectSpaceship();
-                    BuildingInfoPanel.instance.Deselection();
+                    BuildingInfoPanel.instance.OpenCloseBuildingInfoPanel(false);
                     SpaceportInfoPanel.instance.DisplayPanel(false);
                     EnemiesManager.instance.DeselectEnemy();
                     PlanetaryShieldControlPanel.instance.DisplayPanel(false);
                     DysonSphereControlPanel.instance.DisplayPanel(false);
+                    InfrastructureManager.instance.DeselectBuilding();
                     break;
                 }
                 case SelectionState.DysonSphereSelected:
                 {
                     SpaceshipManager.instance.DeselectSpaceship();
-                    BuildingInfoPanel.instance.Deselection();
+                    BuildingInfoPanel.instance.OpenCloseBuildingInfoPanel(false);
                     SpaceportInfoPanel.instance.DisplayPanel(false);
                     EnemiesManager.instance.DeselectEnemy();
                     PlanetaryShieldControlPanel.instance.DisplayPanel(false);
                     CollectorControlPanel.instance.DisplayPanel(false);
+                    InfrastructureManager.instance.DeselectBuilding();
                     break;
                 }
             }
