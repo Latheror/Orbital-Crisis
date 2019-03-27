@@ -102,7 +102,7 @@ public class BuildingManager : MonoBehaviour {
                 new ResourcesManager.ResourceAmount("steel", 50),
                 },
                 BuildingType.BuildingLocationType.Planet, "bullet_turret", 3, 1,
-                "Shoots missiles at incoming ennemies.",
+                "Shoots missiles at incoming enemies.",
                 new List<ResourcesManager.UpgradeCost>() {
                     new ResourcesManager.UpgradeCost(2, new List<ResourcesManager.ResourceAmount>(){
                         new ResourcesManager.ResourceAmount("steel", 150),
@@ -128,7 +128,7 @@ public class BuildingManager : MonoBehaviour {
                     new ResourcesManager.ResourceAmount("steel", 200),
                 },
                 BuildingType.BuildingLocationType.Planet, "freezing_turret", 3, 2,
-                "Freezes nearby ennemies and slow them down.",
+                "Freezes nearby enemies and slow them down.",
                 new List<ResourcesManager.UpgradeCost>() {
                     new ResourcesManager.UpgradeCost(2, new List<ResourcesManager.ResourceAmount>(){
                         new ResourcesManager.ResourceAmount("steel", 400),
@@ -229,7 +229,7 @@ public class BuildingManager : MonoBehaviour {
                     new ResourcesManager.ResourceAmount("steel", 40),
                 },
                 BuildingType.BuildingLocationType.Disks, "recycling_station", 3, 4,
-                "Satellite base of recycling shuttles, able to recycle meteor debris and ennemy spaceship wrecks.",
+                "Satellite base of recycling shuttles, able to recycle meteor debris and enemy spaceship wrecks.",
                 new List<ResourcesManager.UpgradeCost>() {
                     new ResourcesManager.UpgradeCost(2, new List<ResourcesManager.ResourceAmount>(){
                         new ResourcesManager.ResourceAmount("steel", 240),
@@ -330,7 +330,7 @@ public class BuildingManager : MonoBehaviour {
                     new ResourcesManager.ResourceAmount("carbon", 20)
                 },
                 BuildingType.BuildingLocationType.Disks, "Satellites/storm_satellite_t", 3, 8,
-                "A satellite able to transfer damages between nearby ennemies.",
+                "A satellite able to transfer damages between nearby enemies.",
                 new List<ResourcesManager.UpgradeCost>() {
                             new ResourcesManager.UpgradeCost(2, new List<ResourcesManager.ResourceAmount>(){
                                 new ResourcesManager.ResourceAmount("carbon", 120)

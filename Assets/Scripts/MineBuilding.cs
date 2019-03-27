@@ -31,7 +31,7 @@ public class MineBuilding : Building {
     {
         production.Add(new ResourcesManager.ResourceAmount(ResourcesManager.instance.GetResourceTypeByName("steel"), 2));
         production.Add(new ResourcesManager.ResourceAmount(ResourcesManager.instance.GetResourceTypeByName("carbon"), 1));
-        //production.Add(new ResourcesManager.ResourceAmount(ResourcesManager.instance.GetResourceTypeByName("composite"), 1));     // Gathered from ennemy spaceships
+        //production.Add(new ResourcesManager.ResourceAmount(ResourcesManager.instance.GetResourceTypeByName("composite"), 1));     // Gathered from enemy spaceships
         //production.Add(new ResourcesManager.ResourceAmount(ResourcesManager.instance.GetResourceTypeByName("electronics"), 1));
 
         productionCooldownElapsed = true;

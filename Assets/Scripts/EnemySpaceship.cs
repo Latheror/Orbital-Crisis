@@ -47,7 +47,7 @@ public class EnemySpaceship : Spaceship {
             if(closestTarget != null)
             {
                 target = closestTarget;
-                //Debug.Log("Ennemy target | Target set");
+                //Debug.Log("Enemy target | Target set");
             }
             else
             {
