@@ -13,7 +13,7 @@ public class ResourceCostPanelV2 : MonoBehaviour
 
     public void SetInfo(ResourcesManager.ResourceAmount rCost)
     {
-        if(rCost != null)
+        if(rCost != null && rCost.resourceType != null)
         {
             associatedResourceCost = rCost;
             resourceImage.sprite = rCost.resourceType.resourceImage;

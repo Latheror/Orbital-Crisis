@@ -18,8 +18,7 @@ public class BuildingInfoPanel : MonoBehaviour {
     public GameObject displayPanel;
     public GameObject buildingImagePanel;
     public GameObject buildingNamePanel;
-    public GameObject upgradeButton;
-    public GameObject upgradeButtonBorder;
+
     public GameObject upgradeCostsLayout;
     public GameObject upgradeCostPanelPrefab;
     public List<GameObject> upgradeCostPanelsList;
@@ -35,6 +34,9 @@ public class BuildingInfoPanel : MonoBehaviour {
     public GameObject firstTiersButtonsPanel;
     public GameObject lastTiersButtonsPanel;
     public TextMeshProUGUI energyConsumptionProductionText;
+
+    public GameObject baseUpgradeCost_1;
+    public GameObject baseUpgradeCost_2;
 
     [Header("Colors")]
     public Color upgradePossibleColor = Color.green;
@@ -91,8 +93,25 @@ public class BuildingInfoPanel : MonoBehaviour {
         UpdateInfo();*/
 
         // --- NEW VERSION --- //
+        SetUpgradeCosts();
+
         DisplayUpgradeButtonsBasedOnCurrentTier(selectedBuilding.GetComponent<Building>().currentTier);
 
+    }
+
+    public void SetUpgradeCosts()
+    {
+        if(selectedBuilding.GetComponent<Building>().currentTier < 4)   // Display a single upgrade button
+        {
+            List<ResourcesManager.ResourceAmount> nextTierUpgradeCosts = selectedBuilding.GetComponent<Building>().GetUpgradeCostsForNextTier();
+            Debug.Log("SetUpgradeCosts | nextTierUpgradeCosts size [" + nextTierUpgradeCosts.Count + "]");
+            baseUpgradeCost_1.GetComponent<ResourceCostPanelV2>().SetInfo(nextTierUpgradeCosts[0]);
+            baseUpgradeCost_2.GetComponent<ResourceCostPanelV2>().SetInfo(nextTierUpgradeCosts[1]);
+        }
+        else   // Display 3 upgrade buttons
+        {
+
+        }
     }
 
     public void DisplayUpgradeButtonsBasedOnCurrentTier(int currentTier)
@@ -124,7 +143,7 @@ public class BuildingInfoPanel : MonoBehaviour {
         SetName();
         SetTierText();
         BuildUpgradesLayout();      // TO REDO
-        SetBuildingStats();
+        SetBuildingStats(); // TO REDO
         SetEnergyIndicators();
     }
 

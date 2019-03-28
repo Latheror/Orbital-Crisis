@@ -949,12 +949,14 @@ public class BuildingManager : MonoBehaviour {
 
         public List<ResourcesManager.ResourceAmount> GetUpgradeCostsForTierNb(int tierNb)
         {
-            List<ResourcesManager.ResourceAmount> costs = new List<ResourcesManager.ResourceAmount>();
+            Debug.Log("GetUpgradeCostsForTierNb [" + tierNb + "]");
+            List <ResourcesManager.ResourceAmount> costs = new List<ResourcesManager.ResourceAmount>();
             foreach (ResourcesManager.UpgradeCost upgradeCost in upgradeCosts)
             {
+                //Debug.Log("Comparing upgrade cost [" + upgradeCost.tierIndex + "]");
                 if (upgradeCost.tierIndex == tierNb) // Matching tier nb
                 {
-                    //Debug.Log("Found matching UpgradeCostList");
+                    Debug.Log("Found matching UpgradeCostList");
                     costs = upgradeCost.resourceCosts;
                     break;
                 }
