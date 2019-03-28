@@ -45,6 +45,16 @@ public class BuildingInfoPanel : MonoBehaviour {
     public GameObject finalUpgradeRightCost_1;
     public GameObject finalUpgradeRightCost_2;
 
+    // Basic Stats
+    public TextMeshProUGUI healthPointsText;
+    public TextMeshProUGUI shieldPointsText;
+    public TextMeshProUGUI rangePointsText;
+
+    public GameObject healthPointsIndicator;
+    public GameObject shieldPointsIndicator;
+    public GameObject rangePointsIndicator;
+
+
     [Header("Colors")]
     public Color upgradePossibleColor = Color.green;
     public Color upgradeImpossibleColor = Color.red;
@@ -76,30 +86,8 @@ public class BuildingInfoPanel : MonoBehaviour {
     }
 
 
-    public void BuildUpgradesLayout()   // TO REDO
+    public void BuildUpgradesLayout()
     {
-        //Debug.Log("BuildUpgradeCostsLayout");
-        /*EmptyUpgradeCostPanelsList();
-
-        List<ResourcesManager.ResourceAmount> resourceAmounts = selectedBuilding.GetComponent<Building>().GetUpgradeCostsForNextTier();
-        //Debug.Log("Upgrade costs nb: " + resourceAmounts.Count);
-
-        foreach (ResourcesManager.ResourceAmount resourceAmount in resourceAmounts)
-        {
-            //Debug.Log("Adding resource indicator to Upgrade panel: " + resourceAmount.resourceType.resourceName);
-
-            //GameObject instantiatedUpgradeCostPanel = Instantiate(upgradeCostPanelPrefab, new Vector3(0f,0f,0f), Quaternion.identity);
-        //instantiatedUpgradeCostPanel.transform.SetParent(upgradeCostsLayout.transform, false);
-
-        // Customize CostPanel
-        //instantiatedUpgradeCostPanel.GetComponent<ResourceCostPanel>().SetInfo(resourceAmount);
-
-        //upgradeCostPanelsList.Add(instantiatedUpgradeCostPanel);
-        /*}
-
-        UpdateInfo();*/
-
-        // --- NEW VERSION --- //
         SetUpgradeCosts();
 
         DisplayUpgradeButtonsBasedOnCurrentTier(selectedBuilding.GetComponent<Building>().currentTier);
@@ -186,6 +174,24 @@ public class BuildingInfoPanel : MonoBehaviour {
     public void SetBuildingStats()  // TO REDO
     {
         //BuildingStatsPanel.instance.BuildStatsInfo(selectedBuilding);
+        SetBaseBuildingStats();
+        SetSpecificBuildingStats();
+    }
+
+    public void SetBaseBuildingStats()
+    {
+        Building b = selectedBuilding.GetComponent<Building>();
+        // Health
+        healthPointsText.text = b.healthPoints.ToString();
+        // Shield
+        shieldPointsText.text = b.shieldPoints.ToString();
+        // Range
+        //if(b.range)
+    }
+
+    public void SetSpecificBuildingStats()
+    {
+
     }
 
     public void SetEnergyIndicators()

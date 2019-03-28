@@ -13,6 +13,10 @@ public class Building : MonoBehaviour {
     public List<ResourcesManager.ResourceAmount> buildingPrice;
     public List<string> tags;
 
+    [Header("General Stats")]
+    public float healthPoints = 100f;
+    public float shieldPoints = 50f;
+
     [Header("Building Spot")]
     public GameObject buildingSpot;
     public float buildingSpotAngleDeg = 0f;
