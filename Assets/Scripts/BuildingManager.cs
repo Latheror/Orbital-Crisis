@@ -88,9 +88,20 @@ public class BuildingManager : MonoBehaviour {
                        new ResourcesManager.ResourceAmount("electronics", 50)
                     })
                 },
-                new List<SpecializedUpgrade>()
+                new List<SpecializedUpgrade>()  // Needs to contain 3 elements
                 {
-
+                    new SpecializedUpgrade(null, new List<ResourcesManager.ResourceAmount>(){
+                       new ResourcesManager.ResourceAmount("composite", 50),
+                       new ResourcesManager.ResourceAmount("electronics", 100)
+                    }),
+                    new SpecializedUpgrade(null, new List<ResourcesManager.ResourceAmount>(){
+                       new ResourcesManager.ResourceAmount("composite", 200),
+                       new ResourcesManager.ResourceAmount("electronics", 50)
+                    }),
+                    new SpecializedUpgrade(null, new List<ResourcesManager.ResourceAmount>(){
+                       new ResourcesManager.ResourceAmount("composite", 100),
+                       new ResourcesManager.ResourceAmount("electronics", 100)
+                    })
                 },
                 true, false,
                 new List<Building.BuildingStat>()
@@ -863,8 +874,8 @@ public class BuildingManager : MonoBehaviour {
 
     public void AdaptBuildButton(bool canPay)
     {
-        buildButton.GetComponent<Image>().color = (canPay) ? canPayColor : cantPayColor;
-        buildButtonForeground.GetComponent<Image>().sprite = (canPay) ? buildButtonCanPaySprite : buildButtonCantPaySprite;
+        //buildButton.GetComponent<Image>().color = (canPay) ? canPayColor : cantPayColor;
+        //buildButtonForeground.GetComponent<Image>().sprite = (canPay) ? buildButtonCanPaySprite : buildButtonCantPaySprite;
         buildButtonText.text = (canPay) ? "Build" : "No resources !";
     }
 
@@ -892,8 +903,8 @@ public class BuildingManager : MonoBehaviour {
 
     public class SpecializedUpgrade
     {
-        readonly Building.BuildingStat upgradedStat;
-        readonly List<ResourcesManager.ResourceAmount> upgradeCosts;
+        public Building.BuildingStat upgradedStat;
+        public List<ResourcesManager.ResourceAmount> upgradeCosts;
 
         public SpecializedUpgrade(Building.BuildingStat upgradedStat, List<ResourcesManager.ResourceAmount> upgradeCosts)
         {
@@ -949,14 +960,14 @@ public class BuildingManager : MonoBehaviour {
 
         public List<ResourcesManager.ResourceAmount> GetUpgradeCostsForTierNb(int tierNb)
         {
-            Debug.Log("GetUpgradeCostsForTierNb [" + tierNb + "]");
+            //Debug.Log("GetUpgradeCostsForTierNb [" + tierNb + "]");
             List <ResourcesManager.ResourceAmount> costs = new List<ResourcesManager.ResourceAmount>();
             foreach (ResourcesManager.UpgradeCost upgradeCost in upgradeCosts)
             {
                 //Debug.Log("Comparing upgrade cost [" + upgradeCost.tierIndex + "]");
                 if (upgradeCost.tierIndex == tierNb) // Matching tier nb
                 {
-                    Debug.Log("Found matching UpgradeCostList");
+                    //Debug.Log("Found matching UpgradeCostList");
                     costs = upgradeCost.resourceCosts;
                     break;
                 }

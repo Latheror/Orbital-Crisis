@@ -38,6 +38,13 @@ public class BuildingInfoPanel : MonoBehaviour {
     public GameObject baseUpgradeCost_1;
     public GameObject baseUpgradeCost_2;
 
+    public GameObject finalUpgradeLeftCost_1;
+    public GameObject finalUpgradeLeftCost_2;
+    public GameObject finalUpgradeCenterCost_1;
+    public GameObject finalUpgradeCenterCost_2;
+    public GameObject finalUpgradeRightCost_1;
+    public GameObject finalUpgradeRightCost_2;
+
     [Header("Colors")]
     public Color upgradePossibleColor = Color.green;
     public Color upgradeImpossibleColor = Color.red;
@@ -101,21 +108,45 @@ public class BuildingInfoPanel : MonoBehaviour {
 
     public void SetUpgradeCosts()
     {
-        if(selectedBuilding.GetComponent<Building>().currentTier < 4)   // Display a single upgrade button
+        Building b = selectedBuilding.GetComponent<Building>();
+        if (selectedBuilding.GetComponent<Building>().currentTier < 3)   // Display a single upgrade button
         {
-            List<ResourcesManager.ResourceAmount> nextTierUpgradeCosts = selectedBuilding.GetComponent<Building>().GetUpgradeCostsForNextTier();
-            Debug.Log("SetUpgradeCosts | nextTierUpgradeCosts size [" + nextTierUpgradeCosts.Count + "]");
-            baseUpgradeCost_1.GetComponent<ResourceCostPanelV2>().SetInfo(nextTierUpgradeCosts[0]);
-            baseUpgradeCost_2.GetComponent<ResourceCostPanelV2>().SetInfo(nextTierUpgradeCosts[1]);
+            List<ResourcesManager.ResourceAmount> nextTierUpgradeCosts = b.GetUpgradeCostsForNextTier();
+            //Debug.Log("SetUpgradeCosts | nextTierUpgradeCosts size [" + nextTierUpgradeCosts.Count + "]");
+            if (nextTierUpgradeCosts.Count == 2)
+            {
+                baseUpgradeCost_1.GetComponent<ResourceCostPanelV2>().SetInfo(nextTierUpgradeCosts[0]);
+                baseUpgradeCost_2.GetComponent<ResourceCostPanelV2>().SetInfo(nextTierUpgradeCosts[1]);
+            }
+            else
+            {
+                Debug.LogError("nextTierUpgradeCosts count not equal to 2");
+            }
         }
         else   // Display 3 upgrade buttons
         {
+            List<BuildingManager.SpecializedUpgrade> specializedUpgrades = b.buildingType.specializedUpgrades;
+            if(specializedUpgrades.Count == 3)
+            {
+                finalUpgradeLeftCost_1.GetComponent<ResourceCostPanelV2>().SetInfo(specializedUpgrades[0].upgradeCosts[0]);
+                finalUpgradeLeftCost_2.GetComponent<ResourceCostPanelV2>().SetInfo(specializedUpgrades[0].upgradeCosts[1]);
 
+                finalUpgradeCenterCost_1.GetComponent<ResourceCostPanelV2>().SetInfo(specializedUpgrades[1].upgradeCosts[0]);
+                finalUpgradeCenterCost_2.GetComponent<ResourceCostPanelV2>().SetInfo(specializedUpgrades[1].upgradeCosts[1]);
+
+                finalUpgradeRightCost_1.GetComponent<ResourceCostPanelV2>().SetInfo(specializedUpgrades[2].upgradeCosts[0]);
+                finalUpgradeRightCost_2.GetComponent<ResourceCostPanelV2>().SetInfo(specializedUpgrades[2].upgradeCosts[1]);
+            }
+            else
+            {
+                Debug.LogError("specializedUpgrades count not equal to 3");
+            }
         }
     }
 
     public void DisplayUpgradeButtonsBasedOnCurrentTier(int currentTier)
     {
+        Debug.Log("DisplayUpgradeButtonsBasedOnCurrentTier | Tier [" + currentTier + "]");
         if(currentTier < 3)
         {
             firstTiersButtonsPanel.SetActive(true);
