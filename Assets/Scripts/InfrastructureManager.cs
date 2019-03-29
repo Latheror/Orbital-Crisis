@@ -41,23 +41,31 @@ public class InfrastructureManager : MonoBehaviour {
         previouslySelectedBuilding = selectedBuilding;
     }
 
-    public bool UpgradeBuildingRequest(GameObject building)
+    public bool UpgradeBuildingRequest(GameObject building, int advancedUpgradeChoice = 0)  // AdvancedUpgradeChoice shall be only used on last tier upgrade
     {
         bool requestAccepted = false;
         //Debug.Log("UpgradeBuildingRequest");
-        if (ResourcesManager.instance.CanPayUpgradeCosts(building.GetComponent<Building>()))
+        if(advancedUpgradeChoice == 0)
         {
-            if(ResourcesManager.instance.PayUpgradeCosts(building.GetComponent<Building>()))
+            if (ResourcesManager.instance.CanPayUpgradeCosts(building.GetComponent<Building>()))
             {
-                //Debug.Log("UpgradeBuilding : Can pay upgrade");
-                building.GetComponent<Building>().UpgradeToNextTier();
-                requestAccepted = true;
+                if (ResourcesManager.instance.PayUpgradeCosts(building.GetComponent<Building>()))
+                {
+                    //Debug.Log("UpgradeBuilding : Can pay upgrade");
+                    building.GetComponent<Building>().UpgradeToNextTier();
+                    requestAccepted = true;
+                }
+            }
+            else
+            {
+                //Debug.Log("UpgradeBuilding : Can't pay upgrade !");
             }
         }
-        else
+        else    // Advanced Upgrade
         {
-            //Debug.Log("UpgradeBuilding : Can't pay upgrade !");
+
         }
+
         return requestAccepted;
     }
 

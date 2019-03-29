@@ -88,20 +88,20 @@ public class BuildingManager : MonoBehaviour {
                        new ResourcesManager.ResourceAmount("electronics", 50)
                     })
                 },
-                new List<SpecializedUpgrade>()  // Needs to contain 3 elements
+                new List<SpecializedUpgrade>()  // Needs to contain 3 elements, two stat upgrade, one side upgrade
                 {
-                    new SpecializedUpgrade(null, new List<ResourcesManager.ResourceAmount>(){
+                    new SpecializedUpgrade(SpecializedUpgrade.UpgradeType.statUpgrade, new List<ResourcesManager.ResourceAmount>(){
                        new ResourcesManager.ResourceAmount("composite", 50),
                        new ResourcesManager.ResourceAmount("electronics", 100)
-                    }),
-                    new SpecializedUpgrade(null, new List<ResourcesManager.ResourceAmount>(){
+                    }, null, 100),
+                    new SpecializedUpgrade(SpecializedUpgrade.UpgradeType.sideUpgrade, new List<ResourcesManager.ResourceAmount>(){
                        new ResourcesManager.ResourceAmount("composite", 200),
                        new ResourcesManager.ResourceAmount("electronics", 50)
-                    }),
-                    new SpecializedUpgrade(null, new List<ResourcesManager.ResourceAmount>(){
+                    }, null, 100),
+                    new SpecializedUpgrade(SpecializedUpgrade.UpgradeType.statUpgrade, new List<ResourcesManager.ResourceAmount>(){
                        new ResourcesManager.ResourceAmount("composite", 100),
                        new ResourcesManager.ResourceAmount("electronics", 100)
-                    })
+                    }, null, 100)
                 },
                 true, false,
                 new List<Building.BuildingStat>()
@@ -176,7 +176,7 @@ public class BuildingManager : MonoBehaviour {
                 new List<ResourcesManager.ResourceAmount>(){
                     new ResourcesManager.ResourceAmount("steel", 80),
                  },
-                BuildingType.BuildingLocationType.Planet, "power_plant", 3, 0,
+                BuildingType.BuildingLocationType.Planet, "PowerPlant", 3, 0,
                 "Provides energy to your infrastructures.",
                 new List<ResourcesManager.UpgradeCost>() {
                     new ResourcesManager.UpgradeCost(2, new List<ResourcesManager.ResourceAmount>(){
@@ -903,13 +903,19 @@ public class BuildingManager : MonoBehaviour {
 
     public class SpecializedUpgrade
     {
-        public Building.BuildingStat upgradedStat;
-        public List<ResourcesManager.ResourceAmount> upgradeCosts;
+        public enum UpgradeType { statUpgrade, sideUpgrade }
 
-        public SpecializedUpgrade(Building.BuildingStat upgradedStat, List<ResourcesManager.ResourceAmount> upgradeCosts)
+        public Building.BuildingStat upgradedStat;
+        public float newValue;
+        public List<ResourcesManager.ResourceAmount> upgradeCosts;
+        public UpgradeType upgradeType;
+
+        public SpecializedUpgrade(UpgradeType upgradeType, List<ResourcesManager.ResourceAmount> upgradeCosts, Building.BuildingStat upgradedStat, float newValue)
         {
+            this.upgradeType = upgradeType;
             this.upgradedStat = upgradedStat;
             this.upgradeCosts = upgradeCosts;
+            this.newValue = newValue;
         }
     }
 

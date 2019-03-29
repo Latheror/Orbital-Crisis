@@ -32,7 +32,7 @@ public class BuildingInfoPanel : MonoBehaviour {
 
     // Useful / New
     public GameObject firstTiersButtonsPanel;
-    public GameObject lastTiersButtonsPanel;
+    public GameObject advancedUpgradeButtonsPanel;
     public TextMeshProUGUI energyConsumptionProductionText;
 
     public GameObject baseUpgradeCost_1;
@@ -54,6 +54,13 @@ public class BuildingInfoPanel : MonoBehaviour {
     public GameObject shieldPointsIndicator;
     public GameObject rangePointsIndicator;
 
+    // Specific Stats
+    public GameObject specificStat_1;
+    public GameObject specificStat_2;
+    public Image specificStat_1_image;
+    public TextMeshProUGUI specificStat_1_value;
+    public Image specificStat_2_image;
+    public TextMeshProUGUI specificStat_2_value;
 
     [Header("Colors")]
     public Color upgradePossibleColor = Color.green;
@@ -88,10 +95,15 @@ public class BuildingInfoPanel : MonoBehaviour {
 
     public void BuildUpgradesLayout()
     {
-        SetUpgradeCosts();
-
-        DisplayUpgradeButtonsBasedOnCurrentTier(selectedBuilding.GetComponent<Building>().currentTier);
-
+        if (selectedBuilding.GetComponent<Building>().currentTier <= 3)
+        {
+            DisplayAdvancedUpgradePanel(false);
+            SetUpgradeCosts();
+        }
+        else    // Building can't be upgraded anymore
+        {
+            HideAllUpgradeElements();
+        }
     }
 
     public void SetUpgradeCosts()
@@ -99,6 +111,9 @@ public class BuildingInfoPanel : MonoBehaviour {
         Building b = selectedBuilding.GetComponent<Building>();
         if (selectedBuilding.GetComponent<Building>().currentTier < 3)   // Display a single upgrade button
         {
+            baseUpgradeCost_1.SetActive(true);
+            baseUpgradeCost_2.SetActive(true);
+
             List<ResourcesManager.ResourceAmount> nextTierUpgradeCosts = b.GetUpgradeCostsForNextTier();
             //Debug.Log("SetUpgradeCosts | nextTierUpgradeCosts size [" + nextTierUpgradeCosts.Count + "]");
             if (nextTierUpgradeCosts.Count == 2)
@@ -113,6 +128,10 @@ public class BuildingInfoPanel : MonoBehaviour {
         }
         else   // Display 3 upgrade buttons
         {
+            // Remove upgrade costs from main Button
+            baseUpgradeCost_1.SetActive(false);
+            baseUpgradeCost_2.SetActive(false);
+
             List<BuildingManager.SpecializedUpgrade> specializedUpgrades = b.buildingType.specializedUpgrades;
             if(specializedUpgrades.Count == 3)
             {
@@ -138,12 +157,12 @@ public class BuildingInfoPanel : MonoBehaviour {
         if(currentTier < 3)
         {
             firstTiersButtonsPanel.SetActive(true);
-            lastTiersButtonsPanel.SetActive(false);
+            advancedUpgradeButtonsPanel.SetActive(false);
         }
         else
         {
             firstTiersButtonsPanel.SetActive(false);
-            lastTiersButtonsPanel.SetActive(true);
+            advancedUpgradeButtonsPanel.SetActive(true);
         }
     }
 
@@ -186,17 +205,31 @@ public class BuildingInfoPanel : MonoBehaviour {
         // Shield
         shieldPointsText.text = b.shieldPoints.ToString();
         // Range
-        //if(b.range)
+        rangePointsIndicator.SetActive(b.buildingType.hasRange);
+        rangePointsText.text = b.range.ToString();
     }
 
     public void SetSpecificBuildingStats()
     {
-
+        specificStat_1.SetActive(false);
+        specificStat_2.SetActive(false);
+        Building b = selectedBuilding.GetComponent<Building>();
+        if (b.buildingType.specializedUpgrades.Count >= 1)
+        {
+            List<BuildingManager.SpecializedUpgrade> sU_list = b.buildingType.specializedUpgrades;
+            specificStat_1.SetActive(true);
+            specificStat_1_value.text = sU_list[0].newValue.ToString();
+            //specificStat_1_image.sprite = sU_list[0].upgradedStat.statImage;
+            if (b.buildingType.specializedUpgrades.Count >= 2)
+            {
+                specificStat_2.SetActive(true);
+            }
+        }
     }
 
     public void SetEnergyIndicators()
     {
-        if (selectedBuilding.GetComponent<Building>().powerOn)  // Power On
+        /*if (selectedBuilding.GetComponent<Building>().powerOn)  // Power On                   // TO REDO //
         {
             powerOnPanel.GetComponent<Image>().color = powerOnColor;
         }
@@ -212,9 +245,9 @@ public class BuildingInfoPanel : MonoBehaviour {
         else // Not enough energy
         {
             enoughEnergyPanel.GetComponent<Image>().color = notEnoughEnergyColor;
-        }
+        }*/
 
-        //energyConsumptionProductionText.text = selectedBuilding.GetComponent<Building>().energ
+        energyConsumptionProductionText.text = (selectedBuilding.GetComponent<PowerPlant>() != null) ? ("+" + selectedBuilding.GetComponent<PowerPlant>().effectiveEnergyProduction) : ("-" + selectedBuilding.GetComponent<Building>().energyConsumption);
     }
 
     public void DisplayInfo(bool display)
@@ -225,7 +258,64 @@ public class BuildingInfoPanel : MonoBehaviour {
     public void UpgradeButtonClicked()
     {
         Debug.Log("UpgradeButtonClicked");
-        InfrastructureManager.instance.UpgradeBuildingRequest(selectedBuilding.gameObject);
+        if(selectedBuilding.GetComponent<Building>().currentTier <= 2)
+        {
+            InfrastructureManager.instance.UpgradeBuildingRequest(selectedBuilding.gameObject);
+        }
+        else
+        {
+            DisplayAdvancedUpgradePanel(true);
+        }
+    }
+
+    public void OnAdvancedUpgradeLeftButtonClick()
+    {
+        Debug.Log("OnAdvancedUpgradeLeftButtonClick");
+        if (selectedBuilding.GetComponent<Building>().currentTier == 3)
+        {
+            InfrastructureManager.instance.UpgradeBuildingRequest(selectedBuilding.gameObject, 1);
+        }
+        else
+        {
+            Debug.LogError("OnAdvancedUpgradeLeftButtonClick | Wrong currentTier [" + selectedBuilding.GetComponent<Building>().currentTier + "]");
+        }
+    }
+
+    public void OnAdvancedUpgradeCenterButtonClick()
+    {
+        Debug.Log("OnAdvancedUpgradeCenterButtonClick");
+        if (selectedBuilding.GetComponent<Building>().currentTier == 3)
+        {
+            InfrastructureManager.instance.UpgradeBuildingRequest(selectedBuilding.gameObject, 2);
+        }
+        else
+        {
+            Debug.LogError("OnAdvancedUpgradeLeftButtonClick | Wrong currentTier [" + selectedBuilding.GetComponent<Building>().currentTier + "]");
+        }
+    }
+
+    public void OnAdvancedUpgradeRightButtonClick()
+    {
+        Debug.Log("OnAdvancedUpgradeRightButtonClick");
+        if (selectedBuilding.GetComponent<Building>().currentTier == 3)
+        {
+            InfrastructureManager.instance.UpgradeBuildingRequest(selectedBuilding.gameObject, 3);
+        }
+        else
+        {
+            Debug.LogError("OnAdvancedUpgradeLeftButtonClick | Wrong currentTier [" + selectedBuilding.GetComponent<Building>().currentTier + "]");
+        }
+    }
+
+    public void HideAllUpgradeElements()    // Used when building can't be upgraded anymore
+    {
+        firstTiersButtonsPanel.SetActive(false);
+        advancedUpgradeButtonsPanel.SetActive(false);
+    }
+
+    public void DisplayAdvancedUpgradePanel(bool display)
+    {
+        advancedUpgradeButtonsPanel.SetActive(display);
     }
 
     public void BuildingTouched(GameObject building)

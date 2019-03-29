@@ -310,7 +310,7 @@ public class Building : MonoBehaviour {
 
     public class BuildingStat
     {
-        public enum StatType { energyConsumption, range, energyProduction, damagePower, freezingPower, healingPower, miningSpeed };
+        public enum StatType { energyConsumption, range, energyProduction, damagePower, freezingPower, healingPower, miningSpeed, cooldown, health, shield };
 
         public StatType statType;
         public Sprite statImage;
@@ -321,6 +321,16 @@ public class Building : MonoBehaviour {
             string statsImagesPath = "Images/Stats/";
             switch(statType)
             {
+                case StatType.health:
+                {
+                    statImage = Resources.Load<Sprite>(statsImagesPath + "health");
+                    break;
+                }
+                case StatType.shield:
+                {
+                    statImage = Resources.Load<Sprite>(statsImagesPath + "shield");
+                    break;
+                }
                 case StatType.damagePower:
                 {
                     statImage = Resources.Load<Sprite>(statsImagesPath + "laser_beam");
@@ -348,12 +358,17 @@ public class Building : MonoBehaviour {
                 }
                 case StatType.range:
                 {
-                    statImage = Resources.Load<Sprite>(statsImagesPath + "range_indicator");
+                    statImage = Resources.Load<Sprite>(statsImagesPath + "range");
                     break;
                 }
                 case StatType.miningSpeed:
                 {
                     statImage = Resources.Load<Sprite>(statsImagesPath + "gear");
+                    break;
+                }
+                case StatType.cooldown:
+                {
+                    statImage = Resources.Load<Sprite>(statsImagesPath + "cooldown");
                     break;
                 }
             }
