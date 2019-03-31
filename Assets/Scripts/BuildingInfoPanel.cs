@@ -23,16 +23,17 @@ public class BuildingInfoPanel : MonoBehaviour {
     public GameObject upgradeCostPanelPrefab;
     public List<GameObject> upgradeCostPanelsList;
     public GameObject destroyButton;
-    public TextMeshProUGUI tierNbText;
-    public TextMeshProUGUI upgradeText;
+
     public GameObject enoughEnergyPanel;
     public GameObject powerOnPanel;
     public Sprite upgradeAvailableSprite;
     public Sprite upgradeNotAvailableSprite;
 
     // Useful / New
-    public GameObject firstTiersButtonsPanel;
+    public GameObject firstTiersUpgradeButtonsPanel;
     public GameObject advancedUpgradeButtonsPanel;
+    public TextMeshProUGUI tierNbText;
+    public TextMeshProUGUI upgradeText;
     public TextMeshProUGUI energyConsumptionProductionText;
 
     public GameObject baseUpgradeCost_1;
@@ -95,8 +96,10 @@ public class BuildingInfoPanel : MonoBehaviour {
 
     public void BuildUpgradesLayout()
     {
-        if (selectedBuilding.GetComponent<Building>().currentTier <= 3)
+        //Debug.Log("BuildUpgradesLayout CurrentTier [" + selectedBuilding.GetComponent<Building>().currentTier + "]");
+        if (selectedBuilding.GetComponent<Building>().currentTier <= /*3*/ 2)   // Set this back to 3 when Specialized Upgrades are finished
         {
+            DisplayBaseUpgradePanel(true);
             DisplayAdvancedUpgradePanel(false);
             SetUpgradeCosts();
         }
@@ -104,6 +107,11 @@ public class BuildingInfoPanel : MonoBehaviour {
         {
             HideAllUpgradeElements();
         }
+    }
+
+    public void UpdateUpgradeText()
+    {
+        upgradeText.text = (ResourcesManager.instance.CanPayResourceAmounts(selectedBuilding.GetComponent<Building>().GetUpgradeCostsForNextTier())) ? "Upgrade" : "No Resources !";
     }
 
     public void SetUpgradeCosts()
@@ -156,12 +164,12 @@ public class BuildingInfoPanel : MonoBehaviour {
         Debug.Log("DisplayUpgradeButtonsBasedOnCurrentTier | Tier [" + currentTier + "]");
         if(currentTier < 3)
         {
-            firstTiersButtonsPanel.SetActive(true);
+            firstTiersUpgradeButtonsPanel.SetActive(true);
             advancedUpgradeButtonsPanel.SetActive(false);
         }
         else
         {
-            firstTiersButtonsPanel.SetActive(false);
+            firstTiersUpgradeButtonsPanel.SetActive(false);
             advancedUpgradeButtonsPanel.SetActive(true);
         }
     }
@@ -181,6 +189,7 @@ public class BuildingInfoPanel : MonoBehaviour {
         SetName();
         SetTierText();
         BuildUpgradesLayout();      // TO REDO
+        UpdateUpgradeText();
         SetBuildingStats(); // TO REDO
         SetEnergyIndicators();
     }
@@ -214,15 +223,17 @@ public class BuildingInfoPanel : MonoBehaviour {
         specificStat_1.SetActive(false);
         specificStat_2.SetActive(false);
         Building b = selectedBuilding.GetComponent<Building>();
-        if (b.buildingType.specializedUpgrades.Count >= 1)
+        if (b.buildingType.specificStats.Count >= 1)
         {
-            List<BuildingManager.SpecializedUpgrade> sU_list = b.buildingType.specializedUpgrades;
+            List<Building.BuildingStat> specStats = b.buildingType.specificStats;
             specificStat_1.SetActive(true);
-            specificStat_1_value.text = sU_list[0].newValue.ToString();
-            //specificStat_1_image.sprite = sU_list[0].upgradedStat.statImage;
-            if (b.buildingType.specializedUpgrades.Count >= 2)
+            specificStat_1_value.text = b.GetBuildingStatValue(specStats[0]).ToString();
+            specificStat_1_image.sprite = specStats[0].statImage;
+            if (b.buildingType.specificStats.Count >= 2)
             {
                 specificStat_2.SetActive(true);
+                specificStat_2_value.text = b.GetBuildingStatValue(specStats[1]).ToString();
+                specificStat_2_image.sprite = specStats[1].statImage;
             }
         }
     }
@@ -309,8 +320,13 @@ public class BuildingInfoPanel : MonoBehaviour {
 
     public void HideAllUpgradeElements()    // Used when building can't be upgraded anymore
     {
-        firstTiersButtonsPanel.SetActive(false);
+        firstTiersUpgradeButtonsPanel.SetActive(false);
         advancedUpgradeButtonsPanel.SetActive(false);
+    }
+
+    public void DisplayBaseUpgradePanel(bool display)
+    {
+        firstTiersUpgradeButtonsPanel.SetActive(display);
     }
 
     public void DisplayAdvancedUpgradePanel(bool display)

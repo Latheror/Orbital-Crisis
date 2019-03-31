@@ -106,9 +106,7 @@ public class BuildingManager : MonoBehaviour {
                 true, false,
                 new List<Building.BuildingStat>()
                 {
-                    new Building.BuildingStat(Building.BuildingStat.StatType.damagePower),
-                    new Building.BuildingStat(Building.BuildingStat.StatType.range),
-                    new Building.BuildingStat(Building.BuildingStat.StatType.energyConsumption)
+                    new Building.BuildingStat(Building.BuildingStat.StatType.damagePower)
                 },
                 false
                 ));
@@ -135,9 +133,7 @@ public class BuildingManager : MonoBehaviour {
                 true, false,
                 new List<Building.BuildingStat>()
                 {
-                    new Building.BuildingStat(Building.BuildingStat.StatType.damagePower),
-                    new Building.BuildingStat(Building.BuildingStat.StatType.range),
-                    new Building.BuildingStat(Building.BuildingStat.StatType.energyConsumption)
+                    new Building.BuildingStat(Building.BuildingStat.StatType.damagePower)
                 },
                 false
                 ));
@@ -165,9 +161,7 @@ public class BuildingManager : MonoBehaviour {
                 true, false,
                 new List<Building.BuildingStat>()
                 {
-                    new Building.BuildingStat(Building.BuildingStat.StatType.freezingPower),
-                    new Building.BuildingStat(Building.BuildingStat.StatType.range),
-                    new Building.BuildingStat(Building.BuildingStat.StatType.energyConsumption)
+                    new Building.BuildingStat(Building.BuildingStat.StatType.freezingPower)
                 },
                 false
                 ));
@@ -195,7 +189,6 @@ public class BuildingManager : MonoBehaviour {
                 false, true,
                 new List<Building.BuildingStat>()
                 {
-                    new Building.BuildingStat(Building.BuildingStat.StatType.energyProduction)
                 },
                 false
                 ));
@@ -223,8 +216,7 @@ public class BuildingManager : MonoBehaviour {
                 false, false,
                 new List<Building.BuildingStat>()
                 {
-                    new Building.BuildingStat(Building.BuildingStat.StatType.miningSpeed),
-                    new Building.BuildingStat(Building.BuildingStat.StatType.energyConsumption)
+                    new Building.BuildingStat(Building.BuildingStat.StatType.miningSpeed)
                 },
                 false
                 ));
@@ -252,9 +244,7 @@ public class BuildingManager : MonoBehaviour {
                 true, false,
                 new List<Building.BuildingStat>()
                 {
-                    new Building.BuildingStat(Building.BuildingStat.StatType.damagePower),
-                    new Building.BuildingStat(Building.BuildingStat.StatType.range),
-                    new Building.BuildingStat(Building.BuildingStat.StatType.energyConsumption)
+                    new Building.BuildingStat(Building.BuildingStat.StatType.damagePower)
                 },
                 false
                 ));
@@ -282,8 +272,6 @@ public class BuildingManager : MonoBehaviour {
                 true, false,
                 new List<Building.BuildingStat>()
                 {
-                    new Building.BuildingStat(Building.BuildingStat.StatType.range),
-                    new Building.BuildingStat(Building.BuildingStat.StatType.energyConsumption)
                 },
                 false
         ));
@@ -311,7 +299,6 @@ public class BuildingManager : MonoBehaviour {
                 false, true,
                 new List<Building.BuildingStat>()
                 {
-                    new Building.BuildingStat(Building.BuildingStat.StatType.energyProduction)
                 },
                 false
                 ));
@@ -339,10 +326,7 @@ public class BuildingManager : MonoBehaviour {
                 true, false,
                 new List<Building.BuildingStat>()
                 {
-                    new Building.BuildingStat(Building.BuildingStat.StatType.healingPower),
-                    new Building.BuildingStat(Building.BuildingStat.StatType.range),
-                    new Building.BuildingStat(Building.BuildingStat.StatType.energyConsumption)
-
+                    new Building.BuildingStat(Building.BuildingStat.StatType.healingPower)
                 },
                 false
                 ));
@@ -397,9 +381,7 @@ public class BuildingManager : MonoBehaviour {
                 true, false,
                 new List<Building.BuildingStat>()
                 {
-                    new Building.BuildingStat(Building.BuildingStat.StatType.damagePower),
-                    new Building.BuildingStat(Building.BuildingStat.StatType.range),
-                    new Building.BuildingStat(Building.BuildingStat.StatType.energyConsumption)
+                    new Building.BuildingStat(Building.BuildingStat.StatType.damagePower)
                 },
                 false
         ));
@@ -428,9 +410,7 @@ public class BuildingManager : MonoBehaviour {
                 true, false,
                 new List<Building.BuildingStat>()
                 {
-                    new Building.BuildingStat(Building.BuildingStat.StatType.damagePower),
-                    new Building.BuildingStat(Building.BuildingStat.StatType.range),
-                    new Building.BuildingStat(Building.BuildingStat.StatType.energyConsumption)
+                    new Building.BuildingStat(Building.BuildingStat.StatType.damagePower)
                 },
                 false
         ));
@@ -938,11 +918,11 @@ public class BuildingManager : MonoBehaviour {
         public List<SpecializedUpgrade> specializedUpgrades;
         public bool hasRange;
         public bool producesEnergy;
-        public List<Building.BuildingStat> stats;
+        public List<Building.BuildingStat> specificStats;
         public bool isUnique;
         public BuildingCategory buildingCategory;
 
-        public BuildingType(int id, string name, GameObject prefab, BuildingCategory buildingCategory, float energyConsumption, List<ResourcesManager.ResourceAmount> cost, BuildingLocationType buildingLocationType, string imageName, int maxTier, int unlockedAtLevelNb, string description, List<ResourcesManager.UpgradeCost> upgradeCosts, List<SpecializedUpgrade> specializedUpgrades, bool hasRange, bool producesEnergy, List<Building.BuildingStat> stats, bool isUnique)
+        public BuildingType(int id, string name, GameObject prefab, BuildingCategory buildingCategory, float energyConsumption, List<ResourcesManager.ResourceAmount> cost, BuildingLocationType buildingLocationType, string imageName, int maxTier, int unlockedAtLevelNb, string description, List<ResourcesManager.UpgradeCost> upgradeCosts, List<SpecializedUpgrade> specializedUpgrades, bool hasRange, bool producesEnergy, List<Building.BuildingStat> specificStats, bool isUnique)
         {
             this.id = id;
             this.name = name;
@@ -959,7 +939,7 @@ public class BuildingManager : MonoBehaviour {
             this.specializedUpgrades = specializedUpgrades;
             this.hasRange = hasRange;
             this.producesEnergy = producesEnergy;
-            this.stats = stats;
+            this.specificStats = specificStats;
             this.isUnique = isUnique;
             this.buildingCategory = buildingCategory;
         }

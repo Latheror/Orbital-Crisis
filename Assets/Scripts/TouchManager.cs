@@ -108,7 +108,7 @@ public class TouchManager : MonoBehaviour
                                     }
                                     case ("spaceship"):
                                     {
-                                        //Debug.Log("Touched a spaceship !");
+                                        Debug.Log("Touched a spaceship !");
                                         hit.collider.gameObject.GetComponent<Spaceship>().Select(true);
                                         otherPriorityElementTouched = true;
                                         break;
@@ -145,43 +145,50 @@ public class TouchManager : MonoBehaviour
                         {
                             if (!otherPriorityElementTouched)
                             {
-                                if (SpaceshipManager.instance.selectedSpaceship != null && !SpaceshipManager.instance.selectedSpaceship.GetComponent<Spaceship>().isInAutomaticMode)
+                                if (SpaceshipManager.instance.selectedSpaceship != null)
                                 {
-                                    Vector3 touchedPos = GeometryManager.instance.GetLocationFromTouchPointOnPlanetPlane(lastTouch);
-
-                                    //Debug.Log("Setting Manual Destination | DestPos: " + destPos);
-                                    if (!GeometryManager.PosWithinPlanetArea(touchedPos))
+                                    if (!SpaceshipManager.instance.selectedSpaceship.GetComponent<Spaceship>().isInAutomaticMode)
                                     {
-                                        SpaceshipManager.instance.selectedSpaceship.GetComponent<Spaceship>().SetManualDestination(touchedPos);
+                                        Vector3 touchedPos = GeometryManager.instance.GetLocationFromTouchPointOnPlanetPlane(lastTouch);
+
+                                        //Debug.Log("Setting Manual Destination | DestPos: " + destPos);
+                                        if (!GeometryManager.PosWithinPlanetArea(touchedPos))
+                                        {
+                                            SpaceshipManager.instance.selectedSpaceship.GetComponent<Spaceship>().SetManualDestination(touchedPos);
+                                        }
+                                    }
+                                    else
+                                    {
+                                        GameManager.instance.ChangeSelectionState(GameManager.SelectionState.Default);
                                     }
                                 }
                             }
                         }
                         else if(GameManager.instance.gameState == GameManager.GameState.Default)
                         {
-                            // Temp: Vertical/Horizontal sliding disabled
-                            /*if (IsTouchWithinGameArea(Input.GetTouch(0).position))
-                            {
-                                // Move screen verticaly / horizontaly
-                                Vector2 touchDeltaPosition = Input.GetTouch(0).deltaPosition;
-                               
-                                Camera.main.transform.Translate(-touchDeltaPosition.x * moveCameraSpeed, -touchDeltaPosition.y * moveCameraSpeed, 0f);
+                        // Temp: Vertical/Horizontal sliding disabled
+                        /*if (IsTouchWithinGameArea(Input.GetTouch(0).position))
+                        {
+                            // Move screen verticaly / horizontaly
+                            Vector2 touchDeltaPosition = Input.GetTouch(0).deltaPosition;
 
-                                if(DysonSphere.instance != null && DysonSphere.instance.isActivated)
-                                {
-                                    DysonSphere.instance.AdaptLaserToPlanetMovement();
-                                }
-                            }*/
+                            Camera.main.transform.Translate(-touchDeltaPosition.x * moveCameraSpeed, -touchDeltaPosition.y * moveCameraSpeed, 0f);
+
+                            if(DysonSphere.instance != null && DysonSphere.instance.isActivated)
+                            {
+                                DysonSphere.instance.AdaptLaserToPlanetMovement();
+                            }
+                        }*/
+
+                            if (!otherPriorityElementTouched)
+                            {
+                                GameManager.instance.ChangeSelectionState(GameManager.SelectionState.Default);
+                            }
                         }
 
                         if(! buildingSpotTouched)
                         {
                             BuildingManager.instance.ResetBuildingOperations();
-                        }
-
-                        if(! buildingTouched)
-                        {
-                            GameManager.instance.ChangeSelectionState(GameManager.SelectionState.Default);
                         }
                     }
                 //}

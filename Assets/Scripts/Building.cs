@@ -333,7 +333,7 @@ public class Building : MonoBehaviour {
                 }
                 case StatType.damagePower:
                 {
-                    statImage = Resources.Load<Sprite>(statsImagesPath + "laser_beam");
+                    statImage = Resources.Load<Sprite>(statsImagesPath + "attack");
                     break;
                 }
                 case StatType.energyConsumption:
@@ -363,7 +363,7 @@ public class Building : MonoBehaviour {
                 }
                 case StatType.miningSpeed:
                 {
-                    statImage = Resources.Load<Sprite>(statsImagesPath + "gear");
+                    statImage = Resources.Load<Sprite>(statsImagesPath + "cooldown");
                     break;
                 }
                 case StatType.cooldown:

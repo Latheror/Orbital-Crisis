@@ -11,6 +11,9 @@ public class ResourceCostPanelV2 : MonoBehaviour
     public Image resourceImage;
     public TextMeshProUGUI resourceCostText;
 
+    public Color canPayColor;
+    public Color cantPayColor;
+
     public void SetInfo(ResourcesManager.ResourceAmount rCost)
     {
         if(rCost != null && rCost.resourceType != null)
@@ -18,6 +21,7 @@ public class ResourceCostPanelV2 : MonoBehaviour
             associatedResourceCost = rCost;
             resourceImage.sprite = rCost.resourceType.resourceImage;
             resourceCostText.text = rCost.amount.ToString();
+            resourceCostText.color = (ResourcesManager.instance.CanPayResourceAmount(rCost)) ? canPayColor : cantPayColor;
         }
         else
         {
@@ -25,6 +29,19 @@ public class ResourceCostPanelV2 : MonoBehaviour
             resourceImage.sprite = null;
             resourceImage.color = StyleManager.instance.transparentColor;
             resourceCostText.text = "";
+        }
+    }
+
+    public bool CanPayUpgradeCost()
+    {
+        if(associatedResourceCost != null)
+        {
+            return ResourcesManager.instance.CanPayResourceAmount(associatedResourceCost);
+        }
+        else
+        {
+            Debug.LogError("ResourceCostPanelV2 | CanPayUpgradeCost | No associated resource cost");
+            return false;
         }
     }
 }
