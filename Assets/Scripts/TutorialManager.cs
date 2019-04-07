@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class TutorialManager : MonoBehaviour {
 
@@ -16,25 +17,26 @@ public class TutorialManager : MonoBehaviour {
     public List<GameObject> instantiatedTutorialIndicators = new List<GameObject>();
 
     [Header("Indicators")]
-    public GameObject clickOnShopIndicator;
+    public GameObject selectBuildingSpotIndicator;
     public GameObject selectBuildingIndicator;
     public GameObject clickOnBuildIndicator;
-    public GameObject selectBuildingLocationIndicator;
-    public GameObject startWhenReadyIndicator;
+    public GameObject touchBuildingIndicator;
+    public GameObject startWaveIndicator;
 
     public void DefineAvailableTutorialIndicators()
     {
-        availableTutorialIndicators.Add(new TutorialIndicator(1, "click_on_shop", "Buy buildings from the shop", clickOnShopIndicator, true));
-        availableTutorialIndicators.Add(new TutorialIndicator(2, "select_building", "Select a building", selectBuildingIndicator, false));
-        availableTutorialIndicators.Add(new TutorialIndicator(3, "select_building_location", "Tap to choose a building spot", selectBuildingLocationIndicator, false));
-        availableTutorialIndicators.Add(new TutorialIndicator(4, "click_on_build", "Click to build !", clickOnBuildIndicator, false));
-        availableTutorialIndicators.Add(new TutorialIndicator(5, "start_when_ready", "Start when ready !", startWhenReadyIndicator, false));
+        availableTutorialIndicators.Add(new TutorialIndicator(1, "select_building_spot", "", selectBuildingSpotIndicator, true, 0));
+        availableTutorialIndicators.Add(new TutorialIndicator(2, "select_building", "", selectBuildingIndicator, false, 0));
+        availableTutorialIndicators.Add(new TutorialIndicator(3, "click_on_build", "", clickOnBuildIndicator, false, 0));
+        availableTutorialIndicators.Add(new TutorialIndicator(4, "touch_buildig", "", touchBuildingIndicator, false, 0));
+        availableTutorialIndicators.Add(new TutorialIndicator(5, "start_wave", "", startWaveIndicator, false, 0));
     }
 
     public void DisplayStartIndicators()
     {
         foreach (TutorialIndicator tutorialIndicator in availableTutorialIndicators)
         {
+            //Debug.Log("DisplayStartIndicator [" + tutorialIndicator.id + "] | [" + tutorialIndicator.atStart + "]");
             tutorialIndicator.panel.SetActive(tutorialIndicator.atStart);
         }
     }
@@ -93,6 +95,12 @@ public class TutorialManager : MonoBehaviour {
         }
     }
 
+    public void TutorialIndicatorTouched(int id)
+    {
+        //Debug.Log("Tutorial Indicator Touched [" + id + "]");
+        DisplayIndicator(id, false);
+    }
+
     public class TutorialIndicator
     {
         public int id;
@@ -102,14 +110,29 @@ public class TutorialManager : MonoBehaviour {
         public bool atStart;
         public bool passed;
 
-        public TutorialIndicator(int id, string name, string text, GameObject panel, bool atStart)
+        public TutorialIndicator(int id, string name, string text, GameObject panel, bool atStart, int indicatorToDisplayOnTouch)
         {
             this.id = id;
             this.name = name;
-            this.text = text;
+            //this.text = text;
             this.panel = panel;
             this.atStart = atStart;
             this.passed = false;
+
+            Initialize();
+        }
+
+        public void Initialize()
+        {
+            // Add a Button
+            panel.AddComponent<Button>();
+            panel.GetComponent<Button>().onClick.AddListener(() => instance.TutorialIndicatorTouched(id));
+
+            TutorialElement te = panel.GetComponent<TutorialElement>();
+            if (te != null)
+            {
+                te.id = id;
+            }
         }
     }
 

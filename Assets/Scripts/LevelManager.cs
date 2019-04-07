@@ -227,7 +227,13 @@ public class LevelManager : MonoBehaviour {
 
     public void NextLevelRequest()
     {
-        if(GameManager.instance.gameState == GameManager.GameState.Default)
+        // Tutorial indicator //
+        TutorialManager.instance.DisplayIndicator(5, false);
+        //TutorialManager.instance.DisplayIndicatorIfNotDisplayedYet(4);
+        // ------------------ //
+
+
+        if (GameManager.instance.gameState == GameManager.GameState.Default)
         {
             if (currentLevel != null)
             {

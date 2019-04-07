@@ -440,6 +440,11 @@ public class BuildingManager : MonoBehaviour {
 
     public void BuildButton()
     {
+        // Tutorial indicator //
+        TutorialManager.instance.DisplayIndicator(3, false);
+        TutorialManager.instance.DisplayIndicatorIfNotDisplayedYet(4);
+        // ------------------ //
+
         if (buildingState == BuildingState.LocationSelected || buildingState == BuildingState.BuildingAndLocationSelected)
         {
             if (chosenBuildingSlot.GetComponent<BuildingSlot>().CanBuildHere())
@@ -510,8 +515,8 @@ public class BuildingManager : MonoBehaviour {
     public void SelectBuildingLocation(BuildingSlot buildingSpot = null)
     {
         // Tutorial indicator //
-        TutorialManager.instance.DisplayIndicator(3, false);
-        TutorialManager.instance.DisplayIndicatorIfNotDisplayedYet(4);
+        TutorialManager.instance.DisplayIndicator(1, false);
+        TutorialManager.instance.DisplayIndicatorIfNotDisplayedYet(2);
         // ------------------ //
 
         // Chose Building Spot

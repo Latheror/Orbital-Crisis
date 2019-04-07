@@ -19,6 +19,11 @@ public class InfrastructureManager : MonoBehaviour {
 
     public void BuildingTouched(GameObject building)
     {
+        // Tutorial indicator //
+        TutorialManager.instance.DisplayIndicator(4, false);
+        TutorialManager.instance.DisplayIndicatorIfNotDisplayedYet(5);
+        // ------------------ //
+
         selectedBuilding = building;
         //Debug.Log(selectedBuilding.GetComponent<Building>().buildingType.name + " selected.");
 
