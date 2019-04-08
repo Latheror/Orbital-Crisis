@@ -247,7 +247,7 @@ public class TechTreeManager : MonoBehaviour
     public void UnlockSelectedTechnologyRequest()
     {
         Debug.Log("UnlockTechnologyRequest | CanPay [" + CanPayTechnology(selectedTechno) + "]");
-        if (selectedTechno.available && CanPayTechnology(selectedTechno))
+        if (selectedTechno.available && CanPayTechnology(selectedTechno) && !selectedTechno.unlocked)
         {
             PayTechnology(selectedTechno);
 

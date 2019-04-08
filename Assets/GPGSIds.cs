@@ -27,6 +27,7 @@ public static class GPGSIds
         public const string achievement_complete_wave_10 = "CgkIkrzNsMcbEAIQAg"; // <GPGSID>
         public const string leaderboard_highest_wave_completed_without_taking_any_damage = "CgkIkrzNsMcbEAIQBw"; // <GPGSID>
         public const string achievement_complete_wave_50 = "CgkIkrzNsMcbEAIQBg"; // <GPGSID>
+        public const string achievement_i_was_there = "CgkIkrzNsMcbEAIQCA"; // <GPGSID>
         public const string achievement_complete_wave_40 = "CgkIkrzNsMcbEAIQBQ"; // <GPGSID>
         public const string leaderboard_main_highscore = "CgkIkrzNsMcbEAIQAQ"; // <GPGSID>
         public const string achievement_complete_wave_30 = "CgkIkrzNsMcbEAIQBA"; // <GPGSID>

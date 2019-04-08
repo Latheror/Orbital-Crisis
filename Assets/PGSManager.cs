@@ -51,6 +51,9 @@ public class PGSManager : MonoBehaviour {
             DisplayAuthenticationButton(true);
             DisplayLeaderboardButton(false);
             DisplayAchievementsButton(false);
+
+            Animator anim = MenuManager.instance.signInButton.GetComponent<Animator>();
+            anim.SetTrigger("touchme");
         }
         else
         {
