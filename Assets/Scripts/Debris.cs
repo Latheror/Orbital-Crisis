@@ -29,7 +29,7 @@ public class Debris : MonoBehaviour {
     public void Collect(/*float collectionPower*/)
     {
         ResourcesManager.instance.ProduceResource(ResourcesManager.instance.GetResourceTypeByName("steel"), resourcesToGather);
-        ResourcesManager.instance.ProduceResource(ResourcesManager.instance.GetResourceTypeByName("carbon"), resourcesToGather);
+        ResourcesManager.instance.ProduceResource(ResourcesManager.instance.GetResourceTypeByName("carbon"), Mathf.RoundToInt(resourcesToGather/2));
         Vanish();
     }
 

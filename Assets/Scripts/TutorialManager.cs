@@ -22,14 +22,32 @@ public class TutorialManager : MonoBehaviour {
     public GameObject clickOnBuildIndicator;
     public GameObject touchBuildingIndicator;
     public GameObject startWaveIndicator;
+    public GameObject protectPeopleIndicator;
+    public GameObject basicResourcesIndicator;
+    public GameObject selectSpaceshipIndicator;
+
+    public enum IndicatorID
+    {
+        protect_people,
+        select_building_spot,
+        select_building,
+        click_on_build,
+        touch_building,
+        start_wave,
+        basic_resources,
+        select_spaceship
+    }
 
     public void DefineAvailableTutorialIndicators()
     {
-        availableTutorialIndicators.Add(new TutorialIndicator(1, "select_building_spot", "", selectBuildingSpotIndicator, true, 0));
-        availableTutorialIndicators.Add(new TutorialIndicator(2, "select_building", "", selectBuildingIndicator, false, 0));
-        availableTutorialIndicators.Add(new TutorialIndicator(3, "click_on_build", "", clickOnBuildIndicator, false, 0));
-        availableTutorialIndicators.Add(new TutorialIndicator(4, "touch_buildig", "", touchBuildingIndicator, false, 0));
-        availableTutorialIndicators.Add(new TutorialIndicator(5, "start_wave", "", startWaveIndicator, false, 0));
+        availableTutorialIndicators.Add(new TutorialIndicator(IndicatorID.protect_people, "protect_peoplet", "", protectPeopleIndicator, true, IndicatorID.basic_resources));
+        availableTutorialIndicators.Add(new TutorialIndicator(IndicatorID.basic_resources, "basic_resources", "", basicResourcesIndicator, false, 0));
+        availableTutorialIndicators.Add(new TutorialIndicator(IndicatorID.select_building_spot, "select_building_spot", "", selectBuildingSpotIndicator, true, 0));
+        availableTutorialIndicators.Add(new TutorialIndicator(IndicatorID.select_building, "select_building", "", selectBuildingIndicator, false, 0));
+        availableTutorialIndicators.Add(new TutorialIndicator(IndicatorID.click_on_build, "click_on_build", "", clickOnBuildIndicator, false, 0));
+        availableTutorialIndicators.Add(new TutorialIndicator(IndicatorID.touch_building, "touch_buildig", "", touchBuildingIndicator, false, 0));
+        availableTutorialIndicators.Add(new TutorialIndicator(IndicatorID.start_wave, "start_wave", "", startWaveIndicator, false, 0));
+        availableTutorialIndicators.Add(new TutorialIndicator(IndicatorID.select_spaceship, "select_spaceship", "", selectSpaceshipIndicator, false, 0));
     }
 
     public void DisplayStartIndicators()
@@ -49,7 +67,7 @@ public class TutorialManager : MonoBehaviour {
         }
     }
 
-    public TutorialIndicator GetTutorialIndicatorById(int id)
+    public TutorialIndicator GetTutorialIndicatorById(IndicatorID id)
     {
         TutorialIndicator t = null;
         foreach (TutorialIndicator tutoIndi in availableTutorialIndicators)
@@ -63,7 +81,7 @@ public class TutorialManager : MonoBehaviour {
         return t;
     }
 
-    public void DisplayIndicator(int id, bool enable)
+    public void DisplayIndicator(IndicatorID id, bool enable)
     {
         TutorialIndicator t = GetTutorialIndicatorById(id);
         if(t != null)
@@ -76,7 +94,7 @@ public class TutorialManager : MonoBehaviour {
         }
     }
 
-    public bool hasIndicatorBeenDisplayed(int id)
+    public bool hasIndicatorBeenDisplayed(IndicatorID id)
     {
         TutorialIndicator t = GetTutorialIndicatorById(id);
         bool hasBeenDisplayed = false;
@@ -87,7 +105,7 @@ public class TutorialManager : MonoBehaviour {
         return hasBeenDisplayed;
     }
 
-    public void DisplayIndicatorIfNotDisplayedYet(int id)
+    public void DisplayIndicatorIfNotDisplayedYet(IndicatorID id)
     {
         if(!hasIndicatorBeenDisplayed(id))
         {
@@ -95,22 +113,29 @@ public class TutorialManager : MonoBehaviour {
         }
     }
 
-    public void TutorialIndicatorTouched(int id)
+    public void TutorialIndicatorTouched(IndicatorID id)
     {
         //Debug.Log("Tutorial Indicator Touched [" + id + "]");
         DisplayIndicator(id, false);
+
+        IndicatorID nextElementID = GetTutorialIndicatorById(id).indicatorToDisplayOnTouch;
+        if (nextElementID != 0)
+        {
+            DisplayIndicatorIfNotDisplayedYet(nextElementID);
+        }
     }
 
     public class TutorialIndicator
     {
-        public int id;
+        public IndicatorID id;
         public string name;
         public string text;
         public GameObject panel;
         public bool atStart;
         public bool passed;
+        public IndicatorID indicatorToDisplayOnTouch;
 
-        public TutorialIndicator(int id, string name, string text, GameObject panel, bool atStart, int indicatorToDisplayOnTouch)
+        public TutorialIndicator(IndicatorID id, string name, string text, GameObject panel, bool atStart, IndicatorID indicatorToDisplayOnTouch)
         {
             this.id = id;
             this.name = name;
@@ -118,6 +143,7 @@ public class TutorialManager : MonoBehaviour {
             this.panel = panel;
             this.atStart = atStart;
             this.passed = false;
+            this.indicatorToDisplayOnTouch = indicatorToDisplayOnTouch;
 
             Initialize();
         }

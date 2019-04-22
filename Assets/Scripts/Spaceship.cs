@@ -324,6 +324,10 @@ public class Spaceship : MonoBehaviour {
 
     public void Select(bool select)
     {
+        // Tutorial indicator //
+        TutorialManager.instance.DisplayIndicator(TutorialManager.IndicatorID.select_spaceship, false);
+        // ------------------ //
+
         this.selected = select;
         if(select)
         {

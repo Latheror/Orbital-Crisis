@@ -240,25 +240,7 @@ public class BuildingInfoPanel : MonoBehaviour {
 
     public void SetEnergyIndicators()
     {
-        /*if (selectedBuilding.GetComponent<Building>().powerOn)  // Power On                   // TO REDO //
-        {
-            powerOnPanel.GetComponent<Image>().color = powerOnColor;
-        }
-        else  // Power Off
-        {
-            powerOnPanel.GetComponent<Image>().color = powerOffColor;
-        }
-
-        if (selectedBuilding.GetComponent<Building>().hasEnoughEnergy)  // Enough energy
-        {
-            enoughEnergyPanel.GetComponent<Image>().color = enoughEnergyColor;
-        }
-        else // Not enough energy
-        {
-            enoughEnergyPanel.GetComponent<Image>().color = notEnoughEnergyColor;
-        }*/
-
-        energyConsumptionProductionText.text = (selectedBuilding.GetComponent<PowerPlant>() != null) ? ("+" + selectedBuilding.GetComponent<PowerPlant>().effectiveEnergyProduction) : ("-" + selectedBuilding.GetComponent<Building>().energyConsumption);
+        energyConsumptionProductionText.text = (selectedBuilding.GetComponent<PowerPlant>() != null) ? ("+" + Mathf.FloorToInt(selectedBuilding.GetComponent<PowerPlant>().effectiveEnergyProduction)) : ("-" + Mathf.FloorToInt(selectedBuilding.GetComponent<Building>().energyConsumption));
     }
 
     public void DisplayInfo(bool display)

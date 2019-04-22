@@ -228,8 +228,8 @@ public class LevelManager : MonoBehaviour {
     public void NextLevelRequest()
     {
         // Tutorial indicator //
-        TutorialManager.instance.DisplayIndicator(5, false);
-        //TutorialManager.instance.DisplayIndicatorIfNotDisplayedYet(4);
+        TutorialManager.instance.DisplayIndicator(TutorialManager.IndicatorID.start_wave, false);
+        TutorialManager.instance.DisplayIndicatorIfNotDisplayedYet(TutorialManager.IndicatorID.select_spaceship);
         // ------------------ //
 
 
@@ -253,8 +253,7 @@ public class LevelManager : MonoBehaviour {
                 pressStartPanel.SetActive(false);
                 GoToNextLevel();
             }
-        }
-        TutorialManager.instance.DisplayIndicator(5, false);
+        }  
     }
 
     public void StopCurrentLevel()

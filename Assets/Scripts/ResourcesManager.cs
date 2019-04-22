@@ -48,7 +48,7 @@ public class ResourcesManager : MonoBehaviour {
     public void InitializeResources()
     {
         availableResources.Add(new ResourceType(steelID, "steel", steelColor, steelImage, 600, 7500, steelAmountText));
-        availableResources.Add(new ResourceType(carbonID, "carbon", carbonColor, carbonImage, 200, 3500, carbonAmountText));
+        availableResources.Add(new ResourceType(carbonID, "carbon", carbonColor, carbonImage, 350, 3500, carbonAmountText));
         availableResources.Add(new ResourceType(compositeID, "composite", compositeColor, compositeImage, 150, 2400, compositeAmountText));
         availableResources.Add(new ResourceType(electronicsID, "electronics", electronicsColor, electronicsImage, 100, 2000, electronicsAmountText));
     }
@@ -134,7 +134,21 @@ public class ResourcesManager : MonoBehaviour {
 
     public void UpdateResourceAmountText(ResourceAmount rAmount)
     {
-        rAmount.resourceType.resourceAmountText.text = rAmount.amount.ToString();
+        TextMeshProUGUI rText = rAmount.resourceType.resourceAmountText;
+        rText.text = rAmount.amount.ToString();
+        SetResourceValueColor(rAmount);
+    }
+
+    public void SetResourceValueColor(ResourceAmount rAmount)
+    {
+        if ((rAmount.amount * (1 + maxResourcesMargin) > rAmount.resourceType.maxAmount))
+        {
+            rAmount.resourceType.resourceAmountText.color = maxResourceAmountReachedColor;
+        }
+        else
+        {
+            rAmount.resourceType.resourceAmountText.color = maxResourceAmountNotReachedColor;
+        }
     }
 
     public void UpdateResourceAmountText(ResourceType resourceType)

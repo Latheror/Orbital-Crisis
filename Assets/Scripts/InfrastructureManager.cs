@@ -20,8 +20,8 @@ public class InfrastructureManager : MonoBehaviour {
     public void BuildingTouched(GameObject building)
     {
         // Tutorial indicator //
-        TutorialManager.instance.DisplayIndicator(4, false);
-        TutorialManager.instance.DisplayIndicatorIfNotDisplayedYet(5);
+        TutorialManager.instance.DisplayIndicator(TutorialManager.IndicatorID.touch_building, false);
+        TutorialManager.instance.DisplayIndicatorIfNotDisplayedYet(TutorialManager.IndicatorID.start_wave);
         // ------------------ //
 
         selectedBuilding = building;

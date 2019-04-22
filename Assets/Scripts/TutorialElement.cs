@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class TutorialElement : MonoBehaviour
 {
-    public int id;
+    public TutorialManager.IndicatorID id;
 
     public void OnTouch()
     {
