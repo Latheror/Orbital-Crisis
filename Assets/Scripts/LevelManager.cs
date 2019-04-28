@@ -389,5 +389,12 @@ public class LevelManager : MonoBehaviour {
     {
         currentLevelFinished = finished;
         BuildingManager.instance.UpdateCurrentLevelFinished(currentLevelFinished);
+
+        if(currentLevel != null && currentLevel.levelNb == 2)
+        {
+            // Tutorial indicator //
+            TutorialManager.instance.DisplayIndicatorIfNotDisplayedYet(TutorialManager.IndicatorID.enter_lab);
+            // ------------------ //
+        }
     }
 }

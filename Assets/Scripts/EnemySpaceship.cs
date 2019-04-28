@@ -133,6 +133,11 @@ public class EnemySpaceship : Spaceship {
         isActivated = false; // temporary
         healthBarPanel.SetActive(false);
         EnemiesManager.instance.enemyWrecks.Add(gameObject);
+
+        // Tutorial indicator //
+        TutorialManager.instance.DisplayIndicatorIfNotDisplayedYet(TutorialManager.IndicatorID.recycle_enemy_spaceship);
+        // ------------------ //
+
         EnemiesManager.instance.enemies.Remove(gameObject);
     }
 

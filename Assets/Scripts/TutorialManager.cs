@@ -25,6 +25,8 @@ public class TutorialManager : MonoBehaviour {
     public GameObject protectPeopleIndicator;
     public GameObject basicResourcesIndicator;
     public GameObject selectSpaceshipIndicator;
+    public GameObject recycleEnemySpaceshipIndicator;
+    public GameObject enterLabIndicator;
 
     public enum IndicatorID
     {
@@ -35,7 +37,9 @@ public class TutorialManager : MonoBehaviour {
         touch_building,
         start_wave,
         basic_resources,
-        select_spaceship
+        select_spaceship,
+        recycle_enemy_spaceship,
+        enter_lab
     }
 
     public void DefineAvailableTutorialIndicators()
@@ -48,6 +52,8 @@ public class TutorialManager : MonoBehaviour {
         availableTutorialIndicators.Add(new TutorialIndicator(IndicatorID.touch_building, "touch_buildig", "", touchBuildingIndicator, false, 0));
         availableTutorialIndicators.Add(new TutorialIndicator(IndicatorID.start_wave, "start_wave", "", startWaveIndicator, false, 0));
         availableTutorialIndicators.Add(new TutorialIndicator(IndicatorID.select_spaceship, "select_spaceship", "", selectSpaceshipIndicator, false, 0));
+        availableTutorialIndicators.Add(new TutorialIndicator(IndicatorID.recycle_enemy_spaceship, "recycle_enemy_spaceship", "", recycleEnemySpaceshipIndicator, false, 0));
+        availableTutorialIndicators.Add(new TutorialIndicator(IndicatorID.enter_lab, "enter_lab", "", enterLabIndicator, false, 0));
     }
 
     public void DisplayStartIndicators()

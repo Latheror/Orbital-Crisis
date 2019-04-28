@@ -65,6 +65,6 @@ public class SpaceportInfoPanel : MonoBehaviour {
     public void SpaceportTouched(GameObject spaceport)
     {
         SetInfo();
-        DisplayPanel(true);
+        //DisplayPanel(true); // Removed for now
     }
 }
