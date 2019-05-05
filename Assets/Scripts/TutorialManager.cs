@@ -27,6 +27,7 @@ public class TutorialManager : MonoBehaviour {
     public GameObject selectSpaceshipIndicator;
     public GameObject recycleEnemySpaceshipIndicator;
     public GameObject enterLabIndicator;
+    public GameObject advancedResourcesIndicator;
 
     public enum IndicatorID
     {
@@ -37,6 +38,7 @@ public class TutorialManager : MonoBehaviour {
         touch_building,
         start_wave,
         basic_resources,
+        advances_resources,
         select_spaceship,
         recycle_enemy_spaceship,
         enter_lab
@@ -45,7 +47,7 @@ public class TutorialManager : MonoBehaviour {
     public void DefineAvailableTutorialIndicators()
     {
         availableTutorialIndicators.Add(new TutorialIndicator(IndicatorID.protect_people, "protect_peoplet", "", protectPeopleIndicator, true, IndicatorID.basic_resources));
-        availableTutorialIndicators.Add(new TutorialIndicator(IndicatorID.basic_resources, "basic_resources", "", basicResourcesIndicator, false, 0));
+        availableTutorialIndicators.Add(new TutorialIndicator(IndicatorID.basic_resources, "basic_resources", "", basicResourcesIndicator, false, IndicatorID.advances_resources));
         availableTutorialIndicators.Add(new TutorialIndicator(IndicatorID.select_building_spot, "select_building_spot", "", selectBuildingSpotIndicator, true, 0));
         availableTutorialIndicators.Add(new TutorialIndicator(IndicatorID.select_building, "select_building", "", selectBuildingIndicator, false, 0));
         availableTutorialIndicators.Add(new TutorialIndicator(IndicatorID.click_on_build, "click_on_build", "", clickOnBuildIndicator, false, 0));
@@ -54,6 +56,7 @@ public class TutorialManager : MonoBehaviour {
         availableTutorialIndicators.Add(new TutorialIndicator(IndicatorID.select_spaceship, "select_spaceship", "", selectSpaceshipIndicator, false, 0));
         availableTutorialIndicators.Add(new TutorialIndicator(IndicatorID.recycle_enemy_spaceship, "recycle_enemy_spaceship", "", recycleEnemySpaceshipIndicator, false, 0));
         availableTutorialIndicators.Add(new TutorialIndicator(IndicatorID.enter_lab, "enter_lab", "", enterLabIndicator, false, 0));
+        availableTutorialIndicators.Add(new TutorialIndicator(IndicatorID.advances_resources, "advances_resources", "", advancedResourcesIndicator, false, 0));
     }
 
     public void DisplayStartIndicators()

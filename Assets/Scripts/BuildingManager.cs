@@ -285,7 +285,7 @@ public class BuildingManager : MonoBehaviour {
 
         availableBuildings.Add(new BuildingType(8, "Solar Station", satelliteSolarStationPrefab, BuildingCategory.Production, 0f,
                 new List<ResourcesManager.ResourceAmount>(){
-                    new ResourcesManager.ResourceAmount("steel", 40),
+                    new ResourcesManager.ResourceAmount("steel", 80),
                     new ResourcesManager.ResourceAmount("carbon", 80)
                 },
                 BuildingType.BuildingLocationType.Disks, "solar_station", 3, 5,
@@ -293,12 +293,12 @@ public class BuildingManager : MonoBehaviour {
                 new List<ResourcesManager.UpgradeCost>() {
                     new ResourcesManager.UpgradeCost(2, new List<ResourcesManager.ResourceAmount>(){
                         new ResourcesManager.ResourceAmount("steel", 200),
-                        new ResourcesManager.ResourceAmount("carbon", 80)
+                        new ResourcesManager.ResourceAmount("carbon", 120)
 
                     }),
                     new ResourcesManager.UpgradeCost(3, new List<ResourcesManager.ResourceAmount>(){
-                       new ResourcesManager.ResourceAmount("composite", 100),
-                       new ResourcesManager.ResourceAmount("electronics", 100)
+                       new ResourcesManager.ResourceAmount("composite", 180),
+                       new ResourcesManager.ResourceAmount("electronics", 220)
                     })                },
                 new List<SpecializedUpgrade>()
                 {

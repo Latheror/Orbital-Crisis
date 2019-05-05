@@ -45,7 +45,7 @@ public class TimeManager : MonoBehaviour {
 
     public void DisplayTimeLeft(float timeLeftInSeconds)
     {
-        timeLeftValueText.text = (Mathf.RoundToInt(timeLeftInSeconds).ToString() + " sec");
+        timeLeftValueText.text = (Mathf.RoundToInt(timeLeftInSeconds).ToString()/* + " sec"*/);
     }
 
     public void DisplayTimeLeftPanel(bool display)
@@ -55,13 +55,14 @@ public class TimeManager : MonoBehaviour {
 
     public void StartCountdown(float seconds)
     {
-        DisplayTimeLeftPanel(true);
+        //DisplayTimeLeftPanel(true);
 
         StartCoroutine(StartCountdownCoroutine(seconds));
     }
 
     public void CountdownElapsed()
     {
+        timeLeftValueText.text = "";
         LevelManager.instance.NextLevelRequest();
     }
 

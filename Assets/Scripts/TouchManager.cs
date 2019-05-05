@@ -25,6 +25,8 @@ public class TouchManager : MonoBehaviour
     public GameObject leftPanel;
     public GameObject rightPanel;
 
+    public RectTransform centerRectangle;
+
     [Header("Operation")]
     public Vector3 lastTouch;
 
@@ -235,7 +237,7 @@ public class TouchManager : MonoBehaviour
     }
 
 
-    public bool IsTouchWithinGameArea(Vector3 touchPos)
+    public bool IsTouchWithinGameArea_OLD(Vector3 touchPos)
     {
         bool avoidsTopPanel = false;
         bool avoidsBottomPanel = false;
@@ -280,6 +282,13 @@ public class TouchManager : MonoBehaviour
 
         //return (avoidsTopPanel && avoidsBottomPanel && avoidsRightPanel && avoidsLeftPanel);
         return (!(!avoidsTopPanel || containedByBottomPanel || containedByLeftPanel || !avoidsRightPanel));
+    }
+
+    public bool IsTouchWithinGameArea(Vector3 touchPos)
+    {
+        return (RectTransformUtility.RectangleContainsScreenPoint(
+            centerRectangle, new Vector2(touchPos.x, touchPos.y), Camera.main
+            ));
     }
 
 
