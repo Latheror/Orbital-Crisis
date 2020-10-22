@@ -52,7 +52,7 @@ public class Level {
     public void IncrementDestroyedMeteorsNb(int nb)
     {
         destroyedMeteorsNb += nb;
-        //Debug.Log("IncrementDestroyedMeteorsNb | LevelIndex [" + levelNb + "] | Destroyed [" + destroyedMeteorsNb + "] | Total [" + levelMeteorsNb + "]");
+        Debug.Log("IncrementDestroyedMeteorsNb | LevelIndex [" + levelNb + "] | Destroyed [" + destroyedMeteorsNb + "] | Total [" + levelMeteorsNb + "]");
 
         if(LevelManager.instance.currentLevelNumber == levelNb)
         {
