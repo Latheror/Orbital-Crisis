@@ -1,5 +1,5 @@
-lastUpgrade=00961
-proj.pluginVersion=0.9.61
+lastUpgrade=01008
+proj.pluginVersion=0.10.08
 proj.AppId=946873785874
 and.BundleId=com.LathGames.OrbitalCrisis
 proj.classDir=Assets

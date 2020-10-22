@@ -1,20 +1,23 @@
 
-=== Fri Feb 22 20:12:25 2019
+=== Sat May  2 09:11:21 2020
 
 Packages were changed.
 Update Mode: updateDependencies
 
 The following packages were added:
-  com.unity.collab-proxy@1.2.15
+  com.unity.2d.sprite@1.0.0
+  com.unity.2d.tilemap@1.0.0
+  com.unity.ide.rider@1.1.4
+  com.unity.ide.vscode@1.2.0
+  com.unity.modules.androidjni@1.0.0
+  com.unity.multiplayer-hlapi@1.0.4
+  com.unity.test-framework@1.1.13
+  com.unity.timeline@1.2.6
+  com.unity.ugui@1.0.0
+  com.unity.xr.legacyinputhelpers@2.1.3
 The following packages were updated:
-  com.unity.analytics from version 2.0.16 to 3.2.2
-  com.unity.package-manager-ui from version 1.9.11 to 2.0.3
-
-=== Sat May  2 08:53:12 2020
-
-Packages were changed.
-Update Mode: updateDependencies
-
-The following packages were updated:
-  com.unity.analytics from version 3.2.2 to 3.2.3
-  com.unity.package-manager-ui from version 2.0.7 to 2.0.8
+  com.unity.analytics from version 3.2.3 to 3.3.5
+  com.unity.collab-proxy from version 1.2.15 to 1.2.16
+  com.unity.purchasing from version 2.0.5 to 2.0.6
+The following packages were removed:
+  com.unity.package-manager-ui@2.0.8

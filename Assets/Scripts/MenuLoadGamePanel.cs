@@ -56,9 +56,11 @@ public class MenuLoadGamePanel : MonoBehaviour {
     // Instantiate and display information on "NewGame/LoadGame" buttons
     public void BuildLoadGameSaveElements()
     {
-        Debug.Log("BuildLoadGameSaveElements");
+        Debug.Log("BuildLoadGameSaveElements | number: " + SaveManager.instance.savedGameFilesNb);
         for (int i=0; i<SaveManager.instance.savedGameFilesNb; i++)
         {
+            //Debug.Log("BuildLoadGameSaveElement");
+
             // Instantiate NewGame button
             GameObject instantiatedNewGameButton = Instantiate(newGameButtonPrefab, Vector3.zero, Quaternion.identity);
             // Set its parent to the layout

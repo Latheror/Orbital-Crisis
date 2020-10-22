@@ -131,7 +131,14 @@ public class LevelManager : MonoBehaviour {
         Debug.Log("AllLevelMeteorsDestroyed");
 
         // Tell it to PGSManager to handle achievements
-        PGSManager.instance.WaveCompleted(levelId);
+        if (PGSManager.instance)
+        {
+            PGSManager.instance.WaveCompleted(levelId);
+        }
+        else
+        {
+            Debug.LogError("AllLevelMeteorsDestroyed | PGSManager.instance is null");
+        }
     }
 
     private void GoToNextLevel()
